@@ -363,14 +363,13 @@
   /* Split layout: phone left, staff tabs right */
   .wf-split { display: flex; flex: 1; min-height: 0; overflow: hidden; }
   .wf-split-phone { width: 340px; min-width: 340px; background: #F2F8FA; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; transition: width 0.25s ease, min-width 0.25s ease; }
-  .wf-split-phone.collapsed { width: 36px; min-width: 36px; overflow: hidden; }
-  .wf-split-phone.collapsed .wfm-device-wrap { display: none; }
-  .wf-phone-toggle-bar { padding: 8px 12px; background: #fff; border-bottom: 1px solid var(--border-light); font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; flex-shrink: 0; }
+  .wf-split-phone.collapsed { width: 0; min-width: 0; overflow: hidden; border-right: none; }
+  .wf-phone-toggle-bar { padding: 0 12px; background: #fff; border-bottom: 1px solid var(--border-light); font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; flex-shrink: 0; height: 34px; }
   .wf-phone-toggle-bar:hover { background: #F2F8FA; }
-  .wf-phone-toggle-icon { display: flex; align-items: center; color: var(--text-muted); flex-shrink: 0; transition: transform 0.25s ease; }
-  .wf-split-phone.collapsed .wf-phone-toggle-bar { padding: 8px 6px; justify-content: center; }
-  .wf-split-phone.collapsed .wf-phone-toggle-label { display: none; }
-  .wf-split-phone.collapsed .wf-phone-toggle-icon { transform: rotate(180deg); }
+  .wf-phone-toggle-icon { display: flex; align-items: center; color: var(--text-muted); flex-shrink: 0; }
+  .wf-phone-show-btn { display: none; align-items: center; gap: 4px; padding: 4px 10px; font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; border: 1px solid var(--teal); border-radius: 4px; background: #fff; white-space: nowrap; flex-shrink: 0; }
+  .wf-phone-show-btn:hover { background: #F2F8FA; }
+  .wf-dmd-header { padding: 0 12px; background: #fff; border-bottom: 1px solid var(--border-light); font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; height: 34px; }
   .wf-split-staff { flex: 1; display: flex; flex-direction: column; min-width: 0; background: var(--white); }
 
   /* Staff tab bar */
@@ -4058,7 +4057,10 @@ function openScriptResponseModal() {
   // Wellframe phone panel collapse toggle
   window.wfTogglePhone = function() {
     var col = document.getElementById('wf-split-phone');
-    if (col) col.classList.toggle('collapsed');
+    var btn = document.getElementById('wf-phone-show-btn');
+    if (!col) return;
+    var isCollapsed = col.classList.toggle('collapsed');
+    if (btn) btn.style.display = isCollapsed ? 'flex' : 'none';
   };
 
   // Wellframe staff tab switcher
@@ -4909,7 +4911,7 @@ function openScriptResponseModal() {
 
             // Right: staff tabs
             '<div class="wf-split-staff">' +
-              '<div style="padding:8px 12px 0;background:#fff;border-bottom:1px solid var(--border-light);font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.6px;flex-shrink:0;">Digital Management Dashboard</div>' +
+              '<div class="wf-dmd-header"><span>Digital Management Dashboard</span><button id="wf-phone-show-btn" class="wf-phone-show-btn" onclick="wfTogglePhone()"><span class="material-icons" style="font-size:13px;">smartphone</span>Member View</button></div>' +
               '<div class="wf-staff-tabs">' +
                 '<div class="wf-staff-tab active" onclick="wfStaffTab(\'tasks\')">Tasks</div>' +
                 '<div class="wf-staff-tab" onclick="wfStaffTab(\'member-activity\')">Member Activity</div>' +
