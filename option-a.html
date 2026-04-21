@@ -4777,7 +4777,7 @@ function openScriptResponseModal() {
           '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;color:var(--text-muted);">' +
             '<span class="material-icons" style="font-size:48px;color:#ccc;display:block;margin-bottom:16px;">smartphone</span>' +
             '<div style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:20px;">' + m.name + ' is not enrolled in Wellframe</div>' +
-            '<button class="gc-btn gc-btn-primary" style="display:flex;align-items:center;gap:6px;"><img src="assets/Wellframe/Logomark.png" style="width:14px;height:14px;filter:brightness(0) invert(1);" />Invite to Wellframe</button>' +
+            '<button class="gc-btn gc-btn-primary" style="display:flex;align-items:center;gap:6px;" onclick="wfOpenInviteModal()"><img src="assets/Wellframe/Logomark.png" style="width:14px;height:14px;filter:brightness(0) invert(1);" />Invite to Wellframe</button>' +
           '</div>';
       } else {
         var wfData = {
@@ -6824,6 +6824,193 @@ function openScriptResponseModal() {
     msgs.scrollTop = msgs.scrollHeight;
     input.value = '';
   };
+</script>
+
+<!-- ── Wellframe Invite Member Modal ── -->
+<style>
+  .wf-invite-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:10000;display:none;align-items:center;justify-content:center; }
+  .wf-invite-overlay.open { display:flex; }
+  .wf-invite-modal { background:#fff;border-radius:4px;width:860px;max-width:96vw;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.22);overflow:hidden; }
+  .wf-invite-top-bar { height:5px;background:#1B6CA8;flex-shrink:0; }
+  .wf-invite-header { padding:20px 28px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid #E8EEF2; }
+  .wf-invite-title { font-size:18px;font-weight:700;color:#1A2327; }
+  .wf-invite-close { background:none;border:none;cursor:pointer;color:#666;display:flex;align-items:center; }
+  .wf-invite-close .material-icons { font-size:22px; }
+  .wf-invite-body { padding:24px 28px;overflow-y:auto;flex:1; }
+  .wf-invite-sub { font-size:13px;color:#555;margin-bottom:20px; }
+  .wf-invite-row { display:flex;gap:16px;margin-bottom:18px;flex-wrap:wrap; }
+  .wf-invite-field { display:flex;flex-direction:column;gap:5px;flex:1;min-width:140px; }
+  .wf-invite-field label { font-size:12px;font-weight:600;color:#333; }
+  .wf-invite-field input, .wf-invite-field select { height:36px;border:1px solid #C8D4DA;border-radius:3px;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;background:#fff;color:#222; }
+  .wf-invite-field input:focus, .wf-invite-field select:focus { border-color:#1B6CA8; }
+  .wf-invite-field .wf-invite-search { position:relative; }
+  .wf-invite-field .wf-invite-search input { width:100%;box-sizing:border-box;padding-right:32px; }
+  .wf-invite-field .wf-invite-search .material-icons { position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:18px;color:#888;pointer-events:none; }
+  .wf-invite-phone-row { display:flex;gap:0; }
+  .wf-invite-phone-country { height:36px;border:1px solid #C8D4DA;border-radius:3px 0 0 3px;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;background:#fff;border-right:none;color:#222;min-width:90px; }
+  .wf-invite-phone-num { height:36px;border:1px solid #C8D4DA;border-radius:0 3px 3px 0;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;flex:1; }
+  .wf-invite-caregiver { background:#F5F8FA;border-radius:3px;padding:10px 16px;margin-bottom:18px;cursor:pointer; }
+  .wf-invite-caregiver-label { font-size:13px;font-weight:700;color:#1B6CA8; }
+  .wf-invite-footer { padding:14px 28px;border-top:1px solid #E8EEF2;display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-shrink:0;background:#fff; }
+  .wf-invite-required { font-size:12px;color:#555;margin-right:auto; }
+  .wf-invite-cancel { background:none;border:none;font-size:13px;font-weight:700;color:#555;cursor:pointer;letter-spacing:0.5px;padding:8px 12px; }
+  .wf-invite-cancel:hover { color:#222; }
+  .wf-invite-submit { background:#1B6CA8;color:#fff;border:none;border-radius:3px;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:9px 22px;cursor:pointer; }
+  .wf-invite-submit:hover { background:#155a8a; }
+</style>
+
+<div class="wf-invite-overlay" id="wf-invite-overlay">
+  <div class="wf-invite-modal">
+    <div class="wf-invite-top-bar"></div>
+    <div class="wf-invite-header">
+      <span class="wf-invite-title">Add a member</span>
+      <button class="wf-invite-close" onclick="wfCloseInviteModal()"><span class="material-icons">close</span></button>
+    </div>
+    <div class="wf-invite-body">
+      <div class="wf-invite-sub">Please enter the member information to add them to your Wellframe dashboard.</div>
+
+      <!-- Member Facing ID -->
+      <div style="margin-bottom:18px;">
+        <label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Member Facing ID</label>
+        <div class="wf-invite-search" style="position:relative;">
+          <input type="text" id="wf-invite-facing-id" style="width:100%;box-sizing:border-box;height:36px;border:1px solid #C8D4DA;border-radius:3px;padding:0 36px 0 10px;font-size:13px;font-family:var(--font);outline:none;background:#F5F8FA;" />
+          <span class="material-icons" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#888;">search</span>
+        </div>
+      </div>
+
+      <!-- Access Code -->
+      <div style="margin-bottom:18px;">
+        <label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Access Code <span style="color:#C62828;">*</span></label>
+        <select style="width:100%;height:36px;border:1px solid #C8D4DA;border-radius:3px;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;background:#fff;color:#888;">
+          <option value="">Select...</option>
+          <option>Cardiac Rehab — AK2026</option>
+          <option>Diabetes Management — AK2026</option>
+          <option>Maternal Health — AK2026</option>
+        </select>
+      </div>
+
+      <!-- Name + DOB + Gender -->
+      <div class="wf-invite-row">
+        <div class="wf-invite-field">
+          <label>Member First Name <span style="color:#C62828;">*</span></label>
+          <input type="text" id="wf-invite-first" />
+        </div>
+        <div class="wf-invite-field">
+          <label>Member Last Name <span style="color:#C62828;">*</span></label>
+          <input type="text" id="wf-invite-last" />
+        </div>
+        <div class="wf-invite-field">
+          <label>Date of Birth <span style="color:#C62828;">*</span></label>
+          <input type="text" id="wf-invite-dob" />
+        </div>
+        <div class="wf-invite-field">
+          <label>Gender <span style="color:#C62828;">*</span></label>
+          <select id="wf-invite-gender">
+            <option value="">Select gender</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Non-binary</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Add Caregiver -->
+      <div class="wf-invite-caregiver">
+        <span class="wf-invite-caregiver-label">+ ADD CAREGIVER</span>
+      </div>
+
+      <!-- Phone + Email -->
+      <div class="wf-invite-row">
+        <div class="wf-invite-field" style="flex:2;">
+          <label>Phone Number <span style="color:#C62828;">*</span></label>
+          <div class="wf-invite-phone-row">
+            <select class="wf-invite-phone-country"><option>US +1</option><option>MX +52</option><option>CA +1</option></select>
+            <input type="text" id="wf-invite-phone" class="wf-invite-phone-num" />
+          </div>
+        </div>
+        <div class="wf-invite-field" style="flex:3;">
+          <label>Email Address</label>
+          <input type="text" id="wf-invite-email" />
+        </div>
+      </div>
+
+      <!-- Language + Timezone + Zip -->
+      <div class="wf-invite-row">
+        <div class="wf-invite-field" style="flex:3;">
+          <label>Language <span style="color:#C62828;">*</span></label>
+          <select id="wf-invite-lang">
+            <option>English</option>
+            <option selected>Spanish</option>
+            <option>French</option>
+            <option>Mandarin</option>
+          </select>
+        </div>
+        <div class="wf-invite-field" style="flex:3;">
+          <label>Timezone <span style="color:#C62828;">*</span></label>
+          <select id="wf-invite-tz">
+            <option>America/New_York</option>
+            <option selected>America/Anchorage</option>
+            <option>America/Chicago</option>
+            <option>America/Denver</option>
+            <option>America/Los_Angeles</option>
+          </select>
+        </div>
+        <div class="wf-invite-field" style="flex:2;">
+          <label>Zip Code</label>
+          <input type="text" id="wf-invite-zip" />
+        </div>
+      </div>
+
+      <!-- City + State -->
+      <div class="wf-invite-row">
+        <div class="wf-invite-field" style="flex:2;">
+          <label>City</label>
+          <input type="text" id="wf-invite-city" />
+        </div>
+        <div class="wf-invite-field" style="flex:1;">
+          <label>State</label>
+          <input type="text" id="wf-invite-state" />
+        </div>
+        <div style="flex:2;"></div>
+      </div>
+    </div>
+
+    <div class="wf-invite-footer">
+      <span class="wf-invite-required">* Required fields</span>
+      <button class="wf-invite-cancel" onclick="wfCloseInviteModal()">CANCEL</button>
+      <button class="wf-invite-submit">INVITE MEMBER</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.wfOpenInviteModal = function() {
+    var m = (typeof memberData !== 'undefined' && typeof currentMemberKey !== 'undefined') ? memberData[currentMemberKey] : null;
+    if (m) {
+      var parts = m.name.split(' ');
+      document.getElementById('wf-invite-first').value = m.preferred || parts[0] || '';
+      document.getElementById('wf-invite-last').value = parts[parts.length - 1] || '';
+      document.getElementById('wf-invite-dob').value = m.dob || '';
+      var genderSel = document.getElementById('wf-invite-gender');
+      for (var i = 0; i < genderSel.options.length; i++) {
+        if (genderSel.options[i].text === m.gender) { genderSel.selectedIndex = i; break; }
+      }
+      document.getElementById('wf-invite-phone').value = m.cell || m.phone || '';
+      document.getElementById('wf-invite-email').value = m.email || '';
+      document.getElementById('wf-invite-zip').value = m.zip || '';
+      document.getElementById('wf-invite-city').value = m.city || '';
+      document.getElementById('wf-invite-state').value = m.state || '';
+      document.getElementById('wf-invite-facing-id').value = m.id || '';
+    }
+    document.getElementById('wf-invite-overlay').classList.add('open');
+  };
+  window.wfCloseInviteModal = function() {
+    document.getElementById('wf-invite-overlay').classList.remove('open');
+  };
+  document.getElementById('wf-invite-overlay').addEventListener('click', function(e) {
+    if (e.target === this) wfCloseInviteModal();
+  });
 </script>
 
 </body>
