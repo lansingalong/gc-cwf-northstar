@@ -430,14 +430,14 @@
   .wfm-sw-btn { display:inline-flex; align-items:center; gap:4px; padding:4px 12px; border-radius:20px; border:1px solid var(--border); font-size:11px; font-weight:600; cursor:pointer; background:#fff; color:var(--text-secondary); }
   .wfm-sw-btn .material-icons { font-size:13px; }
   .wfm-sw-btn.active { background:var(--teal); color:#fff; border-color:var(--teal); }
-  .wfm-device-wrap { flex:1; display:flex; justify-content:center; padding:20px 16px 28px; overflow-y:auto; }
-  .wfm-device { width:296px; background:transparent; border-radius:44px; padding:10px; box-shadow:inset 0 0 0 2px #CCCCCC; flex-shrink:0; }
-  .wfm-screen-outer { background:#F2F8FA; border-radius:36px; overflow:hidden; }
-  .wfm-status { background:#F2F8FA; display:flex; justify-content:space-between; align-items:center; padding:10px 20px 0; height:44px; }
+  .wfm-device-wrap { display:flex; justify-content:center; padding:16px 16px 20px; }
+  .wfm-device { width:296px; background:transparent; border-radius:44px; padding:10px; box-shadow:inset 0 0 0 2px #CCCCCC; flex-shrink:0; display:inline-flex; flex-direction:column; }
+  .wfm-screen-outer { background:#fff; border-radius:36px; overflow:hidden; flex:1; }
+  .wfm-status { background:#fff; display:flex; justify-content:space-between; align-items:center; padding:10px 20px 0; height:44px; }
   .wfm-time { font-size:15px; font-weight:600; color:#161B1F; letter-spacing:0.2px; font-family:system-ui,-apple-system,sans-serif; }
   .wfm-status-icons { display:flex; align-items:center; gap:4px; color:#161B1F; }
   .wfm-status-icons .material-icons { font-size:14px; }
-  .wfm-screen-scroll { overflow-y:auto; max-height:440px; }
+  .wfm-screen-scroll { overflow-y:auto; max-height:480px; }
   .wfm-screen { display:none; }
   .wfm-screen.wfm-active { display:block; }
   .wfm-tab-bar { background:#fff; border-top:1px solid #D9E3E7; display:flex; padding:8px 0 22px; }
@@ -474,7 +474,7 @@
   .wfm-prof-hd { background:#fff; border-bottom:1px solid #D9E3E7; padding:10px 16px 14px; }
   .wfm-prof-title-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
   .wfm-prof-title { font-family:Georgia,'Times New Roman',serif; font-size:22px; color:#161B1F; }
-  .wfm-prof-scroll { padding:0 16px 16px; background:#F2F8FA; }
+  .wfm-prof-scroll { padding:0 16px 16px; background:#fff; }
   .wfm-user-row { display:flex; align-items:center; gap:12px; }
   .wfm-avatar { width:44px; height:44px; border-radius:22px; background:#0080A3; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; flex-shrink:0; font-family:system-ui,-apple-system,sans-serif; }
   .wfm-user-name { font-size:17px; font-weight:500; color:#282F35; font-family:system-ui,-apple-system,sans-serif; letter-spacing:-0.3px; }
