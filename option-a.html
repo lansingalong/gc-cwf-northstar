@@ -5083,7 +5083,7 @@ function openScriptResponseModal() {
           ['3/25', 185, 110], ['4/1',  130, 85],  ['4/8',  140, 100],
           ['4/15', 122, 82]
         ];
-        var bpW = 460, bpH = 200, bpPadL = 52, bpPadR = 16, bpPadT = 16, bpPadB = 36;
+        var bpW = 320, bpH = 140, bpPadL = 40, bpPadR = 12, bpPadT = 12, bpPadB = 28;
         var bpMinY = 60, bpMaxY = 210;
         function bpX(i) { return bpPadL + i * (bpW - bpPadL - bpPadR) / (bpData.length - 1); }
         function bpY(v) { return bpPadT + (1 - (v - bpMinY) / (bpMaxY - bpMinY)) * (bpH - bpPadT - bpPadB); }
@@ -5135,7 +5135,7 @@ function openScriptResponseModal() {
         // Task completion bar chart
         var tcDays   = ['Wed','Thu','Fri','Sat','Sun','Mon','Tue'];
         var tcValues = [14, 40, 0, 0, 0, 0, 0];
-        var tcW = 460, tcH = 180, tcPadL = 52, tcPadR = 16, tcPadT = 12, tcPadB = 32;
+        var tcW = 320, tcH = 126, tcPadL = 40, tcPadR = 12, tcPadT = 10, tcPadB = 24;
         var tcBarW = (tcW - tcPadL - tcPadR) / tcDays.length;
         var tcSvg =
           '<svg width="100%" viewBox="0 0 '+tcW+' '+tcH+'" style="display:block;overflow:visible;" xmlns="http://www.w3.org/2000/svg">' +
