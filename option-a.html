@@ -7002,7 +7002,6 @@ function openScriptResponseModal() {
     }
 
     if (m) {
-      setVal('wf-invite-facing-id', m.id);
       setVal('wf-invite-first', m.preferred || parts[0]);
       setVal('wf-invite-last', parts[parts.length - 1]);
       setVal('wf-invite-dob', m.dob);
@@ -7013,7 +7012,6 @@ function openScriptResponseModal() {
       setVal('wf-invite-city', m.city);
       setVal('wf-invite-state', m.state);
       setSel('wf-invite-lang', m.lang);
-      setSel('wf-invite-access-code', m.program);
 
       // Timezone — derive from state
       var tzMap = { 'AK':'America/Anchorage', 'HI':'Pacific/Honolulu', 'CA':'America/Los_Angeles', 'WA':'America/Los_Angeles', 'OR':'America/Los_Angeles', 'NV':'America/Los_Angeles', 'MT':'America/Denver', 'WY':'America/Denver', 'CO':'America/Denver', 'AZ':'America/Denver', 'NM':'America/Denver' };
