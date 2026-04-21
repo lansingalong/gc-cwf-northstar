@@ -6991,47 +6991,34 @@ function openScriptResponseModal() {
 <script>
   window.wfOpenInviteModal = function() {
     var m = (typeof memberData !== 'undefined' && typeof currentMemberKey !== 'undefined') ? memberData[currentMemberKey] : null;
+    var parts = m ? m.name.split(' ') : [];
+
+    function setVal(id, val) { var el = document.getElementById(id); if (el) el.value = val || ''; }
+    function setSel(id, val) {
+      var el = document.getElementById(id); if (!el || !val) return;
+      for (var i = 0; i < el.options.length; i++) {
+        if (el.options[i].text.toLowerCase() === val.toLowerCase() || el.options[i].text.toLowerCase().indexOf(val.toLowerCase()) === 0) { el.selectedIndex = i; return; }
+      }
+    }
+
     if (m) {
-      var parts = m.name.split(' ');
-      document.getElementById('wf-invite-first').value = m.preferred || parts[0] || '';
-      document.getElementById('wf-invite-last').value = parts[parts.length - 1] || '';
-      document.getElementById('wf-invite-dob').value = m.dob || '';
-      var genderSel = document.getElementById('wf-invite-gender');
-      for (var i = 0; i < genderSel.options.length; i++) {
-        if (genderSel.options[i].text === m.gender) { genderSel.selectedIndex = i; break; }
-      }
-      document.getElementById('wf-invite-phone').value = m.cell || m.phone || '';
-      document.getElementById('wf-invite-email').value = m.email || '';
-      document.getElementById('wf-invite-zip').value = m.zip || '';
-      document.getElementById('wf-invite-city').value = m.city || '';
-      document.getElementById('wf-invite-state').value = m.state || '';
-      document.getElementById('wf-invite-facing-id').value = m.id || '';
-
-      // Access Code — match by program
-      var accessSel = document.getElementById('wf-invite-access-code');
-      if (accessSel && m.program) {
-        for (var j = 0; j < accessSel.options.length; j++) {
-          if (accessSel.options[j].text.indexOf(m.program) === 0) { accessSel.selectedIndex = j; break; }
-        }
-      }
-
-      // Language
-      var langSel = document.getElementById('wf-invite-lang');
-      if (langSel && m.lang) {
-        for (var k = 0; k < langSel.options.length; k++) {
-          if (langSel.options[k].text.toLowerCase() === m.lang.toLowerCase()) { langSel.selectedIndex = k; break; }
-        }
-      }
+      setVal('wf-invite-facing-id', m.id);
+      setVal('wf-invite-first', m.preferred || parts[0]);
+      setVal('wf-invite-last', parts[parts.length - 1]);
+      setVal('wf-invite-dob', m.dob);
+      setSel('wf-invite-gender', m.gender);
+      setVal('wf-invite-phone', m.cell || m.phone);
+      setVal('wf-invite-email', m.email);
+      setVal('wf-invite-zip', m.zip);
+      setVal('wf-invite-city', m.city);
+      setVal('wf-invite-state', m.state);
+      setSel('wf-invite-lang', m.lang);
+      setSel('wf-invite-access-code', m.program);
 
       // Timezone — derive from state
-      var tzMap = { 'AK':'America/Anchorage', 'HI':'Pacific/Honolulu', 'CA':'America/Los_Angeles', 'WA':'America/Los_Angeles', 'OR':'America/Los_Angeles', 'NV':'America/Los_Angeles', 'MT':'America/Denver', 'WY':'America/Denver', 'CO':'America/Denver', 'AZ':'America/Denver', 'NM':'America/Denver', 'ND':'America/Chicago', 'SD':'America/Chicago', 'NE':'America/Chicago', 'KS':'America/Chicago', 'OK':'America/Chicago', 'TX':'America/Chicago', 'MN':'America/Chicago', 'IA':'America/Chicago', 'MO':'America/Chicago', 'WI':'America/Chicago', 'IL':'America/Chicago', 'TN':'America/Chicago', 'MS':'America/Chicago', 'AL':'America/Chicago', 'LA':'America/Chicago', 'AR':'America/Chicago' };
-      var tzSel = document.getElementById('wf-invite-tz');
-      if (tzSel && m.state) {
-        var tz = tzMap[m.state] || 'America/New_York';
-        for (var t = 0; t < tzSel.options.length; t++) {
-          if (tzSel.options[t].value === tz || tzSel.options[t].text === tz) { tzSel.selectedIndex = t; break; }
-        }
-      }
+      var tzMap = { 'AK':'America/Anchorage', 'HI':'Pacific/Honolulu', 'CA':'America/Los_Angeles', 'WA':'America/Los_Angeles', 'OR':'America/Los_Angeles', 'NV':'America/Los_Angeles', 'MT':'America/Denver', 'WY':'America/Denver', 'CO':'America/Denver', 'AZ':'America/Denver', 'NM':'America/Denver' };
+      var tz = tzMap[m.state] || 'America/New_York';
+      setSel('wf-invite-tz', tz);
     }
     document.getElementById('wf-invite-overlay').classList.add('open');
   };
