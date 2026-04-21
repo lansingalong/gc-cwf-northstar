@@ -4763,69 +4763,84 @@ function openScriptResponseModal() {
           '</div>';
 
         var staffActivityHtml =
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Recent App Activity</div>' +
-            '<div style="background:var(--surface-light);border:1px solid var(--border-light);border-radius:var(--r-md);padding:2px 12px;">' +
-              '<div class="wf-activity-row"><div class="wf-activity-dot"></div><div class="wf-activity-body"><div class="wf-activity-title">Opened app &mdash; viewed Checklist</div><div class="wf-activity-time">Today, 9:02 AM</div></div></div>' +
-              '<div class="wf-activity-row"><div class="wf-activity-dot" style="background:#73BE5E;"></div><div class="wf-activity-body"><div class="wf-activity-title">Marked Claritin as taken</div><div class="wf-activity-time">Today, 9:04 AM</div></div></div>' +
-              '<div class="wf-activity-row"><div class="wf-activity-dot" style="background:#73BE5E;"></div><div class="wf-activity-body"><div class="wf-activity-title">Completed article: About Diabetes Medications</div><div class="wf-activity-time">Today, 9:18 AM</div></div></div>' +
-              '<div class="wf-activity-row"><div class="wf-activity-dot" style="background:#E07820;"></div><div class="wf-activity-body"><div class="wf-activity-title">Sent message to care team</div><div class="wf-activity-time">Yesterday, 3:41 PM</div></div></div>' +
-              '<div class="wf-activity-row"><div class="wf-activity-dot"></div><div class="wf-activity-body"><div class="wf-activity-title">Opened app &mdash; viewed Profile</div><div class="wf-activity-time">Yesterday, 3:38 PM</div></div></div>' +
-              '<div class="wf-activity-row"><div class="wf-activity-dot" style="background:#73BE5E;"></div><div class="wf-activity-body"><div class="wf-activity-title">Logged step count: 4,210 steps</div><div class="wf-activity-time">Apr 19, 2026 8:55 AM</div></div></div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Engagement Summary</div>' +
-            '<div style="display:flex;gap:8px;">' +
+          '<div class="wf-tasks-wrap">' +
+            '<div class="wf-tasks-section-title">Engagement Summary</div>' +
+            '<div style="display:flex;gap:8px;margin-bottom:16px;">' +
               '<div style="flex:1;background:var(--surface-light);border:1px solid var(--border-light);border-radius:var(--r-md);padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#0080A3;">103</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px;">Days Active</div></div>' +
               '<div style="flex:1;background:var(--surface-light);border:1px solid var(--border-light);border-radius:var(--r-md);padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#0080A3;">78%</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px;">Weekly avg.</div></div>' +
               '<div style="flex:1;background:var(--surface-light);border:1px solid var(--border-light);border-radius:var(--r-md);padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#73BE5E;">14</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px;">Streak (days)</div></div>' +
             '</div>' +
+            '<div class="wf-tasks-section-title">Recent App Activity</div>' +
+            wfCard({ icon:'phone_android', iconColor:'#0080A3', typeLabel:'APP SESSION', title:'Opened app — viewed Checklist', desc:'Member opened the app and navigated to their daily Checklist.', time:'Today, 9:02 AM' }) +
+            wfCard({ icon:'medication', iconColor:'#73BE5E', typeLabel:'MEDICATION', title:'Marked Claritin as taken', desc:'Member logged their morning Claritin dose.', time:'Today, 9:04 AM' }) +
+            wfCard({ icon:'menu_book', iconColor:'#73BE5E', typeLabel:'CONTENT', title:'Completed article: About Diabetes Medications', desc:'Member read and completed the educational article on diabetes medications.', time:'Today, 9:18 AM' }) +
+            wfCard({ icon:'chat', iconColor:'#E07820', typeLabel:'MESSAGE', title:'Sent message to care team', desc:'Member initiated a conversation with their care team via the app.', time:'Yesterday, 3:41 PM', action:true, actionLabel:'VIEW MESSAGE', suggested:true }) +
+            wfCard({ icon:'phone_android', iconColor:'#0080A3', typeLabel:'APP SESSION', title:'Opened app — viewed Profile', desc:'Member opened the app and navigated to their Profile.', time:'Yesterday, 3:38 PM' }) +
+            wfCard({ icon:'directions_walk', iconColor:'#73BE5E', typeLabel:'ACTIVITY', title:'Logged step count: 4,210 steps', desc:'Member logged their daily step count via connected health tracker.', time:'Apr 19, 2026 8:55 AM' }) +
           '</div>';
 
         var staffChecklistHtml =
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Today &mdash; ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + '</div>' +
-            '<div style="background:var(--surface-light);border:1px solid var(--border-light);border-radius:var(--r-md);overflow:hidden;">' +
-              d.checklist.map(function(item) {
-                return '<div class="wf-checklist-item ' + (item.done ? 'done' : 'pending') + '">' +
-                  '<span class="material-icons">' + (item.done ? 'check_circle' : item.icon) + '</span>' +
-                  '<div class="wf-checklist-label"><div class="wf-checklist-type">' + item.type + '</div><div>' + item.title + '</div></div>' +
-                  (item.tag ? '<span class="gc-badge gc-badge-teal" style="font-size:9px;padding:2px 6px;">' + item.tag + '</span>' : '') +
-                '</div>';
-              }).join('') +
-            '</div>' +
-          '</div>' +
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Check-Ins</div>' +
+          '<div class="wf-tasks-wrap">' +
+            '<div class="wf-tasks-section-title">Today — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + '</div>' +
+            d.checklist.map(function(item) {
+              return wfCard({
+                icon: item.done ? 'check_circle' : item.icon,
+                iconColor: item.done ? '#73BE5E' : '#0080A3',
+                typeLabel: item.type,
+                title: item.title,
+                desc: item.done ? 'Completed by member.' : 'Pending — not yet completed.',
+                time: item.done ? 'Done' : 'Pending',
+              });
+            }).join('') +
+            '<div class="wf-tasks-section-title" style="margin-top:4px;">Check-Ins</div>' +
             d.checkins.map(function(ci) {
-              return '<div class="wf-sp-card"><div class="wf-sp-card-row"><span class="material-icons">assignment_turned_in</span><div class="wf-sp-card-body"><div class="wf-sp-card-title">' + ci.name + '</div><div class="wf-sp-card-sub">' + ci.sub + '</div><div style="margin-top:5px;height:5px;background:#D9E3E7;border-radius:3px;overflow:hidden;"><div style="width:' + ci.pct + '%;height:100%;background:linear-gradient(90deg,#0E98BE,#0080A3);border-radius:3px;"></div></div></div></div></div>';
+              return wfCard({
+                icon: 'assignment_turned_in',
+                iconColor: '#0080A3',
+                typeLabel: 'CHECK-IN',
+                title: ci.name,
+                desc: ci.sub,
+                time: ci.pct + '% complete',
+                action: true,
+                actionLabel: 'VIEW DETAIL'
+              });
             }).join('') +
           '</div>';
 
         var staffMedsHtml =
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Medications</div>' +
-            '<div style="background:var(--surface-light);border:1px solid var(--border-light);border-radius:var(--r-md);overflow:hidden;padding:0 12px;">' +
-              d.meds.map(function(med) {
-                return '<div class="wf-med-row"><span class="material-icons">medication</span><div><div class="wf-med-name">' + med.name + '</div><div class="wf-med-sched">' + med.schedule + (med.note ? ' &mdash; <span style="color:#0E98BE;">' + med.note + '</span>' : '') + '</div></div></div>';
-              }).join('') +
-            '</div>' +
-          '</div>' +
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Health Reminders</div>' +
-            '<div style="background:var(--surface-light);border:1px solid var(--border-light);border-radius:var(--r-md);overflow:hidden;padding:0 12px;">' +
-              d.reminders.map(function(r) {
-                return '<div class="wf-med-row"><span class="material-icons">alarm</span><div><div class="wf-med-name">' + r.name + '</div><div class="wf-med-sched">' + r.schedule + '</div></div></div>';
-              }).join('') +
-            '</div>' +
+          '<div class="wf-tasks-wrap">' +
+            '<div class="wf-tasks-section-title">Medications</div>' +
+            d.meds.map(function(med) {
+              return wfCard({
+                icon: 'medication',
+                iconColor: '#0080A3',
+                typeLabel: 'MEDICATION',
+                title: med.name,
+                desc: med.schedule + (med.note ? ' — ' + med.note : ''),
+                time: 'Active',
+                action: true,
+                actionLabel: 'VIEW DETAILS'
+              });
+            }).join('') +
+            '<div class="wf-tasks-section-title" style="margin-top:4px;">Health Reminders</div>' +
+            d.reminders.map(function(r) {
+              return wfCard({
+                icon: 'alarm',
+                iconColor: '#E07820',
+                typeLabel: 'REMINDER',
+                title: r.name,
+                desc: r.schedule,
+                time: 'Active'
+              });
+            }).join('') +
           '</div>';
 
         var staffNotesHtml =
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-note-row"><div class="wf-sp-note-avatar">BK</div><div class="wf-sp-note-body"><div class="wf-sp-note-meta"><span class="wf-sp-note-author">Beatrice Kanya</span><span class="wf-sp-note-time">Apr 20, 2026 10:14 AM</span></div><div class="wf-sp-note-text">Member reached out via app asking about Metformin side effects. Responded with guidance and flagged for PCP review at next visit.</div></div></div>' +
-            '<div class="wf-sp-note-row"><div class="wf-sp-note-avatar">JR</div><div class="wf-sp-note-body"><div class="wf-sp-note-meta"><span class="wf-sp-note-author">Jennifer Reyes, RN</span><span class="wf-sp-note-time">Apr 15, 2026 2:30 PM</span></div><div class="wf-sp-note-text">Reviewed member app engagement — step count improving week over week. Encouraged continued use of daily walk reminder.</div></div></div>' +
-            '<div class="wf-sp-note-row"><div class="wf-sp-note-avatar">BK</div><div class="wf-sp-note-body"><div class="wf-sp-note-meta"><span class="wf-sp-note-author">Beatrice Kanya</span><span class="wf-sp-note-time">Apr 8, 2026 9:00 AM</span></div><div class="wf-sp-note-text">Sent Health Risk Assessment via Wellframe. Member acknowledged receipt in app. Follow up if not completed by Apr 20.</div></div></div>' +
+          '<div class="wf-tasks-wrap">' +
+            '<div class="wf-tasks-section-title">Internal Notes</div>' +
+            wfCard({ icon:'sticky_note_2', iconColor:'#0080A3', typeLabel:'NOTE — BEATRICE KANYA', title:'Metformin side effects inquiry', desc:'Member reached out via app asking about Metformin side effects. Responded with guidance and flagged for PCP review at next visit.', time:'Apr 20, 2026 10:14 AM' }) +
+            wfCard({ icon:'sticky_note_2', iconColor:'#0080A3', typeLabel:'NOTE — JENNIFER REYES, RN', title:'App engagement review', desc:'Reviewed member app engagement — step count improving week over week. Encouraged continued use of daily walk reminder.', time:'Apr 15, 2026 2:30 PM' }) +
+            wfCard({ icon:'sticky_note_2', iconColor:'#0080A3', typeLabel:'NOTE — BEATRICE KANYA', title:'Health Risk Assessment sent', desc:'Sent Health Risk Assessment via Wellframe. Member acknowledged receipt in app. Follow up if not completed by Apr 20.', time:'Apr 8, 2026 9:00 AM' }) +
           '</div>' +
           '<div class="wf-sp-add-note">' +
             '<div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Add Note</div>' +
@@ -4837,15 +4852,13 @@ function openScriptResponseModal() {
           '</div>';
 
         var staffInstructionsHtml =
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Active Care Instructions</div>' +
-            '<div class="wf-sp-card"><div class="wf-sp-card-row"><span class="material-icons">directions_walk</span><div class="wf-sp-card-body"><div class="wf-sp-card-title">Daily Walking — 30 min/day</div><div class="wf-sp-card-sub">Sent via Wellframe &middot; Active since Jan 5, 2026</div><div class="wf-sp-card-meta"><span class="wf-sp-badge wf-sp-badge-green">Active</span><span style="font-size:10px;color:var(--text-muted);">Assigned by Beatrice Kanya</span></div></div></div></div>' +
-            '<div class="wf-sp-card"><div class="wf-sp-card-row"><span class="material-icons">monitor_weight</span><div class="wf-sp-card-body"><div class="wf-sp-card-title">Log blood glucose daily before breakfast</div><div class="wf-sp-card-sub">Sent via Wellframe &middot; Active since Jan 10, 2026</div><div class="wf-sp-card-meta"><span class="wf-sp-badge wf-sp-badge-green">Active</span><span style="font-size:10px;color:var(--text-muted);">Assigned by Dr. Sarah Chen</span></div></div></div></div>' +
-            '<div class="wf-sp-card"><div class="wf-sp-card-row"><span class="material-icons">restaurant</span><div class="wf-sp-card-body"><div class="wf-sp-card-title">Low-carbohydrate diet guidance</div><div class="wf-sp-card-sub">Sent via Wellframe &middot; Active since Feb 1, 2026</div><div class="wf-sp-card-meta"><span class="wf-sp-badge wf-sp-badge-green">Active</span><span style="font-size:10px;color:var(--text-muted);">Assigned by Jennifer Reyes, RN</span></div></div></div></div>' +
-          '</div>' +
-          '<div class="wf-sp-section">' +
-            '<div class="wf-sp-section-title">Completed / Archived</div>' +
-            '<div class="wf-sp-card"><div class="wf-sp-card-row"><span class="material-icons">fact_check</span><div class="wf-sp-card-body"><div class="wf-sp-card-title">Digital Intake Assessment</div><div class="wf-sp-card-sub">Completed Jan 8, 2026 &middot; Score: 14.22</div><div class="wf-sp-card-meta"><span class="wf-sp-badge wf-sp-badge-grey">Archived</span></div></div></div></div>' +
+          '<div class="wf-tasks-wrap">' +
+            '<div class="wf-tasks-section-title">Active Care Instructions</div>' +
+            wfCard({ icon:'directions_walk', iconColor:'#73BE5E', typeLabel:'INSTRUCTION', title:'Daily Walking — 30 min/day', desc:'Sent via Wellframe. Active since Jan 5, 2026. Assigned by Beatrice Kanya.', time:'Active', action:true, actionLabel:'EDIT' }) +
+            wfCard({ icon:'monitor_weight', iconColor:'#73BE5E', typeLabel:'INSTRUCTION', title:'Log blood glucose daily before breakfast', desc:'Sent via Wellframe. Active since Jan 10, 2026. Assigned by Dr. Sarah Chen.', time:'Active', action:true, actionLabel:'EDIT' }) +
+            wfCard({ icon:'restaurant', iconColor:'#73BE5E', typeLabel:'INSTRUCTION', title:'Low-carbohydrate diet guidance', desc:'Sent via Wellframe. Active since Feb 1, 2026. Assigned by Jennifer Reyes, RN.', time:'Active', action:true, actionLabel:'EDIT' }) +
+            '<div class="wf-tasks-section-title" style="margin-top:4px;">Completed / Archived</div>' +
+            wfCard({ icon:'fact_check', iconColor:'#999', typeLabel:'INSTRUCTION', title:'Digital Intake Assessment', desc:'Completed Jan 8, 2026. Score: 14.22.', time:'Archived' }) +
           '</div>';
 
         // ── Build split layout ──
