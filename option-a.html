@@ -5092,7 +5092,7 @@ function openScriptResponseModal() {
         // shaded normal range (120/80)
         var normalTop = bpY(130), normalBot = bpY(80);
         var bpSvg =
-          '<svg width="100%" viewBox="0 0 '+bpW+' '+bpH+'" style="display:block;overflow:visible;" xmlns="http://www.w3.org/2000/svg">' +
+          '<svg width="'+bpW+'" height="'+bpH+'" viewBox="0 0 '+bpW+' '+bpH+'" style="display:block;overflow:visible;max-width:100%;" xmlns="http://www.w3.org/2000/svg">' +
             // normal range band
             '<rect x="'+bpPadL+'" y="'+normalTop+'" width="'+(bpW-bpPadL-bpPadR)+'" height="'+(normalBot-normalTop)+'" fill="#EBF5F8" />' +
             // y-axis grid lines + labels
@@ -5138,7 +5138,7 @@ function openScriptResponseModal() {
         var tcW = 320, tcH = 126, tcPadL = 40, tcPadR = 12, tcPadT = 10, tcPadB = 24;
         var tcBarW = (tcW - tcPadL - tcPadR) / tcDays.length;
         var tcSvg =
-          '<svg width="100%" viewBox="0 0 '+tcW+' '+tcH+'" style="display:block;overflow:visible;" xmlns="http://www.w3.org/2000/svg">' +
+          '<svg width="'+tcW+'" height="'+tcH+'" viewBox="0 0 '+tcW+' '+tcH+'" style="display:block;overflow:visible;max-width:100%;" xmlns="http://www.w3.org/2000/svg">' +
             // y-axis grid + labels
             [0,25,50,75,100].map(function(v) {
               var y = tcPadT + (1 - v/100) * (tcH - tcPadT - tcPadB);
