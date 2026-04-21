@@ -1013,6 +1013,7 @@
   <div style="position:relative;display:inline-flex;flex-shrink:0;"><span class="material-icons" style="font-size:26px;color:#315E7B;">notifications</span><span style="position:absolute;top:-4px;right:-6px;min-width:18px;height:18px;background:#C62828;color:white;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;padding:0 3px;">2</span></div>
   <span class="gc-banner-check" style="flex-shrink:0;"><span class="material-icons" style="font-size:22px;color:#2E7D32;">check_circle</span></span>
   <img src="assets/Group 1657.png" id="banner-wf-icon" alt="Wellframe" style="width:24px;height:24px;flex-shrink:0;display:inline-block;" title="Wellframe">
+  <span id="banner-wf-invited" style="display:none;font-size:10px;font-weight:700;color:#0080A3;background:#E0F4F9;border:1px solid #9AD4E8;border-radius:10px;padding:2px 8px;flex-shrink:0;letter-spacing:0.3px;">Invited</span>
   <span class="gc-banner-name">John Everhart-AH00000121</span>
   <span class="gc-banner-dob"><strong style="font-size:12px;letter-spacing:0.3px;">DOB</strong> 05/14/1942 83 yr(s)</span>
   <span class="gc-banner-expand" style="margin-left:16px;flex-shrink:0;"><span class="material-icons" style="font-size:18px;color:var(--teal);">open_in_full</span></span>
@@ -4633,7 +4634,7 @@ function openScriptResponseModal() {
   var currentMemberKey = window.currentMemberKey = 'jackson-thomas';
 
   // Populate member profile from data
-  function populateProfile(key) {
+  var populateProfile = window.populateProfile = function populateProfile(key) {
     var m = memberData[key];
     if (!m) return;
     currentMemberKey = window.currentMemberKey = key;
@@ -4642,18 +4643,22 @@ function openScriptResponseModal() {
     document.querySelector('.gc-banner-name').textContent = m.name;
     var dobSpan = document.querySelector('.gc-member-banner .gc-banner-dob');
     if (dobSpan) dobSpan.innerHTML = '<strong style="font-size:12px;letter-spacing:0.3px;">DOB</strong> ' + m.dob + ' ' + m.age + ' yr(s)';
+    var wfEnrolled = m.digital === 'Wellframe';
+    var wfInvited  = !wfEnrolled && (window.wfInvitedMembers && window.wfInvitedMembers[key]);
+
     var bannerWfIcon = document.getElementById('banner-wf-icon');
-    if (bannerWfIcon) bannerWfIcon.style.display = (m.digital === 'Wellframe') ? 'inline-block' : 'none';
+    if (bannerWfIcon) bannerWfIcon.style.display = wfEnrolled ? 'inline-block' : 'none';
+    var bannerWfInvited = document.getElementById('banner-wf-invited');
+    if (bannerWfInvited) bannerWfInvited.style.display = wfInvited ? 'inline-flex' : 'none';
 
     // Hide chat FAB for non-enrolled members
     var chatFab = document.getElementById('wf-chat-fab');
-    if (chatFab) chatFab.style.display = (m.digital === 'Wellframe') ? 'flex' : 'none';
+    if (chatFab) chatFab.style.display = wfEnrolled ? 'flex' : 'none';
 
-    // Show/hide Wellframe-only sections based on enrollment
-    var wfEnrolled = m.digital === 'Wellframe';
+    // Show/hide Wellframe-only sections based on enrollment or invited state
     ['digital-program-section','digital-articles-section','digital-meds-section'].forEach(function(id) {
       var el = document.getElementById(id);
-      if (el) el.style.display = wfEnrolled ? '' : 'none';
+      if (el) el.style.display = (wfEnrolled || wfInvited) ? '' : 'none';
     });
 
     // Nav label
@@ -4772,7 +4777,8 @@ function openScriptResponseModal() {
     var wfPanel = document.getElementById('wellframe-panel-content');
     if (wfPanel) {
       var isEnrolled = m.digital === 'Wellframe';
-      if (!isEnrolled) {
+      var isInvited  = !isEnrolled && (window.wfInvitedMembers && window.wfInvitedMembers[key]);
+      if (!isEnrolled && !isInvited) {
         wfPanel.innerHTML =
           '<div class="wfm-hd">' +
             '<img src="assets/Wellframe/Logomark.png" alt="Wellframe" class="wfm-hd-logo" style="opacity:0.4;" />' +
@@ -4783,7 +4789,8 @@ function openScriptResponseModal() {
             '<div style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:20px;">' + m.name + ' is not enrolled in Wellframe</div>' +
             '<button class="gc-btn gc-btn-primary" style="display:flex;align-items:center;gap:6px;" onclick="wfOpenInviteModal()"><img src="assets/Wellframe/Logomark.png" style="width:14px;height:14px;filter:brightness(0) invert(1);" />Invite to Wellframe</button>' +
           '</div>';
-      } else {
+      }
+      if (isEnrolled || isInvited) {
         var wfData = {
           'jackson-thomas': {
             initials: 'JT', days: 103,
@@ -5162,6 +5169,18 @@ function openScriptResponseModal() {
             '<div class="wf-tasks-section-title" style="margin-top:4px;">Completed / Archived</div>' +
             wfCard({ icon:'fact_check', iconColor:'#999', typeLabel:'INSTRUCTION', title:'Digital Intake Assessment', desc:'Completed Jan 8, 2026. Score: 14.22.', time:'Archived' }) +
           '</div>';
+
+        // For invited-but-not-onboarded members, phone screens are empty
+        if (isInvited) {
+          var emptyPhone = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:32px 16px;text-align:center;font-family:system-ui,sans-serif;">' +
+            '<span class="material-icons" style="font-size:40px;color:#ccc;margin-bottom:12px;">hourglass_empty</span>' +
+            '<div style="font-size:13px;font-weight:600;color:#78868E;margin-bottom:6px;">Waiting for member to onboard</div>' +
+            '<div style="font-size:11px;color:#aaa;">The member has been invited but hasn\'t set up the app yet.</div>' +
+          '</div>';
+          checklistScreen = emptyPhone;
+          profileScreen   = emptyPhone;
+          progressScreen  = emptyPhone;
+        }
 
         // ── Build split layout ──
         wfPanel.innerHTML =
@@ -7073,6 +7092,19 @@ function openScriptResponseModal() {
   window.wfCloseInviteModal = function() {
     document.getElementById('wf-invite-overlay').classList.remove('open');
   };
+
+  window.wfInvitedMembers = {};
+
+  document.querySelector('.wf-invite-submit').addEventListener('click', function() {
+    var key = window.currentMemberKey;
+    if (key) {
+      window.wfInvitedMembers[key] = true;
+    }
+    wfCloseInviteModal();
+    if (key && typeof window.populateProfile === 'function') {
+      window.populateProfile(key);
+    }
+  });
   document.getElementById('wf-invite-overlay').addEventListener('click', function(e) {
     if (e.target === this) wfCloseInviteModal();
   });
