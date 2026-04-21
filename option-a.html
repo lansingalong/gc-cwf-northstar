@@ -1973,7 +1973,7 @@
                     <th>Source</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="med-table-body">
                   <tr><td colspan="11" style="text-align:center;color:var(--text-muted);font-style:italic;padding:60px 16px;"></td></tr>
                 </tbody>
               </table>
@@ -4649,9 +4649,11 @@ function openScriptResponseModal() {
               { name: 'Fall Risk Assessment',   sub: 'Due May 3, 2026',  pct: 0 }
             ],
             meds: [
-              { name: 'Gabapentin',  schedule: 'Take daily, at 9:00AM', note: 'New — Starting tomorrow' },
-              { name: 'Metformin',   schedule: 'Take daily, at 9:00AM' },
-              { name: 'Claritin',    schedule: 'Take daily, at 9:00AM' }
+              { name: 'Gabapentin',  schedule: 'Take daily, at 9:00AM', note: 'New — Starting tomorrow', dosage: '400', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'SQD - 5 x Daily', current: 'New', startDate: '04/21/2026', reconDate: '04/21/2026', reconStatus: 'N/A', source: 'Manual' },
+              { name: 'Metformin',   schedule: 'Take daily, at 9:00AM', dosage: '1000', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'BID - 2 x Daily', current: 'Yes', startDate: '01/10/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' },
+              { name: 'Claritin',    schedule: 'Take daily, at 9:00AM', dosage: '10', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '02/01/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' },
+              { name: 'Lisinopril',  schedule: 'Take daily, at 9:00AM', dosage: '20', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' },
+              { name: 'Atorvastatin',schedule: 'Take daily, at 9:00PM', dosage: '40', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' }
             ],
             reminders: [
               { name: 'Take a walk',               schedule: 'Daily, at 9:00AM' },
@@ -4901,7 +4903,7 @@ function openScriptResponseModal() {
                     '<div class="wfm-screen-scroll">' +
                       '<div id="wfm-screen-checklist" class="wfm-screen wfm-active">' + checklistScreen + '</div>' +
                       '<div id="wfm-screen-profile"   class="wfm-screen">' + profileScreen + '</div>' +
-                      '<div id="wfm-screen-progress"  class="wfm-screen"><div style="padding:24px 16px;text-align:center;color:#78868E;font-size:13px;font-family:system-ui,sans-serif;">Progress screen</div></div>' +
+                      '<div id="wfm-screen-progress"  class="wfm-screen">' + progressScreen + '</div>' +
                       '<div id="wfm-screen-chat"      class="wfm-screen"><div style="padding:24px 16px;text-align:center;color:#78868E;font-size:13px;font-family:system-ui,sans-serif;">Chat screen</div></div>' +
                       '<div id="wfm-screen-resources" class="wfm-screen"><div style="padding:24px 16px;text-align:center;color:#78868E;font-size:13px;font-family:system-ui,sans-serif;">Resources screen</div></div>' +
                     '</div>' +
@@ -4931,6 +4933,32 @@ function openScriptResponseModal() {
             '</div>' +
 
           '</div>';
+
+        // Populate GC Medications table with Wellframe med data
+        var medTbody = document.getElementById('med-table-body');
+        if (medTbody) {
+          var medsArr = d.meds || [];
+          if (medsArr.length) {
+            medTbody.innerHTML = medsArr.map(function(med) {
+              var currentColor = med.current === 'New' ? '#2196F3' : '#4CAF50';
+              return '<tr>' +
+                '<td><input type="checkbox" /></td>' +
+                '<td><a href="#" style="color:var(--teal);font-weight:700;text-transform:uppercase;font-size:12px;">' + med.name.toUpperCase() + '</a></td>' +
+                '<td>' + (med.dosage || '—') + '</td>' +
+                '<td>' + (med.unit || '—') + '</td>' +
+                '<td>' + (med.route || '—') + '</td>' +
+                '<td>' + (med.frequency || '—') + '</td>' +
+                '<td><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:' + currentColor + ';display:inline-block;"></span>' + (med.current || '—') + '</span></td>' +
+                '<td>' + (med.startDate || '—') + '</td>' +
+                '<td style="color:var(--teal);cursor:pointer;">' + (med.reconDate || 'N/A') + '</td>' +
+                '<td>' + (med.reconStatus || 'N/A') + '</td>' +
+                '<td>' + (med.source || '—') + '</td>' +
+              '</tr>';
+            }).join('');
+          } else {
+            medTbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:var(--text-muted);font-style:italic;padding:60px 16px;">No medications on file</td></tr>';
+          }
+        }
       }
     }
 
