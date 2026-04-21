@@ -363,7 +363,12 @@
   /* Split layout: phone left, staff tabs right */
   .wf-split { display: flex; flex: 1; min-height: 0; overflow: hidden; }
   .wf-split-phone { width: 340px; min-width: 340px; background: #F2F8FA; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; transition: width 0.25s ease, min-width 0.25s ease; }
-  .wf-split-phone.collapsed { width: 0; min-width: 0; overflow: hidden; border-right: none; }
+  .wf-split-phone.collapsed { width: 28px; min-width: 28px; overflow: visible; }
+  .wf-split-phone.collapsed .wf-phone-toggle-bar { padding: 0; justify-content: center; width: 28px; overflow: hidden; }
+  .wf-split-phone.collapsed .wf-phone-toggle-label { display: none; }
+  .wf-split-phone.collapsed .wf-phone-toggle-icon { transform: rotate(180deg); }
+  .wf-split-phone.collapsed .wfm-device-wrap,
+  .wf-split-phone.collapsed .wf-phone-desc { display: none; }
   .wf-phone-toggle-bar { padding: 0 12px; background: #fff; border-bottom: 1px solid var(--border-light); font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; flex-shrink: 0; height: 34px; }
   .wf-phone-toggle-bar:hover { background: #F2F8FA; }
   .wf-phone-toggle-icon { display: flex; align-items: center; color: var(--text-muted); flex-shrink: 0; }
@@ -4057,10 +4062,7 @@ function openScriptResponseModal() {
   // Wellframe phone panel collapse toggle
   window.wfTogglePhone = function() {
     var col = document.getElementById('wf-split-phone');
-    var btn = document.getElementById('wf-phone-show-btn');
-    if (!col) return;
-    var isCollapsed = col.classList.toggle('collapsed');
-    if (btn) btn.style.display = isCollapsed ? 'flex' : 'none';
+    if (col) col.classList.toggle('collapsed');
   };
 
   // Wellframe staff tab switcher
@@ -4891,7 +4893,7 @@ function openScriptResponseModal() {
                 '<span class="wf-phone-toggle-label">Member View</span>' +
                 '<span class="wf-phone-toggle-icon"><span class="material-icons" style="font-size:16px;">chevron_left</span></span>' +
               '</div>' +
-              '<div style="padding:8px 14px 4px;font-size:11px;color:var(--text-muted);font-style:italic;">This is what the member\'s app looks like.</div>' +
+              '<div class="wf-phone-desc" style="padding:8px 14px 4px;font-size:11px;color:var(--text-muted);font-style:italic;">This is what the member\'s app looks like.</div>' +
               '<div class="wfm-device-wrap">' +
                 '<div class="wfm-device">' +
                   '<div class="wfm-screen-outer">' +
