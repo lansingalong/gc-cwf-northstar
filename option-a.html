@@ -6883,14 +6883,26 @@ function openScriptResponseModal() {
       </div>
 
       <!-- Access Code -->
-      <div style="margin-bottom:18px;">
+      <div style="margin-bottom:18px;position:relative;" id="wf-access-code-wrap">
         <label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Access Code <span style="color:#C62828;">*</span></label>
-        <select id="wf-invite-access-code" style="width:100%;height:36px;border:1px solid #C8D4DA;border-radius:3px;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;background:#fff;color:#222;">
-          <option value="">Select...</option>
-          <option>Cardiac Rehab — AK2026</option>
-          <option>Diabetes Management — AK2026</option>
-          <option>Maternal Health — AK2026</option>
-        </select>
+        <div id="wf-access-trigger" onclick="wfToggleAccessCode()" style="height:36px;border:1px solid #C8D4DA;border-radius:3px;padding:0 36px 0 12px;font-size:13px;font-family:var(--font);background:#fff;color:#888;display:flex;align-items:center;cursor:pointer;user-select:none;position:relative;">
+          <span id="wf-access-label">Select...</span>
+          <span class="material-icons" style="position:absolute;right:8px;font-size:18px;color:#888;">expand_more</span>
+        </div>
+        <div id="wf-access-dropdown" style="display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid #C8D4DA;border-radius:3px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:200;max-height:320px;overflow-y:auto;">
+          <div style="padding:10px 14px 4px;font-size:10px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;">Most Frequently Used</div>
+          <div class="wf-ac-option wf-ac-freq" data-val="Cardiac Rehab: CHF Management (English) (chfrehab)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F0F4F7;">Cardiac Rehab: CHF Management (English) (chfrehab)<span class="material-icons wf-ac-remove" title="Remove" style="font-size:16px;color:#aaa;margin-left:8px;">close</span></div>
+          <div class="wf-ac-option wf-ac-freq" data-val="Chronic Disease: Diabetes (English) (diabetesmgmt)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F0F4F7;">Chronic Disease: Diabetes (English) (diabetesmgmt)<span class="material-icons wf-ac-remove" title="Remove" style="font-size:16px;color:#aaa;margin-left:8px;">close</span></div>
+          <div style="padding:10px 14px 4px;font-size:10px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-top:4px;">All Access Codes</div>
+          <div class="wf-ac-option" data-val="Behavioral Health: Depression (English) (depresstest)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;">Behavioral Health: Depression (English) (depresstest)</div>
+          <div class="wf-ac-option" data-val="Cardiac Rehab: CHF Management (English) (chfrehab)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;background:#E8F6FA;">Cardiac Rehab: CHF Management (English) (chfrehab)</div>
+          <div class="wf-ac-option" data-val="Chronic Disease: Asthma (English) (qaasthma)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;">Chronic Disease: Asthma (English) (qaasthma)</div>
+          <div class="wf-ac-option" data-val="Chronic Disease: Diabetes (English) (diabetesmgmt)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;">Chronic Disease: Diabetes (English) (diabetesmgmt)</div>
+          <div class="wf-ac-option" data-val="Maternal Health: Pregnancy (English) (maternalhealth)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;">Maternal Health: Pregnancy (English) (maternalhealth)</div>
+          <div class="wf-ac-option" data-val="Behavioral Health: Anxiety (English) (anxietycare)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;">Behavioral Health: Anxiety (English) (anxietycare)</div>
+          <div class="wf-ac-option" data-val="Fall Prevention: Senior Care (English) (fallprev)" style="padding:10px 14px;font-size:13px;color:#222;cursor:pointer;">Fall Prevention: Senior Care (English) (fallprev)</div>
+        </div>
+        <input type="hidden" id="wf-invite-access-code" />
       </div>
 
       <!-- Name + DOB + Gender -->
@@ -7025,6 +7037,31 @@ function openScriptResponseModal() {
   };
   document.getElementById('wf-invite-overlay').addEventListener('click', function(e) {
     if (e.target === this) wfCloseInviteModal();
+  });
+
+  window.wfToggleAccessCode = function() {
+    var dd = document.getElementById('wf-access-dropdown');
+    dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+  };
+
+  document.querySelectorAll('.wf-ac-option').forEach(function(opt) {
+    opt.addEventListener('click', function(e) {
+      // ignore clicks on the remove X
+      if (e.target.classList.contains('wf-ac-remove')) return;
+      var val = this.getAttribute('data-val');
+      document.getElementById('wf-invite-access-code').value = val;
+      document.getElementById('wf-access-label').textContent = val;
+      document.getElementById('wf-access-label').style.color = '#222';
+      document.getElementById('wf-access-dropdown').style.display = 'none';
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    var wrap = document.getElementById('wf-access-code-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      var dd = document.getElementById('wf-access-dropdown');
+      if (dd) dd.style.display = 'none';
+    }
   });
 </script>
 
