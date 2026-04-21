@@ -2028,6 +2028,38 @@
             </div>
           </div>
 
+          <!-- Medications on the Member's App table -->
+          <div class="gc-table-wrap" style="margin-top:20px;">
+            <div class="gc-table-toolbar">
+              <img src="assets/Wellframe/Logomark.png" style="width:16px;height:16px;" />
+              <span style="font-size:13px;font-weight:700;color:var(--text-dark);">Medications on the Member's App</span>
+              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);" id="med-app-count"></span>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="gc-table">
+                <thead>
+                  <tr>
+                    <th style="width:32px;"><input type="checkbox" /></th>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Unit</th>
+                    <th>Route</th>
+                    <th>Frequency</th>
+                    <th>Current</th>
+                    <th>Current Start Date</th>
+                    <th>Last Reconciliation Date</th>
+                    <th>Reconciliation Status</th>
+                    <th>Source</th>
+                    <th>Reminder</th>
+                  </tr>
+                </thead>
+                <tbody id="med-app-table-body">
+                  <tr><td colspan="12" style="text-align:center;color:var(--text-muted);font-style:italic;padding:40px 16px;">No medications synced to member app</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
 
         <!-- Tab: Health Indicators (placeholder) -->
@@ -5172,31 +5204,40 @@ function openScriptResponseModal() {
 
           '</div>';
 
-        // Populate GC Medications table with Wellframe med data
+        // Populate GC Medications tables — split by wellframe flag
+        var medsArr = d.meds || [];
+        function medRow(med, showLogo) {
+          var currentColor = med.current === 'New' ? '#2196F3' : '#4CAF50';
+          return '<tr>' +
+            '<td><input type="checkbox" /></td>' +
+            '<td><div style="display:flex;align-items:center;gap:6px;">' + (showLogo ? '<img src="assets/Wellframe/Logomark.png" style="width:16px;height:16px;flex-shrink:0;" />' : '') + '<a href="#" style="color:var(--teal);font-weight:700;text-transform:uppercase;font-size:12px;">' + med.name.toUpperCase() + '</a></div></td>' +
+            '<td>' + (med.dosage || '—') + '</td>' +
+            '<td>' + (med.unit || '—') + '</td>' +
+            '<td>' + (med.route || '—') + '</td>' +
+            '<td>' + (med.frequency || '—') + '</td>' +
+            '<td><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:' + currentColor + ';display:inline-block;"></span>' + (med.current || '—') + '</span></td>' +
+            '<td>' + (med.startDate || '—') + '</td>' +
+            '<td style="color:var(--teal);cursor:pointer;">' + (med.reconDate || 'N/A') + '</td>' +
+            '<td>' + (med.reconStatus || 'N/A') + '</td>' +
+            '<td>' + (med.source || '—') + '</td>' +
+            '<td style="text-align:center;">' + (med.wellframe ? '<span class="material-icons" style="color:var(--teal);font-size:16px;">check</span>' : '') + '</td>' +
+          '</tr>';
+        }
+        var gcMeds  = medsArr.filter(function(m) { return !m.wellframe; });
+        var wfMeds  = medsArr.filter(function(m) { return  m.wellframe; });
         var medTbody = document.getElementById('med-table-body');
         if (medTbody) {
-          var medsArr = d.meds || [];
-          if (medsArr.length) {
-            medTbody.innerHTML = medsArr.map(function(med) {
-              var currentColor = med.current === 'New' ? '#2196F3' : '#4CAF50';
-              return '<tr>' +
-                '<td><input type="checkbox" /></td>' +
-                '<td><div style="display:flex;align-items:center;gap:6px;">' + (med.wellframe ? '<img src="assets/Wellframe/Logomark.png" style="width:16px;height:16px;flex-shrink:0;" title="On Wellframe" />' : '<span style="display:inline-block;width:16px;flex-shrink:0;"></span>') + '<a href="#" style="color:var(--teal);font-weight:700;text-transform:uppercase;font-size:12px;">' + med.name.toUpperCase() + '</a></div></td>' +
-                '<td>' + (med.dosage || '—') + '</td>' +
-                '<td>' + (med.unit || '—') + '</td>' +
-                '<td>' + (med.route || '—') + '</td>' +
-                '<td>' + (med.frequency || '—') + '</td>' +
-                '<td><span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:' + currentColor + ';display:inline-block;"></span>' + (med.current || '—') + '</span></td>' +
-                '<td>' + (med.startDate || '—') + '</td>' +
-                '<td style="color:var(--teal);cursor:pointer;">' + (med.reconDate || 'N/A') + '</td>' +
-                '<td>' + (med.reconStatus || 'N/A') + '</td>' +
-                '<td>' + (med.source || '—') + '</td>' +
-                '<td style="text-align:center;">' + (med.wellframe ? '<span class="material-icons" style="color:var(--teal);font-size:16px;">check</span>' : '') + '</td>' +
-              '</tr>';
-            }).join('');
-          } else {
-            medTbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:var(--text-muted);font-style:italic;padding:60px 16px;">No medications on file</td></tr>';
-          }
+          medTbody.innerHTML = gcMeds.length
+            ? gcMeds.map(function(m) { return medRow(m, false); }).join('')
+            : '<tr><td colspan="12" style="text-align:center;color:var(--text-muted);font-style:italic;padding:60px 16px;">No medications on file</td></tr>';
+        }
+        var appTbody = document.getElementById('med-app-table-body');
+        if (appTbody) {
+          appTbody.innerHTML = wfMeds.length
+            ? wfMeds.map(function(m) { return medRow(m, true); }).join('')
+            : '<tr><td colspan="12" style="text-align:center;color:var(--text-muted);font-style:italic;padding:40px 16px;">No medications synced to member app</td></tr>';
+          var countEl = document.getElementById('med-app-count');
+          if (countEl) countEl.textContent = wfMeds.length + ' record(s)';
         }
       }
     }
