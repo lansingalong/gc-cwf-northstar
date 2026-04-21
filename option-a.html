@@ -4905,7 +4905,7 @@ function openScriptResponseModal() {
           var r = 13, circ = 2 * Math.PI * r;
           var dash = (pct / 100) * circ;
           var gap = circ - dash;
-          var strokeColor = pct > 0 ? '#1B6CA8' : '#DDE6EA';
+          var strokeColor = pct > 0 ? '#0080A3' : '#DDE6EA';
           return '<div style="display:flex;flex-direction:column;align-items:center;gap:3px;">' +
             '<svg width="32" height="32" viewBox="0 0 32 32">' +
               '<circle cx="16" cy="16" r="' + r + '" fill="none" stroke="#DDE6EA" stroke-width="3"/>' +
@@ -4947,10 +4947,10 @@ function openScriptResponseModal() {
             '<div style="background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">' +
               '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
                 '<div style="display:flex;align-items:center;gap:8px;">' +
-                  '<span class="material-icons" style="color:#1B6CA8;font-size:18px;">done_all</span>' +
+                  '<span class="material-icons" style="color:#0080A3;font-size:18px;">done_all</span>' +
                   '<span style="font-size:14px;font-weight:600;color:#1A2327;">Checklist Completion</span>' +
                 '</div>' +
-                '<span class="material-icons" style="color:#1B6CA8;font-size:18px;border:2px solid #1B6CA8;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:14px;">info</span>' +
+                '<span class="material-icons" style="color:#0080A3;font-size:18px;border:2px solid #0080A3;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:14px;">info</span>' +
               '</div>' +
               '<div style="display:flex;justify-content:center;margin-bottom:16px;">' +
                 '<svg width="130" height="130" viewBox="0 0 130 130">' +
@@ -4966,7 +4966,7 @@ function openScriptResponseModal() {
             // Medications Taken card
             '<div style="background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">' +
               '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">' +
-                '<span class="material-icons" style="color:#1B6CA8;font-size:18px;">medication</span>' +
+                '<span class="material-icons" style="color:#0080A3;font-size:18px;">medication</span>' +
                 '<span style="font-size:14px;font-weight:600;color:#1A2327;">Medications Taken</span>' +
               '</div>' +
               '<div style="display:flex;justify-content:space-around;">' + medDots + '</div>' +
@@ -4976,10 +4976,10 @@ function openScriptResponseModal() {
             '<div style="background:#fff;border-radius:14px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">' +
               '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
                 '<div style="display:flex;align-items:center;gap:8px;">' +
-                  '<span class="material-icons" style="color:#1B6CA8;font-size:18px;">directions_walk</span>' +
+                  '<span class="material-icons" style="color:#0080A3;font-size:18px;">directions_walk</span>' +
                   '<span style="font-size:14px;font-weight:600;color:#1A2327;">Step Count</span>' +
                 '</div>' +
-                '<span style="font-size:12px;color:#1B6CA8;font-weight:600;">Goal: 10,000 <span class="material-icons" style="font-size:13px;vertical-align:middle;">edit</span></span>' +
+                '<span style="font-size:12px;color:#0080A3;font-weight:600;">Goal: 10,000 <span class="material-icons" style="font-size:13px;vertical-align:middle;">edit</span></span>' +
               '</div>' +
               // Bar chart
               '<div style="position:relative;padding:4px 0 0;">' +
@@ -4990,7 +4990,7 @@ function openScriptResponseModal() {
                   stepCounts.map(function(s, i) {
                     var h = ((s / maxStep) * 100).toFixed(0);
                     return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">' +
-                      '<div style="width:100%;background:#1B6CA8;border-radius:2px 2px 0 0;height:' + h + '%;"></div>' +
+                      '<div style="width:100%;background:#0080A3;border-radius:2px 2px 0 0;height:' + h + '%;"></div>' +
                     '</div>';
                   }).join('') +
                 '</div>' +
@@ -6835,7 +6835,7 @@ function openScriptResponseModal() {
   .wf-invite-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:10000;display:none;align-items:center;justify-content:center; }
   .wf-invite-overlay.open { display:flex; }
   .wf-invite-modal { background:#fff;border-radius:4px;width:860px;max-width:96vw;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.22);overflow:hidden; }
-  .wf-invite-top-bar { height:5px;background:#1B6CA8;flex-shrink:0; }
+  .wf-invite-top-bar { height:5px;background:#0080A3;flex-shrink:0; }
   .wf-invite-header { padding:20px 28px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid #E8EEF2; }
   .wf-invite-title { font-size:18px;font-weight:700;color:#1A2327; }
   .wf-invite-close { background:none;border:none;cursor:pointer;color:#666;display:flex;align-items:center; }
@@ -6846,21 +6846,22 @@ function openScriptResponseModal() {
   .wf-invite-field { display:flex;flex-direction:column;gap:5px;flex:1;min-width:140px; }
   .wf-invite-field label { font-size:12px;font-weight:600;color:#333; }
   .wf-invite-field input, .wf-invite-field select { height:36px;border:1px solid #C8D4DA;border-radius:3px;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;background:#fff;color:#222; }
-  .wf-invite-field input:focus, .wf-invite-field select:focus { border-color:#1B6CA8; }
+  .wf-invite-field input:focus, .wf-invite-field select:focus { border-color:#0080A3; }
   .wf-invite-field .wf-invite-search { position:relative; }
   .wf-invite-field .wf-invite-search input { width:100%;box-sizing:border-box;padding-right:32px; }
   .wf-invite-field .wf-invite-search .material-icons { position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:18px;color:#888;pointer-events:none; }
   .wf-invite-phone-row { display:flex;gap:0; }
   .wf-invite-phone-country { height:36px;border:1px solid #C8D4DA;border-radius:3px 0 0 3px;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;background:#fff;border-right:none;color:#222;min-width:90px; }
   .wf-invite-phone-num { height:36px;border:1px solid #C8D4DA;border-radius:0 3px 3px 0;padding:0 10px;font-size:13px;font-family:var(--font);outline:none;flex:1; }
-  .wf-invite-caregiver { background:#F5F8FA;border-radius:3px;padding:10px 16px;margin-bottom:18px;cursor:pointer; }
-  .wf-invite-caregiver-label { font-size:13px;font-weight:700;color:#1B6CA8; }
+  .wf-invite-caregiver { background:#F5F8FA;border:1px solid #E0EAF0;border-radius:3px;padding:14px 16px;margin-bottom:18px; }
+  .wf-invite-caregiver-toggle { font-size:13px;font-weight:700;color:#0080A3;cursor:pointer;text-decoration:underline;display:inline-block; }
+  .wf-invite-caregiver-form { margin-top:14px; }
   .wf-invite-footer { padding:14px 28px;border-top:1px solid #E8EEF2;display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-shrink:0;background:#fff; }
   .wf-invite-required { font-size:12px;color:#555;margin-right:auto; }
   .wf-invite-cancel { background:none;border:none;font-size:13px;font-weight:700;color:#555;cursor:pointer;letter-spacing:0.5px;padding:8px 12px; }
   .wf-invite-cancel:hover { color:#222; }
-  .wf-invite-submit { background:#1B6CA8;color:#fff;border:none;border-radius:3px;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:9px 22px;cursor:pointer; }
-  .wf-invite-submit:hover { background:#155a8a; }
+  .wf-invite-submit { background:#0080A3;color:#fff;border:none;border-radius:3px;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:9px 22px;cursor:pointer; }
+  .wf-invite-submit:hover { background:#006882; }
 </style>
 
 <div class="wf-invite-overlay" id="wf-invite-overlay">
@@ -6932,8 +6933,45 @@ function openScriptResponseModal() {
       </div>
 
       <!-- Add Caregiver -->
-      <div class="wf-invite-caregiver">
-        <span class="wf-invite-caregiver-label">+ ADD CAREGIVER</span>
+      <div class="wf-invite-caregiver" id="wf-caregiver-section">
+        <span class="wf-invite-caregiver-toggle" onclick="wfToggleCaregiver()">[-] REMOVE CAREGIVER</span>
+        <div class="wf-invite-caregiver-form" id="wf-caregiver-form">
+          <div class="wf-invite-row" style="margin-bottom:14px;">
+            <div class="wf-invite-field">
+              <label>Caregiver First Name <span style="color:#C62828;">*</span></label>
+              <input type="text" id="wf-cg-first" />
+            </div>
+            <div class="wf-invite-field">
+              <label>Caregiver Last Name <span style="color:#C62828;">*</span></label>
+              <input type="text" id="wf-cg-last" />
+            </div>
+            <div class="wf-invite-field">
+              <label>Caregiver Relationship</label>
+              <select id="wf-cg-relation">
+                <option value="">Select</option>
+                <option>Spouse / Partner</option>
+                <option>Parent</option>
+                <option>Child</option>
+                <option>Sibling</option>
+                <option>Friend</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="wf-invite-row" style="margin-bottom:0;">
+            <div class="wf-invite-field" style="flex:2;">
+              <label>Caregiver Phone Number <span style="color:#C62828;">*</span></label>
+              <div class="wf-invite-phone-row">
+                <select class="wf-invite-phone-country"><option>US +1</option><option>MX +52</option><option>CA +1</option></select>
+                <input type="text" id="wf-cg-phone" class="wf-invite-phone-num" />
+              </div>
+            </div>
+            <div class="wf-invite-field" style="flex:3;">
+              <label>Caregiver Email Address</label>
+              <input type="text" id="wf-cg-email" />
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Phone + Email -->
@@ -7038,6 +7076,15 @@ function openScriptResponseModal() {
   document.getElementById('wf-invite-overlay').addEventListener('click', function(e) {
     if (e.target === this) wfCloseInviteModal();
   });
+
+  window.wfToggleCaregiver = function() {
+    var form = document.getElementById('wf-caregiver-form');
+    var toggle = document.querySelector('.wf-invite-caregiver-toggle');
+    if (!form) return;
+    var open = form.style.display !== 'none';
+    form.style.display = open ? 'none' : '';
+    if (toggle) toggle.textContent = open ? '[+] ADD CAREGIVER' : '[-] REMOVE CAREGIVER';
+  };
 
   window.wfToggleAccessCode = function() {
     var dd = document.getElementById('wf-access-dropdown');
