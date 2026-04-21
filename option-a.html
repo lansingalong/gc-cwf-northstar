@@ -4650,11 +4650,11 @@ function openScriptResponseModal() {
               { name: 'Fall Risk Assessment',   sub: 'Due May 3, 2026',  pct: 0 }
             ],
             meds: [
-              { name: 'Gabapentin',  schedule: 'Take daily, at 9:00AM', note: 'New — Starting tomorrow', dosage: '400', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'SQD - 5 x Daily', current: 'New', startDate: '04/21/2026', reconDate: '04/21/2026', reconStatus: 'N/A', source: 'Manual', reminder: true },
-              { name: 'Metformin',   schedule: 'Take daily, at 9:00AM', dosage: '1000', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'BID - 2 x Daily', current: 'Yes', startDate: '01/10/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: true },
-              { name: 'Claritin',    schedule: 'Take daily, at 9:00AM', dosage: '10', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '02/01/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: false },
-              { name: 'Lisinopril',  schedule: 'Take daily, at 9:00AM', dosage: '20', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: false },
-              { name: 'Atorvastatin',schedule: 'Take daily, at 9:00PM', dosage: '40', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: true }
+              { name: 'Gabapentin',  schedule: 'Take daily, at 9:00AM', note: 'New — Starting tomorrow', dosage: '400', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'SQD - 5 x Daily', current: 'New', startDate: '04/21/2026', reconDate: '04/21/2026', reconStatus: 'N/A', source: 'Manual', reminder: true,  wellframe: false },
+              { name: 'Metformin',   schedule: 'Take daily, at 9:00AM', dosage: '1000', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'BID - 2 x Daily', current: 'Yes', startDate: '01/10/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: true,  wellframe: true },
+              { name: 'Claritin',    schedule: 'Take daily, at 9:00AM', dosage: '10', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '02/01/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: false, wellframe: true },
+              { name: 'Lisinopril',  schedule: 'Take daily, at 9:00AM', dosage: '20', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: false, wellframe: false },
+              { name: 'Atorvastatin',schedule: 'Take daily, at 9:00PM', dosage: '40', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: true,  wellframe: true }
             ],
             reminders: [
               { name: 'Take a walk',               schedule: 'Daily, at 9:00AM' },
@@ -5076,7 +5076,7 @@ function openScriptResponseModal() {
               var currentColor = med.current === 'New' ? '#2196F3' : '#4CAF50';
               return '<tr>' +
                 '<td><input type="checkbox" /></td>' +
-                '<td><a href="#" style="color:var(--teal);font-weight:700;text-transform:uppercase;font-size:12px;">' + med.name.toUpperCase() + '</a></td>' +
+                '<td><div style="display:flex;align-items:center;gap:6px;">' + (med.wellframe ? '<img src="assets/Wellframe/Logomark.png" style="width:16px;height:16px;flex-shrink:0;" title="On Wellframe" />' : '<span style="display:inline-block;width:16px;flex-shrink:0;"></span>') + '<a href="#" style="color:var(--teal);font-weight:700;text-transform:uppercase;font-size:12px;">' + med.name.toUpperCase() + '</a></div></td>' +
                 '<td>' + (med.dosage || '—') + '</td>' +
                 '<td>' + (med.unit || '—') + '</td>' +
                 '<td>' + (med.route || '—') + '</td>' +
