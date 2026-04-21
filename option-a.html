@@ -4645,6 +4645,10 @@ function openScriptResponseModal() {
     var bannerWfIcon = document.getElementById('banner-wf-icon');
     if (bannerWfIcon) bannerWfIcon.style.display = (m.digital === 'Wellframe') ? 'inline-block' : 'none';
 
+    // Hide chat FAB for non-enrolled members
+    var chatFab = document.getElementById('wf-chat-fab');
+    if (chatFab) chatFab.style.display = (m.digital === 'Wellframe') ? 'flex' : 'none';
+
     // Show/hide Wellframe-only sections based on enrollment
     var wfEnrolled = m.digital === 'Wellframe';
     ['digital-program-section','digital-articles-section','digital-meds-section'].forEach(function(id) {
