@@ -5033,8 +5033,9 @@ function openScriptResponseModal() {
 
         // helper to build a card
         function wfCard(opts) {
-          // opts: { icon, iconColor, typeLabel, title, desc, time, action, actionLabel, suggested }
+          // opts: { icon, iconColor, typeLabel, title, desc, time, action, actionLabel, suggested, checkbox, checkboxLabel }
           var iconColor = opts.iconColor || '#E07820';
+          var hasFooter = opts.time || opts.action;
           return '<div class="wf-alert-card">' +
             '<div class="wf-alert-card-inner">' +
               '<div class="wf-alert-top">' +
@@ -5043,10 +5044,8 @@ function openScriptResponseModal() {
               '</div>' +
               '<div class="wf-alert-title">' + opts.title + '</div>' +
               '<div class="wf-alert-desc">' + opts.desc + '</div>' +
-              '<div class="wf-alert-footer">' +
-                '<span class="wf-alert-time">' + opts.time + '</span>' +
-                (opts.action ? '<a class="wf-alert-action">' + opts.actionLabel + '</a>' : '') +
-              '</div>' +
+              (opts.checkbox ? '<label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:#444;cursor:pointer;"><input type="checkbox" style="width:16px;height:16px;accent-color:#0080A3;border:2px solid #0080A3;flex-shrink:0;" />' + opts.checkboxLabel + '</label>' : '') +
+              (hasFooter ? '<div class="wf-alert-footer"><span class="wf-alert-time">' + (opts.time||'') + '</span>' + (opts.action ? '<a class="wf-alert-action">' + opts.actionLabel + '</a>' : '') + '</div>' : '') +
             '</div>' +
             '<button class="wf-alert-dismiss" onclick="this.closest(\'.wf-alert-card\').remove()">&#x2715;</button>' +
             (opts.suggested ?
@@ -5059,16 +5058,11 @@ function openScriptResponseModal() {
         }
 
         // ── Staff-side tab content ──
+        var firstName = m.preferred || m.name.split(' ')[0];
         var staffTasksHtml =
           '<div class="wf-tasks-wrap">' +
             '<div class="wf-tasks-section-title">Alerts &amp; Insights</div>' +
-            wfCard({ icon:'warning', iconColor:'#E07820', typeLabel:'ALERT', title:'Assessment Not Complete', desc:'Member has not yet completed the intake assessment. Please reach out to encourage completion.', time:'3 days ago', action:true, actionLabel:'VIEW SURVEY', suggested:true }) +
-            wfCard({ icon:'lightbulb', iconColor:'#E07820', typeLabel:'INSIGHT', title:'Insight', desc:'Member has onboarded successfully! Send the patient a message to welcome them to the app, and remember to add disease-specific or other programs, as appropriate, from the Programs tab.', time:'a year ago', suggested:true }) +
-            wfCard({ icon:'cake', iconColor:'#E07820', typeLabel:'INSIGHT', title:'Insight', desc:"Today is member's birthday! Reach out to wish them well.", time:'3 days ago', suggested:true }) +
-            wfCard({ icon:'lightbulb', iconColor:'#E07820', typeLabel:'INSIGHT', title:"A Member's state has been automatically updated", desc:'Member has been automatically moved from Digital Management to Digital Dormant.', time:'a year ago' }) +
-            '<div class="wf-tasks-section-title" style="margin-top:4px;">Open Tasks</div>' +
-            wfCard({ icon:'task_alt', iconColor:' var(--teal)', typeLabel:'TASK', title:'Complete Health Risk Assessment', desc:'Member has not yet completed their assigned HRA. Due Apr 20, 2026.', time:'Due soon', action:true, actionLabel:'VIEW TASK' }) +
-            wfCard({ icon:'phone', iconColor:'var(--teal)', typeLabel:'TASK', title:'Outreach call — medication adherence', desc:'Scheduled telephonic outreach for Apr 22, 2026. Assigned to Beatrice Kanya.', time:'Scheduled' }) +
+            wfCard({ icon:'warning', iconColor:'#E07820', typeLabel:'ALERT', title:'Text-based communication', desc:'Before you can communicate via text message, ' + firstName + ' must first agree to text-based communication.', time:'', action:false, checkbox: true, checkboxLabel: firstName + ' has verbally agreed to text-based communication.' }) +
           '</div>';
 
         var staffActivityHtml =
@@ -5218,19 +5212,13 @@ function openScriptResponseModal() {
             '<div class="wf-split-staff">' +
               '<div class="wf-dmd-header"><span>Digital Management Dashboard</span><button id="wf-phone-show-btn" class="wf-phone-show-btn" onclick="wfTogglePhone()"><span class="material-icons" style="font-size:13px;">smartphone</span>Member View</button></div>' +
               '<div class="wf-staff-tabs">' +
-                '<div class="wf-staff-tab active" onclick="wfStaffTab(\'tasks\')">Tasks</div>' +
-                '<div class="wf-staff-tab" onclick="wfStaffTab(\'member-activity\')">Member Activity</div>' +
+                '<div class="wf-staff-tab active" onclick="wfStaffTab(\'tasks\')">Alerts &amp; Insights</div>' +
                 '<div class="wf-staff-tab" onclick="wfStaffTab(\'member-checklist\')">Member Checklist</div>' +
                 '<div class="wf-staff-tab" onclick="wfStaffTab(\'meds-reminders\')">Medications &amp; Reminders</div>' +
-                '<div class="wf-staff-tab" onclick="wfStaffTab(\'internal-notes\')">Internal Notes</div>' +
-                '<div class="wf-staff-tab" onclick="wfStaffTab(\'instructions\')">Instructions</div>' +
               '</div>' +
               '<div id="wf-staff-panel-tasks"           class="wf-staff-panel active">' + staffTasksHtml + '</div>' +
-              '<div id="wf-staff-panel-member-activity"  class="wf-staff-panel">'       + staffActivityHtml + '</div>' +
               '<div id="wf-staff-panel-member-checklist" class="wf-staff-panel">'       + staffChecklistHtml + '</div>' +
               '<div id="wf-staff-panel-meds-reminders"   class="wf-staff-panel">'       + staffMedsHtml + '</div>' +
-              '<div id="wf-staff-panel-internal-notes"   class="wf-staff-panel">'       + staffNotesHtml + '</div>' +
-              '<div id="wf-staff-panel-instructions"     class="wf-staff-panel">'       + staffInstructionsHtml + '</div>' +
             '</div>' +
 
           '</div>';
