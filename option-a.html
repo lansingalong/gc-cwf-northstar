@@ -6391,6 +6391,124 @@ function openScriptResponseModal() {
   </div>
 </div>
 
+<!-- ── Wellframe Chat FAB ── -->
+<style>
+  .wf-chat-fab { position: fixed; bottom: 24px; right: 28px; width: 52px; height: 52px; border-radius: 50%; background: var(--teal); box-shadow: 0 4px 14px rgba(0,0,0,0.22); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: background 0.15s; }
+  .wf-chat-fab:hover { background: #006F8E; }
+  .wf-chat-fab .material-icons { color: #fff; font-size: 26px; }
+  .wf-chat-fab .wf-chat-fab-badge { position: absolute; top: 6px; right: 6px; width: 10px; height: 10px; background: #E07820; border-radius: 50%; border: 2px solid #fff; }
+
+  .wf-chat-panel { position: fixed; bottom: 88px; right: 28px; width: 360px; height: 520px; background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); display: flex; flex-direction: column; z-index: 9998; overflow: hidden; transform: scale(0.95) translateY(10px); opacity: 0; pointer-events: none; transition: transform 0.2s ease, opacity 0.2s ease; transform-origin: bottom right; }
+  .wf-chat-panel.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+
+  .wf-chat-header { background: var(--teal); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .wf-chat-header-left { display: flex; flex-direction: column; }
+  .wf-chat-header-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .wf-chat-header-sub { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 1px; }
+  .wf-chat-header-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.8); display: flex; align-items: center; }
+  .wf-chat-header-close:hover { color: #fff; }
+
+  .wf-chat-meta { background: #F5F8FA; border-bottom: 1px solid #E2EAF0; padding: 6px 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .wf-chat-meta-left { font-size: 10px; color: var(--text-muted); }
+  .wf-chat-meta-filter { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); }
+  .wf-chat-meta-filter select { font-size: 10px; border: 1px solid var(--border); border-radius: 3px; padding: 2px 6px; color: var(--text-dark); background: #fff; }
+
+  .wf-chat-messages { flex: 1; overflow-y: auto; padding: 14px 14px 6px; display: flex; flex-direction: column; gap: 10px; background: #fff; }
+
+  .wf-chat-msg { display: flex; flex-direction: column; max-width: 78%; }
+  .wf-chat-msg.outbound { align-self: flex-end; align-items: flex-end; }
+  .wf-chat-msg.inbound { align-self: flex-start; align-items: flex-start; }
+  .wf-chat-bubble { padding: 9px 13px; border-radius: 16px; font-size: 12px; line-height: 1.5; }
+  .wf-chat-msg.outbound .wf-chat-bubble { background: #0E98BE; color: #fff; border-bottom-right-radius: 4px; }
+  .wf-chat-msg.inbound .wf-chat-bubble { background: #F0F4F7; color: #222; border-bottom-left-radius: 4px; }
+  .wf-chat-msg-meta { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+  .wf-chat-input-area { border-top: 1px solid #E2EAF0; padding: 10px 12px; flex-shrink: 0; background: #fff; }
+  .wf-chat-input-row { display: flex; align-items: center; gap: 8px; border: 1px solid #C8D6DE; border-radius: 8px; padding: 6px 10px; background: #FAFCFD; }
+  .wf-chat-input-add { background: none; border: none; cursor: pointer; color: var(--teal); display: flex; align-items: center; padding: 0; }
+  .wf-chat-input-add .material-icons { font-size: 20px; }
+  .wf-chat-input-field { flex: 1; border: none; background: transparent; font-size: 12px; color: #222; outline: none; }
+  .wf-chat-input-field::placeholder { color: #A0B0BA; }
+  .wf-chat-input-emoji { background: none; border: none; cursor: pointer; color: #A0B0BA; display: flex; align-items: center; }
+  .wf-chat-input-emoji .material-icons { font-size: 18px; }
+  .wf-chat-input-tip { font-size: 10px; color: var(--text-muted); margin-top: 6px; display: flex; align-items: center; justify-content: space-between; }
+  .wf-chat-send-btn { background: var(--teal); color: #fff; border: none; border-radius: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; padding: 5px 14px; cursor: pointer; }
+  .wf-chat-send-btn:hover { background: #006F8E; }
+</style>
+
+<button class="wf-chat-fab" id="wf-chat-fab" onclick="wfToggleChat()">
+  <span class="material-icons">chat</span>
+  <span class="wf-chat-fab-badge"></span>
+</button>
+
+<div class="wf-chat-panel" id="wf-chat-panel">
+  <div class="wf-chat-header">
+    <div class="wf-chat-header-left">
+      <span class="wf-chat-header-name" id="wf-chat-member-name">Jackson Thomas</span>
+      <span class="wf-chat-header-sub" id="wf-chat-member-id">MBR-2024-0847 &nbsp;·&nbsp; DOB: 03/15/1958</span>
+    </div>
+    <button class="wf-chat-header-close" onclick="wfToggleChat()">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="wf-chat-meta">
+    <span class="wf-chat-meta-left">Last opened app: a day ago</span>
+    <span class="wf-chat-meta-filter">
+      <span class="material-icons" style="font-size:13px;">sync_alt</span>
+      View by type:
+      <select><option>All</option><option>Messages</option><option>Media</option></select>
+    </span>
+  </div>
+  <div class="wf-chat-messages" id="wf-chat-messages">
+    <div class="wf-chat-msg inbound">
+      <div class="wf-chat-bubble">Hi, I had a question about my Metformin dosage.</div>
+      <div class="wf-chat-msg-meta">Jackson Thomas &nbsp;·&nbsp; Today, 8:45 AM</div>
+    </div>
+    <div class="wf-chat-msg outbound">
+      <div class="wf-chat-bubble">Hi Jackson! Happy to help. What's your question?</div>
+      <div class="wf-chat-msg-meta">Beatrice Kanya, Care Manager &nbsp;·&nbsp; Today, 9:02 AM</div>
+    </div>
+    <div class="wf-chat-msg inbound">
+      <div class="wf-chat-bubble">Should I take it with food? I've been getting nausea.</div>
+      <div class="wf-chat-msg-meta">Jackson Thomas &nbsp;·&nbsp; Today, 9:10 AM</div>
+    </div>
+    <div class="wf-chat-msg outbound">
+      <div class="wf-chat-bubble">Yes — always take Metformin with a meal to reduce nausea. If it persists after a week, let us know and we can flag for Dr. Chen.</div>
+      <div class="wf-chat-msg-meta">Beatrice Kanya, Care Manager &nbsp;·&nbsp; Today, 9:14 AM</div>
+    </div>
+  </div>
+  <div class="wf-chat-input-area">
+    <div class="wf-chat-input-row">
+      <button class="wf-chat-input-add"><span class="material-icons">add_circle_outline</span></button>
+      <input class="wf-chat-input-field" id="wf-chat-input" placeholder="Message Jackson Thomas" onkeydown="if(event.key==='Enter')wfChatSend()" />
+      <button class="wf-chat-input-emoji"><span class="material-icons">sentiment_satisfied_alt</span></button>
+    </div>
+    <div class="wf-chat-input-tip">
+      <span>Tip: Type "*" to get a list of available shortcuts</span>
+      <button class="wf-chat-send-btn" onclick="wfChatSend()">SEND</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.wfToggleChat = function() {
+    document.getElementById('wf-chat-panel').classList.toggle('open');
+  };
+  window.wfChatSend = function() {
+    var input = document.getElementById('wf-chat-input');
+    var text = input.value.trim();
+    if (!text) return;
+    var msgs = document.getElementById('wf-chat-messages');
+    var div = document.createElement('div');
+    div.className = 'wf-chat-msg outbound';
+    var now = new Date();
+    var t = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    div.innerHTML = '<div class="wf-chat-bubble">' + text.replace(/</g,'&lt;') + '</div><div class="wf-chat-msg-meta">Beatrice Kanya, Care Manager &nbsp;·&nbsp; Today, ' + t + '</div>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    input.value = '';
+  };
+</script>
 
 </body>
 </html>
