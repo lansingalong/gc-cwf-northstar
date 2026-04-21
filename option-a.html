@@ -362,7 +362,15 @@
 
   /* Split layout: phone left, staff tabs right */
   .wf-split { display: flex; flex: 1; min-height: 0; overflow: hidden; }
-  .wf-split-phone { width: 340px; min-width: 340px; background: #F2F8FA; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+  .wf-split-phone { width: 340px; min-width: 340px; background: #F2F8FA; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; transition: width 0.25s ease, min-width 0.25s ease; }
+  .wf-split-phone.collapsed { width: 36px; min-width: 36px; overflow: hidden; }
+  .wf-split-phone.collapsed .wfm-device-wrap { display: none; }
+  .wf-phone-toggle-bar { padding: 8px 12px; background: #fff; border-bottom: 1px solid var(--border-light); font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; flex-shrink: 0; }
+  .wf-phone-toggle-bar:hover { background: #F2F8FA; }
+  .wf-phone-toggle-icon { display: flex; align-items: center; color: var(--text-muted); flex-shrink: 0; transition: transform 0.25s ease; }
+  .wf-split-phone.collapsed .wf-phone-toggle-bar { padding: 8px 6px; justify-content: center; }
+  .wf-split-phone.collapsed .wf-phone-toggle-label { display: none; }
+  .wf-split-phone.collapsed .wf-phone-toggle-icon { transform: rotate(180deg); }
   .wf-split-staff { flex: 1; display: flex; flex-direction: column; min-width: 0; background: var(--white); }
 
   /* Staff tab bar */
@@ -4047,6 +4055,12 @@ function openScriptResponseModal() {
     if (btn) btn.classList.add('active');
   };
 
+  // Wellframe phone panel collapse toggle
+  window.wfTogglePhone = function() {
+    var col = document.getElementById('wf-split-phone');
+    if (col) col.classList.toggle('collapsed');
+  };
+
   // Wellframe staff tab switcher
   window.wfStaffTab = function(name) {
     document.querySelectorAll('.wf-staff-tab').forEach(function(t) { t.classList.remove('active'); });
@@ -4870,8 +4884,11 @@ function openScriptResponseModal() {
           '<div class="wf-split">' +
 
             // Left: phone mockup
-            '<div class="wf-split-phone">' +
-              '<div style="padding:8px 12px;background:#fff;border-bottom:1px solid var(--border-light);font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.6px;">Member View</div>' +
+            '<div class="wf-split-phone" id="wf-split-phone">' +
+              '<div class="wf-phone-toggle-bar" onclick="wfTogglePhone()">' +
+                '<span class="wf-phone-toggle-label">Member View</span>' +
+                '<span class="wf-phone-toggle-icon"><span class="material-icons" style="font-size:16px;">chevron_left</span></span>' +
+              '</div>' +
               '<div class="wfm-device-wrap">' +
                 '<div class="wfm-device">' +
                   '<div class="wfm-screen-outer">' +
