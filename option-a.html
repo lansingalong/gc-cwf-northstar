@@ -709,7 +709,7 @@
               <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="jackson-thomas">Thomas</a></td>
-              <td style="padding:4px 8px;">Jackson</td>
+              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="jackson-thomas">Jackson</a></td>
               <td style="padding:4px 8px;">MBR-2024-0847</td>
               <td style="padding:4px 8px;">03/15/1958</td>
               <td style="padding:4px 8px;">High</td>
@@ -721,7 +721,7 @@
               <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="maria-rivera">Rivera</a></td>
-              <td style="padding:4px 8px;">Maria</td>
+              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="maria-rivera">Maria</a></td>
               <td style="padding:4px 8px;">MBR-2024-1203</td>
               <td style="padding:4px 8px;">08/22/1975</td>
               <td style="padding:4px 8px;">Medium</td>
@@ -733,7 +733,7 @@
               <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="robert-chen">Chen</a></td>
-              <td style="padding:4px 8px;">Robert</td>
+              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="robert-chen">Robert</a></td>
               <td style="padding:4px 8px;">MBR-2024-0591</td>
               <td style="padding:4px 8px;">11/03/1982</td>
               <td style="padding:4px 8px;">Low</td>
@@ -745,7 +745,7 @@
               <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="sarah-williams">Williams</a></td>
-              <td style="padding:4px 8px;">Sarah</td>
+              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="sarah-williams">Sarah</a></td>
               <td style="padding:4px 8px;">MBR-2024-2108</td>
               <td style="padding:4px 8px;">06/17/1990</td>
               <td style="padding:4px 8px;">Medium</td>
@@ -757,7 +757,7 @@
               <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
               <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="james-oconnor">O'Connor</a></td>
-              <td style="padding:4px 8px;">James</td>
+              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="james-oconnor">James</a></td>
               <td style="padding:4px 8px;">MBR-2024-0334</td>
               <td style="padding:4px 8px;">02/28/1968</td>
               <td style="padding:4px 8px;">High</td>
@@ -4731,6 +4731,138 @@ function openScriptResponseModal() {
             '<div class="wfm-prof-sec">Health Reminders</div>' +
             '<div class="wfm-add-row"><span class="material-icons">add_circle_outline</span><span class="wfm-add-row-lbl">Add Reminder</span></div>' +
             '<div class="wfm-list-card">' + reminderRows + '</div>' +
+          '</div>';
+
+        // Weekly day data helpers
+        var days = ['F','S','S','M','T','W','T'];
+        var checklistPcts = [0, 20, 40, 60, 100, 100, 100];
+        var medPcts       = [0, 30,  0, 50, 100, 100, 100];
+        var stepCounts    = [11800, 3200, 0, 6500, 10200, 10400, 10600];
+        var todaySteps    = 5800;
+        stepCounts[6] = todaySteps;
+        var stepGoal = 10000;
+        var maxStep = Math.max.apply(null, stepCounts.concat([12000]));
+
+        function dayCircle(pct, label, isToday) {
+          if (pct >= 100) {
+            return '<div style="display:flex;flex-direction:column;align-items:center;gap:3px;">' +
+              '<div style="width:32px;height:32px;border-radius:50%;background:#73BE5E;display:flex;align-items:center;justify-content:center;">' +
+                '<span class="material-icons" style="color:#fff;font-size:18px;">check</span>' +
+              '</div>' +
+              '<span style="font-size:10px;color:' + (isToday ? '#222' : '#888') + ';font-weight:' + (isToday ? '700' : '400') + ';' + (isToday ? 'text-decoration:underline;' : '') + '">' + label + '</span>' +
+            '</div>';
+          }
+          var r = 13, circ = 2 * Math.PI * r;
+          var dash = (pct / 100) * circ;
+          var gap = circ - dash;
+          var strokeColor = pct > 0 ? '#1B6CA8' : '#DDE6EA';
+          return '<div style="display:flex;flex-direction:column;align-items:center;gap:3px;">' +
+            '<svg width="32" height="32" viewBox="0 0 32 32">' +
+              '<circle cx="16" cy="16" r="' + r + '" fill="none" stroke="#DDE6EA" stroke-width="3"/>' +
+              (pct > 0 ? '<circle cx="16" cy="16" r="' + r + '" fill="none" stroke="' + strokeColor + '" stroke-width="3" stroke-dasharray="' + dash.toFixed(1) + ' ' + gap.toFixed(1) + '" stroke-linecap="round" transform="rotate(-90 16 16)"/>' : '') +
+            '</svg>' +
+            '<span style="font-size:10px;color:' + (isToday ? '#222' : '#888') + ';font-weight:' + (isToday ? '700' : '400') + ';' + (isToday ? 'text-decoration:underline;' : '') + '">' + label + '</span>' +
+          '</div>';
+        }
+
+        function medDayCircle(pct, label, isToday) {
+          if (pct === 0 && label === 'S' && days.indexOf('S') > 0) {
+            // missed — show X circle
+            return '<div style="display:flex;flex-direction:column;align-items:center;gap:3px;">' +
+              '<div style="width:32px;height:32px;border-radius:50%;background:#DDE6EA;display:flex;align-items:center;justify-content:center;">' +
+                '<span class="material-icons" style="color:#888;font-size:16px;">close</span>' +
+              '</div>' +
+              '<span style="font-size:10px;color:#888;">' + label + '</span>' +
+            '</div>';
+          }
+          return dayCircle(pct, label, isToday);
+        }
+
+        var checklistDots = days.map(function(d, i) { return dayCircle(checklistPcts[i], d, i === 6); }).join('');
+        var medDots = days.map(function(d, i) {
+          if (i === 2 && medPcts[i] === 0) return medDayCircle(0, d, false); // missed Sunday
+          return dayCircle(medPcts[i], d, i === 6);
+        }).join('');
+
+        // Donut SVG for today 100%
+        var donutR = 54, donutCirc = 2 * Math.PI * donutR;
+        var progressScreen =
+          '<div style="background:#EDF3F6;min-height:100%;font-family:system-ui,sans-serif;padding:12px 12px 24px;">' +
+            '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">' +
+              '<span style="font-size:22px;font-weight:800;color:#1A2327;">Progress</span>' +
+              '<span class="material-icons" style="color:#555;font-size:22px;">tune</span>' +
+            '</div>' +
+
+            // Checklist Completion card
+            '<div style="background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">' +
+              '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
+                '<div style="display:flex;align-items:center;gap:8px;">' +
+                  '<span class="material-icons" style="color:#1B6CA8;font-size:18px;">done_all</span>' +
+                  '<span style="font-size:14px;font-weight:600;color:#1A2327;">Checklist Completion</span>' +
+                '</div>' +
+                '<span class="material-icons" style="color:#1B6CA8;font-size:18px;border:2px solid #1B6CA8;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:14px;">info</span>' +
+              '</div>' +
+              '<div style="display:flex;justify-content:center;margin-bottom:16px;">' +
+                '<svg width="130" height="130" viewBox="0 0 130 130">' +
+                  '<circle cx="65" cy="65" r="54" fill="none" stroke="#E0EBE0" stroke-width="10"/>' +
+                  '<circle cx="65" cy="65" r="54" fill="none" stroke="#73BE5E" stroke-width="10" stroke-dasharray="' + donutCirc.toFixed(1) + ' 0" stroke-linecap="round" transform="rotate(-90 65 65)"/>' +
+                  '<text x="65" y="59" text-anchor="middle" font-size="11" fill="#888" font-family="system-ui">TODAY</text>' +
+                  '<text x="65" y="78" text-anchor="middle" font-size="22" font-weight="800" fill="#1A2327" font-family="system-ui">100%</text>' +
+                '</svg>' +
+              '</div>' +
+              '<div style="display:flex;justify-content:space-around;">' + checklistDots + '</div>' +
+            '</div>' +
+
+            // Medications Taken card
+            '<div style="background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">' +
+              '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">' +
+                '<span class="material-icons" style="color:#1B6CA8;font-size:18px;">medication</span>' +
+                '<span style="font-size:14px;font-weight:600;color:#1A2327;">Medications Taken</span>' +
+              '</div>' +
+              '<div style="display:flex;justify-content:space-around;">' + medDots + '</div>' +
+            '</div>' +
+
+            // Step Count card
+            '<div style="background:#fff;border-radius:14px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">' +
+              '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
+                '<div style="display:flex;align-items:center;gap:8px;">' +
+                  '<span class="material-icons" style="color:#1B6CA8;font-size:18px;">directions_walk</span>' +
+                  '<span style="font-size:14px;font-weight:600;color:#1A2327;">Step Count</span>' +
+                '</div>' +
+                '<span style="font-size:12px;color:#1B6CA8;font-weight:600;">Goal: 10,000 <span class="material-icons" style="font-size:13px;vertical-align:middle;">edit</span></span>' +
+              '</div>' +
+              // Bar chart
+              '<div style="position:relative;padding:4px 0 0;">' +
+                '<div style="font-size:9px;color:#888;margin-bottom:2px;">12000</div>' +
+                '<div style="position:relative;height:100px;display:flex;align-items:flex-end;gap:5px;border-left:1px solid #DDE;padding-left:4px;">' +
+                  // Goal line
+                  '<div style="position:absolute;left:0;right:0;bottom:' + ((stepGoal/maxStep)*100).toFixed(0) + '%;height:1px;background:#73BE5E;"></div>' +
+                  stepCounts.map(function(s, i) {
+                    var h = ((s / maxStep) * 100).toFixed(0);
+                    return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">' +
+                      '<div style="width:100%;background:#1B6CA8;border-radius:2px 2px 0 0;height:' + h + '%;"></div>' +
+                    '</div>';
+                  }).join('') +
+                '</div>' +
+                '<div style="font-size:9px;color:#888;margin-top:2px;">0</div>' +
+                '<div style="display:flex;gap:5px;padding-left:4px;margin-top:4px;">' +
+                  days.map(function(d, i) {
+                    return '<div style="flex:1;text-align:center;font-size:9px;color:' + (i===6?'#222':'#888') + ';font-weight:' + (i===6?'700':'400') + ';' + (i===6?'text-decoration:underline;':'') + '">' + d + '</div>';
+                  }).join('') +
+                '</div>' +
+              '</div>' +
+              '<div style="display:flex;border-top:1px solid #EEE;margin-top:10px;padding-top:8px;">' +
+                '<div style="flex:1;text-align:center;">' +
+                  '<div style="font-size:18px;font-weight:800;color:#1A2327;">8,302</div>' +
+                  '<div style="font-size:10px;color:#888;">7 day average</div>' +
+                '</div>' +
+                '<div style="width:1px;background:#EEE;"></div>' +
+                '<div style="flex:1;text-align:center;">' +
+                  '<div style="font-size:18px;font-weight:800;color:#1A2327;">29.1 mi</div>' +
+                  '<div style="font-size:10px;color:#888;">7 day total</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
           '</div>';
 
         var tabBar =
