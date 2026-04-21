@@ -1971,10 +1971,11 @@
                     <th>Last Reconciliation Date</th>
                     <th>Reconciliation Status</th>
                     <th>Source</th>
+                    <th>Reminder</th>
                   </tr>
                 </thead>
                 <tbody id="med-table-body">
-                  <tr><td colspan="11" style="text-align:center;color:var(--text-muted);font-style:italic;padding:60px 16px;"></td></tr>
+                  <tr><td colspan="12" style="text-align:center;color:var(--text-muted);font-style:italic;padding:60px 16px;"></td></tr>
                 </tbody>
               </table>
             </div>
@@ -4649,11 +4650,11 @@ function openScriptResponseModal() {
               { name: 'Fall Risk Assessment',   sub: 'Due May 3, 2026',  pct: 0 }
             ],
             meds: [
-              { name: 'Gabapentin',  schedule: 'Take daily, at 9:00AM', note: 'New — Starting tomorrow', dosage: '400', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'SQD - 5 x Daily', current: 'New', startDate: '04/21/2026', reconDate: '04/21/2026', reconStatus: 'N/A', source: 'Manual' },
-              { name: 'Metformin',   schedule: 'Take daily, at 9:00AM', dosage: '1000', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'BID - 2 x Daily', current: 'Yes', startDate: '01/10/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' },
-              { name: 'Claritin',    schedule: 'Take daily, at 9:00AM', dosage: '10', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '02/01/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' },
-              { name: 'Lisinopril',  schedule: 'Take daily, at 9:00AM', dosage: '20', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' },
-              { name: 'Atorvastatin',schedule: 'Take daily, at 9:00PM', dosage: '40', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual' }
+              { name: 'Gabapentin',  schedule: 'Take daily, at 9:00AM', note: 'New — Starting tomorrow', dosage: '400', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'SQD - 5 x Daily', current: 'New', startDate: '04/21/2026', reconDate: '04/21/2026', reconStatus: 'N/A', source: 'Manual', reminder: true },
+              { name: 'Metformin',   schedule: 'Take daily, at 9:00AM', dosage: '1000', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'BID - 2 x Daily', current: 'Yes', startDate: '01/10/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: true },
+              { name: 'Claritin',    schedule: 'Take daily, at 9:00AM', dosage: '10', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '02/01/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: false },
+              { name: 'Lisinopril',  schedule: 'Take daily, at 9:00AM', dosage: '20', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: false },
+              { name: 'Atorvastatin',schedule: 'Take daily, at 9:00PM', dosage: '40', unit: 'mg - Milligram', route: 'PO - By Mouth', frequency: 'QD - 1 x Daily', current: 'Yes', startDate: '01/05/2026', reconDate: '03/15/2026', reconStatus: 'Reconciled', source: 'Manual', reminder: true }
             ],
             reminders: [
               { name: 'Take a walk',               schedule: 'Daily, at 9:00AM' },
@@ -5085,6 +5086,7 @@ function openScriptResponseModal() {
                 '<td style="color:var(--teal);cursor:pointer;">' + (med.reconDate || 'N/A') + '</td>' +
                 '<td>' + (med.reconStatus || 'N/A') + '</td>' +
                 '<td>' + (med.source || '—') + '</td>' +
+                '<td style="text-align:center;">' + (med.reminder ? '<span class="material-icons" style="color:var(--teal);font-size:16px;">check</span>' : '') + '</td>' +
               '</tr>';
             }).join('');
           } else {
