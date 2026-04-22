@@ -238,19 +238,22 @@
   /* ── Split View: persistent Wellframe right panel ── */
   .split-shell { display: flex; flex: 1; min-height: 0; }
   .split-gc-side { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
-  .split-wf-side { width: 330px; min-width: 330px; border-left: 2px solid #B8D9EE; background: #F2F8FA; display: flex; flex-direction: column; transition: width 0.2s, min-width 0.2s; position: relative; }
-  .split-wf-side.collapsed { width: 38px; min-width: 38px; }
-  .split-wf-toggle { position: absolute; top: 10px; left: -14px; z-index: 10; width: 28px; height: 28px; border-radius: 50%; background: #1378A3; color: #fff; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-  .split-wf-toggle .material-icons { font-size: 16px; }
-  .split-wf-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #fff; border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
-  .split-wf-header img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; }
+  .split-wf-side { width: 360px; min-width: 360px; border-left: 1px solid var(--border); background: #fff; display: flex; flex-direction: column; transition: width 0.25s ease, min-width 0.25s ease; }
+  .split-wf-side.collapsed { width: 28px; min-width: 28px; overflow: visible; }
+  .split-wf-side.collapsed .split-wf-toggle-bar { padding: 0; justify-content: center; width: 28px; overflow: hidden; }
+  .split-wf-side.collapsed .split-wf-toggle-label { display: none; }
+  .split-wf-side.collapsed .split-wf-toggle-icon { transform: rotate(180deg); }
+.split-wf-side.collapsed .split-wf-body { display: none; }
+  .split-wf-side.collapsed .split-wf-toggle-label,
+  .split-wf-side.collapsed .split-wf-toggle-bar span[style*="margin-left:auto"] { display: none; }
+  .split-wf-toggle-bar { padding: 0 12px; background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border-light); font-size: 11px; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; gap: 4px; cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; flex-shrink: 0; height: 34px; }
+  .split-wf-toggle-bar:hover { background: #F2F8FA; }
+  .split-wf-toggle-icon { display: flex; align-items: center; color: var(--teal-dark); flex-shrink: 0; }
+  .split-wf-header { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #fff; border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
+  .split-wf-header img { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
   .split-wf-header-text { flex: 1; min-width: 0; }
   .split-wf-header-title { font-size: 12px; font-weight: 700; color: var(--teal-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .split-wf-header-sub { font-size: 10px; color: var(--text-muted); }
-  .split-wf-collapsed-label { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); font-size: 11px; font-weight: 700; color: var(--teal); padding: 16px 8px; white-space: nowrap; letter-spacing: 0.5px; display: none; }
-  .split-wf-side.collapsed .split-wf-collapsed-label { display: block; }
-  .split-wf-side.collapsed .split-wf-body { display: none; }
-  .split-wf-side.collapsed .split-wf-header { display: none; }
   .split-wf-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
   .split-wf-body #wellframe-panel-content { flex: 1; }
 
@@ -386,7 +389,7 @@
   .gc-footer-health .material-icons { font-size: 14px; }
 
   /* ── Wellframe Mobile Panel ── */
-  #wellframe-panel-content { padding: 0 !important; background: #EBEBEB !important; display: flex; flex-direction: column; }
+  #wellframe-panel-content { padding: 0 !important; background: #F2F8FA !important; display: flex; flex-direction: column; }
   .wfm-hd { display:flex; align-items:center; gap:10px; padding:12px 16px; background:#fff; border-bottom:1px solid var(--border-light); flex-shrink:0; }
   .wfm-hd-logo { width:26px; height:26px; object-fit:contain; flex-shrink:0; }
   .wfm-hd-title { font-size:13px; font-weight:700; color:var(--teal-dark); }
@@ -395,14 +398,14 @@
   .wfm-sw-btn { display:inline-flex; align-items:center; gap:4px; padding:4px 12px; border-radius:20px; border:1px solid var(--border); font-size:11px; font-weight:600; cursor:pointer; background:#fff; color:var(--text-secondary); }
   .wfm-sw-btn .material-icons { font-size:13px; }
   .wfm-sw-btn.active { background:var(--teal); color:#fff; border-color:var(--teal); }
-  .wfm-device-wrap { flex:1; display:flex; justify-content:center; padding:20px 16px 28px; overflow-y:auto; }
-  .wfm-device { width:296px; background:#18181B; border-radius:44px; padding:10px; box-shadow:0 16px 48px rgba(0,0,0,0.4),inset 0 0 0 1px #3a3a3a; flex-shrink:0; }
-  .wfm-screen-outer { background:#F2F8FA; border-radius:36px; overflow:hidden; }
-  .wfm-status { background:#F2F8FA; display:flex; justify-content:space-between; align-items:center; padding:10px 20px 0; height:44px; }
+  .wfm-device-wrap { display:flex; justify-content:center; padding:22px 16px 16px; background:#F2F8FA; }
+  .wfm-device { width:264px; background:transparent; border-radius:44px; padding:10px; box-shadow:inset 0 0 0 8px #D9E3E7; flex-shrink:0; }
+  .wfm-screen-outer { background:#fff; border-radius:36px; overflow:hidden; }
+  .wfm-status { background:#fff; display:flex; justify-content:space-between; align-items:center; padding:10px 20px 0; height:44px; }
   .wfm-time { font-size:15px; font-weight:600; color:#161B1F; letter-spacing:0.2px; font-family:system-ui,-apple-system,sans-serif; }
   .wfm-status-icons { display:flex; align-items:center; gap:4px; color:#161B1F; }
   .wfm-status-icons .material-icons { font-size:14px; }
-  .wfm-screen-scroll { overflow-y:auto; max-height:440px; }
+  .wfm-screen-scroll { overflow-y:auto; max-height:461px; }
   .wfm-screen { display:none; }
   .wfm-screen.wfm-active { display:block; }
   .wfm-tab-bar { background:#fff; border-top:1px solid #D9E3E7; display:flex; padding:8px 0 22px; }
@@ -439,7 +442,7 @@
   .wfm-prof-hd { background:#fff; border-bottom:1px solid #D9E3E7; padding:10px 16px 14px; }
   .wfm-prof-title-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
   .wfm-prof-title { font-family:Georgia,'Times New Roman',serif; font-size:22px; color:#161B1F; }
-  .wfm-prof-scroll { padding:0 16px 16px; background:#F2F8FA; }
+  .wfm-prof-scroll { padding:0 16px 16px; background:#fff; }
   .wfm-user-row { display:flex; align-items:center; gap:12px; }
   .wfm-avatar { width:44px; height:44px; border-radius:22px; background:#0080A3; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; flex-shrink:0; font-family:system-ui,-apple-system,sans-serif; }
   .wfm-user-name { font-size:17px; font-weight:500; color:#282F35; font-family:system-ui,-apple-system,sans-serif; letter-spacing:-0.3px; }
@@ -480,11 +483,10 @@
   <a href="index.html"><span class="material-icons" style="font-size:14px;">arrow_back</span>All concepts</a>
   <span class="proto-bar-sep">|</span>
   <span class="proto-bar-label">Concept B</span>
-  <span>Persistent Split View &mdash; mobile view alongside every member profile panel</span>
+
   <div class="proto-nav-pills">
     <a class="proto-pill" href="option-a.html">A &mdash; Hub</a>
     <span class="proto-pill active">B &mdash; Split View</span>
-    <a class="proto-pill" href="option-c.html">C &mdash; Lift &amp; Shift</a>
   </div>
 </div>
 
@@ -1056,11 +1058,19 @@
                 </div>
               </div>
 
-              <!-- Member Portal -->
-              <div class="gc-detail-card">
-                <div class="gc-detail-body">
-                  <div class="gc-section-heading">Member Portal</div>
-                  <div class="gc-kv-row"><span class="gc-kv-label">Member Portal Access:</span> <span class="gc-kv-na">Not Available</span></div>
+              <!-- Member Portal + Wellframe App side by side -->
+              <div style="display:flex;gap:12px;">
+                <div class="gc-detail-card" style="flex:1;">
+                  <div class="gc-detail-body">
+                    <div class="gc-section-heading">Member Portal</div>
+                    <div class="gc-kv-row"><span class="gc-kv-label">Member Portal Access:</span> <span class="gc-kv-na">Not Available</span></div>
+                  </div>
+                </div>
+                <div class="gc-detail-card" style="flex:1;">
+                  <div class="gc-detail-body">
+                    <div class="gc-section-heading">Wellframe App</div>
+                    <div class="gc-kv-row"><span class="gc-kv-label">Wellframe Access:</span> <span class="gc-kv-value" id="detail-wellframe-access">Active</span></div>
+                  </div>
                 </div>
               </div>
 
@@ -1293,37 +1303,84 @@
         <!-- TAB: Programs -->
         <div class="tab-panel" id="tab-programs">
           <div class="gc-table-wrap">
-            <div class="gc-table-toolbar">
-              <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">add</span> Enroll in Program</span>
-              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">3 record(s)</span>
+            <div class="gc-table-toolbar" style="justify-content:space-between;">
+              <a href="#" class="gc-kv-link" style="font-size:11px;display:inline-flex;align-items:center;gap:4px;"><span class="material-icons" style="font-size:13px;">grid_view</span> Display Less in Tile View</a>
+              <span style="display:flex;align-items:center;gap:12px;font-size:11px;">
+                <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">add_circle_outline</span> Add New Program</a>
+                <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;" onclick="event.preventDefault();document.getElementById('addDigitalProgramModal').classList.add('open');"><span class="material-icons" style="font-size:13px;">add_circle_outline</span> Add Digital Program</a>
+                <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">visibility</span> Aid &amp; Supplemental Data History</a>
+                <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">file_download</span> Export</a>
+                <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">upload</span> Upload</a>
+                <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">visibility</span> History</a>
+              </span>
             </div>
-            <table class="gc-table">
+            <table class="gc-table" style="font-size:11px;">
               <thead>
                 <tr>
+                  <th style="width:28px;"><input type="checkbox"></th>
+                  <th>Eligibility</th>
                   <th>Program Name</th>
-                  <th>Status</th>
+                  <th>Referral Source</th>
                   <th>Start Date</th>
                   <th>End Date</th>
+                  <th>Status Name</th>
+                  <th>Assigned Care Manager</th>
+                  <th>Created By</th>
+                  <th>Created On</th>
+                  <th>Updated By</th>
+                  <th>Updated On</th>
+                  <th>Added From</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><input type="checkbox"></td>
+                  <td>Alaska Premier Health</td>
                   <td><a href="#" class="gc-kv-link">Diabetes Management</a></td>
-                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>PCP Referral</td>
                   <td>01/15/2024</td>
-                  <td></td>
+                  <td>N/A</td>
+                  <td>Active</td>
+                  <td>Beatrice Kanya</td>
+                  <td>Beatrice Kanya</td>
+                  <td>01/15/2024</td>
+                  <td>N/A</td>
+                  <td>N/A</td>
+                  <td>GuidingCare</td>
+                  <td><a href="#" class="gc-kv-link">Files</a></td>
                 </tr>
                 <tr>
+                  <td><input type="checkbox"></td>
+                  <td>Alaska Premier Health</td>
                   <td><a href="#" class="gc-kv-link">Cardiac Rehab</a></td>
-                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>N/A</td>
                   <td>03/01/2024</td>
-                  <td></td>
+                  <td>N/A</td>
+                  <td>Active</td>
+                  <td>Beatrice Kanya</td>
+                  <td>Beatrice Kanya</td>
+                  <td>03/01/2024</td>
+                  <td>N/A</td>
+                  <td>N/A</td>
+                  <td>Wellframe</td>
+                  <td><a href="#" class="gc-kv-link">Files</a></td>
                 </tr>
                 <tr>
+                  <td><input type="checkbox"></td>
+                  <td>Alaska Premier Health</td>
                   <td><a href="#" class="gc-kv-link">Fall Prevention</a></td>
-                  <td><span class="gc-badge gc-badge-neutral">Completed</span></td>
+                  <td>PCP Referral</td>
                   <td>06/10/2023</td>
                   <td>12/15/2023</td>
+                  <td>Completed</td>
+                  <td>Beatrice Kanya</td>
+                  <td>Beatrice Kanya</td>
+                  <td>06/10/2023</td>
+                  <td>Beatrice Kanya</td>
+                  <td>12/15/2023</td>
+                  <td>GuidingCare</td>
+                  <td><a href="#" class="gc-kv-link">Files</a></td>
                 </tr>
               </tbody>
             </table>
@@ -1875,7 +1932,7 @@
           <!-- Medication table -->
           <div class="gc-table-wrap">
             <div style="overflow-x:auto;">
-              <table class="gc-table">
+              <table class="gc-table" style="font-size:11px;">
                 <thead>
                   <tr>
                     <th style="width:32px;"><input type="checkbox" /></th>
@@ -1889,10 +1946,56 @@
                     <th>Last Reconciliation Date</th>
                     <th>Reconciliation Status</th>
                     <th>Source</th>
+                    <th>Added From</th>
+                    <th>Reminder</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td colspan="11" style="text-align:center;color:var(--text-muted);font-style:italic;padding:60px 16px;"></td></tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>Metformin 1000mg</td>
+                    <td>1000</td><td>mg</td><td>Oral</td><td>Twice Daily</td>
+                    <td><span class="gc-badge gc-badge-teal" style="font-size:10px;">Yes</span></td>
+                    <td>01/15/2024</td><td>03/01/2026</td><td>Reconciled</td><td>PCP</td>
+                    <td>GuidingCare</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>Atorvastatin 40mg</td>
+                    <td>40</td><td>mg</td><td>Oral</td><td>Once Daily</td>
+                    <td><span class="gc-badge gc-badge-teal" style="font-size:10px;">Yes</span></td>
+                    <td>02/10/2024</td><td>03/01/2026</td><td>Reconciled</td><td>PCP</td>
+                    <td>GuidingCare</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>Lisinopril 20mg</td>
+                    <td>20</td><td>mg</td><td>Oral</td><td>Once Daily</td>
+                    <td><span class="gc-badge gc-badge-teal" style="font-size:10px;">Yes</span></td>
+                    <td>03/05/2024</td><td>03/01/2026</td><td>Reconciled</td><td>PCP</td>
+                    <td>GuidingCare</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>Gabapentin 300mg</td>
+                    <td>300</td><td>mg</td><td>Oral</td><td>Once Daily</td>
+                    <td><span class="gc-badge gc-badge-teal" style="font-size:10px;">Yes</span></td>
+                    <td>04/08/2026</td><td>04/08/2026</td><td>Pending</td><td>Wellframe</td>
+                    <td>Wellframe</td>
+                    <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:#2e7d32;">check_circle</span></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>Claritin 10mg</td>
+                    <td>10</td><td>mg</td><td>Oral</td><td>Once Daily</td>
+                    <td><span class="gc-badge gc-badge-teal" style="font-size:10px;">Yes</span></td>
+                    <td>01/20/2025</td><td>03/01/2026</td><td>Reconciled</td><td>Wellframe</td>
+                    <td>Wellframe</td>
+                    <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:#2e7d32;">check_circle</span></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -3036,12 +3139,12 @@
                   <th>Assigned To / WQ</th>
                   <th>Notes</th>
                   <th>Created On</th>
-                  <th>Visible to Member</th>
+                  <th>Source</th>
                   <th style="width:80px;">Actions</th>
                 </tr></thead>
                 <tbody id="outstandingTbody">
-                  <tr><td><input type="checkbox" /></td><td>Follow Up.</td><td></td><td>High</td><td>03/27/2026</td><td>N/A</td><td>07:59</td><td>N/A</td><td>N/A</td><td>N/A</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td>Accepted</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td style="font-size:10px;">03/27/2026 08:00:00</td><td></td><td style="white-space:nowrap;"><span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Edit">edit_note</span> <span class="material-icons" style="font-size:18px;color:#315E7B;cursor:pointer;" title="Perform Activity" onclick="openOutcomeModal();">thumb_up</span> <span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Delete">delete</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>Assessments - Initial Outreach</td><td></td><td>Medium</td><td>03/20/2026</td><td>N/A</td><td>08:30</td><td>N/A</td><td>N/A</td><td>N/A</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td>Accepted</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td style="font-size:10px;">03/20/2026 07:04:07</td><td></td><td style="white-space:nowrap;"><span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Edit">edit_note</span> <span class="material-icons" style="font-size:18px;color:#315E7B;cursor:pointer;" title="Perform Activity" onclick="openOutcomeModal();">thumb_up</span> <span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Delete">delete</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>Follow Up.</td><td></td><td>High</td><td>03/27/2026</td><td>N/A</td><td>07:59</td><td>N/A</td><td>N/A</td><td>N/A</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td>Accepted</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td style="font-size:10px;">03/27/2026 08:00:00</td><td>Wellframe</td><td style="white-space:nowrap;"><span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Edit">edit_note</span> <span class="material-icons" style="font-size:18px;color:#315E7B;cursor:pointer;" title="Perform Activity" onclick="openOutcomeModal();">thumb_up</span> <span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Delete">delete</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>Assessments - Initial Outreach</td><td></td><td>Medium</td><td>03/20/2026</td><td>N/A</td><td>08:30</td><td>N/A</td><td>N/A</td><td>N/A</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td>Accepted</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td style="font-size:10px;">03/20/2026 07:04:07</td><td>GuidingCare</td><td style="white-space:nowrap;"><span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Edit">edit_note</span> <span class="material-icons" style="font-size:18px;color:#315E7B;cursor:pointer;" title="Perform Activity" onclick="openOutcomeModal();">thumb_up</span> <span class="material-icons" style="font-size:18px;color:#5a8aab;cursor:pointer;" title="Delete">delete</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -3162,9 +3265,19 @@
           </div>
 
           <!-- Toolbar -->
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:4px;">
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">add</span> Add &amp; Send Articles</span>
+          <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:4px;position:relative;">
+            <span class="gc-table-action" onclick="var p=document.getElementById('articleSourcePopover');p.style.display=p.style.display==='block'?'none':'block';event.stopPropagation();"><span class="material-icons" style="font-size:13px;">add</span> Add &amp; Send Articles</span>
             <span style="font-size:12px;color:var(--text-secondary);cursor:pointer;">Article History</span>
+            <!-- Source popover -->
+            <div id="articleSourcePopover" style="display:none;position:absolute;top:24px;left:0;z-index:100;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);width:260px;padding:16px 18px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <span style="font-size:14px;font-weight:500;color:#222;">Select Article Source</span>
+                <span onclick="document.getElementById('articleSourcePopover').style.display='none'" style="cursor:pointer;font-size:18px;color:#555;line-height:1;">&times;</span>
+              </div>
+              <div style="height:1px;background:#ccc;margin-bottom:14px;"></div>
+              <div style="font-size:14px;font-weight:700;color:#222;cursor:pointer;margin-bottom:12px;" onclick="document.getElementById('articleSourcePopover').style.display='none'">GuidingCare&#174;</div>
+              <div style="font-size:14px;font-weight:700;color:#222;cursor:pointer;" onclick="document.getElementById('articleSourcePopover').style.display='none';document.getElementById('wellframeArticlesModal').classList.add('open');">Wellframe</div>
+            </div>
           </div>
 
           <!-- Articles table -->
@@ -3182,10 +3295,10 @@
                   <th>Download</th>
                 </tr></thead>
                 <tbody>
-                  <tr><td><a href="#" style="color:var(--link);">Understanding Your A1C: What the Numbers Mean</a></td><td>Learn what your A1C test measures and how to interpret your results to better manage your diabetes.</td><td>GuidingCare</td><td>Chronic Disease Management</td><td>03/15/2026</td><td><span class="gc-badge gc-badge-teal">Read</span></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
-                  <tr><td><a href="#" style="color:var(--link);">Heart-Healthy Eating on a Budget</a></td><td>Practical tips for choosing affordable, nutritious foods that support cardiovascular health.</td><td>GuidingCare</td><td>Nutrition</td><td>03/01/2026</td><td><span class="gc-badge gc-badge-warn">Unread</span></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
-                  <tr><td><a href="#" style="color:var(--link);">Managing Multiple Medications Safely</a></td><td>How to organize your medications, avoid harmful interactions, and stay on track with your prescriptions.</td><td>GuidingCare</td><td>Medication Safety</td><td>02/18/2026</td><td><span class="gc-badge gc-badge-teal">Read</span></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
-                  <tr><td><a href="#" style="color:var(--link);">Community Resources for Seniors in Alaska</a></td><td>A guide to local programs offering food assistance, transportation, and social support for older adults.</td><td>GuidingCare</td><td>Social Support</td><td>02/05/2026</td><td><span class="gc-badge gc-badge-neutral">In Progress</span></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
+                  <tr><td><a href="#" style="color:var(--link);">Understanding Your A1C: What the Numbers Mean</a></td><td>Learn what your A1C test measures and how to interpret your results to better manage your diabetes.</td><td>GuidingCare</td><td>Chronic Disease Management</td><td>03/15/2026</td><td></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
+                  <tr><td><a href="#" style="color:var(--link);">Heart-Healthy Eating on a Budget</a></td><td>Practical tips for choosing affordable, nutritious foods that support cardiovascular health.</td><td>Wellframe</td><td>Nutrition</td><td>03/01/2026</td><td></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
+                  <tr><td><a href="#" style="color:var(--link);">Managing Multiple Medications Safely</a></td><td>How to organize your medications, avoid harmful interactions, and stay on track with your prescriptions.</td><td>GuidingCare</td><td>Medication Safety</td><td>02/18/2026</td><td></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
+                  <tr><td><a href="#" style="color:var(--link);">Community Resources for Seniors in Alaska</a></td><td>A guide to local programs offering food assistance, transportation, and social support for older adults.</td><td>GuidingCare</td><td>Social Support</td><td>02/05/2026</td><td></td><td>N/A</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">download</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -3343,12 +3456,13 @@
                   <th>Member Alert Description</th>
                   <th>Source Alert Description</th>
                   <th>Alert Date</th>
+                  <th>Source</th>
                 </tr></thead>
                 <tbody>
-                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-danger">New</span></td><td>Gap in Care — HbA1c test overdue</td><td>HEDIS measure CDC: Member has not completed HbA1c testing within the past 6 months. Last recorded A1C was 8.4% on 09/18/2025. Outreach required to schedule lab work.</td><td>03/22/2026</td></tr>
-                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-danger">Active</span></td><td>Readmission Risk — ED visit within 30 days</td><td>Member had ED visit on 03/05/2026 for chest pain (R/O ACS). LACE index score of 11 indicates high readmission risk. Transition of care follow-up required within 48 hours of discharge.</td><td>03/06/2026</td></tr>
-                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-warn">Active</span></td><td>Medication Flag — Drug interaction detected</td><td>Potential moderate interaction identified between Fluconazole and Atorvastatin (increased risk of rhabdomyolysis). Prescribing physician notified 02/05/2026; awaiting medication adjustment confirmation.</td><td>02/05/2026</td></tr>
-                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-warn">Active</span></td><td>Social Risk — Food insecurity identified</td><td>SDOH screening on 02/18/2026 revealed member is skipping meals 2-3 times per week due to financial constraints. Referrals to Alaska Food Bank and Community Action Program submitted. Care manager should verify resource engagement at next contact.</td><td>02/18/2026</td></tr>
+                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-danger">New</span></td><td>Gap in Care — HbA1c test overdue</td><td>HEDIS measure CDC: Member has not completed HbA1c testing within the past 6 months. Last recorded A1C was 8.4% on 09/18/2025. Outreach required to schedule lab work.</td><td>03/22/2026</td><td>GuidingCare</td></tr>
+                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-danger">Active</span></td><td>Readmission Risk — ED visit within 30 days</td><td>Member had ED visit on 03/05/2026 for chest pain (R/O ACS). LACE index score of 11 indicates high readmission risk. Transition of care follow-up required within 48 hours of discharge.</td><td>03/06/2026</td><td>GuidingCare</td></tr>
+                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-warn">Active</span></td><td>Medication Flag — Drug interaction detected</td><td>Potential moderate interaction identified between Fluconazole and Atorvastatin (increased risk of rhabdomyolysis). Prescribing physician notified 02/05/2026; awaiting medication adjustment confirmation.</td><td>02/05/2026</td><td>GuidingCare</td></tr>
+                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-warn">Active</span></td><td>Social Risk — Food insecurity identified</td><td>SDOH screening on 02/18/2026 revealed member is skipping meals 2-3 times per week due to financial constraints. Referrals to Alaska Food Bank and Community Action Program submitted. Care manager should verify resource engagement at next contact.</td><td>02/18/2026</td><td>GuidingCare</td></tr>
                 </tbody>
               </table>
             </div>
@@ -3516,17 +3630,9 @@
 
   <!-- ══ PERSISTENT WELLFRAME SPLIT PANEL ══ -->
   <div class="split-wf-side" id="splitWfSide">
-    <div class="split-wf-toggle" onclick="toggleSplitWf()" title="Toggle Wellframe panel">
-      <span class="material-icons" id="splitWfToggleIcon">chevron_right</span>
-    </div>
-    <div class="split-wf-collapsed-label"><img src="assets/Wellframe/Logomark.png" style="width:18px;height:18px;object-fit:contain;display:block;margin-bottom:6px;" alt="">Wellframe</div>
-    <div class="split-wf-header">
-      <img src="assets/Wellframe/Logomark.png" alt="Wellframe" />
-      <div class="split-wf-header-text">
-        <div class="split-wf-header-title">Wellframe</div>
-        <div class="split-wf-header-sub">Member Mobile View</div>
-      </div>
-      <span class="gc-badge gc-badge-teal" id="splitWfBadge">Enrolled</span>
+    <div class="split-wf-toggle-bar" onclick="toggleSplitWf()">
+      <span class="split-wf-toggle-icon"><span class="material-icons" style="font-size:16px;">chevron_right</span></span>
+      <span class="split-wf-toggle-label">Wellframe App View</span>
     </div>
     <div class="split-wf-body">
       <div class="content-body" id="wellframe-panel-content" style="padding:0;background:#EBEBEB;display:flex;flex-direction:column;flex:1;">
@@ -3988,21 +4094,19 @@ function openScriptResponseModal() {
   // Split view toggle
   window.toggleSplitWf = function() {
     var side = document.getElementById('splitWfSide');
-    var icon = document.getElementById('splitWfToggleIcon');
     if (!side) return;
-    var collapsed = side.classList.toggle('collapsed');
-    if (icon) icon.textContent = collapsed ? 'chevron_left' : 'chevron_right';
+    side.classList.toggle('collapsed');
   };
 
   // Update split panel badge when member switches
   var _origPopulate = window.populateProfile;
   function _updateSplitBadge(key) {
     var badge = document.getElementById('splitWfBadge');
-    var headerSub = document.querySelector('.split-wf-header-sub');
+    var memberName = document.getElementById('splitWfMemberName');
     var md = memberData || {};
     var m = md[key];
     if (!m || !badge) return;
-    if (headerSub) headerSub.textContent = m.preferred + ' ' + m.name.split(' ').slice(-1)[0];
+    if (memberName) memberName.textContent = m.preferred + ' ' + m.name.split(' ').slice(-1)[0];
     if (m.digital === 'Wellframe') {
       badge.textContent = 'Enrolled';
       badge.className = 'gc-badge gc-badge-teal';
@@ -4252,8 +4356,8 @@ function openScriptResponseModal() {
   function _sr(script,date,by,status,complete,program,score,actType,outcome,dur){return '<tr><td><input type="checkbox"/></td><td><a href="#" style="color:var(--link);font-size:11px;">'+script+'</a></td><td>'+date+'</td><td>'+by+'</td><td>'+status+'</td><td>'+complete+'</td><td>N/A</td><td>'+program+'</td><td>'+score+'</td><td>'+actType+'</td><td><a href="#" style="color:var(--link);">'+outcome+'</a></td><td>'+dur+'</td><td></td><td>'+_SDOC+'</td></tr>';}
   function _gr(date,by,type,outcome){return '<tr><td>'+date+'</td><td>'+by+'</td><td>N/A</td><td>N/A</td><td>'+type+'</td><td>N/A</td><td>N/A</td><td><a href="#" style="color:var(--link);">'+outcome+'</a></td><td>'+_VIS+'</td><td>'+_DEL+'</td></tr>';}
   function _gs(sched,by,type){return '<tr><td>N/A</td><td>N/A</td><td>'+sched+'</td><td>'+by+'</td><td>'+type+'</td><td>N/A</td><td>N/A</td><td><a href="#" style="color:var(--link);">Scheduled</a></td><td>'+_VIS+'</td><td>'+_DEL+'</td></tr>';}
-  function _or(type,priority,followUp,callTime,created){return '<tr><td><input type="checkbox"/></td><td>'+type+'</td><td></td><td>'+priority+'</td><td>'+followUp+'</td><td>N/A</td><td>'+callTime+'</td><td>N/A</td><td>N/A</td><td>N/A</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td>Accepted</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td style="font-size:10px;">'+created+'</td><td></td><td style="white-space:nowrap;">'+_ACT+'</td></tr>';}
-  function _ar(badgeCls,status,desc,source,date){return '<tr><td><input type="checkbox"/></td><td><span class="gc-badge '+badgeCls+'">'+status+'</span></td><td>'+desc+'</td><td>'+source+'</td><td>'+date+'</td></tr>';}
+  function _or(type,priority,followUp,callTime,created,src){return '<tr><td><input type="checkbox"/></td><td>'+type+'</td><td></td><td>'+priority+'</td><td>'+followUp+'</td><td>N/A</td><td>'+callTime+'</td><td>N/A</td><td>N/A</td><td>N/A</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td>Accepted</td><td>Beatrice Kanya : All Access Admin</td><td>N/A</td><td style="font-size:10px;">'+created+'</td><td>'+(src||'GuidingCare')+'</td><td style="white-space:nowrap;">'+_ACT+'</td></tr>';}
+  function _ar(badgeCls,status,desc,source,date,alertSource){return '<tr><td><input type="checkbox"/></td><td><span class="gc-badge '+badgeCls+'">'+status+'</span></td><td>'+desc+'</td><td>'+source+'</td><td>'+date+'</td><td>'+(alertSource||'')+'</td></tr>';}
 
   var memberTabData = {
     'jackson-thomas': {
@@ -4279,14 +4383,15 @@ function openScriptResponseModal() {
         _gs('04/08/2026','Priya Nandakumar, CCM','Follow-Up Call')
       ],
       outstandingActivities: [
-        _or('Follow Up','High','03/27/2026','07:59','03/27/2026 08:00:00'),
-        _or('Assessments - Initial Outreach','Medium','03/20/2026','08:30','03/20/2026 07:04:07')
+        _or('Follow Up','High','03/27/2026','07:59','03/27/2026 08:00:00','Wellframe'),
+        _or('Assessments - Initial Outreach','Medium','03/20/2026','08:30','03/20/2026 07:04:07','GuidingCare')
       ],
       memberAlerts: [
-        _ar('gc-badge-danger','New','Gap in Care — HbA1c test overdue','HEDIS measure CDC: Member has not completed HbA1c testing within the past 6 months. Last recorded A1C was 8.4% on 09/18/2025. Outreach required to schedule lab work.','03/22/2026'),
-        _ar('gc-badge-danger','Active','Readmission Risk — ED visit within 30 days','Member had ED visit on 03/05/2026 for chest pain (R/O ACS). LACE index score of 11 indicates high readmission risk. Transition of care follow-up required within 48 hours of discharge.','03/06/2026'),
-        _ar('gc-badge-warn','Active','Medication Flag — Drug interaction detected','Potential moderate interaction identified between Fluconazole and Atorvastatin (increased risk of rhabdomyolysis). Prescribing physician notified 02/05/2026; awaiting medication adjustment confirmation.','02/05/2026'),
-        _ar('gc-badge-warn','Active','Social Risk — Food insecurity identified','SDOH screening on 02/18/2026 revealed member is skipping meals 2-3 times per week due to financial constraints. Referrals to Alaska Food Bank and Community Action Program submitted.','02/18/2026')
+        _ar('gc-badge-danger','New','Gap in Care — HbA1c test overdue','HEDIS measure CDC: Member has not completed HbA1c testing within the past 6 months. Last recorded A1C was 8.4% on 09/18/2025. Outreach required to schedule lab work.','03/22/2026','GuidingCare'),
+        _ar('gc-badge-danger','Active','Readmission Risk — ED visit within 30 days','Member had ED visit on 03/05/2026 for chest pain (R/O ACS). LACE index score of 11 indicates high readmission risk. Transition of care follow-up required within 48 hours of discharge.','03/06/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Medication Flag — Drug interaction detected','Potential moderate interaction identified between Fluconazole and Atorvastatin (increased risk of rhabdomyolysis). Prescribing physician notified 02/05/2026; awaiting medication adjustment confirmation.','02/05/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Social Risk — Food insecurity identified','SDOH screening on 02/18/2026 revealed member is skipping meals 2-3 times per week due to financial constraints. Referrals to Alaska Food Bank and Community Action Program submitted.','02/18/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Unsure of Target BP','Nick J has indicated that they\'re unaware of their target blood pressure range but their blood pressure of 130 over 90 has not met the threshold for hypertensive urgency.\n\nPlease evaluate the member\'s blood pressure, review recent trends, and encourage them to contact their doctor to discuss a safe blood pressure range. Offer support and assistance with this conversation if indicated.','04/22/2026','Wellframe')
       ]
     },
     'maria-rivera': {
@@ -4315,10 +4420,10 @@ function openScriptResponseModal() {
         _or('Cardiac Rehab Enrollment','Medium','04/10/2026','10:00','02/28/2026 02:15:33')
       ],
       memberAlerts: [
-        _ar('gc-badge-danger','New','CHF Exacerbation — Weight gain 4 lbs in 7 days','Automated weight monitoring alert: Member gained 4 lbs since 03/11/2026, exceeding 3 lb threshold for CHF decompensation risk. Care manager contacted and Furosemide dose adjusted per physician order. Daily weight monitoring reinforced.','03/18/2026'),
-        _ar('gc-badge-danger','Active','Declining Ejection Fraction — Echocardiogram required','Most recent echocardiogram (01/12/2026) shows EF decreased from 42% to 35%. Cardiology follow-up scheduled for 04/22/2026. Member at elevated risk for acute decompensated heart failure.','01/14/2026'),
-        _ar('gc-badge-warn','Active','Medication Adherence — Furosemide refill gap','Pharmacy claims data shows 12-day gap in Furosemide fills between 02/01/2026 and 02/13/2026. Member counseled on importance of diuretic adherence. Transportation barrier identified as contributing factor.','02/15/2026'),
-        _ar('gc-badge-teal','Active','Care Gap — Lipid panel overdue','No lipid panel on record for the past 14 months. Last result: LDL 118 mg/dL (02/2025). HEDIS measure: Statin Use in Persons with Cardiovascular Disease. Outreach required to schedule lab work.','03/01/2026')
+        _ar('gc-badge-danger','New','CHF Exacerbation — Weight gain 4 lbs in 7 days','Automated weight monitoring alert: Member gained 4 lbs since 03/11/2026, exceeding 3 lb threshold for CHF decompensation risk. Care manager contacted and Furosemide dose adjusted per physician order. Daily weight monitoring reinforced.','03/18/2026','GuidingCare'),
+        _ar('gc-badge-danger','Active','Declining Ejection Fraction — Echocardiogram required','Most recent echocardiogram (01/12/2026) shows EF decreased from 42% to 35%. Cardiology follow-up scheduled for 04/22/2026. Member at elevated risk for acute decompensated heart failure.','01/14/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Medication Adherence — Furosemide refill gap','Pharmacy claims data shows 12-day gap in Furosemide fills between 02/01/2026 and 02/13/2026. Member counseled on importance of diuretic adherence. Transportation barrier identified as contributing factor.','02/15/2026','GuidingCare'),
+        _ar('gc-badge-teal','Active','Care Gap — Lipid panel overdue','No lipid panel on record for the past 14 months. Last result: LDL 118 mg/dL (02/2025). HEDIS measure: Statin Use in Persons with Cardiovascular Disease. Outreach required to schedule lab work.','03/01/2026','GuidingCare')
       ]
     },
     'robert-chen': {
@@ -4346,9 +4451,9 @@ function openScriptResponseModal() {
         _or('Annual Physical — Pre-Visit Outreach','Low','05/01/2026','10:00','03/10/2026 10:45:00')
       ],
       memberAlerts: [
-        _ar('gc-badge-danger','New','Fall Event — Self-reported stair fall','Member self-reported a fall on 03/20/2026 while descending stairs at home. No injury sustained. STEADI fall risk assessment completed 03/21/2026: score 9 (moderate-high). Home safety plan updated. PT referral initiated.','03/21/2026'),
-        _ar('gc-badge-warn','Active','Gap in Care — DEXA follow-up monitoring required','DEXA scan (02/18/2026) shows T-score -2.8 (osteoporosis). Alendronate therapy initiated. Next bone density monitoring scan recommended in 12 months (Q1 2027). Standing order to be placed at annual physical.','03/01/2026'),
-        _ar('gc-badge-teal','Active','Annual Physical Due — May 2026','Annual physical not yet scheduled. Dr. Nguyen\'s office contacted; appointment confirmed for 05/03/2026. Pre-visit care gap review recommended. CBC, CMP, vitamin D level, and lipid panel to be ordered.','03/10/2026')
+        _ar('gc-badge-danger','New','Fall Event — Self-reported stair fall','Member self-reported a fall on 03/20/2026 while descending stairs at home. No injury sustained. STEADI fall risk assessment completed 03/21/2026: score 9 (moderate-high). Home safety plan updated. PT referral initiated.','03/21/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Gap in Care — DEXA follow-up monitoring required','DEXA scan (02/18/2026) shows T-score -2.8 (osteoporosis). Alendronate therapy initiated. Next bone density monitoring scan recommended in 12 months (Q1 2027). Standing order to be placed at annual physical.','03/01/2026','GuidingCare'),
+        _ar('gc-badge-teal','Active','Annual Physical Due — May 2026','Annual physical not yet scheduled. Dr. Nguyen\'s office contacted; appointment confirmed for 05/03/2026. Pre-visit care gap review recommended. CBC, CMP, vitamin D level, and lipid panel to be ordered.','03/10/2026','GuidingCare')
       ]
     },
     'sarah-williams': {
@@ -4378,10 +4483,10 @@ function openScriptResponseModal() {
         _or('Perinatal Behavioral Health Follow-Up','Medium','04/15/2026','10:00','03/01/2026 11:45:00')
       ],
       memberAlerts: [
-        _ar('gc-badge-danger','New','Elevated Fasting Glucose — Action Required','Member\'s self-monitored fasting glucose readings averaging 98 mg/dL (target &lt;95) for past 7 days. OB notified 03/24/2026. Medication initiation under consideration. Non-stress test ordered for 04/03/2026. Close monitoring required.','03/24/2026'),
-        _ar('gc-badge-danger','Active','Perinatal Anxiety — Elevated EPDS Score','Edinburgh Postnatal Depression Scale score of 12 on 03/01/2026 (threshold 10). Referral to perinatal behavioral health submitted. Member on waitlist. Care manager to follow up weekly until specialist appointment confirmed.','03/01/2026'),
-        _ar('gc-badge-warn','Active','Gestational Diabetes — Postprandial Target Miss','1-hour postprandial glucose readings averaging 148 mg/dL over past 2 weeks (target &lt;140). Dietary counseling completed 03/12/2026. If readings do not improve by 04/03/2026, Glyburide will be initiated per OB order.','03/12/2026'),
-        _ar('gc-badge-teal','Active','Upcoming Delivery — Care Transition Planning','Member approaching 32 weeks gestation. Postpartum care management transition planning initiated. Newborn pediatrician confirmed (Dr. Rachel Kim). Postpartum depression screening protocol to be activated within 2 weeks of delivery.','03/20/2026')
+        _ar('gc-badge-danger','New','Elevated Fasting Glucose — Action Required','Member\'s self-monitored fasting glucose readings averaging 98 mg/dL (target &lt;95) for past 7 days. OB notified 03/24/2026. Medication initiation under consideration. Non-stress test ordered for 04/03/2026. Close monitoring required.','03/24/2026','GuidingCare'),
+        _ar('gc-badge-danger','Active','Perinatal Anxiety — Elevated EPDS Score','Edinburgh Postnatal Depression Scale score of 12 on 03/01/2026 (threshold 10). Referral to perinatal behavioral health submitted. Member on waitlist. Care manager to follow up weekly until specialist appointment confirmed.','03/01/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Gestational Diabetes — Postprandial Target Miss','1-hour postprandial glucose readings averaging 148 mg/dL over past 2 weeks (target &lt;140). Dietary counseling completed 03/12/2026. If readings do not improve by 04/03/2026, Glyburide will be initiated per OB order.','03/12/2026','GuidingCare'),
+        _ar('gc-badge-teal','Active','Upcoming Delivery — Care Transition Planning','Member approaching 32 weeks gestation. Postpartum care management transition planning initiated. Newborn pediatrician confirmed (Dr. Rachel Kim). Postpartum depression screening protocol to be activated within 2 weeks of delivery.','03/20/2026','GuidingCare')
       ]
     },
     'james-oconnor': {
@@ -4412,10 +4517,10 @@ function openScriptResponseModal() {
         _or('VA Benefits Advocacy Follow-Up','Medium','04/20/2026','11:00','01/28/2026 02:45:00')
       ],
       memberAlerts: [
-        _ar('gc-badge-danger','New','Behavioral Health Hospitalization — Transition of Care','Member admitted 02/15/2026 for manic episode; discharged 02/22/2026. LACE score: 14 (very high readmission risk). Transition of care protocol activated. 48-hour follow-up completed 02/24/2026. 30-day follow-up required by 03/24/2026.','02/22/2026'),
-        _ar('gc-badge-danger','Active','COPD Exacerbation — High Readmission Risk','Member experienced moderate COPD exacerbation 02/10/2026. FEV1 48% predicted (GOLD Stage III). Two exacerbations in past 12 months — meets criteria for high-risk COPD management. Pulmonology referral active.','02/11/2026'),
-        _ar('gc-badge-warn','Active','Medication Monitoring — Lithium Level Due','Lithium 900mg/day initiated 02/22/2026. Serum lithium monitoring required at 5-7 days and 30 days post-initiation. No lab draw on record post-discharge. Lab order submitted; member advised to complete at LabCorp near assisted living.','03/05/2026'),
-        _ar('gc-badge-warn','Active','Social Risk — Isolation and Veteran Housing Instability','Member lives alone following divorce. Social isolation noted as risk factor for behavioral health decompensation. VA Anchorage social work referral submitted. Alaska Veterans Service Office contacted for benefits review.','01/28/2026')
+        _ar('gc-badge-danger','New','Behavioral Health Hospitalization — Transition of Care','Member admitted 02/15/2026 for manic episode; discharged 02/22/2026. LACE score: 14 (very high readmission risk). Transition of care protocol activated. 48-hour follow-up completed 02/24/2026. 30-day follow-up required by 03/24/2026.','02/22/2026','GuidingCare'),
+        _ar('gc-badge-danger','Active','COPD Exacerbation — High Readmission Risk','Member experienced moderate COPD exacerbation 02/10/2026. FEV1 48% predicted (GOLD Stage III). Two exacerbations in past 12 months — meets criteria for high-risk COPD management. Pulmonology referral active.','02/11/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Medication Monitoring — Lithium Level Due','Lithium 900mg/day initiated 02/22/2026. Serum lithium monitoring required at 5-7 days and 30 days post-initiation. No lab draw on record post-discharge. Lab order submitted; member advised to complete at LabCorp near assisted living.','03/05/2026','GuidingCare'),
+        _ar('gc-badge-warn','Active','Social Risk — Isolation and Veteran Housing Instability','Member lives alone following divorce. Social isolation noted as risk factor for behavioral health decompensation. VA Anchorage social work referral submitted. Alaska Veterans Service Office contacted for benefits review.','01/28/2026','GuidingCare')
       ]
     }
   };
@@ -4509,6 +4614,8 @@ function openScriptResponseModal() {
             kvRow('EPSDT Member:', m.epsdt);
         } else if (h === 'Member Portal') {
           body.innerHTML = ht + kvRow('Member Portal Access:', m.portalAccess);
+        } else if (h === 'Wellframe App') {
+          body.innerHTML = ht + kvRow('Wellframe Access:', m.digital === 'Wellframe' ? 'Active' : 'Not Enrolled');
         } else if (h === 'Languages') {
           body.innerHTML = ht +
             kvRow('Primary Language:', m.lang) +
@@ -4569,11 +4676,6 @@ function openScriptResponseModal() {
       var isEnrolled = m.digital === 'Wellframe';
       if (!isEnrolled) {
         wfPanel.innerHTML =
-          '<div class="wfm-hd">' +
-            '<img src="assets/Wellframe/Logomark.png" alt="Wellframe" class="wfm-hd-logo" style="opacity:0.4;" />' +
-            '<div><div class="wfm-hd-title" style="color:var(--text-secondary);">Wellframe</div><div class="wfm-hd-sub">Digital Health Platform</div></div>' +
-            '<span class="gc-badge" style="margin-left:auto;background:#eee;color:var(--text-secondary);">Not Enrolled</span>' +
-          '</div>' +
           '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;color:var(--text-muted);">' +
             '<span class="material-icons" style="font-size:48px;color:#ccc;display:block;margin-bottom:12px;">smartphone</span>' +
             '<div style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">' + m.name + ' is not enrolled in Wellframe</div>' +
@@ -4687,15 +4789,6 @@ function openScriptResponseModal() {
           '</div>';
 
         wfPanel.innerHTML =
-          '<div class="wfm-hd">' +
-            '<img src="assets/Wellframe/Logomark.png" alt="Wellframe" class="wfm-hd-logo" />' +
-            '<div><div class="wfm-hd-title">Wellframe</div><div class="wfm-hd-sub">Member Mobile View</div></div>' +
-            '<span class="gc-badge gc-badge-teal" style="margin-left:auto;">Enrolled</span>' +
-          '</div>' +
-          '<div class="wfm-switcher">' +
-            '<button class="wfm-sw-btn active" data-screen="checklist" onclick="wfmTab(\'checklist\')"><span class="material-icons">checklist</span>Checklist</button>' +
-            '<button class="wfm-sw-btn" data-screen="profile" onclick="wfmTab(\'profile\')"><span class="material-icons">person_outline</span>Profile</button>' +
-          '</div>' +
           '<div class="wfm-device-wrap">' +
             '<div class="wfm-device">' +
               '<div class="wfm-screen-outer">' +
@@ -4767,6 +4860,8 @@ function openScriptResponseModal() {
     if (menu) menu.classList.remove('open');
     var msw = document.querySelector('.member-switcher-menu.open');
     if (msw) msw.classList.remove('open');
+    var ap = document.getElementById('articleSourcePopover');
+    if (ap) ap.style.display = 'none';
   });
 
   showDashboard();
@@ -6172,6 +6267,309 @@ function openScriptResponseModal() {
   </div>
 </div>
 
+<!-- ══ WELLFRAME ARTICLES MODAL ══ -->
+<div class="gc-modal-overlay" id="wellframeArticlesModal">
+  <div class="gc-modal" style="max-width:480px;border-radius:8px;overflow:hidden;">
+    <!-- Header -->
+    <div style="background:#1378A3;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:16px;font-weight:700;color:#fff;">Available Resources</span>
+      <button onclick="document.getElementById('wellframeArticlesModal').classList.remove('open')" style="background:none;border:none;color:#fff;cursor:pointer;font-size:20px;line-height:1;">&times;</button>
+    </div>
+    <!-- Search -->
+    <div style="padding:10px 14px;border-bottom:1px solid #e0e0e0;background:#fff;">
+      <div style="display:flex;align-items:center;border:1px solid #ccc;border-radius:6px;padding:6px 10px;gap:8px;">
+        <input type="text" placeholder='Search topics like "diabetes"' style="border:none;outline:none;flex:1;font-size:13px;font-family:var(--font);" />
+        <span class="material-icons" style="font-size:18px;color:#888;">search</span>
+      </div>
+    </div>
+    <!-- Tabs -->
+    <div style="background:#fff;border-bottom:1px solid #e0e0e0;display:flex;align-items:center;padding:0 14px;">
+      <div style="padding:10px 10px;font-size:10px;font-weight:600;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid transparent;">
+        <span class="material-icons" style="font-size:15px;">search</span>ALL
+      </div>
+      <div style="padding:10px 10px;font-size:10px;font-weight:700;color:#1378A3;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid #1378A3;">
+        <span class="material-icons" style="font-size:15px;color:#1378A3;">article</span>ON-DEMAND ARTICLES
+      </div>
+      <div style="padding:10px 10px;font-size:10px;font-weight:600;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid transparent;">
+        <span class="material-icons" style="font-size:15px;">shield</span>MEMBER BENEFITS
+      </div>
+      <div style="padding:10px 10px;font-size:10px;font-weight:600;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid transparent;">
+        <span class="material-icons" style="font-size:15px;">favorite</span>CARE PROGRAMS
+      </div>
+      <span class="material-icons" style="font-size:17px;color:#888;margin-left:auto;cursor:pointer;">help_outline</span>
+    </div>
+    <!-- Filters -->
+    <div style="background:#f5f5f5;padding:7px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #e0e0e0;font-size:11px;">
+      <span style="display:flex;align-items:center;gap:3px;cursor:pointer;font-weight:600;color:#333;">TARGET POPULATION <span class="material-icons" style="font-size:13px;">arrow_drop_down</span></span>
+      <span style="display:flex;align-items:center;gap:3px;cursor:pointer;font-weight:600;color:#333;">LANGUAGE <span class="material-icons" style="font-size:13px;">arrow_drop_down</span></span>
+    </div>
+    <!-- Article list -->
+    <div style="overflow-y:auto;max-height:380px;background:#f5f5f5;padding:8px 14px;display:flex;flex-direction:column;gap:8px;">
+      <!-- Article row helper structure repeated -->
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+        <span class="material-icons" style="font-size:22px;color:#555;flex-shrink:0;margin-top:2px;">article</span>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+            <span style="font-size:13px;font-weight:600;color:#222;">Addressing Sleep Problems</span>
+            <a href="#" style="font-size:11px;font-weight:700;color:#1378A3;text-decoration:none;">VIEW ARTICLE</a>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">lifestyle</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">sleep</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">work</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">wellness</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">adult</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;cursor:pointer;">
+          <span class="material-icons" style="font-size:20px;color:#1378A3;">chat</span>
+          <span style="font-size:10px;font-weight:700;color:#1378A3;text-align:center;line-height:1.2;">ADD TO<br>CHAT</span>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+        <span class="material-icons" style="font-size:22px;color:#555;flex-shrink:0;margin-top:2px;">article</span>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+            <span style="font-size:13px;font-weight:600;color:#222;">Addressing Sleep Problems (Spanish)</span>
+            <a href="#" style="font-size:11px;font-weight:700;color:#1378A3;text-decoration:none;">VIEW ARTICLE</a>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">lifestyle</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">sleep</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">work</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">wellness</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">adult</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;cursor:pointer;">
+          <span class="material-icons" style="font-size:20px;color:#1378A3;">chat</span>
+          <span style="font-size:10px;font-weight:700;color:#1378A3;text-align:center;line-height:1.2;">ADD TO<br>CHAT</span>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+        <span class="material-icons" style="font-size:22px;color:#555;flex-shrink:0;margin-top:2px;">article</span>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+            <span style="font-size:13px;font-weight:600;color:#222;">Addressing Sleep Problems (Haitian Creole)</span>
+            <a href="#" style="font-size:11px;font-weight:700;color:#1378A3;text-decoration:none;">VIEW ARTICLE</a>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">lifestyle</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">sleep</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">work</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">wellness</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">adult</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;cursor:pointer;">
+          <span class="material-icons" style="font-size:20px;color:#1378A3;">chat</span>
+          <span style="font-size:10px;font-weight:700;color:#1378A3;text-align:center;line-height:1.2;">ADD TO<br>CHAT</span>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+        <span class="material-icons" style="font-size:22px;color:#555;flex-shrink:0;margin-top:2px;">article</span>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+            <span style="font-size:13px;font-weight:600;color:#222;">Aging's Effect on Sleep</span>
+            <a href="#" style="font-size:11px;font-weight:700;color:#1378A3;text-decoration:none;">VIEW ARTICLE</a>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">lifestyle</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">aging</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">sleep</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">wellness</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">adult</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;cursor:pointer;">
+          <span class="material-icons" style="font-size:20px;color:#1378A3;">chat</span>
+          <span style="font-size:10px;font-weight:700;color:#1378A3;text-align:center;line-height:1.2;">ADD TO<br>CHAT</span>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+        <span class="material-icons" style="font-size:22px;color:#555;flex-shrink:0;margin-top:2px;">article</span>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+            <span style="font-size:13px;font-weight:600;color:#222;">Aging's Effect on Sleep (Spanish)</span>
+            <a href="#" style="font-size:11px;font-weight:700;color:#1378A3;text-decoration:none;">VIEW ARTICLE</a>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">lifestyle</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">aging</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">sleep</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">wellness</span>
+            <span style="border:1px solid #ccc;border-radius:4px;padding:1px 7px;font-size:10px;color:#555;">adult</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;cursor:pointer;">
+          <span class="material-icons" style="font-size:20px;color:#1378A3;">chat</span>
+          <span style="font-size:10px;font-weight:700;color:#1378A3;text-align:center;line-height:1.2;">ADD TO<br>CHAT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADD DIGITAL PROGRAM: Browse Modal ══ -->
+<div class="gc-modal-overlay" id="addDigitalProgramModal">
+  <div class="gc-modal" style="max-width:520px;border-radius:8px;overflow:hidden;">
+    <div style="background:#1378A3;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:16px;font-weight:700;color:#fff;">Available Resources</span>
+      <button onclick="document.getElementById('addDigitalProgramModal').classList.remove('open')" style="background:none;border:none;color:#fff;cursor:pointer;font-size:20px;line-height:1;">&times;</button>
+    </div>
+    <div style="padding:12px 16px;border-bottom:1px solid #e0e0e0;background:#fff;">
+      <div style="display:flex;align-items:center;border:1px solid #ccc;border-radius:6px;padding:6px 10px;gap:8px;">
+        <input type="text" placeholder='Search topics like "diabetes"' style="border:none;outline:none;flex:1;font-size:13px;font-family:var(--font);" />
+        <span class="material-icons" style="font-size:18px;color:#888;">search</span>
+      </div>
+    </div>
+    <div style="background:#fff;border-bottom:1px solid #e0e0e0;display:flex;align-items:center;gap:0;padding:0 16px;">
+      <div style="padding:10px 12px;font-size:11px;font-weight:600;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid transparent;">
+        <span class="material-icons" style="font-size:16px;">search</span>ALL
+      </div>
+      <div style="padding:10px 12px;font-size:11px;font-weight:600;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid transparent;">
+        <span class="material-icons" style="font-size:16px;">article</span>ON-DEMAND ARTICLES
+      </div>
+      <div style="padding:10px 12px;font-size:11px;font-weight:600;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid transparent;">
+        <span class="material-icons" style="font-size:16px;">shield</span>MEMBER BENEFITS
+      </div>
+      <div style="padding:10px 12px;font-size:11px;font-weight:700;color:#1378A3;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-bottom:2px solid #1378A3;">
+        <span class="material-icons" style="font-size:16px;color:#1378A3;">favorite</span>CARE PROGRAMS
+      </div>
+      <span class="material-icons" style="font-size:18px;color:#888;margin-left:auto;cursor:pointer;">help_outline</span>
+    </div>
+    <div style="background:#f5f5f5;padding:8px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #e0e0e0;font-size:11px;">
+      <span style="display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:600;color:#333;">TARGET POPULATION <span class="material-icons" style="font-size:14px;">arrow_drop_down</span></span>
+      <span style="display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:600;color:#333;">LANGUAGE <span class="material-icons" style="font-size:14px;">arrow_drop_down</span></span>
+      <span style="margin-left:auto;font-size:11px;font-weight:700;color:#555;cursor:pointer;">EXPAND ALL</span>
+    </div>
+    <div style="overflow-y:auto;max-height:340px;background:#f5f5f5;padding:16px;display:flex;flex-direction:column;gap:10px;">
+      <div style="font-size:12px;font-weight:700;color:#333;letter-spacing:0.4px;margin-bottom:4px;">BROWSE CARE PROGRAM TOPICS</div>
+      <!-- Digital Assessments — expanded -->
+      <div style="background:#f3e8f7;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="document.getElementById('digitalAssessmentsItems').style.display=document.getElementById('digitalAssessmentsItems').style.display==='none'?'block':'none'">
+        <span class="material-icons" style="font-size:26px;color:#9c27b0;">assessment</span>
+        <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Digital Assessments (2)</span>
+        <span class="material-icons" style="font-size:18px;color:#555;">expand_less</span>
+      </div>
+      <div id="digitalAssessmentsItems" style="display:block;background:#fff;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span class="material-icons" style="font-size:28px;color:#222;flex-shrink:0;margin-top:2px;">monitor_heart</span>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:700;color:#222;margin-bottom:4px;">Digital Assessment: Intake Assessment (English)</div>
+            <div style="font-size:12px;color:#555;margin-bottom:8px;line-height:1.5;">A 3 day intake assessment program that consists of 53 survey questions designed to help teams create personalized member care plans. Created September 2020. Version A. BCBSM and BCBST specific.</div>
+            <div style="display:flex;gap:6px;">
+              <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">Adult</span>
+              <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">English</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;">
+            <span class="material-icons" style="font-size:28px;color:#1378A3;border:2px solid #1378A3;border-radius:6px;padding:2px;cursor:pointer;">create_new_folder</span>
+            <span onclick="openViewProgramModal()" style="font-size:11px;font-weight:700;color:#1378A3;cursor:pointer;text-align:center;line-height:1.2;">VIEW<br>PROGRAM</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span class="material-icons" style="font-size:28px;color:#222;flex-shrink:0;margin-top:2px;">monitor_heart</span>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:700;color:#222;margin-bottom:4px;">Week 34 Surveys (English)</div>
+            <div style="font-size:12px;color:#555;margin-bottom:8px;line-height:1.5;">Surveys for week 34 of the prenatal program.</div>
+            <div style="display:flex;gap:6px;">
+              <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">Adult</span>
+              <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">English</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;">
+            <span class="material-icons" style="font-size:28px;color:#1378A3;border:2px solid #1378A3;border-radius:6px;padding:2px;cursor:pointer;">create_new_folder</span>
+            <span onclick="openViewProgramModal()" style="font-size:11px;font-weight:700;color:#1378A3;cursor:pointer;text-align:center;line-height:1.2;">VIEW<br>PROGRAM</span>
+          </div>
+        </div>
+      </div>
+      <!-- Care Gap Programs -->
+      <div style="background:#e8f5e9;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <span class="material-icons" style="font-size:26px;color:#388e3c;">event_note</span>
+        <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Care Gap Programs (1)</span>
+        <span class="material-icons" style="font-size:18px;color:#555;">expand_more</span>
+      </div>
+      <!-- Monitoring Programs -->
+      <div style="background:#e3f2fd;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <span class="material-icons" style="font-size:26px;color:#1565c0;">show_chart</span>
+        <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Monitoring Programs (23)</span>
+        <span class="material-icons" style="font-size:18px;color:#555;">expand_more</span>
+      </div>
+      <!-- Maternal Health -->
+      <div style="background:#fce4ec;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <span class="material-icons" style="font-size:26px;color:#c2185b;">pregnant_woman</span>
+        <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Maternal Health (62)</span>
+        <span class="material-icons" style="font-size:18px;color:#555;">expand_more</span>
+      </div>
+      <!-- Pain Management -->
+      <div style="background:#fff8e1;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <span class="material-icons" style="font-size:26px;color:#f57f17;">self_improvement</span>
+        <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Pain Management (6)</span>
+        <span class="material-icons" style="font-size:18px;color:#555;">expand_more</span>
+      </div>
+      <!-- Mental and Behavioral Health -->
+      <div style="background:#ede7f6;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <span class="material-icons" style="font-size:26px;color:#512da8;">psychology</span>
+        <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Mental and Behavioral Health (9)</span>
+        <span class="material-icons" style="font-size:18px;color:#555;">expand_more</span>
+      </div>
+      <!-- Wellness -->
+      <div style="background:#e0f7fa;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <span class="material-icons" style="font-size:26px;color:#00838f;">spa</span>
+        <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Wellness and Social Support (7)</span>
+        <span class="material-icons" style="font-size:18px;color:#555;">expand_more</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VIEW PROGRAM Modal ══ -->
+<div class="gc-modal-overlay" id="viewProgramModal">
+  <div class="gc-modal" style="max-width:460px;border-radius:8px;overflow:hidden;">
+    <div style="background:#1378A3;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:15px;font-weight:700;color:#fff;">Digital Assessment: Intake Assessment (English)</span>
+      <button onclick="document.getElementById('viewProgramModal').classList.remove('open')" style="background:none;border:none;color:#fff;cursor:pointer;font-size:20px;line-height:1;">&times;</button>
+    </div>
+    <div style="padding:16px 18px;overflow-y:auto;max-height:calc(100vh - 180px);">
+      <div style="font-size:13px;margin-bottom:10px;"><strong>Member title in app:</strong> Digital Assessment: Intake Assessment (English)</div>
+      <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:12px;">A 3 day intake assessment program that consists of 53 survey questions designed to help teams create personalized member care plans. Created September 2020. Version A. BCBSM and BCBST specific.</div>
+      <div style="font-size:12px;color:#444;margin-bottom:12px;">Program Contains: Survey</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;color:#222;">
+        <span class="material-icons" style="font-size:18px;">timer</span> 3 days
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:13px;color:#222;">
+        <span class="material-icons" style="font-size:18px;">format_list_bulleted</span> 1 task per day
+      </div>
+      <div style="margin-bottom:16px;">
+        <span style="border:1px solid #ccc;border-radius:4px;padding:3px 10px;font-size:11px;color:#555;">adults</span>
+      </div>
+      <div style="background:#f5f5f5;border-radius:6px;padding:14px 16px;">
+        <div style="font-size:13px;font-weight:700;color:#222;margin-bottom:12px;">Add program</div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;margin-bottom:10px;">
+          <input type="radio" name="addProgramOption" checked style="accent-color:#1378A3;width:16px;height:16px;"> Start tomorrow or on a specific date
+        </label>
+        <div style="display:flex;align-items:center;border:1px solid #ccc;border-radius:4px;background:#fff;padding:6px 10px;margin-bottom:12px;margin-left:24px;">
+          <input type="text" value="04/23/2026" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;" />
+          <span class="material-icons" style="font-size:18px;color:#555;">calendar_today</span>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;">
+          <input type="radio" name="addProgramOption" style="accent-color:#1378A3;width:16px;height:16px;"> Add a follow-up to consider this program later
+        </label>
+      </div>
+    </div>
+    <div style="padding:14px 18px;border-top:1px solid #ddd;display:flex;justify-content:flex-end;gap:12px;background:#fff;">
+      <button onclick="document.getElementById('viewProgramModal').classList.remove('open')" style="background:none;border:none;font-size:12px;font-weight:700;color:#555;cursor:pointer;letter-spacing:0.5px;">CANCEL</button>
+      <button style="background:#1378A3;color:#fff;border:none;border-radius:4px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px;">ADD PROGRAM</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openViewProgramModal() {
+  document.getElementById('addDigitalProgramModal').classList.remove('open');
+  document.getElementById('viewProgramModal').classList.add('open');
+}
+</script>
 
 </body>
 </html>
