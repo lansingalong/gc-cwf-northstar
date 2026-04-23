@@ -360,25 +360,40 @@
   #panel-wellframe.active { display: flex; }
   #wellframe-panel-content { padding: 0 !important; background: #EBEBEB !important; display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
-  /* Split layout: phone left, staff tabs right */
+  /* Split layout: member left, staff right */
   .wf-split { display: flex; flex: 1; min-height: 0; overflow: hidden; }
-  .wf-split-phone { width: 380px; min-width: 380px; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; transition: width 0.25s ease, min-width 0.25s ease; }
+
+  /* ── Left pane: Member App & Activity ── */
+  .wf-split-phone { width: 420px; min-width: 420px; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; transition: width 0.25s ease, min-width 0.25s ease; }
   .wf-split-phone.collapsed { width: 28px; min-width: 28px; overflow: visible; }
   .wf-split-phone.collapsed .wf-phone-toggle-bar { padding: 0; justify-content: center; width: 28px; overflow: hidden; }
   .wf-split-phone.collapsed .wf-phone-toggle-label { display: none; }
   .wf-split-phone.collapsed .wf-phone-toggle-icon { transform: rotate(180deg); }
-  .wf-split-phone.collapsed .wfm-device-wrap,
+  .wf-split-phone.collapsed .wf-member-pane-body,
   .wf-split-phone.collapsed .wf-phone-desc { display: none; }
   .wf-phone-toggle-bar { padding: 0 12px; background: #fff; border: none; border-bottom: 1px solid var(--border-light); font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; flex-shrink: 0; height: 34px; width: 100%; }
   .wf-phone-toggle-bar:hover { background: #F2F8FA; }
   .wf-phone-toggle-icon { display: flex; align-items: center; color: var(--text-muted); flex-shrink: 0; }
   .wf-phone-show-btn { display: none; align-items: center; gap: 4px; padding: 4px 10px; font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; border: 1px solid var(--teal); border-radius: 4px; background: #fff; white-space: nowrap; flex-shrink: 0; }
   .wf-phone-show-btn:hover { background: #F2F8FA; }
+
+  /* Member pane inner layout: phone top, member tabs below */
+  .wf-member-pane-body { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
+  .wf-member-tabs { display: flex; border-bottom: 2px solid var(--border-light); background: var(--white); flex-shrink: 0; }
+  .wf-member-tab { padding: 8px 14px; font-size: 11px; font-weight: 600; color: var(--text-muted); cursor: pointer; white-space: nowrap; flex: 1; text-align: center; }
+  .wf-member-tab:hover { color: #0080A3; }
+  .wf-member-tab.active { color: #0080A3; box-shadow: inset 0 -3px 0 #0080A3; }
+  .wf-member-panel { display: none; flex: 1; overflow-y: auto; }
+  .wf-member-panel.active { display: block; }
+  /* The phone mockup lives inside the member-app panel */
+  #wf-member-panel-app { padding: 0; }
+
+  /* ── Right pane: Care Manager Tools ── */
+  .wf-split-staff { flex: 1; display: flex; flex-direction: column; min-width: 0; background: #F2F8FA; }
   .wf-dmd-header { padding: 0 12px; background: #fff; border-bottom: 1px solid var(--border-light); font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; height: 34px; }
   .wf-dmd-link { font-size: 11px; font-weight: 600; color: #0080A3; text-decoration: none; text-transform: none; letter-spacing: 0; white-space: nowrap; cursor: pointer; background: none; border: none; padding: 0; font-family: var(--font); }
   .wf-dmd-link:hover { text-decoration: underline; }
   .wf-dmd-links { display: flex; align-items: center; gap: 16px; margin-left: auto; }
-  .wf-split-staff { flex: 1; display: flex; flex-direction: column; min-width: 0; background: #F2F8FA; }
 
   /* Staff tab bar */
   .wf-staff-tabs { display: flex; border-bottom: 2px solid var(--border-light); background: var(--white); flex-shrink: 0; overflow-x: auto; }
@@ -4207,7 +4222,18 @@ function openScriptResponseModal() {
     if (col) col.classList.toggle('collapsed');
   };
 
-  // Wellframe staff tab switcher
+  // Wellframe member pane tab switcher (left side)
+  window.wfMemberTab = function(name) {
+    document.querySelectorAll('.wf-member-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.wf-member-panel').forEach(function(p) { p.classList.remove('active'); });
+    var panel = document.getElementById('wf-member-panel-' + name);
+    if (panel) panel.classList.add('active');
+    document.querySelectorAll('.wf-member-tab').forEach(function(t) {
+      if (t.getAttribute('onclick') && t.getAttribute('onclick').indexOf("'" + name + "'") > -1) t.classList.add('active');
+    });
+  };
+
+  // Wellframe staff tab switcher (right side)
   window.wfStaffTab = function(name) {
     document.querySelectorAll('.wf-staff-tab').forEach(function(t) {
       t.classList.remove('active');
@@ -5334,114 +5360,83 @@ function openScriptResponseModal() {
           '</div>' +
           '<div class="wf-split">' +
 
-            // Left: phone mockup
+            // ── LEFT PANE: Member App + read-only member data ──
             '<div class="wf-split-phone" id="wf-split-phone">' +
-              '<button class="wf-phone-toggle-bar" onclick="wfTogglePhone()" aria-label="Toggle member view panel">' +
-                '<span class="wf-phone-toggle-label">Member View</span>' +
+              '<button class="wf-phone-toggle-bar" onclick="wfTogglePhone()" aria-label="Toggle member pane">' +
+                '<span class="wf-phone-toggle-label">Member App &amp; Activity</span>' +
                 '<span class="wf-phone-toggle-icon" aria-hidden="true"><span class="material-icons" style="font-size:16px;">chevron_left</span></span>' +
               '</button>' +
-                            '<div class="wfm-device-wrap">' +
-                '<div class="wfm-device">' +
-                  '<div class="wfm-screen-outer">' +
-                    '<div class="wfm-status" aria-hidden="true"><span class="wfm-time">9:41</span><div class="wfm-status-icons"><span class="material-icons">signal_cellular_alt</span><span class="material-icons">wifi</span><span class="material-icons">battery_full</span></div></div>' +
-                    '<div class="wfm-screen-scroll">' +
-                      '<div id="wfm-screen-checklist" class="wfm-screen wfm-active">' + checklistScreen + '</div>' +
-                      '<div id="wfm-screen-profile"   class="wfm-screen">' + profileScreen + '</div>' +
-                      '<div id="wfm-screen-progress"  class="wfm-screen">' + progressScreen + '</div>' +
-                      '<div id="wfm-screen-chat"      class="wfm-screen"><div style="padding:24px 16px;text-align:center;color:#78868E;font-size:13px;font-family:system-ui,sans-serif;">Chat screen</div></div>' +
-                      '<div id="wfm-screen-resources" class="wfm-screen">' +
-                        '<div style="padding:16px;font-family:system-ui,-apple-system,sans-serif;">' +
-                          // Page title
-                          '<div style="font-size:22px;font-weight:800;color:#1A2327;margin-bottom:16px;">Resources</div>' +
+              '<div class="wf-member-pane-body">' +
+                // Member-pane tab bar
+                '<div class="wf-member-tabs" role="tablist" aria-label="Member pane views">' +
+                  '<div class="wf-member-tab active" onclick="wfMemberTab(\'app\')">Member App</div>' +
+                  '<div class="wf-member-tab" onclick="wfMemberTab(\'checklist\')">Member Checklist</div>' +
+                  '<div class="wf-member-tab" onclick="wfMemberTab(\'activity\')">Member Activity</div>' +
+                '</div>' +
 
-                          // Benefits section
-                          '<div style="font-size:14px;font-weight:700;color:#1A2327;margin-bottom:2px;">Benefits</div>' +
-                          '<div style="font-size:11px;color:#78868E;margin-bottom:10px;">Explore your eligible benefits</div>' +
-                          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">' +
-                            // Benefit tiles
-                            '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;">' +
-                              '<div style="width:36px;height:36px;background:#FFF3E0;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;">' +
-                                '<span class="material-icons" style="font-size:20px;color:#E07820;">laptop</span>' +
+                // Panel: phone mockup
+                '<div id="wf-member-panel-app" class="wf-member-panel active">' +
+                  '<div class="wfm-device-wrap">' +
+                    '<div class="wfm-device">' +
+                      '<div class="wfm-screen-outer">' +
+                        '<div class="wfm-status" aria-hidden="true"><span class="wfm-time">9:41</span><div class="wfm-status-icons"><span class="material-icons">signal_cellular_alt</span><span class="material-icons">wifi</span><span class="material-icons">battery_full</span></div></div>' +
+                        '<div class="wfm-screen-scroll">' +
+                          '<div id="wfm-screen-checklist" class="wfm-screen wfm-active">' + checklistScreen + '</div>' +
+                          '<div id="wfm-screen-profile"   class="wfm-screen">' + profileScreen + '</div>' +
+                          '<div id="wfm-screen-progress"  class="wfm-screen">' + progressScreen + '</div>' +
+                          '<div id="wfm-screen-chat"      class="wfm-screen"><div style="padding:24px 16px;text-align:center;color:#78868E;font-size:13px;font-family:system-ui,sans-serif;">Chat screen</div></div>' +
+                          '<div id="wfm-screen-resources" class="wfm-screen">' +
+                            '<div style="padding:16px;font-family:system-ui,-apple-system,sans-serif;">' +
+                              '<div style="font-size:22px;font-weight:800;color:#1A2327;margin-bottom:16px;">Resources</div>' +
+                              '<div style="font-size:14px;font-weight:700;color:#1A2327;margin-bottom:2px;">Benefits</div>' +
+                              '<div style="font-size:11px;color:#78868E;margin-bottom:10px;">Explore your eligible benefits</div>' +
+                              '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">' +
+                                '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;"><div style="width:36px;height:36px;background:#FFF3E0;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;"><span class="material-icons" style="font-size:20px;color:#E07820;">laptop</span></div><div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Your online member account</div></div>' +
+                                '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;"><div style="width:36px;height:36px;background:#E3F6FC;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;"><span class="material-icons" style="font-size:20px;color:#0080A3;">local_hospital</span></div><div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Find in-network care</div></div>' +
+                                '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;"><div style="width:36px;height:36px;background:#E8F5E9;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;"><span class="material-icons" style="font-size:20px;color:#2E7D32;">badge</span></div><div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">View or request member ID card</div></div>' +
+                                '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;"><div style="width:36px;height:36px;background:#FFF8E1;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;"><span class="material-icons" style="font-size:20px;color:#F9A825;">assignment</span></div><div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Claims</div></div>' +
                               '</div>' +
-                              '<div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Your online member account</div>' +
-                            '</div>' +
-                            '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;">' +
-                              '<div style="width:36px;height:36px;background:#E3F6FC;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;">' +
-                                '<span class="material-icons" style="font-size:20px;color:#0080A3;">local_hospital</span>' +
+                              '<div style="font-size:12px;font-weight:600;color:#0080A3;margin-bottom:16px;display:flex;align-items:center;gap:3px;">View all benefits <span class="material-icons" style="font-size:13px;">chevron_right</span></div>' +
+                              '<div style="font-size:14px;font-weight:700;color:#1A2327;margin-bottom:2px;">Library</div>' +
+                              '<div style="font-size:11px;color:#78868E;margin-bottom:10px;">Explore articles recommended for you</div>' +
+                              '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">' +
+                                '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;"><div style="height:64px;background:linear-gradient(135deg,#2E7D32,#66BB6A);display:flex;align-items:center;justify-content:center;"><span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">spa</span></div><div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Behavioral Health &amp; Wellness Articles</div></div>' +
+                                '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;"><div style="height:64px;background:linear-gradient(135deg,#6A1B9A,#AB47BC);display:flex;align-items:center;justify-content:center;"><span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">directions_run</span></div><div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Making Physical Activity Work For You</div></div>' +
+                                '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;"><div style="height:64px;background:linear-gradient(135deg,#BF360C,#FF7043);display:flex;align-items:center;justify-content:center;"><span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">local_pharmacy</span></div><div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Medication Articles</div></div>' +
+                                '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;"><div style="height:64px;background:linear-gradient(135deg,#00695C,#26A69A);display:flex;align-items:center;justify-content:center;"><span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">favorite</span></div><div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Emotional Health Articles</div></div>' +
                               '</div>' +
-                              '<div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Find in-network care</div>' +
-                            '</div>' +
-                            '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;">' +
-                              '<div style="width:36px;height:36px;background:#E8F5E9;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;">' +
-                                '<span class="material-icons" style="font-size:20px;color:#2E7D32;">badge</span>' +
-                              '</div>' +
-                              '<div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">View or request member ID card</div>' +
-                            '</div>' +
-                            '<div style="border:1px solid #E8EEF2;border-radius:8px;padding:10px;background:#fff;">' +
-                              '<div style="width:36px;height:36px;background:#FFF8E1;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;">' +
-                                '<span class="material-icons" style="font-size:20px;color:#F9A825;">assignment</span>' +
-                              '</div>' +
-                              '<div style="font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Claims</div>' +
+                              '<div style="font-size:12px;font-weight:600;color:#0080A3;display:flex;align-items:center;gap:3px;">View all articles <span class="material-icons" style="font-size:13px;">chevron_right</span></div>' +
                             '</div>' +
                           '</div>' +
-                          '<div style="font-size:12px;font-weight:600;color:#0080A3;margin-bottom:16px;display:flex;align-items:center;gap:3px;">View all benefits <span class="material-icons" style="font-size:13px;">chevron_right</span></div>' +
-
-                          // Library section
-                          '<div style="font-size:14px;font-weight:700;color:#1A2327;margin-bottom:2px;">Library</div>' +
-                          '<div style="font-size:11px;color:#78868E;margin-bottom:10px;">Explore articles recommended for you</div>' +
-                          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">' +
-                            '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;">' +
-                              '<div style="height:64px;background:linear-gradient(135deg,#2E7D32,#66BB6A);display:flex;align-items:center;justify-content:center;">' +
-                                '<span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">spa</span>' +
-                              '</div>' +
-                              '<div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Behavioral Health &amp; Wellness Articles</div>' +
-                            '</div>' +
-                            '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;">' +
-                              '<div style="height:64px;background:linear-gradient(135deg,#6A1B9A,#AB47BC);display:flex;align-items:center;justify-content:center;">' +
-                                '<span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">directions_run</span>' +
-                              '</div>' +
-                              '<div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Making Physical Activity Work For You</div>' +
-                            '</div>' +
-                            '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;">' +
-                              '<div style="height:64px;background:linear-gradient(135deg,#BF360C,#FF7043);display:flex;align-items:center;justify-content:center;">' +
-                                '<span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">local_pharmacy</span>' +
-                              '</div>' +
-                              '<div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Medication Articles</div>' +
-                            '</div>' +
-                            '<div style="border-radius:8px;overflow:hidden;border:1px solid #E8EEF2;">' +
-                              '<div style="height:64px;background:linear-gradient(135deg,#00695C,#26A69A);display:flex;align-items:center;justify-content:center;">' +
-                                '<span class="material-icons" style="font-size:28px;color:rgba(255,255,255,0.6);">favorite</span>' +
-                              '</div>' +
-                              '<div style="padding:8px;font-size:11px;font-weight:600;color:#1A2327;line-height:1.3;">Emotional Health Articles</div>' +
-                            '</div>' +
-                          '</div>' +
-                          '<div style="font-size:12px;font-weight:600;color:#0080A3;display:flex;align-items:center;gap:3px;">View all articles <span class="material-icons" style="font-size:13px;">chevron_right</span></div>' +
                         '</div>' +
+                        tabBar +
                       '</div>' +
                     '</div>' +
-                    tabBar +
                   '</div>' +
                 '</div>' +
+
+                // Panel: member checklist (read-only staff view)
+                '<div id="wf-member-panel-checklist" class="wf-member-panel">' + staffChecklistHtml + '</div>' +
+
+                // Panel: member activity (biometrics + task completion)
+                '<div id="wf-member-panel-activity" class="wf-member-panel">' + staffActivityHtml + '</div>' +
+
               '</div>' +
             '</div>' +
 
-            // Right: staff tabs
+            // ── RIGHT PANE: Care Manager Tools ──
             '<div class="wf-split-staff">' +
-              '<div class="wf-dmd-header"><span>Digital Management Dashboard</span><div class="wf-dmd-links"><button class="wf-dmd-link" onclick="document.getElementById(\'addDigitalProgramModal\').classList.add(\'open\')">Resources</button><button class="wf-dmd-link">Add Follow-up</button><button class="wf-dmd-link" onclick="document.getElementById(\'wellframeAppDetailsModal\').classList.add(\'open\')">Wellframe App Details</button></div><button id="wf-phone-show-btn" class="wf-phone-show-btn" onclick="wfTogglePhone()"><span class="material-icons" style="font-size:13px;" aria-hidden="true">smartphone</span>Member View</button></div>' +
-              '<div class="wf-staff-tabs" role="tablist" aria-label="Wellframe staff views">' +
-                '<div class="wf-staff-tab active" role="tab" tabindex="0" aria-selected="true"  aria-controls="wf-staff-panel-tasks"            onclick="wfStaffTab(\'tasks\')">Tasks</div>' +
-                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" aria-controls="wf-staff-panel-member-activity"  onclick="wfStaffTab(\'member-activity\')">Member Activity</div>' +
-                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" aria-controls="wf-staff-panel-member-checklist" onclick="wfStaffTab(\'member-checklist\')">Member Checklist</div>' +
-                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" aria-controls="wf-staff-panel-meds-reminders"   onclick="wfStaffTab(\'meds-reminders\')">Reminders</div>' +
-                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" aria-controls="wf-staff-panel-internal-notes"   onclick="wfStaffTab(\'internal-notes\')">Internal Notes</div>' +
-                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" aria-controls="wf-staff-panel-instructions"     onclick="wfStaffTab(\'instructions\')">Instructions</div>' +
+              '<div class="wf-dmd-header"><span>Care Manager Tools</span><div class="wf-dmd-links"><button class="wf-dmd-link" onclick="document.getElementById(\'addDigitalProgramModal\').classList.add(\'open\')">Resources</button><button class="wf-dmd-link">Add Follow-up</button><button class="wf-dmd-link" onclick="document.getElementById(\'wellframeAppDetailsModal\').classList.add(\'open\')">Wellframe App Details</button></div><button id="wf-phone-show-btn" class="wf-phone-show-btn" onclick="wfTogglePhone()"><span class="material-icons" style="font-size:13px;" aria-hidden="true">smartphone</span>Member App</button></div>' +
+              '<div class="wf-staff-tabs" role="tablist" aria-label="Care manager tools">' +
+                '<div class="wf-staff-tab active" role="tab" tabindex="0"  aria-selected="true"  onclick="wfStaffTab(\'tasks\')">Tasks</div>' +
+                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" onclick="wfStaffTab(\'meds-reminders\')">Reminders</div>' +
+                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" onclick="wfStaffTab(\'internal-notes\')">Internal Notes</div>' +
+                '<div class="wf-staff-tab"        role="tab" tabindex="-1" aria-selected="false" onclick="wfStaffTab(\'instructions\')">Instructions</div>' +
               '</div>' +
-              '<div id="wf-staff-panel-tasks"           class="wf-staff-panel active" role="tabpanel" aria-labelledby="wf-tab-tasks">'            + staffTasksHtml + '</div>' +
-              '<div id="wf-staff-panel-member-activity"  class="wf-staff-panel"        role="tabpanel" aria-labelledby="wf-tab-member-activity">'  + staffActivityHtml + '</div>' +
-              '<div id="wf-staff-panel-member-checklist" class="wf-staff-panel"        role="tabpanel" aria-labelledby="wf-tab-member-checklist">' + staffChecklistHtml + '</div>' +
-              '<div id="wf-staff-panel-meds-reminders"   class="wf-staff-panel"        role="tabpanel" aria-labelledby="wf-tab-meds-reminders">'   + staffMedsHtml + '</div>' +
-              '<div id="wf-staff-panel-internal-notes"   class="wf-staff-panel"        role="tabpanel" aria-labelledby="wf-tab-internal-notes">'   + staffNotesHtml + '</div>' +
-              '<div id="wf-staff-panel-instructions"     class="wf-staff-panel"        role="tabpanel" aria-labelledby="wf-tab-instructions">'     + staffInstructionsHtml + '</div>' +
+              '<div id="wf-staff-panel-tasks"         class="wf-staff-panel active">' + staffTasksHtml + '</div>' +
+              '<div id="wf-staff-panel-meds-reminders" class="wf-staff-panel">'        + staffMedsHtml + '</div>' +
+              '<div id="wf-staff-panel-internal-notes" class="wf-staff-panel">'        + staffNotesHtml + '</div>' +
+              '<div id="wf-staff-panel-instructions"   class="wf-staff-panel">'        + staffInstructionsHtml + '</div>' +
             '</div>' +
 
           '</div>';
