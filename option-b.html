@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concept B — Persistent Split View</title>
+<title>Concept B — Integrated</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
@@ -261,7 +261,7 @@
   .proto-bar { display:flex; align-items:center; gap:10px; background:#1a1a2e; color:#fff; padding:7px 16px; font-size:11px; font-family:'Open Sans',Arial,sans-serif; }
   .proto-bar a { color:#7EC8E3; text-decoration:none; display:flex; align-items:center; gap:4px; font-weight:600; }
   .proto-bar a:hover { text-decoration:underline; }
-  .proto-bar-label { font-weight:700; background:linear-gradient(90deg,#5B4FCF,#1378A3); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-right:4px; font-size:12px; }
+  .proto-bar-label { font-weight:700; color:#fff; margin-right:4px; font-size:12px; }
   .proto-bar-sep { color:#555; }
   .proto-nav-pills { display:flex; gap:6px; margin-left:auto; }
   .proto-pill { padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; text-decoration:none; border:1px solid #444; color:#bbb; }
@@ -480,14 +480,12 @@
 <body>
 
 <div class="proto-bar">
-  <a href="index.html"><span class="material-icons" style="font-size:14px;">arrow_back</span>All concepts</a>
-  <span class="proto-bar-sep">|</span>
   <span class="proto-bar-label">Concept B</span>
-
   <div class="proto-nav-pills">
-    <a class="proto-pill" href="option-a.html">A &mdash; Hub</a>
-    <span class="proto-pill active">B &mdash; Split View</span>
-    <a class="proto-pill" href="option-c.html">C &mdash; Hub Polished</a>
+    <a class="proto-pill" href="option-a.html">A : Hub + Integrated</a>
+    <span class="proto-pill active">B : Integrated</span>
+    <span id="proto-c-toggle" onclick="var el=document.getElementById('proto-c-link');var shown=el.style.display!=='none';el.style.display=shown?'none':'inline-flex';this.textContent=shown?'›':'‹';" style="cursor:pointer;font-size:14px;color:#fff;opacity:0.4;padding:0 2px;line-height:1;font-weight:300;" title="Show/hide C">›</span>
+    <a id="proto-c-link" class="proto-pill" href="option-c.html" title="C — Old" style="display:none;opacity:0.55;font-size:10px;">C : Old</a>
   </div>
 </div>
 
@@ -1535,6 +1533,7 @@
           <div class="gc-tab" data-htab="health-indicators">Health Indicators</div>
           <div class="gc-tab" data-htab="appointments">Appointments</div>
           <div class="gc-tab" data-htab="member-biometrics">Member Activity</div>
+          <div class="gc-tab" data-htab="reminders">Reminders</div>
         </div>
 
         <!-- Tab: Member Medical Info -->
@@ -2019,6 +2018,54 @@
         <div class="health-tab-panel" id="htab-member-biometrics" style="display:none;">
           <div id="htab-biometrics-content" style="padding:16px;">
             <div style="font-size:12px;color:var(--text-muted);font-style:italic;">Loading biometrics…</div>
+          </div>
+        </div>
+
+        <div class="health-tab-panel" id="htab-reminders" style="display:none;">
+          <div class="gc-table-wrap">
+            <div class="gc-table-toolbar">
+              <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">add</span> Add Reminder</span>
+              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">3 record(s)</span>
+            </div>
+            <table class="gc-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" /></th>
+                  <th>Reminder</th>
+                  <th>Type</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Created By</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#" style="color:var(--teal);">A1C Lab Draw</a></td>
+                  <td>Health</td>
+                  <td>04/15/2026</td>
+                  <td><span class="gc-badge gc-badge-warn">Pending</span></td>
+                  <td>Beatrice Kanya</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#" style="color:var(--teal);">Gabapentin — Evening Dose</a></td>
+                  <td>Medication</td>
+                  <td>Daily</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>Beatrice Kanya</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#" style="color:var(--teal);">Claritin — Morning Dose</a></td>
+                  <td>Medication</td>
+                  <td>Daily</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>Beatrice Kanya</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="gc-table-footer"><span>Showing 1-3 of 3</span></div>
           </div>
         </div>
 
@@ -2750,6 +2797,7 @@
           <div class="gc-tab" data-artab="consent-forms">Consent Forms</div>
           <div class="gc-tab" data-artab="guidelines">Guidelines</div>
           <div class="gc-tab" data-artab="member-alerts">Member Alerts</div>
+          <div class="gc-tab" data-artab="instructions">Instructions</div>
         </div>
 
         <!-- Tab: Notes -->
@@ -3591,6 +3639,67 @@
     </div>
 
 
+        <div class="ar-tab-panel" id="artab-instructions" style="display:none;">
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
+            <span style="font-size:16px;font-weight:700;color:var(--text-primary);">Instructions</span>
+            <span style="font-size:12px;color:var(--text-muted);">Member care instructions and education</span>
+          </div>
+          <div style="height:3px;background:#D94F2C;margin-bottom:12px;"></div>
+          <div class="gc-table-wrap">
+            <div class="gc-table-toolbar">
+              <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">add</span> Add Instruction</span>
+              <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">print</span> Print</span>
+              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">3 record(s)</span>
+            </div>
+            <table class="gc-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" /></th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Sent By</th>
+                  <th>Sent On</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#" style="color:var(--teal);">Diabetes Self-Management Education</a></td>
+                  <td>Chronic Disease</td>
+                  <td>Jennifer Reyes, RN</td>
+                  <td>03/15/2026</td>
+                  <td><span class="gc-badge gc-badge-teal">Sent</span></td>
+                  <td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#" style="color:var(--teal);">Heart-Healthy Diet Guidelines</a></td>
+                  <td>Nutrition</td>
+                  <td>Jennifer Reyes, RN</td>
+                  <td>02/28/2026</td>
+                  <td><span class="gc-badge gc-badge-teal">Sent</span></td>
+                  <td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#" style="color:var(--teal);">Medication Adherence Tips</a></td>
+                  <td>Medication Safety</td>
+                  <td>Beatrice Kanya</td>
+                  <td>01/20/2026</td>
+                  <td><span class="gc-badge gc-badge-neutral">Viewed</span></td>
+                  <td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="gc-table-footer"><span>Showing 1-3 of 3</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- ═══ LEFT PANEL: Packet Log ═══ -->
     <div class="left-panel" id="panel-packet-log">
       <div class="content-body">
@@ -3637,18 +3746,6 @@
   </div>
   </div><!-- /split-gc-side -->
 
-  <!-- ══ PERSISTENT WELLFRAME SPLIT PANEL ══ -->
-  <div class="split-wf-side" id="splitWfSide">
-    <div class="split-wf-toggle-bar" onclick="toggleSplitWf()">
-      <span class="split-wf-toggle-icon"><span class="material-icons" style="font-size:16px;">chevron_right</span></span>
-      <span class="split-wf-toggle-label">Wellframe App View</span>
-    </div>
-    <div class="split-wf-body">
-      <div class="content-body" id="wellframe-panel-content" style="padding:0;background:#EBEBEB;display:flex;flex-direction:column;flex:1;">
-        <!-- populated by populateProfile -->
-      </div>
-    </div>
-  </div><!-- /split-wf-side -->
 
   </div><!-- /split-shell -->
 </div><!-- /app-body -->
