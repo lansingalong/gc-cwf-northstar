@@ -160,14 +160,14 @@
   .gc-pager-btn.active { background: var(--teal); color: white; border-color: var(--teal); }
 
   /* ── Buttons ── */
-  .gc-btn { display: inline-flex; align-items: center; gap: 5px; border-radius: var(--r-sm); font-family: var(--font); font-size: 12px; font-weight: 600; cursor: pointer; padding: 0 12px; height: 28px; border: none; transition: opacity 0.15s; white-space: nowrap; }
+  .gc-btn { display: inline-flex; align-items: center; gap: 5px; border-radius: var(--r-sm); font-family: var(--font); font-size: 12px; font-weight: 600; cursor: pointer; padding: 7px 12px; height: auto; border: none; transition: opacity 0.15s; white-space: nowrap; }
   .gc-btn:hover { opacity: 0.85; }
   .gc-btn-primary { background: var(--teal); color: white; }
   .gc-btn-secondary { background: white; color: var(--teal); border: 1px solid var(--teal); }
   .gc-btn-tertiary { background: white; color: var(--text-secondary); border: 1px solid var(--border); }
   .gc-btn-danger { background: #C62828; color: white; }
   .gc-btn-text { background: none; border: none; color: var(--link); font-size: 12px; padding: 0 4px; height: auto; cursor: pointer; }
-  .gc-btn-sm { height: 22px; font-size: 11px; padding: 0 8px; }
+  .gc-btn-sm { height: auto; font-size: 11px; padding: 5px 8px; }
   .gc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
   /* ── Badges ── */
@@ -1382,7 +1382,7 @@
             </span>
           </div>
           <!-- Tile grid -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
             <!-- Card: Diabetes Management -->
             <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
@@ -1847,7 +1847,7 @@
               </div>
             </div>
             <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px;">
-              <button class="gc-btn gc-btn-primary" style="height:32px;padding:0 20px;font-size:13px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button class="gc-btn gc-btn-primary" style="font-size:13px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
               <button class="gc-btn gc-btn-text" style="font-size:13px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
             </div>
           </div>
@@ -2009,7 +2009,7 @@
               </div>
             </div>
             <div style="margin-top:12px;display:flex;gap:8px;">
-              <button class="gc-btn gc-btn-primary" style="height:32px;padding:0 20px;font-size:13px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button class="gc-btn gc-btn-primary" style="font-size:13px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
               <button class="gc-btn gc-btn-text" style="font-size:13px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
             </div>
           </div>
@@ -2028,7 +2028,7 @@
           </div>
 
           <!-- Medication cards -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
             <!-- Card: Metformin -->
             <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
@@ -2948,6 +2948,12 @@
           <div class="gc-tab" data-artab="consent-forms">Consent Forms</div>
           <div class="gc-tab" data-artab="guidelines">Guidelines</div>
           <div class="gc-tab" data-artab="member-alerts">Member Alerts</div>
+          <div id="art-opt-toggle" style="display:none;align-items:center;margin-left:auto;padding:0 8px;">
+            <div style="display:flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;">
+              <button id="art-opt-a-btn" onclick="artSwitchLayout('a')" style="font-size:11px;font-weight:700;padding:4px 12px;border:none;cursor:pointer;background:#1a1a1a;color:#fff;">Option A</button>
+              <button id="art-opt-b-btn" onclick="artSwitchLayout('b')" style="font-size:11px;font-weight:700;padding:4px 12px;border:none;border-left:1px solid var(--border);cursor:pointer;background:#fff;color:#888;">Option B</button>
+            </div>
+          </div>
         </div>
 
         <!-- Tab: Notes -->
@@ -2965,20 +2971,20 @@
               </div>
               <div style="display:flex;flex-direction:column;gap:3px;">
                 <label style="font-size:11px;font-weight:700;color:var(--text-label);">Note Types</label>
-                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:120px;"><option>Select</option><option>UM Notes</option><option>Referral</option><option>Activity</option><option>General</option><option>DME</option><option>PH-QMNotes</option></select>
+                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:130px;"><option>Select</option><option>UM Notes</option><option>Referral</option><option>Activity</option><option>General</option><option>DME</option><option>PH-QMNotes</option></select>
               </div>
               <div style="display:flex;flex-direction:column;gap:3px;">
                 <label style="font-size:11px;font-weight:700;color:var(--text-label);">Search Category</label>
-                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:120px;"><option>Select</option></select>
+                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:130px;"><option>Select</option></select>
               </div>
               <div style="display:flex;flex-direction:column;gap:3px;">
                 <label style="font-size:11px;font-weight:700;color:var(--text-label);">Search Value</label>
                 <input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:130px;" />
               </div>
-            </div>
-            <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px;">
-              <button class="gc-btn gc-btn-primary" style="height:32px;padding:0 20px;font-size:13px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
-              <button class="gc-btn gc-btn-text" style="font-size:13px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
+              <div style="display:flex;align-items:center;gap:8px;padding-bottom:1px;">
+                <button class="gc-btn gc-btn-primary" style="font-size:12px;"><span class="material-icons" style="font-size:13px;">search</span> Search</button>
+                <span style="display:inline-flex;align-items:center;gap:3px;font-size:12px;color:var(--link);cursor:pointer;"><span class="material-icons" style="font-size:13px;">close</span> Clear</span>
+              </div>
             </div>
           </div>
 
@@ -2987,7 +2993,6 @@
             <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">add</span> Add</span>
             <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">edit</span> Edit</span>
             <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">delete</span> Delete</span>
-            <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">print</span> Print Queue</span>
             <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">save</span> Save &amp; Print Queue</span>
             <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">download</span> Export</span>
             <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">history</span> Audit History</span>
@@ -2996,160 +3001,122 @@
           </div>
           <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px;"><strong>Note:</strong> AI generated notes cannot be exported or printed.</div>
 
-          <!-- Notes cards -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-
-            <!-- Card: Clinical Note -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;transform:rotate(-90deg);display:inline-block;">note</span>
-                  </div>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;color:var(--teal);">A1C Followup Metformin Adjustment</div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Edit">edit</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Delete">delete_outline</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="View">visibility</span>
-                </div>
-              </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">Spoke w/ Robert today. A1C came back at 8.4 — keeps forgetting his evening dose. Gave him some tips. Looping in Dr. Chen re: Metformin adjustment. F/U 04/08.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Activity Type</div><div style="margin-top:2px;">Follow Up</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Script Name</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Beatrice Kanya</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">03/20/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated On</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card: Care Coordination Note -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;transform:rotate(-90deg);display:inline-block;">note</span>
-                  </div>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;color:var(--teal);">ER Visit + Discharge Coordination</div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Edit">edit</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Delete">delete_outline</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="View">visibility</span>
-                </div>
-              </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">Tracked down Robert's discharge summary from his 03/05 ER visit. Chest pain workup was negative for ACS — turned out to be a GERD flare, which is honestly a relief. Called Dr. Park's office and got a follow-up echo scheduled. Sent a quick update to his PCP so everyone's on the same page. Also flagged this in his care plan in case it comes up again.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Activity Type</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Script Name</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Beatrice Kanya</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">03/12/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated On</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card: Telephonic Outreach Note -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;transform:rotate(-90deg);display:inline-block;">note</span>
-                  </div>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;color:var(--teal);">Telephonic Outreach Medication Check</div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Edit">edit</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Delete">delete_outline</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="View">visibility</span>
-                </div>
-              </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">No answer on home line, left VM. Got him on cell. He's doing well — no chest pain, no SOB. Says he's been consistent with his meds which is great to hear. Reminded him about his PCP appt 03/28, he's got it on his calendar.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Activity Type</div><div style="margin-top:2px;">Telephonic Outreach</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Script Name</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Beatrice Kanya</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">03/01/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated On</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card: Social Determinants Note -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;transform:rotate(-90deg);display:inline-block;">note</span>
-                  </div>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;color:var(--teal);">Food Insecurity + Copay Assistance</div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Edit">edit</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Delete">delete_outline</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="View">visibility</span>
-                </div>
-              </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">Robert mentioned he's been having trouble covering his co-pays and they've been skipping meals a few times a week. Started a PAP application for Januvia and referred him to the Alaska Food Bank. He seemed relieved.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Activity Type</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Script Name</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Beatrice Kanya</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">02/18/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated On</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card: Wellframe Member Message -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;transform:rotate(-90deg);display:inline-block;">note</span>
-                  </div>
-                  <div>
-                    <div style="display:flex;align-items:center;gap:6px;">
-                      <span style="font-size:14px;font-weight:700;color:var(--teal);">Cardiac Rehab Digital Program Enrollment</span>
-                      <img src="assets/Wellframe/Logomark.png" style="height:16px;opacity:0.8;" title="In Wellframe" />
-                    </div>
-                    <div style="margin-top:1px;"><a href="#" onclick="event.preventDefault();document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-checklist');" style="font-size:11px;color:var(--teal);text-decoration:underline;">Added in Wellframe</a></div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Edit">edit</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Delete">delete_outline</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="View">visibility</span>
-                </div>
-              </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">Got Robert set up on the Cardiac Rehab digital program in Wellframe. He already had the app which made it really easy. Walked him through the daily check-ins, the breathing exercises, and fluid tracking. He asked good questions and seemed motivated. Told him to aim for 5 activities a week — will check in on his progress at our next call 04/15. Really hoping this helps him stay on track between our calls.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Beatrice Kanya</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">04/01/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-            </div>
-
+          <!-- Notes table -->
+          <div style="overflow-x:auto;">
+            <table class="gc-table" style="width:100%;table-layout:fixed;">
+              <colgroup>
+                <col style="width:28px;" />
+                <col style="width:110px;" />
+                <col style="width:auto;" />
+                <col style="width:40px;" />
+                <col style="width:140px;" />
+                <col style="width:120px;" />
+                <col style="width:130px;" />
+                <col style="width:100px;" />
+                <col style="width:130px;" />
+                <col style="width:100px;" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th style="padding:6px 8px;"><input type="checkbox" /></th>
+                  <th>Note Type</th>
+                  <th>Notes</th>
+                  <th style="text-align:center;">View Notes</th>
+                  <th>Activity Type</th>
+                  <th>Script Name</th>
+                  <th>Created By</th>
+                  <th>Created On</th>
+                  <th>Updated By</th>
+                  <th>Updated On</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:6px 8px;"><input type="checkbox" /></td>
+                  <td>Activity</td>
+                  <td style="max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="Spoke w/ Robert today. A1C came back at 8.4 — keeps forgetting his evening dose. Gave him some tips. Looping in Dr. Chen re: Metformin adjustment. F/U 04/08.">Spoke w/ Robert today. A1C came back at 8.4 — keeps forgetting his evening dose. Gave him some tips. Looping in Dr. Chen re: Metformin adjustment. F/U 04/08.</td>
+                  <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                  <td>Follow Up</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td>Mike Mckitterick : Care Manager</td>
+                  <td>03/20/2026<br/><span style="color:var(--text-muted);">05:30:55 PM</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 8px;"><input type="checkbox" /></td>
+                  <td>Activity Outcome</td>
+                  <td style="max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="Tracked down Robert's discharge summary from his 03/05 ER visit. Chest pain workup was negative for ACS — turned out to be a GERD flare.">Tracked down Robert's discharge summary from his 03/05 ER visit. Chest pain workup was negative for ACS — turned out to be a GERD flare.</td>
+                  <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td>Mike Mckitterick : Care Manager</td>
+                  <td>03/12/2026<br/><span style="color:var(--text-muted);">05:30:55 PM</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 8px;"><input type="checkbox" /></td>
+                  <td>Activity</td>
+                  <td style="max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="No answer on home line, left VM. Got him on cell. He's doing well — no chest pain, no SOB. Says he's been consistent with his meds.">No answer on home line, left VM. Got him on cell. He's doing well — no chest pain, no SOB. Says he's been consistent with his meds.</td>
+                  <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                  <td>Telephonic Outreach</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td>Mike Mckitterick : Care Manager</td>
+                  <td>03/01/2026<br/><span style="color:var(--text-muted);">05:30:01 PM</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 8px;"><input type="checkbox" /></td>
+                  <td>Referral</td>
+                  <td style="max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="Robert mentioned he's been having trouble covering his co-pays and skipping meals. Started a PAP application for Januvia and referred him to the Alaska Food Bank.">Robert mentioned he's been having trouble covering his co-pays and skipping meals. Started a PAP application for Januvia and referred him to the Alaska Food Bank.</td>
+                  <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                  <td>Assessments - Initial Outreach</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td>Jennie Giuliany : All Access Admin</td>
+                  <td>02/18/2026<br/><span style="color:var(--text-muted);">03:35:16 AM</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 8px;"><input type="checkbox" /></td>
+                  <td>Activity</td>
+                  <td style="max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="Got Robert set up on the Cardiac Rehab digital program in Wellframe. Walked him through daily check-ins, breathing exercises, and fluid tracking.">Got Robert set up on the Cardiac Rehab digital program in Wellframe. Walked him through daily check-ins, breathing exercises, and fluid tracking.</td>
+                  <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                  <td>Welcome Call</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td>Mike Mckitterick : Care Manager</td>
+                  <td>04/01/2026<br/><span style="color:var(--text-muted);">04:24:21 PM</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 8px;"><input type="checkbox" /></td>
+                  <td>Referral</td>
+                  <td style="max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="new member">new member</td>
+                  <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td>Jennie Giuliany : All Access Admin</td>
+                  <td>02/23/2026<br/><span style="color:var(--text-muted);">03:35:16 AM</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 8px;"><input type="checkbox" /></td>
+                  <td>Script</td>
+                  <td style="max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="fasdfadfasdfa">fasdfadfasdfa</td>
+                  <td style="text-align:center;"><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">visibility</span></td>
+                  <td>Assessments - Initial Outreach</td>
+                  <td>Pediatric HRA - Screening</td>
+                  <td>Mike Mckitterick : Care Manager</td>
+                  <td>02/23/2026<br/><span style="color:var(--text-muted);">04:58:24 PM</span></td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                  <td style="color:var(--text-muted);">N/A</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -3172,7 +3139,7 @@
             <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Script Name</div>
             <div style="display:flex;gap:10px;align-items:flex-end;">
               <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:140px;"><option>Select</option></select>
-              <button class="gc-btn gc-btn-primary" style="height:30px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button "><span class="material-icons" style="font-size:14px;">search</span> Search</button>
             </div>
           </div>
 
@@ -3227,7 +3194,7 @@
             <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Activity Type</div>
             <div style="display:flex;gap:10px;align-items:flex-end;">
               <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:140px;"><option>Select</option></select>
-              <button class="gc-btn gc-btn-primary" style="height:30px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button "><span class="material-icons" style="font-size:14px;">search</span> Search</button>
             </div>
           </div>
 
@@ -3275,7 +3242,7 @@
             <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Activity Type</div>
             <div style="display:flex;gap:10px;align-items:flex-end;">
               <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:140px;"><option>Select</option></select>
-              <button class="gc-btn gc-btn-primary" style="height:30px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button "><span class="material-icons" style="font-size:14px;">search</span> Search</button>
             </div>
           </div>
 
@@ -3442,7 +3409,7 @@
                 <label style="font-size:11px;font-weight:700;color:var(--text-label);">Status</label>
                 <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:90px;"><option>Select</option><option>Accepted</option><option>Pending</option></select>
               </div>
-              <button class="gc-btn gc-btn-primary" style="height:30px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button "><span class="material-icons" style="font-size:14px;">search</span> Search</button>
               <button class="gc-btn gc-btn-text" style="font-size:12px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
             </div>
           </div>
@@ -3520,7 +3487,7 @@
                 <label style="font-size:11px;font-weight:700;color:var(--text-label);">To Date <span style="color:var(--text-muted);font-weight:400;">MM/DD/YYYY</span></label>
                 <div style="display:flex;align-items:center;gap:2px;"><input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:100px;" /><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">calendar_month</span></div>
               </div>
-              <button class="gc-btn gc-btn-primary" style="height:30px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button "><span class="material-icons" style="font-size:14px;">search</span> Search</button>
               <button class="gc-btn gc-btn-text" style="font-size:12px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
             </div>
           </div>
@@ -3572,162 +3539,239 @@
         <!-- Tab: Articles -->
         <div class="ar-tab-panel" id="artab-articles" style="display:none;">
 
-          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:10px;"><strong>Note</strong> - All the system generated e-mails will be stopped if the user is found to have a shared e-mail.</div>
+          <!-- ── DEFAULT VIEW ── -->
+          <div id="art-default-view">
 
-          <!-- Filter bar -->
-          <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px;">
-            <div style="display:flex;flex-direction:column;gap:3px;">
-              <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
-              <input type="text" placeholder="Type here" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
+            <!-- Note row -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:11px;color:var(--text-secondary);"><strong>Note</strong> - All the system generated e-mails will be stopped if the user is found to have a shared e-mail.</div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:3px;">
-              <label style="font-size:11px;font-weight:700;color:var(--text-label);">Source</label>
-              <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;"><option>GuidingCare</option></select>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:3px;">
-              <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
-              <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:140px;"><option>Select</option></select>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:3px;">
-              <label style="font-size:11px;font-weight:700;color:var(--text-label);">Sub Category</label>
-              <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:140px;"><option>Select</option></select>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:3px;">
-              <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Type</label>
-              <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:130px;"><option>Select</option></select>
-            </div>
-            <button class="gc-btn gc-btn-primary" style="height:30px;padding:0 20px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
-            <span style="font-size:12px;color:var(--link);cursor:pointer;">Clear Filter</span>
-          </div>
 
-          <!-- Toolbar -->
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:4px;position:relative;">
-            <span class="gc-table-action" onclick="var p=document.getElementById('articleSourcePopover');p.style.display=p.style.display==='block'?'none':'block';event.stopPropagation();"><span class="material-icons" style="font-size:13px;">add</span> Add &amp; Send Articles</span>
-            <span style="font-size:12px;color:var(--text-secondary);cursor:pointer;">Article History</span>
-            <!-- Source popover -->
-            <div id="articleSourcePopover" style="display:none;position:absolute;top:24px;left:0;z-index:100;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15);width:260px;padding:16px 18px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-                <span style="font-size:14px;font-weight:500;color:#222;">Select Article Source</span>
-                <span onclick="document.getElementById('articleSourcePopover').style.display='none'" style="cursor:pointer;font-size:18px;color:#555;line-height:1;">&times;</span>
+            <!-- Filter bar -->
+            <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px;background:#fafafa;border:1px solid var(--border-light);border-radius:var(--r-sm);padding:10px 14px;">
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
+                <input type="text" placeholder="Type here" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
               </div>
-              <div style="height:1px;background:#ccc;margin-bottom:14px;"></div>
-              <div style="font-size:14px;font-weight:700;color:#222;cursor:pointer;margin-bottom:12px;" onclick="document.getElementById('articleSourcePopover').style.display='none'">GuidingCare&#174;</div>
-              <div style="font-size:14px;font-weight:700;color:#222;cursor:pointer;" onclick="document.getElementById('articleSourcePopover').style.display='none';document.getElementById('wellframeArticlesModal').classList.add('open');">Wellframe</div>
-            </div>
-          </div>
-
-          <!-- Articles cards -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-
-            <!-- Card: Understanding Your A1C -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
-                  </div>
-                  <div>
-                    <a href="#" style="color:var(--teal);font-size:14px;font-weight:700;text-decoration:none;">Understanding Your A1C: What the Numbers Mean</a>
-                  </div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Source</label>
+                <select id="art-src-def" onchange="artFilterChange('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                  <option value="">All</option>
+                  <option value="GuidingCare">GuidingCare</option>
+                  <option value="Healthwise">Healthwise</option>
+                  <option value="Wellframe">Wellframe</option>
+                </select>
+              </div>
+              <div id="art-gc-cat-def" style="display:none;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
+                <select id="art-gc-cat-sel-def" onchange="artCatChange('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                  <option value="">Select</option><option>Behavioral</option><option>Disease</option><option>Documentation</option><option>Screening Tool</option>
+                </select>
+              </div>
+              <div id="art-gc-subcat-def" style="display:none;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Sub Category</label>
+                <select id="art-gc-subcat-sel-def" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:160px;">
+                  <option value="">Select</option>
+                </select>
+              </div>
+              <div id="art-arttype-def" style="display:none;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Type</label>
+                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                  <option value="">Select</option><option>Disease Specific</option><option>General Article</option><option>Member Article</option><option>Provider Article</option>
+                </select>
+              </div>
+              <div id="art-wf-audience-def" style="display:none;flex-direction:column;gap:3px;position:relative;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Target Audience</label>
+                <div id="art-wf-audience-btn-def" onclick="artToggleAudience('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 28px 0 8px;font-size:12px;font-family:var(--font);cursor:pointer;display:flex;align-items:center;background:#fff;min-width:180px;user-select:none;position:relative;">
+                  <span id="art-wf-audience-label-def" style="color:var(--text-secondary);">Select</span>
+                  <span class="material-icons" style="font-size:16px;position:absolute;right:4px;color:#888;">arrow_drop_down</span>
                 </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Resend">send</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="Download">download</span>
+                <div id="art-wf-audience-dd-def" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);z-index:200;min-width:180px;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:4px 0;margin-top:2px;">
+                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Adult</label>
+                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult Caregiver" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Adult Caregiver</label>
+                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Pediatric" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Pediatric</label>
                 </div>
               </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">Learn what your A1C test measures and how to interpret your results to better manage your diabetes.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Chronic Disease Mgmt</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/15/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:var(--text-muted);">—</div></div>
-                </div>
+              <div style="display:flex;align-items:center;gap:12px;align-self:flex-end;">
+                <button class="gc-btn gc-btn-primary"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+                <span style="font-size:12px;color:var(--link);cursor:pointer;" onclick="artClearFilter('def')">Clear Filter</span>
               </div>
             </div>
 
-            <!-- Card: Heart-Healthy Eating (Wellframe) -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
-                  </div>
-                  <div>
-                    <div style="display:flex;align-items:center;gap:6px;">
-                      <a href="#" style="color:var(--teal);font-size:14px;font-weight:700;text-decoration:none;">Heart-Healthy Eating on a Budget</a>
-                      <img src="assets/Wellframe/Logomark.png" style="height:16px;opacity:0.8;" title="In Wellframe" />
-                    </div>
-                    <div style="margin-top:1px;"><a href="#" onclick="event.preventDefault();document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-checklist');" style="font-size:11px;color:var(--teal);text-decoration:underline;">Added in Wellframe</a></div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Resend">send</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="Download">download</span>
-                </div>
-              </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">Practical tips for choosing affordable, nutritious foods that support cardiovascular health.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Nutrition</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/01/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:var(--text-muted);">—</div></div>
-                </div>
-              </div>
+            <!-- Toolbar -->
+            <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:10px;">
+              <span class="gc-table-action" onclick="toggleArticleLibrary();" style="font-weight:600;font-size:12px;"><span class="material-icons" style="font-size:14px;">add_circle_outline</span> Add &amp; Send Articles</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;"><span class="material-icons" style="font-size:14px;">history</span>Article History</span>
             </div>
 
-            <!-- Card: Managing Multiple Medications -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
-                  </div>
-                  <div>
-                    <a href="#" style="color:var(--teal);font-size:14px;font-weight:700;text-decoration:none;">Managing Multiple Medications Safely</a>
+            <!-- Sent article cards -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+              <!-- GuidingCare: Understanding Your A1C -->
+              <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
+                <div style="padding:18px 20px 10px;">
+                  <span style="color:#0C5275;font-size:13px;font-weight:700;line-height:1.4;">Understanding Your A1C: What the Numbers Mean</span>
+                </div>
+                <div style="padding:10px 20px 14px;flex:1;">
+                  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.5;">Learn what your A1C test measures and how to interpret your results to better manage your diabetes.</p>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">GuidingCare</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Chronic Disease Mgmt</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/15/2026</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;">Sent</div></div>
                   </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Resend">send</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="Download">download</span>
+                <div style="padding:12px 20px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">email</span>Resend to Email</span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">download</span>Download</span>
                 </div>
               </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">How to organize your medications, avoid harmful interactions, and stay on track with your prescriptions.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Medication Safety</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">02/18/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:var(--text-muted);">—</div></div>
+
+              <!-- Wellframe: Heart-Healthy Eating -->
+              <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
+                <div style="padding:18px 20px 10px;">
+                  <div style="color:#0C5275;font-size:13px;font-weight:700;line-height:1.4;">Heart-Healthy Eating on a Budget</div>
+                  <span style="display:inline-block;margin-top:6px;font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;white-space:nowrap;">Adult</span>
+                </div>
+                <div style="padding:10px 20px 14px;flex:1;">
+                  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.5;">Practical tips for choosing affordable, nutritious foods that support cardiovascular health.</p>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">Wellframe</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Nutrition</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/01/2026</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;">Sent</div></div>
+                  </div>
+                </div>
+                <div style="padding:12px 20px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Resend in Chat</span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">visibility</span>View</span>
                 </div>
               </div>
+
+
+            </div>
+          </div><!-- end #art-default-view -->
+
+          <!-- ── LIBRARY VIEW (replaces default view when Add & Send Articles is clicked) ── -->
+          <div id="art-library-view" style="display:none;">
+
+            <!-- Selection bar (shown when ≥1 card checked) -->
+            <div id="al-selection-bar" style="display:none;align-items:center;justify-content:space-between;background:#F4FBFE;border:1px solid #D6EDF7;border-radius:var(--r-sm);padding:12px 14px;margin-bottom:10px;">
+              <span id="al-selection-count" style="font-size:13px;color:#0C5275;font-weight:600;"></span>
+              <button class="gc-btn gc-btn-primary" onclick="alOpenSendModal()" style="padding:8px 16px;font-size:12px;">Send to Member</button>
             </div>
 
-            <!-- Card: Community Resources for Seniors -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-light);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
+            <!-- Success banner (shown after Send to Member confirmed) -->
+            <div id="al-success-banner" style="display:none;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid #ccc;border-radius:var(--r-sm);padding:10px 14px;background:#fff;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:36px;height:36px;background:#2E7D32;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <span class="material-icons" style="color:#fff;font-size:20px;">check_circle</span>
                   </div>
-                  <div>
-                    <a href="#" style="color:var(--teal);font-size:14px;font-weight:700;text-decoration:none;">Community Resources for Seniors in Alaska</a>
-                  </div>
+                  <span style="font-size:13px;color:#1a1a1a;">Health Article(s) have been sent successfully.</span>
                 </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--text-muted);" title="Resend">send</span>
-                  <span class="material-icons" style="font-size:17px;cursor:pointer;color:var(--teal);" title="Download">download</span>
-                </div>
+                <button onclick="document.getElementById('al-success-banner').style.display='none';" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:0;"><span class="material-icons" style="font-size:16px;">close</span></button>
               </div>
-              <div style="padding:12px 16px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">A guide to local programs offering food assistance, transportation, and social support for older adults.</p>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Social Support</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">02/05/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:var(--text-muted);">—</div></div>
-                </div>
-              </div>
+              <div style="font-size:11px;color:#1a1a1a;margin-top:6px;"><strong>Note</strong> - All the system generated e-mails will be stopped if the user is found to have a shared e-mail.</div>
             </div>
 
-          </div>
+            <!-- Page header -->
+            <div style="background:#fff;padding:4px 0 0;">
+              <a href="#" onclick="event.preventDefault();toggleArticleLibrary();" style="display:inline-flex;align-items:center;gap:3px;font-size:12px;color:var(--link);text-decoration:none;margin-bottom:8px;"><span class="material-icons" style="font-size:14px;">arrow_back</span> Back</a>
+              <!-- Filter bar slot for Option A -->
+              <div id="al-lib-filter-bar-a-slot"></div>
+              <!-- Filter bar -->
+              <div id="al-lib-filter-bar" style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px;background:#fafafa;border:1px solid var(--border-light);border-radius:var(--r-sm);padding:10px 14px;">
+                <div id="al-lib-title-search-wrap" style="display:flex;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
+                  <input id="al-a-search" type="text" placeholder="Type here" oninput="alAFilter()" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
+                </div>
+                <div id="al-lib-b-title-wrap" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
+                  <input id="al-b-title-search" type="text" placeholder="Type here" oninput="alBFilter()" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
+                </div>
+                <div id="al-lib-src-wrap" style="display:flex;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Source</label>
+                  <select id="art-src-lib" onchange="artFilterChange('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                    <option value="">All</option>
+                    <option value="GuidingCare">GuidingCare</option>
+                    <option value="Healthwise">Healthwise</option>
+                    <option value="Wellframe">Wellframe</option>
+                  </select>
+                </div>
+                <div id="art-gc-cat-lib" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
+                  <select id="art-gc-cat-sel-lib" onchange="artCatChange('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                    <option value="">Select</option><option>Behavioral</option><option>Disease</option><option>Documentation</option><option>Screening Tool</option>
+                  </select>
+                </div>
+                <div id="art-gc-subcat-lib" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Sub Category</label>
+                  <select id="art-gc-subcat-sel-lib" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:160px;">
+                    <option value="">Select</option>
+                  </select>
+                </div>
+                <div id="art-arttype-lib" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Type</label>
+                  <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                    <option value="">Select</option><option>Disease Specific</option><option>General Article</option><option>Member Article</option><option>Provider Article</option>
+                  </select>
+                </div>
+                <div id="art-wf-audience-lib" style="display:none;flex-direction:column;gap:3px;position:relative;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Target Audience</label>
+                  <div id="art-wf-audience-btn-lib" onclick="artToggleAudience('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 28px 0 8px;font-size:12px;font-family:var(--font);cursor:pointer;display:flex;align-items:center;background:#fff;min-width:180px;user-select:none;position:relative;">
+                    <span id="art-wf-audience-label-lib" style="color:var(--text-secondary);">Select</span>
+                    <span class="material-icons" style="font-size:16px;position:absolute;right:4px;color:#888;">arrow_drop_down</span>
+                  </div>
+                  <div id="art-wf-audience-dd-lib" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);z-index:200;min-width:180px;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:4px 0;margin-top:2px;">
+                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Adult</label>
+                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult Caregiver" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Adult Caregiver</label>
+                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Pediatric" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Pediatric</label>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;align-self:flex-end;">
+                  <button class="gc-btn gc-btn-primary"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+                  <span style="font-size:12px;color:var(--link);cursor:pointer;" onclick="artClearFilter('lib')">Clear Filter</span>
+                </div>
+              </div>
+              <div id="al-main-heading" style="display:inline-block;">
+                <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">Article Library</div>
+                <div style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;"></div>
+              </div>
+              <div id="al-main-heading-divider" style="height:1px;background:var(--border);margin-top:0;margin-bottom:12px;"></div>
+            </div>
+
+            <!-- ── Option A panel ── -->
+            <div id="art-lib-opt-a" style="display:block;">
+              <div id="al-a-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;"></div>
+              <div id="al-a-pagination" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:14px 0;flex-wrap:wrap;"></div>
+            </div>
+
+            <!-- ── Option B panel ── -->
+            <div id="art-lib-opt-b" style="display:none;">
+              <!-- Source heading (same style as Article Library heading) -->
+              <div style="display:flex;gap:20px;margin-bottom:12px;">
+                <div id="al-b-tab-gc" onclick="alBSwitchTab('GuidingCare')" style="cursor:pointer;">
+                  <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">GuidingCare</div>
+                  <div class="al-b-underline" style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;opacity:1;"></div>
+                </div>
+                <div id="al-b-tab-hw" onclick="alBSwitchTab('Healthwise')" style="cursor:pointer;">
+                  <div style="font-size:20px;font-weight:400;color:#888;letter-spacing:-0.2px;">Healthwise</div>
+                  <div class="al-b-underline" style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;opacity:0;"></div>
+                </div>
+                <div id="al-b-tab-wf" onclick="alBSwitchTab('Wellframe')" style="cursor:pointer;">
+                  <div style="font-size:20px;font-weight:400;color:#888;letter-spacing:-0.2px;">Wellframe</div>
+                  <div class="al-b-underline" style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;opacity:0;"></div>
+                </div>
+              </div>
+              <div style="height:1px;background:var(--border);margin-bottom:12px;"></div>
+              <div id="al-lib-filter-bar-b-slot"></div>
+              <div id="al-b-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;"></div>
+              <div id="al-b-pagination" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:14px 0;flex-wrap:wrap;"></div>
+            </div>
+
+
+          </div><!-- end #art-library-view -->
 
         </div>
 
@@ -3854,7 +3898,7 @@
                 </div>
               </div>
 
-              <button class="gc-btn gc-btn-primary" style="height:30px;padding:0 20px;"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button class="gc-btn gc-btn-primary"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
               <button class="gc-btn gc-btn-text" style="font-size:12px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
             </div>
           </div>
@@ -4420,6 +4464,9 @@ function openScriptResponseModal() {
       var target = tab.getAttribute('data-artab');
       var panel = document.getElementById('artab-' + target);
       if (panel) { panel.style.display = ''; panel.classList.add('active'); }
+      var toggle = document.getElementById('art-opt-toggle');
+      if (toggle) { toggle.style.display = target === 'articles' ? 'flex' : 'none'; }
+      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = false; document.getElementById('art-default-view').style.display = 'block'; document.getElementById('art-library-view').style.display = 'none'; }
     });
   });
 
@@ -5576,7 +5623,7 @@ function openScriptResponseModal() {
         // ── Medications & Reminders ──
         var staffMedsHtml = isEnrolled
           ? '<div class="wf-tasks-wrap">' +
-              '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px 6px;"><span class="wf-tasks-section-title" style="padding:0;">Medication Reminders</span><button class="gc-btn gc-btn-primary" style="height:24px;font-size:11px;padding:0 10px;">Add Medication Reminder</button></div>' +
+              '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px 6px;"><span class="wf-tasks-section-title" style="padding:0;">Medication Reminders</span><button font-size:11px;padding:0 10px;">Add Medication Reminder</button></div>' +
               d.meds.filter(function(med){return med.wellframe;}).map(function(med) {
                 return wfCard({
                   icon: 'medication',
@@ -5589,7 +5636,7 @@ function openScriptResponseModal() {
                   actionLabel: 'VIEW DETAILS'
                 });
               }).join('') +
-              '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px 6px;margin-top:4px;"><span class="wf-tasks-section-title" style="padding:0;">Health Reminders</span><button class="gc-btn gc-btn-primary" style="height:24px;font-size:11px;padding:0 10px;">Add Health Reminder</button></div>' +
+              '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px 6px;margin-top:4px;"><span class="wf-tasks-section-title" style="padding:0;">Health Reminders</span><button font-size:11px;padding:0 10px;">Add Health Reminder</button></div>' +
               d.reminders.map(function(r) {
                 return wfCard({
                   icon: 'alarm',
@@ -5624,7 +5671,7 @@ function openScriptResponseModal() {
         // ── Instructions ──
         var staffInstructionsHtml = isEnrolled
           ? '<div class="wf-tasks-wrap">' +
-              '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px 6px;"><span class="wf-tasks-section-title" style="padding:0;">Active Care Instructions</span><button class="gc-btn gc-btn-primary" style="height:24px;font-size:11px;padding:0 10px;">Add Instruction</button></div>' +
+              '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px 6px;"><span class="wf-tasks-section-title" style="padding:0;">Active Care Instructions</span><button font-size:11px;padding:0 10px;">Add Instruction</button></div>' +
               wfCard({ icon:'directions_walk', iconColor:'#73BE5E', typeLabel:'INSTRUCTION', title:'Daily Walking — 30 min/day', desc:'Sent via Wellframe. Active since Jan 5, 2026. Assigned by Beatrice Kanya.', time:'Active', action:true, actionLabel:'EDIT' }) +
               wfCard({ icon:'monitor_weight', iconColor:'#73BE5E', typeLabel:'INSTRUCTION', title:'Log blood glucose daily before breakfast', desc:'Sent via Wellframe. Active since Jan 10, 2026. Assigned by Dr. Sarah Chen.', time:'Active', action:true, actionLabel:'EDIT' }) +
               wfCard({ icon:'restaurant', iconColor:'#73BE5E', typeLabel:'INSTRUCTION', title:'Low-carbohydrate diet guidance', desc:'Sent via Wellframe. Active since Feb 1, 2026. Assigned by Jennifer Reyes, RN.', time:'Active', action:true, actionLabel:'EDIT' }) +
@@ -7252,7 +7299,7 @@ function openScriptResponseModal() {
   .wf-chat-input-row { display: flex; align-items: center; gap: 8px; border: 1px solid #C8D6DE; border-radius: 8px; padding: 6px 10px; background: #FAFCFD; }
   .wf-chat-input-add { background: none; border: none; cursor: pointer; color: var(--teal); display: flex; align-items: center; padding: 0; }
   .wf-chat-input-add .material-icons { font-size: 20px; }
-  .wf-chat-input-field { flex: 1; border: none; background: transparent; font-size: 12px; color: #222; outline: none; }
+  .wf-chat-input-field { flex: 1; border: none; background: transparent; font-size: 12px; color: #222; outline: none; resize: none; overflow-y: auto; line-height: 1.6; max-height: 140px; font-family: var(--font); word-break: break-all; white-space: pre-wrap; }
   .wf-chat-input-field::placeholder { color: #A0B0BA; }
   .wf-chat-input-emoji { background: none; border: none; cursor: pointer; color: #A0B0BA; display: flex; align-items: center; }
   .wf-chat-input-emoji .material-icons { font-size: 18px; }
@@ -7305,7 +7352,7 @@ function openScriptResponseModal() {
   <div class="wf-chat-input-area">
     <div class="wf-chat-input-row">
       <button class="wf-chat-input-add"><span class="material-icons">add_circle_outline</span></button>
-      <input class="wf-chat-input-field" id="wf-chat-input" placeholder="Message Jackson Thomas" onkeydown="if(event.key==='Enter')wfChatSend()" />
+      <textarea class="wf-chat-input-field" id="wf-chat-input" placeholder="Message Jackson Thomas" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();wfChatSend();}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';"></textarea>
       <button class="wf-chat-input-emoji"><span class="material-icons">sentiment_satisfied_alt</span></button>
     </div>
     <div class="wf-chat-input-tip">
@@ -7332,7 +7379,137 @@ function openScriptResponseModal() {
     msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
     input.value = '';
+    input.style.height = 'auto';
   };
+</script>
+
+<!-- ── Send to Member Modal ── -->
+<div id="al-send-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:10100;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:4px;width:560px;max-width:96vw;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.22);overflow:hidden;">
+    <div style="padding:24px 24px 0;display:flex;align-items:flex-start;justify-content:space-between;">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;">
+          <div style="display:inline-block;">
+            <div style="font-size:22px;font-weight:700;color:#1a1a1a;">Send to</div>
+            <div style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;"></div>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:#1a1a1a;">Health article(s) will be sent to the member.</span>
+        </div>
+      </div>
+      <button onclick="alCloseSendModal()" style="background:none;border:none;cursor:pointer;color:#1378A3;display:flex;align-items:center;padding:0;margin-top:2px;"><span class="material-icons" style="font-size:22px;">close</span></button>
+    </div>
+    <div style="padding:20px 24px;overflow-y:auto;flex:1;">
+
+      <!-- Send to Email list (GuidingCare + Healthwise) -->
+      <div id="al-send-email-section">
+        <div id="al-send-email-header" style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:12px;"></div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:11px;font-weight:700;color:var(--text-label);">Email Address</label>
+          <input type="text" value="ssmith@altruistahealth.com" style="display:block;width:100%;margin-top:4px;height:36px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 10px;font-size:13px;font-family:var(--font);outline:none;box-sizing:border-box;" />
+        </div>
+        <div id="al-send-email-list" style="display:flex;flex-direction:column;gap:4px;margin-bottom:4px;"></div>
+      </div>
+
+      <div id="al-send-divider" style="height:1px;background:var(--border-light);margin:16px 0;"></div>
+
+      <!-- Send to Chat list (Wellframe) -->
+      <div id="al-send-chat-section">
+        <div id="al-send-chat-header" style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:12px;"></div>
+        <div id="al-send-chat-list" style="display:flex;flex-direction:column;gap:4px;"></div>
+      </div>
+
+    </div>
+    <div style="padding:16px 24px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;gap:20px;">
+      <button class="gc-btn gc-btn-primary" onclick="alConfirmSend()" style="padding:8px 32px;">Send to Member</button>
+      <a href="#" onclick="event.preventDefault();alCloseSendModal();" style="font-size:13px;font-weight:700;color:var(--link);text-decoration:underline;">Cancel</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function alOpenSendModal() {
+  var checked = Array.from(document.querySelectorAll('#art-library-view input[type=checkbox]:checked'));
+  var emailList = document.getElementById('al-send-email-list');
+  var chatList  = document.getElementById('al-send-chat-list');
+  var emailSection = document.getElementById('al-send-email-section');
+  var chatSection  = document.getElementById('al-send-chat-section');
+  var divider      = document.getElementById('al-send-divider');
+
+  var emailItems = [], chatItems = [];
+  checked.forEach(function(cb) {
+    var card = cb.closest('[id^="al-card-"]');
+    if (!card) return;
+    var titleEl = card.querySelector('[style*="color:#0C5275"]');
+    var title = titleEl ? titleEl.textContent.trim() : 'Article';
+    var source = card.getAttribute('data-source');
+    if (source === 'Wellframe') { chatItems.push(title); } else { emailItems.push(title); }
+  });
+
+  document.getElementById('al-send-email-header').innerHTML =
+    '<span class="material-icons" style="font-size:18px;color:#1378A3;">email</span>' +
+    '<span>Send to Email <span style="font-weight:400;">(' + emailItems.length + ')</span></span>';
+
+  document.getElementById('al-send-chat-header').innerHTML =
+    '<span class="material-icons" style="font-size:18px;color:#1378A3;">chat_bubble</span>' +
+    '<span>Send in Chat <span style="font-weight:400;">(' + chatItems.length + ')</span></span>';
+
+  emailList.innerHTML = emailItems.length
+    ? emailItems.map(function(t){ return '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;color:#1a1a1a;margin-left:16px;"><span class="material-icons" style="font-size:16px;color:#bbb;flex-shrink:0;">article</span>' + t + '</div>'; }).join('')
+    : '<div style="font-size:12px;color:var(--text-muted);font-style:italic;padding:4px 0;">No GuidingCare or Healthwise articles selected.</div>';
+
+  chatList.innerHTML = chatItems.length
+    ? chatItems.map(function(t){ return '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;color:#1a1a1a;margin-left:16px;"><span class="material-icons" style="font-size:16px;color:#bbb;flex-shrink:0;">article</span>' + t + '</div>'; }).join('')
+    : '<div style="font-size:12px;color:var(--text-muted);font-style:italic;padding:4px 0;">No Wellframe articles selected.</div>';
+
+  emailSection.style.display = 'block';
+  chatSection.style.display  = 'block';
+  divider.style.display = (emailItems.length && chatItems.length) ? 'block' : 'none';
+
+  var overlay = document.getElementById('al-send-modal-overlay');
+  overlay.style.display = 'flex';
+}
+
+function alCloseSendModal() {
+  document.getElementById('al-send-modal-overlay').style.display = 'none';
+}
+
+function alConfirmSend() {
+  // collect Wellframe article titles from chat list
+  var chatDivs = Array.from(document.getElementById('al-send-chat-list').children).filter(function(d){ return !d.style.fontStyle; });
+
+  if (chatDivs.length) {
+    var urls = chatDivs.map(function(d){
+      var title = d.textContent.trim();
+      return 'https://wellframe.com/articles/' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    });
+    var panel = document.getElementById('wf-chat-panel');
+    panel.classList.add('open');
+    document.getElementById('wf-chat-fab').style.display = 'flex';
+    var chatInput = document.getElementById('wf-chat-input');
+    chatInput.value = urls.map(function(u, i){ return (i+1) + '. ' + u; }).join('\n\n');
+    chatInput.style.height = 'auto';
+    chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+    chatInput.focus();
+  }
+
+  alCloseSendModal();
+
+  // uncheck all cards and reset their borders
+  document.querySelectorAll('#art-library-view input[type=checkbox]:checked').forEach(function(cb) {
+    cb.checked = false;
+    var card = cb.closest('[id^="al-card-"]');
+    if (card) { card.style.border = '1px solid var(--border)'; card.style.boxShadow = 'none'; }
+  });
+
+  // hide selection bar, show success banner
+  document.getElementById('al-selection-bar').style.display = 'none';
+  document.getElementById('al-success-banner').style.display = 'block';
+}
+
+// close on backdrop click
+document.getElementById('al-send-modal-overlay').addEventListener('click', function(e){
+  if (e.target === this) alCloseSendModal();
+});
 </script>
 
 <!-- ── Wellframe Invite Member Modal ── -->
@@ -7833,87 +8010,411 @@ function openViewProgramModalA() {
     </div>
   </div>
 </div>
-<!-- Wellframe Articles Modal -->
-<div class="gc-modal-overlay" id="wellframeArticlesModal" role="dialog" aria-modal="true" aria-labelledby="wellframeArticlesModalTitle">
-  <div class="gc-modal" style="max-width:560px;border-radius:8px;overflow:hidden;">
-    <div style="background:#1378A3;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <img src="assets/Wellframe/Logomark.png" style="height:20px;filter:brightness(0) invert(1);opacity:0.9;" />
-        <span id="wellframeArticlesModalTitle" style="font-size:16px;font-weight:700;color:#fff;">Add &amp; Send Wellframe Articles</span>
-      </div>
-      <button onclick="document.getElementById('wellframeArticlesModal').classList.remove('open')" aria-label="Close" style="background:none;border:none;color:#fff;cursor:pointer;font-size:20px;line-height:1;">&times;</button>
-    </div>
-    <div style="padding:12px 16px;border-bottom:1px solid #e0e0e0;background:#fff;">
-      <div style="display:flex;align-items:center;border:1px solid #ccc;border-radius:6px;padding:6px 10px;gap:8px;">
-        <input type="text" placeholder='Search articles...' style="border:none;outline:none;flex:1;font-size:13px;font-family:var(--font);" />
-        <span class="material-icons" style="font-size:18px;color:#888;">search</span>
-      </div>
-    </div>
-    <div style="overflow-y:auto;max-height:380px;background:#f5f5f5;padding:16px;display:flex;flex-direction:column;gap:10px;">
+<script>
+// ── Article Filter Bar — dynamic source-aware fields ─────────────
+var ART_SUBCATS = {
+  'Behavioral': ['Bipolar Disorder','Depression','Schizophrenia','Smoking Cessation']
+};
+var ART_TYPES_GC = ['Disease Specific','General Article','Member Article','Provider Article'];
+var ART_TYPES_HW = ['Care Support','Decision Point','Knowledge Base Article','Patient Instruction','Symptom','Video'];
 
-      <!-- Article item -->
-      <div style="background:#fff;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;border:1px solid #e0e0e0;">
-        <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
-        </div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:#222;margin-bottom:3px;">Heart-Healthy Eating on a Budget</div>
-          <div style="font-size:12px;color:#555;line-height:1.5;margin-bottom:6px;">Practical tips for choosing affordable, nutritious foods that support cardiovascular health.</div>
-          <div style="display:flex;gap:6px;">
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">Nutrition</span>
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">English</span>
-          </div>
-        </div>
-      </div>
+function artFilterChange(ctx) {
+  var src = document.getElementById('art-src-' + ctx).value;
+  var showGC  = src === 'GuidingCare';
+  var showHW  = src === 'Healthwise';
+  var showWF  = src === 'Wellframe';
 
-      <div style="background:#fff;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;border:1px solid #e0e0e0;">
-        <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
-        </div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:#222;margin-bottom:3px;">Managing Stress After a Cardiac Event</div>
-          <div style="font-size:12px;color:#555;line-height:1.5;margin-bottom:6px;">How to recognize stress triggers and use healthy coping strategies during cardiac recovery.</div>
-          <div style="display:flex;gap:6px;">
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">Mental Health</span>
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">English</span>
-          </div>
-        </div>
-      </div>
+  var gcCat    = document.getElementById('art-gc-cat-'    + ctx);
+  var gcSubcat = document.getElementById('art-gc-subcat-' + ctx);
+  var artTypeWrap = document.getElementById('art-arttype-' + ctx);
+  var artTypeSel  = artTypeWrap.querySelector('select');
+  var wfAud    = document.getElementById('art-wf-audience-' + ctx);
 
-      <div style="background:#fff;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;border:1px solid #e0e0e0;">
-        <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
-        </div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:#222;margin-bottom:3px;">Understanding Blood Pressure Readings</div>
-          <div style="font-size:12px;color:#555;line-height:1.5;margin-bottom:6px;">A plain-language guide to what systolic and diastolic numbers mean and when to call your doctor.</div>
-          <div style="display:flex;gap:6px;">
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">Chronic Disease Mgmt</span>
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">English</span>
-          </div>
-        </div>
-      </div>
+  gcCat.style.display       = showGC ? 'flex' : 'none';
+  gcSubcat.style.display    = showGC ? 'flex' : 'none';
+  artTypeWrap.style.display = (showGC || showHW) ? 'flex' : 'none';
+  wfAud.style.display       = showWF ? 'flex' : 'none';
 
-      <div style="background:#fff;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;border:1px solid #e0e0e0;">
-        <div style="width:36px;height:36px;border-radius:50%;background:#E0F4F8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span class="material-icons" style="font-size:20px;color:#0080A3;">article</span>
-        </div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:#222;margin-bottom:3px;">Getting the Most Out of Cardiac Rehab</div>
-          <div style="font-size:12px;color:#555;line-height:1.5;margin-bottom:6px;">Tips for staying engaged in your digital cardiac rehab program and tracking your progress.</div>
-          <div style="display:flex;gap:6px;">
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">Cardiac Rehab</span>
-            <span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">English</span>
-          </div>
-        </div>
-      </div>
+  // populate correct article type options
+  var types = showHW ? ART_TYPES_HW : ART_TYPES_GC;
+  artTypeSel.innerHTML = '<option value="">Select</option>' +
+    types.map(function(t){ return '<option>' + t + '</option>'; }).join('');
 
-    </div>
-    <div style="padding:12px 18px;background:#fff;border-top:1px solid #e0e0e0;display:flex;justify-content:flex-end;">
-      <button onclick="document.getElementById('wellframeArticlesModal').classList.remove('open')" style="background:none;border:none;font-size:12px;font-weight:700;color:#555;cursor:pointer;letter-spacing:0.5px;">CLOSE</button>
-    </div>
-  </div>
-</div>
+  // reset category / subcat when source changes
+  document.getElementById('art-gc-cat-sel-' + ctx).value = '';
+  var subcatSel = document.getElementById('art-gc-subcat-sel-' + ctx);
+  subcatSel.innerHTML = '<option value="">Select</option>';
+  artResetAudience(ctx);
+}
+
+function artCatChange(ctx) {
+  var cat = document.getElementById('art-gc-cat-sel-' + ctx).value;
+  var subcatWrap = document.getElementById('art-gc-subcat-' + ctx);
+  var subcatSel  = document.getElementById('art-gc-subcat-sel-' + ctx);
+  var subs = ART_SUBCATS[cat] || [];
+  subcatSel.innerHTML = '<option value="">Select</option>' +
+    subs.map(function(s){ return '<option>' + s + '</option>'; }).join('');
+  subcatWrap.style.display = subs.length ? 'flex' : 'none';
+}
+
+function artToggleAudience(ctx) {
+  var dd = document.getElementById('art-wf-audience-dd-' + ctx);
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+
+function artUpdateAudience(ctx) {
+  var dd = document.getElementById('art-wf-audience-dd-' + ctx);
+  var checked = Array.from(dd.querySelectorAll('input[type=checkbox]:checked')).map(function(c){ return c.value; });
+  var label = document.getElementById('art-wf-audience-label-' + ctx);
+  label.style.color = checked.length ? '#1a1a1a' : 'var(--text-secondary)';
+  label.textContent = checked.length ? checked.join(', ') : 'Select';
+}
+
+function artResetAudience(ctx) {
+  var dd = document.getElementById('art-wf-audience-dd-' + ctx);
+  if (!dd) return;
+  dd.querySelectorAll('input[type=checkbox]').forEach(function(c){ c.checked = false; });
+  artUpdateAudience(ctx);
+  dd.style.display = 'none';
+}
+
+function artClearFilter(ctx) {
+  var srcSel = document.getElementById('art-src-' + ctx);
+  if (srcSel) srcSel.value = '';
+  artFilterChange(ctx);
+  if (ctx === 'lib') {
+    var aTitle = document.getElementById('al-a-search');
+    if (aTitle) aTitle.value = '';
+    var bTitle = document.getElementById('al-b-title-search');
+    if (bTitle) bTitle.value = '';
+  }
+}
+
+// Close audience dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  ['def','lib'].forEach(function(ctx) {
+    var btn = document.getElementById('art-wf-audience-btn-' + ctx);
+    var dd  = document.getElementById('art-wf-audience-dd-'  + ctx);
+    if (btn && dd && !btn.contains(e.target) && !dd.contains(e.target)) {
+      dd.style.display = 'none';
+    }
+  });
+});
+
+// ── Article Library Layout toggle ────────────────────────────────
+var artCurrentLayout = 'a';
+var artLibraryOpen = false;
+
+function artSwitchLayout(opt) {
+  artCurrentLayout = opt;
+  document.getElementById('art-opt-a-btn').style.background = opt === 'a' ? '#1a1a1a' : '#fff';
+  document.getElementById('art-opt-a-btn').style.color      = opt === 'a' ? '#fff'    : '#888';
+  document.getElementById('art-opt-b-btn').style.background = opt === 'b' ? '#1a1a1a' : '#fff';
+  document.getElementById('art-opt-b-btn').style.color      = opt === 'b' ? '#fff'    : '#888';
+  var headingEl = document.getElementById('al-main-heading');
+  var headingDiv = document.getElementById('al-main-heading-divider');
+  if (headingEl) headingEl.style.display = opt === 'b' ? 'none' : 'inline-block';
+  if (headingDiv) headingDiv.style.display = opt === 'b' ? 'none' : 'block';
+  var filterBar = document.getElementById('al-lib-filter-bar');
+  var slotA = document.getElementById('al-lib-filter-bar-a-slot');
+  var slotB = document.getElementById('al-lib-filter-bar-b-slot');
+  if (filterBar && slotA && slotB) {
+    if (opt === 'b') { slotB.appendChild(filterBar); } else { slotA.after(filterBar); }
+  }
+  var srcWrap = document.getElementById('al-lib-src-wrap');
+  var titleWrap = document.getElementById('al-lib-title-search-wrap');
+  var bTitleWrap = document.getElementById('al-lib-b-title-wrap');
+  if (srcWrap) srcWrap.style.display = opt === 'b' ? 'none' : 'flex';
+  if (titleWrap) titleWrap.style.display = opt === 'b' ? 'none' : 'flex';
+  if (bTitleWrap) bTitleWrap.style.display = opt === 'b' ? 'flex' : 'none';
+  if (artLibraryOpen) {
+    document.getElementById('art-lib-opt-a').style.display = opt === 'a' ? 'block' : 'none';
+    document.getElementById('art-lib-opt-b').style.display = opt === 'b' ? 'block' : 'none';
+    if (opt === 'a') { alAPage = 1; alAFilter(); } else { alBPage = 1; alBSwitchTab(alBTab); }
+  }
+}
+
+function toggleArticleLibrary() {
+  artLibraryOpen = !artLibraryOpen;
+  document.getElementById('art-default-view').style.display = artLibraryOpen ? 'none' : 'block';
+  document.getElementById('art-library-view').style.display = artLibraryOpen ? 'block' : 'none';
+  if (artLibraryOpen) {
+    var headingEl = document.getElementById('al-main-heading');
+    var headingDiv = document.getElementById('al-main-heading-divider');
+    if (headingEl) headingEl.style.display = artCurrentLayout === 'b' ? 'none' : 'inline-block';
+    if (headingDiv) headingDiv.style.display = artCurrentLayout === 'b' ? 'none' : 'block';
+    var filterBar = document.getElementById('al-lib-filter-bar');
+    var slotA = document.getElementById('al-lib-filter-bar-a-slot');
+    var slotB = document.getElementById('al-lib-filter-bar-b-slot');
+    if (filterBar && slotA && slotB) {
+      if (artCurrentLayout === 'b') { slotB.appendChild(filterBar); } else { slotA.after(filterBar); }
+    }
+    var srcWrap = document.getElementById('al-lib-src-wrap');
+    var titleWrap = document.getElementById('al-lib-title-search-wrap');
+    var bTitleWrap = document.getElementById('al-lib-b-title-wrap');
+    if (srcWrap) srcWrap.style.display = artCurrentLayout === 'b' ? 'none' : 'flex';
+    if (titleWrap) titleWrap.style.display = artCurrentLayout === 'b' ? 'none' : 'flex';
+    if (bTitleWrap) bTitleWrap.style.display = artCurrentLayout === 'b' ? 'flex' : 'none';
+    document.getElementById('art-lib-opt-a').style.display = artCurrentLayout === 'a' ? 'block' : 'none';
+    document.getElementById('art-lib-opt-b').style.display = artCurrentLayout === 'b' ? 'block' : 'none';
+    if (artCurrentLayout === 'a') { alAFilter(); } else { alBSwitchTab(alBTab); }
+  }
+}
+
+// ── Article Library Data ─────────────────────────────────────────
+var AL_ARTICLES = [
+  // GuidingCare
+  { title: 'Advance Care Planning Basics', source: 'GuidingCare', category: 'Care Planning', subcat: 'Advanced Directives', desc: 'An overview of advance directives and how to document your healthcare wishes.' },
+  { title: 'Blood Sugar Monitoring at Home', source: 'GuidingCare', category: 'Diabetes', subcat: 'Self-Monitoring', desc: 'How to use a glucometer correctly and track your readings for your care team.' },
+  { title: 'Care Coordination After Hospitalization', source: 'GuidingCare', category: 'Transitions of Care', subcat: 'Post-Acute', desc: 'Steps to take after leaving the hospital to prevent readmission and support recovery.' },
+  { title: 'Choosing a Primary Care Provider', source: 'GuidingCare', category: 'Care Navigation', subcat: 'Provider Selection', desc: 'Tips for finding and building a relationship with a primary care doctor who fits your needs.' },
+  { title: 'Chronic Pain Management Strategies', source: 'GuidingCare', category: 'Pain Management', subcat: 'Behavioral', desc: 'Evidence-based approaches for managing persistent pain including physical and behavioral methods.' },
+  { title: 'Community Resources for Seniors in Alaska', source: 'GuidingCare', category: 'Social Support', subcat: 'Social Determinants', desc: 'A guide to local programs offering food assistance, transportation, and social support for older adults.' },
+  { title: 'Diabetes and Kidney Health', source: 'GuidingCare', category: 'Diabetes', subcat: 'Complications', desc: 'How diabetes affects kidney function and what you can do to protect your kidneys.' },
+  { title: 'Emergency Preparedness for People with Chronic Conditions', source: 'GuidingCare', category: 'Safety', subcat: 'Chronic Conditions', desc: 'How to create an emergency plan that accounts for your medications, equipment, and care needs.' },
+  { title: 'Fall Prevention at Home', source: 'GuidingCare', category: 'Safety', subcat: 'Seniors', desc: 'Practical changes you can make at home to reduce your risk of falling.' },
+  { title: 'Getting the Most from Your Care Team', source: 'GuidingCare', category: 'Care Navigation', subcat: 'Patient Communication', desc: 'How to communicate effectively with nurses, case managers, and specialists.' },
+  { title: 'Health Insurance Terms Explained', source: 'GuidingCare', category: 'Health Literacy', subcat: 'Benefits Navigation', desc: 'Plain-language definitions of deductibles, copays, prior authorization, and more.' },
+  { title: 'Living Well with Heart Failure', source: 'GuidingCare', category: 'Chronic Disease Mgmt', subcat: 'Self-Management', desc: 'Daily self-monitoring habits and lifestyle changes that can improve quality of life with heart failure.' },
+  { title: 'Managing Multiple Medications Safely', source: 'GuidingCare', category: 'Medication Safety', subcat: 'Polypharmacy', desc: 'How to organize your medications, avoid harmful interactions, and stay on track with your prescriptions.' },
+  { title: 'Understanding Your A1C: What the Numbers Mean', source: 'GuidingCare', category: 'Diabetes', subcat: 'Type 2', desc: 'Learn what your A1C test measures and how to interpret your results to better manage your diabetes.' },
+  { title: 'What to Expect from a Care Management Program', source: 'GuidingCare', category: 'Care Navigation', subcat: 'Care Management', desc: 'How care management works and how to get the most out of your care manager relationship.' },
+  { title: 'When to Go to the ER vs. Urgent Care', source: 'GuidingCare', category: 'Care Navigation', subcat: 'Triage', desc: 'A guide to help you decide which type of facility is right for your situation.' },
+  // Healthwise
+  { title: 'Alcohol and Your Health', source: 'Healthwise', category: 'Behavioral Health', desc: 'Understanding how alcohol affects your body and steps to reduce or stop drinking.' },
+  { title: 'Anxiety: Coping Strategies That Work', source: 'Healthwise', category: 'Mental Health', desc: 'Evidence-based techniques including breathing exercises, mindfulness, and cognitive tools.' },
+  { title: 'Back Pain: Prevention and Relief', source: 'Healthwise', category: 'Musculoskeletal', desc: 'Causes of back pain and exercises to strengthen your core and reduce discomfort.' },
+  { title: 'Cancer Screening Recommendations by Age', source: 'Healthwise', category: 'Preventive Care', desc: 'When to get screened for colorectal, breast, cervical, and lung cancers based on age and risk.' },
+  { title: 'Cholesterol: What You Need to Know', source: 'Healthwise', category: 'Cardiovascular', desc: 'The difference between LDL and HDL cholesterol and how diet and medication affect your levels.' },
+  { title: 'COPD: Living and Breathing Better', source: 'Healthwise', category: 'Chronic Disease Mgmt', desc: 'Strategies for managing COPD symptoms, using inhalers correctly, and staying active.' },
+  { title: 'Depression: Recognizing the Signs', source: 'Healthwise', category: 'Mental Health', desc: 'How to identify symptoms of depression and understand your treatment options.' },
+  { title: 'Food Labels: How to Read and Use Them', source: 'Healthwise', category: 'Nutrition', desc: 'A guide to understanding serving sizes, nutrients, and ingredient lists on packaged foods.' },
+  { title: 'Heart Attack Warning Signs', source: 'Healthwise', category: 'Cardiovascular', desc: 'Common and atypical symptoms to watch for and when to call 911 immediately.' },
+  { title: 'High Blood Pressure: Lifestyle Changes That Help', source: 'Healthwise', category: 'Cardiovascular', desc: 'How reducing sodium, exercising, and managing stress can lower your blood pressure.' },
+  { title: 'Immunizations for Adults', source: 'Healthwise', category: 'Preventive Care', desc: 'Which vaccines are recommended for adults and why staying up to date matters.' },
+  { title: 'Managing Stress in Daily Life', source: 'Healthwise', category: 'Mental Health', desc: 'Practical strategies for identifying stressors and building resilience through daily habits.' },
+  { title: 'Osteoporosis: Protecting Your Bones', source: 'Healthwise', category: 'Musculoskeletal', desc: 'Risk factors, bone density testing, and ways to slow bone loss through diet and activity.' },
+  { title: 'Sleep and Your Health', source: 'Healthwise', category: 'Wellness', desc: 'How sleep affects chronic conditions and tips to improve sleep quality.' },
+  { title: 'Smoking Cessation: Tools and Resources', source: 'Healthwise', category: 'Behavioral Health', desc: 'Nicotine replacement therapies, medications, and behavioral support to help you quit for good.' },
+  { title: 'Type 2 Diabetes: Lifestyle Management', source: 'Healthwise', category: 'Diabetes', desc: 'How changes in eating, activity, and monitoring can help manage blood sugar effectively.' },
+  // Wellframe
+  { title: 'Building Your Support Network', source: 'Wellframe', category: 'Emotional Health', audience: 'Adult', desc: 'How social connections protect your health and practical ways to strengthen your relationships.' },
+  { title: 'Daily Check-Ins: How They Help Your Care Team', source: 'Wellframe', category: 'Care Engagement', audience: 'Adult Caregiver', desc: 'Why completing your daily check-in gives your care manager the data to support you better.' },
+  { title: 'Digital Tools for Managing Your Health', source: 'Wellframe', category: 'Technology', audience: 'Adult', desc: 'How to use apps, wearables, and online portals to stay organized and engaged in your care.' },
+  { title: 'Getting the Most Out of Cardiac Rehab', source: 'Wellframe', category: 'Cardiac Rehab', audience: 'Adult', desc: 'Tips for staying engaged in your digital cardiac rehab program and tracking your progress.' },
+  { title: 'Goal Setting for Better Health Outcomes', source: 'Wellframe', category: 'Wellness', audience: 'Adult', desc: 'How to set realistic, measurable goals and use them to build momentum in your health journey.' },
+  { title: 'Heart-Healthy Eating on a Budget', source: 'Wellframe', category: 'Nutrition', audience: 'Adult', desc: 'Practical tips for choosing affordable, nutritious foods that support cardiovascular health.' },
+  { title: 'Managing Emotions After a Diagnosis', source: 'Wellframe', category: 'Emotional Health', audience: 'Adult Caregiver', desc: 'Common emotional reactions to a new diagnosis and healthy ways to process and adapt.' },
+  { title: 'Managing Stress After a Cardiac Event', source: 'Wellframe', category: 'Mental Health', audience: 'Adult', desc: 'How to recognize stress triggers and use healthy coping strategies during cardiac recovery.' },
+  { title: 'Medication Reminders That Actually Work', source: 'Wellframe', category: 'Medication Adherence', audience: 'Adult', desc: 'Strategies and digital tools to help you remember your medications every day.' },
+  { title: 'Mindfulness for Chronic Illness', source: 'Wellframe', category: 'Emotional Health', audience: 'Adult', desc: 'How mindfulness practices can reduce pain perception, anxiety, and fatigue in chronic conditions.' },
+  { title: 'Physical Activity After a Hospital Stay', source: 'Wellframe', category: 'Recovery', audience: 'Pediatric', desc: 'Safe ways to gradually increase movement after hospitalization and regain your strength.' },
+  { title: 'Preparing for Your Next Appointment', source: 'Wellframe', category: 'Care Engagement', audience: 'Adult Caregiver', desc: 'How to organize your questions and advocate for yourself during medical visits.' },
+  { title: 'Sleep Hygiene for People with Chronic Conditions', source: 'Wellframe', category: 'Wellness', audience: 'Adult', desc: 'Tailored sleep tips for people managing pain, medications, or anxiety at night.' },
+  { title: 'Staying Active with Joint Pain', source: 'Wellframe', category: 'Physical Activity', audience: 'Adult', desc: 'Low-impact exercises and modifications that keep you moving when joints hurt.' },
+  { title: 'Understanding Blood Pressure Readings', source: 'Wellframe', category: 'Cardiovascular', audience: 'Adult', desc: 'A plain-language guide to what systolic and diastolic numbers mean and when to call your doctor.' },
+  { title: 'Using Your Wellframe App: Getting Started', source: 'Wellframe', category: 'Technology', audience: 'Adult', desc: 'A step-by-step guide to setting up your Wellframe app and connecting with your care team.' }
+];
+
+// Sort each source alphabetically, then interleave GC/HW/WF round-robin for a balanced first page
+(function() {
+  var gc = AL_ARTICLES.filter(function(a){ return a.source === 'GuidingCare'; }).sort(function(a,b){ return a.title.localeCompare(b.title); });
+  var hw = AL_ARTICLES.filter(function(a){ return a.source === 'Healthwise'; }).sort(function(a,b){ return a.title.localeCompare(b.title); });
+  var wf = AL_ARTICLES.filter(function(a){ return a.source === 'Wellframe'; }).sort(function(a,b){ return a.title.localeCompare(b.title); });
+  var result = [];
+  var max = Math.max(gc.length, hw.length, wf.length);
+  for (var i = 0; i < max; i++) {
+    if (i < gc.length) result.push(gc[i]);
+    if (i < hw.length) result.push(hw[i]);
+    if (i < wf.length) result.push(wf[i]);
+  }
+  AL_ARTICLES.length = 0;
+  result.forEach(function(a){ AL_ARTICLES.push(a); });
+}());
+
+var AL_PAGE_SIZE = 14;
+var alAPage = 1;
+var alAFiltered = AL_ARTICLES.slice();
+var alBTab = 'GuidingCare';
+var alBPage = 1;
+var alBFiltered = AL_ARTICLES.filter(function(a){ return a.source === 'GuidingCare'; });
+
+
+function alSourceBadge(source) {
+  var colors = { GuidingCare: '#1378A3', Healthwise: '#2E7D32', Wellframe: '#7B1FA2' };
+  var c = colors[source] || '#555';
+  return '<span style="display:inline-block;font-size:10px;font-weight:700;color:' + c + ';background:' + c + '18;border-radius:3px;padding:1px 6px;white-space:nowrap;">' + source + '</span>';
+}
+
+var alCardIdx = 0;
+
+function alCard(art) {
+  var idx = alCardIdx++;
+  var isWellframe = art.source === 'Wellframe';
+  var isHealthwise = art.source === 'Healthwise';
+  var isGC = art.source === 'GuidingCare';
+
+  var footer = (isWellframe
+    ? '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span>' +
+      '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">visibility</span>View</span>'
+    : '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">email</span>Send to Email</span>' +
+      '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">download</span>Download</span>');
+
+  var metaRow;
+  if (isHealthwise) {
+    metaRow = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">Healthwise</div></div>' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Type</div><div style="margin-top:2px;">' + art.category + '</div></div>' +
+    '</div>';
+  } else if (isGC) {
+    metaRow = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">' + art.source + '</div></div>' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Category</div><div style="margin-top:2px;">' + art.category + '</div></div>' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sub Category</div><div style="margin-top:2px;">' + (art.subcat || '—') + '</div></div>' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Type</div><div style="margin-top:2px;">Article</div></div>' +
+    '</div>';
+  } else {
+    // Wellframe
+    metaRow = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">Wellframe</div></div>' +
+      '<div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Target Audience</div><div style="margin-top:2px;">' + (art.audience || 'Adult') + '</div></div>' +
+    '</div>';
+  }
+
+  var audienceChip = '<span style="display:inline-block;font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;white-space:nowrap;">' + (art.audience || 'Adult') + '</span>';
+
+  var titleSection = isWellframe
+    ? '<div style="color:#0C5275;font-size:13px;font-weight:700;line-height:1.4;">' + art.title + '</div>' +
+      '<div style="margin-top:6px;">' + audienceChip + '</div>'
+    : '<div style="color:#0C5275;font-size:13px;font-weight:700;line-height:1.4;">' + art.title + '</div>';
+
+  return '<div id="al-card-' + idx + '" data-source="' + art.source + '" style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">' +
+    '<div onclick="alCardClick(event,\'al-card-' + idx + '\')" style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;cursor:pointer;">' +
+      '<input type="checkbox" id="al-cb-' + idx + '" onchange="alCardCheck(this,\'al-card-' + idx + '\')" style="accent-color:#1378A3;flex-shrink:0;width:14px;height:14px;cursor:pointer;margin-top:3px;" />' +
+      '<div style="flex:1;min-width:0;">' +
+        titleSection +
+        '<p style="font-size:12px;color:var(--text-secondary);margin:10px 0 14px;line-height:1.5;">' + art.desc + '</p>' +
+        metaRow +
+      '</div>' +
+    '</div>' +
+    '<div style="padding:12px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">' +
+      footer +
+    '</div>' +
+  '</div>';
+}
+
+function alPagination(page, total, pages, onClickFn) {
+  var html = '<span style="font-size:12px;color:#666;margin-right:8px;">Showing ' + ((page-1)*AL_PAGE_SIZE+1) + '–' + Math.min(page*AL_PAGE_SIZE, total) + ' of ' + total + '</span>';
+  var prev = '<button onclick="' + onClickFn + '(' + (page-1) + ')" ' + (page<=1?'disabled':'') + ' style="width:26px;height:26px;border:1px solid #ddd;border-radius:3px;background:#fff;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;justify-content:center;' + (page<=1?'opacity:0.4;cursor:not-allowed;':'') + '">&#8249;</button>';
+  var next = '<button onclick="' + onClickFn + '(' + (page+1) + ')" ' + (page>=pages?'disabled':'') + ' style="width:26px;height:26px;border:1px solid #ddd;border-radius:3px;background:#fff;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;justify-content:center;' + (page>=pages?'opacity:0.4;cursor:not-allowed;':'') + '">&#8250;</button>';
+  var nums = '';
+  for (var i = 1; i <= pages; i++) {
+    var active = i === page;
+    nums += '<button onclick="' + onClickFn + '(' + i + ')" style="width:26px;height:26px;border:1px solid ' + (active?'#1378A3':'#ddd') + ';border-radius:3px;background:' + (active?'#1378A3':'#fff') + ';color:' + (active?'#fff':'#555') + ';cursor:pointer;font-size:12px;font-weight:' + (active?'700':'400') + ';">' + i + '</button>';
+  }
+  return html + prev + nums + next;
+}
+
+// ── Option A ──────────────────────────────────────────────────────
+function alAFilter() {
+  var q = document.getElementById('al-a-search').value.toLowerCase();
+  alAFiltered = AL_ARTICLES.filter(function(a){ return !q || a.title.toLowerCase().indexOf(q) !== -1 || a.category.toLowerCase().indexOf(q) !== -1 || a.source.toLowerCase().indexOf(q) !== -1; });
+  alAPage = 1;
+  alRenderA();
+}
+
+function alAGoTo(p) {
+  alAPage = p;
+  alRenderA();
+  document.getElementById('al-a-grid').scrollTop = 0;
+}
+
+function alRenderA() {
+  var total = alAFiltered.length;
+  var pages = Math.max(1, Math.ceil(total / AL_PAGE_SIZE));
+  if (alAPage > pages) alAPage = pages;
+  var slice = alAFiltered.slice((alAPage-1)*AL_PAGE_SIZE, alAPage*AL_PAGE_SIZE);
+  var grid = document.getElementById('al-a-grid');
+  alCardIdx = 0;
+  if (!slice.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#888;font-size:13px;">No articles match your search.</div>'; }
+  else { grid.innerHTML = slice.map(alCard).join(''); }
+  document.getElementById('al-a-pagination').innerHTML = alPagination(alAPage, total, pages, 'alAGoTo');
+  alUpdateSelectionBar();
+}
+
+// ── Option B ──────────────────────────────────────────────────────
+function alBSwitchTab(source) {
+  alBTab = source;
+  alBPage = 1;
+  var bTitleSearch = document.getElementById('al-b-title-search');
+  if (bTitleSearch) bTitleSearch.value = '';
+  alBFiltered = AL_ARTICLES.filter(function(a){ return a.source === source; });
+  ['GuidingCare','Healthwise','Wellframe'].forEach(function(s) {
+    var id = 'al-b-tab-' + (s === 'GuidingCare' ? 'gc' : s === 'Healthwise' ? 'hw' : 'wf');
+    var wrap = document.getElementById(id);
+    var active = s === source;
+    wrap.querySelector('div').style.color = active ? '#1a1a1a' : '#888';
+    wrap.querySelector('div').style.fontWeight = active ? '700' : '400';
+    wrap.querySelector('.al-b-underline').style.opacity = active ? '1' : '0';
+  });
+  // sync filter bar to selected source (no source dropdown in opt-b)
+  var srcSel = document.getElementById('art-src-lib');
+  if (srcSel) { srcSel.value = source; artFilterChange('lib'); }
+  alRenderB();
+}
+
+function alBFilter() {
+  var titleEl = document.getElementById('al-b-title-search');
+  var q = titleEl ? titleEl.value.toLowerCase() : '';
+  alBFiltered = AL_ARTICLES.filter(function(a){ return a.source === alBTab && (!q || a.title.toLowerCase().indexOf(q) !== -1); });
+  alBPage = 1;
+  alRenderB();
+}
+
+function alBGoTo(p) {
+  alBPage = p;
+  alRenderB();
+  document.getElementById('al-b-grid').scrollTop = 0;
+}
+
+function alRenderB() {
+  var total = alBFiltered.length;
+  var pages = Math.max(1, Math.ceil(total / AL_PAGE_SIZE));
+  if (alBPage > pages) alBPage = pages;
+  var slice = alBFiltered.slice((alBPage-1)*AL_PAGE_SIZE, alBPage*AL_PAGE_SIZE);
+  var grid = document.getElementById('al-b-grid');
+  alCardIdx = 0;
+  if (!slice.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#888;font-size:13px;">No articles match your search.</div>'; }
+  else { grid.innerHTML = slice.map(alCard).join(''); }
+  document.getElementById('al-b-pagination').innerHTML = alPagination(alBPage, total, pages, 'alBGoTo');
+  alUpdateSelectionBar();
+}
+
+function alCardClick(e, cardId) {
+  if (e.target.type === 'checkbox') return;
+  var card = document.getElementById(cardId);
+  var cb = card.querySelector('input[type=checkbox]');
+  cb.checked = !cb.checked;
+  alCardCheck(cb, cardId);
+}
+
+function alCardCheck(cb, cardId) {
+  var card = document.getElementById(cardId);
+  if (card) {
+    card.style.border = cb.checked ? '1px solid #1378A3' : '1px solid var(--border)';
+    card.style.boxShadow = 'none';
+  }
+  alUpdateSelectionBar();
+}
+
+function alUpdateSelectionBar() {
+  var checked = document.querySelectorAll('#art-library-view input[type=checkbox]:checked').length;
+  var bar = document.getElementById('al-selection-bar');
+  var count = document.getElementById('al-selection-count');
+  bar.style.display = checked > 0 ? 'flex' : 'none';
+  count.textContent = '(' + checked + ') article' + (checked !== 1 ? 's' : '') + ' selected';
+}
+</script>
 
 </body>
 </html>
