@@ -1003,16 +1003,69 @@
 
 <!-- ══════════════ MEMBER BANNER ══════════════ -->
 <div style="background:#fff;width:100%;">
-<div class="gc-member-banner">
-  <div style="position:relative;display:inline-flex;flex-shrink:0;"><span class="material-icons" style="font-size:26px;color:#315E7B;">notifications</span><span style="position:absolute;top:-4px;right:-6px;min-width:18px;height:18px;background:#C62828;color:white;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;padding:0 3px;">2</span></div>
-  <span class="gc-banner-check" style="flex-shrink:0;"><span class="material-icons" style="font-size:22px;color:#2E7D32;">check_circle</span></span>
-  <img src="assets/Group 1657.png" id="banner-wf-icon" alt="Wellframe" style="width:24px;height:24px;flex-shrink:0;display:inline-block;" title="Wellframe">
-  <span id="banner-wf-invited" style="display:none;font-size:10px;font-weight:700;color:#0080A3;background:#E0F4F9;border:1px solid #9AD4E8;border-radius:10px;padding:2px 8px;flex-shrink:0;letter-spacing:0.3px;">Invited</span>
-  <span class="gc-banner-name">John Everhart-AH00000121</span>
-  <span class="gc-banner-dob"><strong style="font-size:12px;letter-spacing:0.3px;">DOB</strong> 05/14/1942 83 yr(s)</span>
-  <span class="gc-banner-expand" style="margin-left:16px;flex-shrink:0;"><span class="material-icons" style="font-size:18px;color:var(--teal);">open_in_full</span></span>
-</div>
-</div>
+<div class="gc-member-banner" id="gc-member-banner">
+    <div style="position:relative;display:inline-flex;flex-shrink:0;"><span class="material-icons" style="font-size:26px;color:#315E7B;">notifications</span><span style="position:absolute;top:-4px;right:-6px;min-width:18px;height:18px;background:#C62828;color:white;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;padding:0 3px;">2</span></div>
+    <span class="gc-banner-check" style="flex-shrink:0;"><span class="material-icons" style="font-size:22px;color:#2E7D32;">check_circle</span></span>
+    <img src="assets/Group 1657.png" id="banner-wf-icon" alt="Wellframe" style="width:24px;height:24px;flex-shrink:0;display:inline-block;" title="Wellframe">
+    <span id="banner-wf-invited" style="display:none;font-size:10px;font-weight:700;color:#0080A3;background:#E0F4F9;border:1px solid #9AD4E8;border-radius:10px;padding:2px 8px;flex-shrink:0;letter-spacing:0.3px;">Invited</span>
+    <span class="gc-banner-name">John Everhart-AH00000121</span>
+    <span class="gc-banner-dob"><strong style="font-size:12px;letter-spacing:0.3px;">DOB</strong> 05/14/1942 83 yr(s)</span>
+    <span class="gc-banner-expand" onclick="toggleMemberBannerExpand()" style="margin-left:auto;flex-shrink:0;cursor:pointer;"><span class="material-icons" style="font-size:18px;color:var(--teal);">open_in_full</span></span>
+</div><!-- end gc-member-banner -->
+<!-- Expanded member banner -->
+<div id="member-banner-expanded" style="display:none;border:2px solid #141D41;border-radius:8px;background:#F4FAFD;padding:12px 16px;font-size:12px;margin:0 0 0 10px;width:calc(100% - 22px);box-sizing:border-box;">
+  <div style="display:flex;gap:24px;">
+    <!-- Left: demographics -->
+    <div style="min-width:220px;flex-shrink:0;border-right:1px solid var(--border-light);padding-right:20px;">
+      <div style="display:grid;grid-template-columns:max-content 1fr;gap:3px 10px;align-items:baseline;">
+        <span style="font-weight:700;color:var(--text-secondary);white-space:nowrap;">DOB</span><span id="mbx-dob" style="color:var(--text-primary);"></span>
+        <span style="font-weight:700;color:var(--text-secondary);white-space:nowrap;">Pref. Name</span><span id="mbx-preferred" style="color:var(--text-primary);"></span>
+        <span style="font-weight:700;color:var(--text-secondary);white-space:nowrap;">Gender</span><span id="mbx-gender" style="color:var(--text-primary);"></span>
+        <span style="font-weight:700;color:var(--text-secondary);white-space:nowrap;">Gender Identity</span><span id="mbx-genderIdentity" style="color:var(--text-primary);"></span>
+        <span style="font-weight:700;color:var(--text-secondary);white-space:nowrap;">Pref. Pronouns</span><span id="mbx-pronouns" style="color:var(--text-primary);"></span>
+        <span style="font-weight:700;color:var(--text-secondary);white-space:nowrap;">Phone / Pref. #</span><span id="mbx-phone" style="color:var(--text-primary);"></span>
+        <span style="font-weight:700;color:var(--text-secondary);white-space:nowrap;">Address</span><span id="mbx-address" style="color:var(--text-primary);"></span>
+      </div>
+    </div>
+    <!-- Right: multi-row columns -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+      <!-- Row 1 -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Care Manager</div><div id="mbx-careManager"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">PCP</div><div id="mbx-pcp"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">LOB</div><div id="mbx-lob"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Payor</div><div id="mbx-plan"></div></div>
+      </div>
+      <!-- Row 2 -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Comm. Impairment</div><div id="mbx-commImpairment"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Primary Insurance ID</div><div id="mbx-primaryInsPolicy"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Secondary Insurance</div><div id="mbx-secondaryIns"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Pref. Contact Format</div><div id="mbx-contactFormat"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Program</div><div id="mbx-program"></div></div>
+      </div>
+      <!-- Row 3 -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Pref. Time to Call</div><div id="mbx-prefCallTime"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Primary Medical Condition</div><div id="mbx-primaryCondition"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Primary Behavioral Condition</div><div id="mbx-behavioralCondition"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Expected Risk</div><div id="mbx-expectedRisk"></div></div>
+        <div><div style="font-weight:700;color:var(--text-secondary);margin-bottom:2px;">Risk Score</div><div id="mbx-risk"></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Bottom alert bar -->
+  <div style="display:flex;align-items:center;gap:16px;margin-top:10px;padding:7px 0;border-top:1px solid var(--border-light);font-size:11px;">
+    <span style="display:inline-flex;align-items:center;gap:4px;color:#E65100;font-weight:600;cursor:pointer;"><span class="material-icons" style="font-size:14px;color:#E65100;">warning</span>Service Interruption</span>
+    <span style="color:var(--border-light);">|</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;color:#C62828;font-weight:600;cursor:pointer;"><span class="material-icons" style="font-size:14px;">favorite</span>Life Threatening Allergies</span>
+    <span style="margin-left:auto;display:inline-flex;align-items:center;gap:14px;">
+      <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);cursor:pointer;font-weight:600;"><span class="material-icons" style="font-size:14px;">refresh</span>Refresh</span>
+      <span onclick="toggleMemberBannerExpand()" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);cursor:pointer;font-weight:600;"><span class="material-icons" style="font-size:14px;">close_fullscreen</span>Collapse</span>
+    </span>
+  </div><!-- end member-banner-expanded -->
+</div><!-- end banner wrapper -->
+<button style="display:inline-flex;align-items:center;gap:4px;background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7;border-radius:20px;padding:3px 10px 3px 8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;margin:0 0 4px 10px;"><span class="material-icons" style="font-size:13px;">circle</span>Digital Management<span class="material-icons" style="font-size:14px;color:#2E7D32;">expand_more</span></button>
 
 <!-- ══════════════ BODY: LEFT NAV + CONTENT ══════════════ -->
 <div class="app-body">
@@ -1062,6 +1115,7 @@
           <div class="gc-tab" data-tab="care-team">Care Team</div>
           <div class="gc-tab" data-tab="programs">Programs</div>
           <div class="gc-tab" data-tab="eligibility">Eligibility</div>
+          <div class="gc-tab" data-tab="benefits">Benefits</div>
           <div class="gc-tab" data-tab="udt">UDT</div>
         </div>
       </div>
@@ -1560,6 +1614,88 @@
           </div>
         </div>
 
+        <!-- TAB: BENEFITS -->
+        <div class="tab-panel" id="tab-benefits">
+          <div class="detail-grid">
+
+            <div class="gc-detail-card detail-grid-full">
+              <div class="gc-detail-header">
+                <span class="gc-detail-heading">Member Benefits</span>
+                <span style="font-size:11px;color:var(--text-muted);font-weight:400;float:right;margin-top:2px;">Alaska Premier Health · Medicare Advantage</span>
+              </div>
+              <div class="gc-detail-body" style="padding:0;">
+                <table class="gc-table">
+                  <thead>
+                    <tr>
+                      <th>Benefit</th>
+                      <th>Description</th>
+                      <th>Link</th>
+                      <th>Send in Chat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="font-weight:600;">Medical Coverage Summary</td>
+                      <td>Overview of covered services, copays, and coinsurance</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/medical</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/medical')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">Pharmacy Formulary</td>
+                      <td>Complete drug list with tier pricing and mail-order options</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/pharmacy</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/pharmacy')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">Preventive Care Guide</td>
+                      <td>$0 copay screenings, vaccines, and annual wellness visits</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/preventive</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/preventive')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">Diabetes Management Program</td>
+                      <td>Covered supplies, education classes, and nutrition counseling</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/diabetes</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/diabetes')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">Mental Health &amp; Behavioral Health</td>
+                      <td>Inpatient and outpatient mental health services coverage</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/behavioral</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/behavioral')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">Vision Benefits</td>
+                      <td>Annual eye exam, frames, and contact lens allowance</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/vision</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/vision')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">Dental Benefits</td>
+                      <td>Preventive, basic, and major dental services coverage</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/dental</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/dental')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">Transportation Benefit</td>
+                      <td>Non-emergency medical transportation to covered appointments</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/transportation</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/transportation')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;">OTC Allowance</td>
+                      <td>$100/quarter for over-the-counter health products</td>
+                      <td><a href="#" style="color:var(--link);font-size:12px;">alaska-premier-health.com/benefits/otc</a></td>
+                      <td><span onclick="benefitSendChat('alaska-premier-health.com/benefits/otc')" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send in Chat</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- TAB: UDT -->
         <div class="tab-panel" id="tab-udt">
           <div class="gc-table-wrap">
@@ -1631,6 +1767,7 @@
           <div class="gc-tab" data-htab="medications">Medications</div>
           <div class="gc-tab" data-htab="health-indicators">Health Indicators</div>
           <div class="gc-tab" data-htab="appointments">Appointments</div>
+          <div class="gc-tab" data-htab="reminders">Reminders</div>
         </div>
 
         <!-- Tab: Member Medical Info -->
@@ -2218,6 +2355,138 @@
         <!-- Tab: Appointments (placeholder) -->
         <div class="health-tab-panel" id="htab-appointments" style="display:none;">
           <div style="padding:20px;font-size:12px;color:var(--text-muted);font-style:italic;">No appointment records available.</div>
+        </div>
+
+        <!-- Tab: Reminders -->
+        <div class="health-tab-panel" id="htab-reminders" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <span style="font-size:13px;font-weight:700;color:var(--text-primary);">Wellframe Reminders</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;"><img src="assets/Group 1657.png" style="width:14px;height:14px;" />Synced from Wellframe</span>
+          </div>
+
+          <!-- Medication Reminders -->
+          <div class="gc-table-wrap" style="margin-bottom:14px;">
+            <div class="gc-table-toolbar">
+              <img src="assets/Group 1657.png" style="width:13px;height:13px;" />
+              <span style="font-size:12px;font-weight:700;color:var(--text-primary);">Medication Reminders</span>
+              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">4 record(s)</span>
+            </div>
+            <table class="gc-table">
+              <thead>
+                <tr>
+                  <th>Medication</th>
+                  <th>Dosage</th>
+                  <th>Frequency</th>
+                  <th>Reminder Time</th>
+                  <th>Status</th>
+                  <th>Last Confirmed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">Metformin</td>
+                  <td>500 mg</td>
+                  <td>Twice daily</td>
+                  <td>8:00 AM &amp; 8:00 PM</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>07/15/2026</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Lisinopril</td>
+                  <td>10 mg</td>
+                  <td>Once daily</td>
+                  <td>9:00 AM</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>07/14/2026</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Atorvastatin</td>
+                  <td>20 mg</td>
+                  <td>Once daily</td>
+                  <td>9:00 PM</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>07/13/2026</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Sertraline</td>
+                  <td>50 mg</td>
+                  <td>Once daily</td>
+                  <td>8:00 AM</td>
+                  <td><span class="gc-badge gc-badge-warn">Snoozed</span></td>
+                  <td>07/10/2026</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="gc-table-footer">
+              <span style="font-size:11px;">1 - 4 of 4 items</span>
+            </div>
+          </div>
+
+          <!-- General Reminders -->
+          <div class="gc-table-wrap">
+            <div class="gc-table-toolbar">
+              <img src="assets/Group 1657.png" style="width:13px;height:13px;" />
+              <span style="font-size:12px;font-weight:700;color:var(--text-primary);">General Reminders</span>
+              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">5 record(s)</span>
+            </div>
+            <table class="gc-table">
+              <thead>
+                <tr>
+                  <th>Reminder</th>
+                  <th>Category</th>
+                  <th>Frequency</th>
+                  <th>Reminder Time</th>
+                  <th>Status</th>
+                  <th>Last Confirmed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">Check blood sugar</td>
+                  <td>Health Monitoring</td>
+                  <td>Twice daily</td>
+                  <td>7:00 AM &amp; 7:00 PM</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>07/16/2026</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">30-minute walk</td>
+                  <td>Physical Activity</td>
+                  <td>Daily</td>
+                  <td>10:00 AM</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>07/15/2026</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Drink 8 glasses of water</td>
+                  <td>Nutrition</td>
+                  <td>Daily</td>
+                  <td>8:00 AM</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>07/15/2026</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Complete weekly mood check-in</td>
+                  <td>Mental Health</td>
+                  <td>Weekly</td>
+                  <td>Mon 9:00 AM</td>
+                  <td><span class="gc-badge gc-badge-teal">Active</span></td>
+                  <td>07/14/2026</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Schedule HbA1c lab appointment</td>
+                  <td>Care Gap</td>
+                  <td>One-time</td>
+                  <td>07/20/2026 9:00 AM</td>
+                  <td><span class="gc-badge gc-badge-danger">Pending</span></td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="gc-table-footer">
+              <span style="font-size:11px;">1 - 5 of 5 items</span>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -3921,6 +4190,7 @@
                   <th>Alert Date</th>
                 </tr></thead>
                 <tbody>
+                  <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-danger">New</span></td><td><span style="display:inline-flex;align-items:center;gap:5px;"><img src="assets/Group 1657.png" style="width:13px;height:13px;vertical-align:middle;" title="Wellframe" />Wellframe — Member requested enrollment in care program</span></td><td>Member submitted a request via the Wellframe app on 04/10/2026 to enroll in the Diabetes Management Program. Member cited interest in nutrition coaching and medication reminders. Action required: review eligibility and confirm enrollment with member.</td><td>04/10/2026</td></tr>
                   <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-danger">New</span></td><td>Gap in Care — HbA1c test overdue</td><td>HEDIS measure CDC: Member has not completed HbA1c testing within the past 6 months. Last recorded A1C was 8.4% on 09/18/2025. Outreach required to schedule lab work.</td><td>03/22/2026</td></tr>
                   <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-danger">Active</span></td><td>Readmission Risk — ED visit within 30 days</td><td>Member had ED visit on 03/05/2026 for chest pain (R/O ACS). LACE index score of 11 indicates high readmission risk. Transition of care follow-up required within 48 hours of discharge.</td><td>03/06/2026</td></tr>
                   <tr><td><input type="checkbox" /></td><td><span class="gc-badge gc-badge-warn">Active</span></td><td>Medication Flag — Drug interaction detected</td><td>Potential moderate interaction identified between Fluconazole and Atorvastatin (increased risk of rhabdomyolysis). Prescribing physician notified 02/05/2026; awaiting medication adjustment confirmation.</td><td>02/05/2026</td></tr>
@@ -3932,7 +4202,7 @@
               <div class="gc-pager-btn">«</div><div class="gc-pager-btn">‹</div><div class="gc-pager-btn active">1</div><div class="gc-pager-btn">›</div><div class="gc-pager-btn">»</div>
               <select style="font-size:11px;border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 4px;margin-left:4px;"><option>20</option></select>
               <span>items per page</span>
-              <span style="margin-left:auto;font-size:11px;">1 - 4 of 4 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
+              <span style="margin-left:auto;font-size:11px;">1 - 5 of 5 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
             </div>
           </div>
 
@@ -4851,6 +5121,7 @@ function openScriptResponseModal() {
         _or('Assessments - Initial Outreach','Medium','03/20/2026','08:30','03/20/2026 07:04:07')
       ],
       memberAlerts: [
+        '<tr><td><input type="checkbox"/></td><td><span class="gc-badge gc-badge-danger">New</span></td><td><span style="display:inline-flex;align-items:center;gap:5px;"><img src="assets/Group 1657.png" style="width:13px;height:13px;vertical-align:middle;" title="Wellframe"/>Wellframe — Member requested enrollment in care program</span></td><td>Member submitted a request via the Wellframe app on 04/10/2026 to enroll in the Diabetes Management Program. Member cited interest in nutrition coaching and medication reminders. Action required: review eligibility and confirm enrollment with member.</td><td>04/10/2026</td></tr>',
         _ar('gc-badge-danger','New','Gap in Care — HbA1c test overdue','HEDIS measure CDC: Member has not completed HbA1c testing within the past 6 months. Last recorded A1C was 8.4% on 09/18/2025. Outreach required to schedule lab work.','03/22/2026'),
         _ar('gc-badge-danger','Active','Readmission Risk — ED visit within 30 days','Member had ED visit on 03/05/2026 for chest pain (R/O ACS). LACE index score of 11 indicates high readmission risk. Transition of care follow-up required within 48 hours of discharge.','03/06/2026'),
         _ar('gc-badge-warn','Active','Medication Flag — Drug interaction detected','Potential moderate interaction identified between Fluconazole and Atorvastatin (increased risk of rhabdomyolysis). Prescribing physician notified 02/05/2026; awaiting medication adjustment confirmation.','02/05/2026'),
@@ -5008,6 +5279,15 @@ function openScriptResponseModal() {
   var currentMemberKey = window.currentMemberKey = 'jackson-thomas';
 
   // Populate member profile from data
+  window.toggleMemberBannerExpand = function() {
+    var panel = document.getElementById('member-banner-expanded');
+    var icon = document.querySelector('.gc-banner-expand .material-icons');
+    if (!panel) return;
+    var expanded = panel.style.display !== 'none';
+    panel.style.display = expanded ? 'none' : 'block';
+    if (icon) icon.textContent = expanded ? 'open_in_full' : 'close_fullscreen';
+  };
+
   var populateProfile = window.populateProfile = function populateProfile(key) {
     var m = memberData[key];
     if (!m) return;
@@ -5017,6 +5297,35 @@ function openScriptResponseModal() {
     document.querySelector('.gc-banner-name').textContent = m.name;
     var dobSpan = document.querySelector('.gc-member-banner .gc-banner-dob');
     if (dobSpan) dobSpan.innerHTML = '<strong style="font-size:12px;letter-spacing:0.3px;">DOB</strong> ' + m.dob + ' ' + m.age + ' yr(s)';
+
+    // Expanded banner fields
+    var mbxFields = {
+      'mbx-dob': m.dob + ' &nbsp; ' + m.age + ' yr(s)',
+      'mbx-preferred': m.preferred || 'Not Available',
+      'mbx-gender': m.gender || 'Not Available',
+      'mbx-genderIdentity': m.genderIdentity || 'Not Available',
+      'mbx-pronouns': m.pronouns || 'Not Available',
+      'mbx-phone': (m.phone || '') + (m.cell ? ' / ' + m.cell : ''),
+      'mbx-address': (m.address || '') + ', ' + (m.city || '') + ', ' + (m.state || '') + ' ' + (m.zip || ''),
+      'mbx-careManager': m.careManager || 'Not Available',
+      'mbx-pcp': m.pcp || 'Not Available',
+      'mbx-lob': m.lob || 'Not Available',
+      'mbx-plan': m.plan || 'Not Available',
+      'mbx-commImpairment': m.commImpairment || 'None',
+      'mbx-primaryInsPolicy': m.primaryInsPolicy || 'Not Available',
+      'mbx-secondaryIns': m.secondaryIns || 'Not Available',
+      'mbx-contactFormat': m.contactFormat || 'Not Available',
+      'mbx-program': m.program || 'Not Available',
+      'mbx-prefCallTime': m.prefCallTime || 'Not Available',
+      'mbx-primaryCondition': m.primaryCondition || 'Not Available',
+      'mbx-behavioralCondition': m.behavioralCondition || 'Not Available',
+      'mbx-expectedRisk': m.expectedRisk || 'Not Available',
+      'mbx-risk': m.risk || 'Not Available'
+    };
+    Object.keys(mbxFields).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.innerHTML = mbxFields[id];
+    });
     var wfEnrolled = m.digital === 'Wellframe';
     var wfInvited  = !wfEnrolled && (window.wfInvitedMembers && window.wfInvitedMembers[key]);
 
@@ -7471,6 +7780,17 @@ function alOpenSendModal() {
 
 function alCloseSendModal() {
   document.getElementById('al-send-modal-overlay').style.display = 'none';
+}
+
+function benefitSendChat(url) {
+  var panel = document.getElementById('wf-chat-panel');
+  panel.classList.add('open');
+  document.getElementById('wf-chat-fab').style.display = 'flex';
+  var chatInput = document.getElementById('wf-chat-input');
+  chatInput.value = url;
+  chatInput.style.height = 'auto';
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+  chatInput.focus();
 }
 
 function alConfirmSend() {
