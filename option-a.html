@@ -4324,30 +4324,11 @@
 
           <!-- Sub-panel: Eligibility Programs -->
           <div class="req-subpanel" id="req-eligibility">
-            <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:12px;text-decoration:underline;cursor:pointer;">Altruists Health Assurance</div>
-            <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:6px;">
-              <button class="gc-btn gc-btn-tertiary gc-btn-sm">Bulk Schedule</button>
-              <button class="gc-btn gc-btn-primary gc-btn-sm">Bulk Complete</button>
-            </div>
-            <div class="gc-table-wrap">
-              <div style="overflow-x:auto;">
-                <table class="gc-table">
-                  <thead><tr>
-                    <th>Program Name</th>
-                    <th>Activity Type</th>
-                    <th>Script Name</th>
-                    <th>Due Date</th>
-                    <th>Recurring</th>
-                    <th style="width:60px;"></th>
-                  </tr></thead>
-                  <tbody>
-                    <tr>
-                      <td colspan="6" style="padding:16px 12px;color:var(--text-muted);font-size:12px;text-align:center;">No records found.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <!-- Inner program tabs (dynamically populated) -->
+            <div id="req-eligibility-prog-tabs" style="display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--border);margin-bottom:14px;"></div>
+            <!-- Empty state shown until a program is added -->
+            <div id="req-eligibility-empty" style="padding:24px 0;color:var(--text-muted);font-size:13px;text-align:center;">No eligibility programs added yet.</div>
+            <!-- Dynamically added program panels inserted here -->
           </div>
 
           <!-- Sub-panel: Clinical Programs -->
@@ -10278,6 +10259,8 @@ function staffProgSubmit() {
     if (b) b.style.display = 'flex';
     if (_staffProgCurrentSubtype === 'General') {
       reqActAddClinicalProgram(_staffProgCurrentTitle);
+    } else if (_staffProgCurrentSubtype === 'Benefit') {
+      reqActAddEligibilityProgram(_staffProgCurrentTitle);
     }
   }
 }
@@ -10376,8 +10359,90 @@ function reqClinicalTabSwitch(key) {
   if (activePanel) activePanel.style.display = '';
 }
 
-function navToRequiredActivities() {
-  // Activate the Required Activities main tab
+function reqActAddEligibilityProgram(title) {
+  var prog = null;
+  for (var i = 0; i < BP2_STAFF.length; i++) {
+    if (BP2_STAFF[i].title === title && BP2_STAFF[i].subtype === 'Benefit') { prog = BP2_STAFF[i]; break; }
+  }
+  var activities = prog ? prog.activities : [];
+  var tabId = 'req-eligibility-tab-' + title.replace(/\W/g, '_');
+  var panelId = 'req-eligibility-panel-' + title.replace(/\W/g, '_');
+
+  if (document.getElementById(tabId)) {
+    reqEligibilityTabSwitch(title.replace(/\W/g, '_'));
+    navToRequiredActivitiesPanel('req-eligibility');
+    return;
+  }
+
+  var emptyEl = document.getElementById('req-eligibility-empty');
+  if (emptyEl) emptyEl.style.display = 'none';
+
+  var tabsBar = document.getElementById('req-eligibility-prog-tabs');
+  var tabEl = document.createElement('div');
+  tabEl.id = tabId;
+  tabEl.style.cssText = 'padding:8px 16px;font-size:16px;font-weight:400;color:#888;cursor:pointer;position:relative;margin-bottom:-1px;';
+  tabEl.innerHTML = '<div style="font-size:16px;">' + title + '</div>'
+    + '<div class="req-eligibility-tab-line" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;opacity:0;"></div>';
+  tabEl.onclick = (function(key) { return function() { reqEligibilityTabSwitch(key); }; })(title.replace(/\W/g, '_'));
+  tabsBar.appendChild(tabEl);
+
+  var rowsHtml = '';
+  if (activities.length === 0) {
+    rowsHtml = '<tr><td colspan="4" style="padding:16px 12px;color:var(--text-muted);font-size:12px;text-align:center;">No activities associated with this program.</td></tr>';
+  } else {
+    activities.forEach(function(act) {
+      rowsHtml += '<tr>'
+        + '<td><a href="#" style="color:var(--link);">' + act + '</a></td>'
+        + '<td style="color:var(--text-muted);">N/A</td>'
+        + '<td style="color:var(--text-muted);">—</td>'
+        + '<td style="text-align:center;"><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">edit</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">bar_chart</span></td>'
+        + '</tr>';
+    });
+  }
+
+  var panelEl = document.createElement('div');
+  panelEl.id = panelId;
+  panelEl.style.display = 'none';
+  panelEl.innerHTML = '<div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:10px;">'
+    + '<button class="gc-btn gc-btn-tertiary gc-btn-sm">Bulk Schedule</button>'
+    + '<button class="gc-btn gc-btn-primary gc-btn-sm">Bulk Complete</button>'
+    + '</div>'
+    + '<div class="gc-table-wrap"><div style="overflow-x:auto;">'
+    + '<table class="gc-table"><thead><tr>'
+    + '<th>Activity Type</th><th>Script Name</th><th>Due Date</th><th style="width:60px;"></th>'
+    + '</tr></thead><tbody>' + rowsHtml + '</tbody></table>'
+    + '</div></div>';
+
+  document.getElementById('req-eligibility').appendChild(panelEl);
+
+  reqEligibilityTabSwitch(title.replace(/\W/g, '_'));
+  navToRequiredActivitiesPanel('req-eligibility');
+}
+
+function reqEligibilityTabSwitch(key) {
+  var tabsBar = document.getElementById('req-eligibility-prog-tabs');
+  tabsBar.querySelectorAll('div[id^="req-eligibility-tab-"]').forEach(function(t) {
+    var label = t.querySelector('div');
+    var line  = t.querySelector('.req-eligibility-tab-line');
+    if (label) { label.style.fontWeight = '400'; label.style.color = '#888'; }
+    if (line)  { line.style.opacity = '0'; }
+  });
+  document.getElementById('req-eligibility').querySelectorAll('div[id^="req-eligibility-panel-"]').forEach(function(p) {
+    p.style.display = 'none';
+  });
+  var activeTab = document.getElementById('req-eligibility-tab-' + key);
+  var activePanel = document.getElementById('req-eligibility-panel-' + key);
+  if (activeTab) {
+    var label = activeTab.querySelector('div');
+    var line  = activeTab.querySelector('.req-eligibility-tab-line');
+    if (label) { label.style.fontWeight = '700'; label.style.color = '#1a1a1a'; }
+    if (line)  { line.style.opacity = '1'; }
+  }
+  if (activePanel) activePanel.style.display = '';
+}
+
+function navToRequiredActivitiesPanel(subPanelId) {
+  // Activate Required Activities main tab
   var arTabs = document.querySelectorAll('#activityTabs .gc-tab');
   var arPanels = document.querySelectorAll('.ar-tab-panel');
   arTabs.forEach(function(t) { t.classList.remove('active'); t.style.color = ''; t.style.borderBottomColor = ''; });
@@ -10386,7 +10451,7 @@ function navToRequiredActivities() {
   var reqPanel = document.getElementById('artab-required-activities');
   if (reqTab) { reqTab.classList.add('active'); reqTab.style.color = 'var(--teal)'; reqTab.style.borderBottomColor = 'var(--teal)'; }
   if (reqPanel) { reqPanel.style.display = ''; reqPanel.classList.add('active'); }
-  // Activate the Clinical Programs sub-tab
+  // Activate the correct sub-tab
   document.querySelectorAll('.req-subtab').forEach(function(t) {
     var label = t.querySelector('div');
     var line  = t.querySelector('.req-subtab-line');
@@ -10394,17 +10459,20 @@ function navToRequiredActivities() {
     if (line)  { line.style.opacity = '0'; }
   });
   document.querySelectorAll('.req-subpanel').forEach(function(p) { p.style.display = 'none'; });
-  var clinicalSubTab = document.querySelector('.req-subtab[data-reqpanel="req-clinical"]');
-  var clinicalSubPanel = document.getElementById('req-clinical');
-  if (clinicalSubTab) {
-    var label = clinicalSubTab.querySelector('div');
-    var line  = clinicalSubTab.querySelector('.req-subtab-line');
+  var targetSubTab = document.querySelector('.req-subtab[data-reqpanel="' + subPanelId + '"]');
+  var targetSubPanel = document.getElementById(subPanelId);
+  if (targetSubTab) {
+    var label = targetSubTab.querySelector('div');
+    var line  = targetSubTab.querySelector('.req-subtab-line');
     if (label) { label.style.fontWeight = '700'; label.style.color = '#1a1a1a'; }
     if (line)  { line.style.opacity = '1'; }
   }
-  if (clinicalSubPanel) clinicalSubPanel.style.display = '';
-  // Scroll the panel into view
+  if (targetSubPanel) targetSubPanel.style.display = '';
   if (reqPanel) reqPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function navToRequiredActivities() {
+  navToRequiredActivitiesPanel('req-clinical');
 }
 
 function staffProgUpdateStatusDesc() {
