@@ -1143,6 +1143,17 @@
     <!-- ═══ LEFT PANEL: Member Info ═══ -->
     <div class="left-panel active" id="panel-member-info">
 
+      <!-- Success banner -->
+      <div id="progSuccessBanner" style="display:none;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid #d0d0d0;padding:14px 16px;margin-bottom:0;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:#2E7D32;border-radius:8px;flex-shrink:0;">
+            <span class="material-icons" style="font-size:22px;color:#fff;">check_circle_outline</span>
+          </span>
+          <span style="font-size:14px;color:#1a1a1a;">Record saved successfully.</span>
+        </div>
+        <button onclick="document.getElementById('progSuccessBanner').style.display='none'" style="background:none;border:none;cursor:pointer;color:#1378A3;font-size:18px;line-height:1;padding:0;" aria-label="Dismiss">&#x2715;</button>
+      </div>
+
       <!-- Content Tabs -->
       <div class="content-tabs-area">
         <div class="gc-tabs" id="memberInfoTabs">
@@ -1467,7 +1478,8 @@
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-size:11px;" onclick="event.preventDefault();closeBrowseProgramsPage();"><span class="material-icons" style="font-size:13px;">arrow_back</span> Back to Programs</a>
               <div style="display:flex;gap:0;">
                 <div id="bpOptTab-1" onclick="bpOptSwitch(1)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#fff;background:#1378A3;border-radius:4px 0 0 4px;border:1px solid #1378A3;">Option 1</div>
-                <div id="bpOptTab-2" onclick="bpOptSwitch(2)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border-radius:0 4px 4px 0;border:1px solid #1378A3;border-left:none;">Option 2</div>
+                <div id="bpOptTab-2" onclick="bpOptSwitch(2)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border:1px solid #1378A3;border-left:none;">Option 2</div>
+                <div id="bpOptTab-3" onclick="bpOptSwitch(3)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border-radius:0 4px 4px 0;border:1px solid #1378A3;border-left:none;">Option 3</div>
               </div>
             </div>
 
@@ -1476,7 +1488,7 @@
             <!-- Browse tabs -->
             <div style="display:flex;gap:28px;margin-bottom:0;">
               <div onclick="browseProgTab('staff')" style="cursor:pointer;">
-                <div id="bpLbl-staff" style="font-size:16px;font-weight:700;color:#1a1a1a;">Staff Programs</div>
+                <div id="bpLbl-staff" style="font-size:16px;font-weight:700;color:#1a1a1a;">Eligible and Clinical Programs</div>
                 <div id="bpLine-staff" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;"></div>
               </div>
               <div onclick="browseProgTab('member')" style="cursor:pointer;">
@@ -1492,7 +1504,7 @@
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
                 <div style="font-size:13px;font-weight:600;color:#1a1a1a;">New Enrollment</div>
                 <div style="display:flex;align-items:center;gap:10px;">
-                  <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;" onclick="event.preventDefault();"><span class="material-icons" style="font-size:14px;">save</span> Save</a>
+                  <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;" onclick="event.preventDefault();var t=document.getElementById('bpClinicalProgramInput');openStaffProgModal(t&&t.value.trim()?t.value.trim():'Clinical Program','General');"><span class="material-icons" style="font-size:14px;">save</span> Save</a>
                   <a href="#" onclick="event.preventDefault();closeBrowseProgramsPage();" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#C62828;text-decoration:none;"><span class="material-icons" style="font-size:14px;">close</span> Discard</a>
                 </div>
               </div>
@@ -1567,7 +1579,7 @@
                     <div>
                       <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">Program</div>
                       <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;overflow:hidden;">
-                        <input type="text" placeholder="Enter Program Name..." style="flex:1;border:none;outline:none;font-size:12px;padding:5px 8px;font-family:var(--font);">
+                        <input type="text" id="bpClinicalProgramInput" placeholder="Enter Program Name..." style="flex:1;border:none;outline:none;font-size:12px;padding:5px 8px;font-family:var(--font);">
                         <span class="material-icons" style="font-size:16px;color:var(--text-muted);padding:0 6px;">search</span>
                       </div>
                     </div>
@@ -1766,13 +1778,13 @@
                 <!-- Program Name -->
                 <div style="display:flex;flex-direction:column;gap:4px;">
                   <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Program Name</label>
-                  <input type="text" id="bp2Search" placeholder="Type here" oninput="bp2CurrentPage=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);width:160px;outline:none;color:#333;">
+                  <input type="text" id="bp2Search" placeholder="Type here" oninput="bp2Pages[bp2ActiveType]=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);width:160px;outline:none;color:#333;">
                 </div>
                 <!-- Topic — All Programs + Member-Facing only -->
                 <div id="bp2TopicWrap" style="display:none;flex-direction:column;gap:4px;">
                   <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Topic</label>
                   <div style="position:relative;display:inline-flex;align-items:center;">
-                    <select id="bp2TopicFilter" onchange="bp2CurrentPage=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:140px;">
+                    <select id="bp2TopicFilter" onchange="bp2Pages[bp2ActiveType]=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:140px;">
                       <option value="">All</option>
                       <option>Diabetes Management</option>
                       <option>Prenatal &amp; Postpartum</option>
@@ -1794,7 +1806,7 @@
                 <div id="bp2AudWrap" style="display:none;flex-direction:column;gap:4px;">
                   <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Audience</label>
                   <div style="position:relative;display:inline-flex;align-items:center;">
-                    <select id="bp2AudFilter" onchange="bp2CurrentPage=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:140px;">
+                    <select id="bp2AudFilter" onchange="bp2Pages[bp2ActiveType]=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:140px;">
                       <option value="">All</option>
                       <option value="Adult">Adult</option>
                       <option value="Adult Caregiver">Adult Caregiver</option>
@@ -1803,11 +1815,24 @@
                     <span class="material-icons" style="position:absolute;right:4px;font-size:16px;color:#888;pointer-events:none;">expand_more</span>
                   </div>
                 </div>
+                <!-- Program Type — Member-Facing tab only -->
+                <div id="bp2ProgTypeWrap" style="display:none;flex-direction:column;gap:4px;">
+                  <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Program Type</label>
+                  <div style="position:relative;display:inline-flex;align-items:center;">
+                    <select id="bp2ProgTypeFilter" onchange="bp2Pages[bp2ActiveType]=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:150px;">
+                      <option value="">All</option>
+                      <option value="Tracking">Tracking</option>
+                      <option value="Educational">Educational</option>
+                    </select>
+                    <span class="material-icons" style="position:absolute;right:4px;font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+                  </div>
+                  <div id="bp2ProgTypeHint" style="display:none;font-size:11px;color:var(--text-muted);max-width:220px;line-height:1.4;margin-top:2px;"></div>
+                </div>
                 <!-- Eligibility — Benefit tab only -->
                 <div id="bp2EligWrap" style="display:none;flex-direction:column;gap:4px;">
                   <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Eligibility</label>
                   <div style="position:relative;display:inline-flex;align-items:center;">
-                    <select id="bp2EligFilter" onchange="bp2CurrentPage=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:180px;">
+                    <select id="bp2EligFilter" onchange="bp2Pages[bp2ActiveType]=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:180px;">
                       <option value="">All</option>
                       <option value="Altruists Health Insurance">Altruists Health Insurance</option>
                       <option value="FEP">FEP</option>
@@ -1830,6 +1855,56 @@
               <div id="bp2-pager"></div>
 
             </div><!-- end bpOpt2 -->
+
+            <!-- ══ OPTION 3: 3-column layout, one column per program type ══ -->
+            <div id="bpOpt3" style="display:none;">
+
+              <!-- Filter bar -->
+              <div style="background:#F5F5F5;border-radius:6px;padding:12px 14px;margin-bottom:16px;">
+                <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;">
+                  <!-- Program Name -->
+                  <div style="display:flex;flex-direction:column;gap:4px;">
+                    <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Program Name</label>
+                    <input type="text" id="bp3Search" placeholder="Type here" oninput="bp3Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);width:160px;outline:none;color:#333;">
+                  </div>
+                  <!-- Program Type -->
+                  <div style="display:flex;flex-direction:column;gap:4px;">
+                    <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Program Type</label>
+                    <div style="position:relative;display:inline-flex;align-items:center;">
+                      <select id="bp3TypeFilter" onchange="bp3OnTypeChange()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:170px;">
+                        <option value="">All</option>
+                        <option value="Benefit">Eligibility</option>
+                        <option value="General">Clinical</option>
+                        <option value="Member-Facing">Member-Facing</option>
+                      </select>
+                      <span class="material-icons" style="position:absolute;right:4px;font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+                    </div>
+                  </div>
+                  <!-- Sort by — dynamic based on Program Type -->
+                  <div id="bp3SortWrap" style="display:none;flex-direction:column;gap:4px;">
+                    <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Sort By</label>
+                    <div style="position:relative;display:inline-flex;align-items:center;">
+                      <select id="bp3SortFilter" onchange="bp3Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:160px;">
+                      </select>
+                      <span class="material-icons" style="position:absolute;right:4px;font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+                    </div>
+                  </div>
+                  <!-- Search + Clear -->
+                  <div style="display:flex;align-items:center;gap:10px;padding-bottom:1px;">
+                    <button onclick="bp3Render()" style="display:inline-flex;align-items:center;gap:5px;background:#1378A3;color:#fff;border:none;border-radius:4px;padding:6px 14px;font-size:12px;font-weight:600;font-family:var(--font);cursor:pointer;">
+                      <span class="material-icons" style="font-size:14px;">search</span>Search
+                    </button>
+                    <span id="bp3ClearBtn" onclick="bp3ClearFilters()" style="display:none;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;">Clear Filters</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3-column grid — each column is one section -->
+              <div id="bp3-cols" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start;">
+                <!-- Columns rendered by bp3Render() -->
+              </div>
+
+            </div><!-- end bpOpt3 -->
 
           </div><!-- end browseProgramsPage -->
 
@@ -1856,7 +1931,7 @@
             <!-- Panel tabs (same large heading style) -->
             <div style="display:flex;gap:28px;margin-bottom:0;">
               <div onclick="apTab('staff')" style="cursor:pointer;">
-                <div id="apLbl-staff" style="font-size:16px;font-weight:700;color:#1a1a1a;">Staff Programs</div>
+                <div id="apLbl-staff" style="font-size:16px;font-weight:700;color:#1a1a1a;">Eligible and Clinical Programs</div>
                 <div id="apLine-staff" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;"></div>
               </div>
               <div onclick="apTab('member')" style="cursor:pointer;">
@@ -1988,7 +2063,7 @@
 
               <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px;">
                 <button onclick="closeAddProgramPanel();" style="font-size:12px;padding:5px 14px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;color:#1a1a1a;">Discard</button>
-                <button onclick="closeAddProgramPanel();" style="font-size:12px;padding:5px 14px;border:none;border-radius:4px;background:var(--teal);color:#fff;cursor:pointer;">Save</button>
+                <button onclick="var inp=document.querySelector('#apPanel-staff input[placeholder=\'Enter Program Name…\']');openStaffProgModal(inp&&inp.value.trim()?inp.value.trim():'Clinical Program','General');" style="font-size:12px;padding:5px 14px;border:none;border-radius:4px;background:var(--teal);color:#fff;cursor:pointer;">Save</button>
               </div>
             </div>
 
@@ -4169,6 +4244,27 @@
             </div>
           </div>
 
+          <!-- ═══ Member Activity section ═══ -->
+          <div id="memberActivitySection" style="display:none;margin-top:16px;">
+            <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:8px;">Member Activity</div>
+            <div class="gc-table-wrap" style="margin-bottom:6px;">
+              <div style="overflow-x:auto;">
+                <table class="gc-table">
+                  <thead><tr>
+                    <th>Program Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Progress</th>
+                    <th>Added By</th>
+                    <th>Status</th>
+                    <th>View</th>
+                  </tr></thead>
+                  <tbody id="memberActivityTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
           <!-- ═══ External Care Team section ═══ -->
           <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:8px;margin-top:16px;">External Care Team</div>
           <div style="background:var(--surface-light);border:1px solid var(--border);padding:10px 14px;margin-bottom:10px;">
@@ -5445,6 +5541,12 @@ function openScriptResponseModal() {
       tabPanels.forEach(function(p) { p.classList.remove('active'); });
       var panel = document.getElementById('tab-' + target);
       if (panel) panel.classList.add('active');
+
+      // hide success banner when leaving programs tab
+      if (target !== 'programs') {
+        var b = document.getElementById('progSuccessBanner');
+        if (b) b.style.display = 'none';
+      }
     });
   });
 
@@ -9127,10 +9229,12 @@ function openViewProgramModalA() {
 
 <script>
 var MFP2_PROGRAMS = [
+  {cat:'Onboarding & Engagement',  icon:'rocket_launch',     iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Welcome Program',                           desc:'Introductory program that orients new members to their care plan, app features, and available health resources.',                                    audiences:['Adult','Adult Caregiver','Pediatric'], langs:['English','Spanish'],
+    appTitle:'Welcome to Your Health Plan', contains:'Education, Survey', duration:'7 days', tasksPerDay:'1 task per day', added:true},
   {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Diabetes Management Program',              desc:'Structured program for blood sugar control, medication adherence, and lifestyle coaching.',                                                         audiences:['Adult'],          langs:['English','Spanish'],
     appTitle:'Diabetes Management Program', contains:'Survey, Education, Tracker', duration:'90 days', tasksPerDay:'2 tasks per day'},
   {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Sugar Tracker',                       desc:'Daily blood glucose logging and trend visualization to support diabetes self-management.',                                                         audiences:['Adult'],          langs:['English'],
-    appTitle:'Blood Sugar Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day'},
+    appTitle:'Blood Sugar Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day', progType:'Tracking'},
   {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Diabetes Self-Management Education (DSME)', desc:'Evidence-based education on nutrition, exercise, and medication management for people with diabetes.',                                              audiences:['Adult'],          langs:['English','Spanish'],
     appTitle:'Diabetes Self-Management Education', contains:'Education', duration:'28 days', tasksPerDay:'1 task per day'},
   {cat:'Prenatal & Postpartum',    icon:'child_care',        iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Maternal Health Program',                   desc:'Comprehensive support for pregnant members covering prenatal care, nutrition, and birth preparation.',                                             audiences:['Adult'],          langs:['English','Spanish'],
@@ -9144,7 +9248,7 @@ var MFP2_PROGRAMS = [
   {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'Heart Health Program',                      desc:'Preventive heart health education focused on lifestyle habits, risk reduction, and medication adherence.',                                            audiences:['Adult'],          langs:['English'],
     appTitle:'Heart Health Program', contains:'Education', duration:'60 days', tasksPerDay:'1 task per day'},
   {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'Blood Pressure Tracker',                    desc:'Member logs weekly blood pressure readings; supports hypertension management and care team visibility.',                                             audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Blood Pressure Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day'},
+    appTitle:'Blood Pressure Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day', progType:'Tracking'},
   {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Behavioral Health Support',                 desc:'Ongoing mental health support with daily check-ins, mood tracking, and coping skill content.',                                                         audiences:['Adult'],          langs:['English','Spanish'],
     appTitle:'Behavioral Health Support', contains:'Check-in, Education', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
   {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Anxiety & Depression Management',           desc:'CBT-informed program with structured activities to help members manage anxiety and depressive symptoms.',                                               audiences:['Adult'],          langs:['English'],
@@ -9170,7 +9274,7 @@ var MFP2_PROGRAMS = [
   {cat:'Nutrition & Weight Management',icon:'restaurant',    iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Weight Management Program',                 desc:'Structured program for members seeking to achieve and maintain a healthy weight through behavioral change.',                                            audiences:['Adult'],          langs:['English','Spanish'],
     appTitle:'Weight Management Program', contains:'Education, Tracker, Survey', duration:'90 days', tasksPerDay:'2 tasks per day'},
   {cat:'Nutrition & Weight Management',icon:'restaurant',    iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Weight Tracker',                            desc:'Member logs weekly weigh-ins; useful for CHF and obesity management program monitoring.',                                                              audiences:['Adult'],          langs:['English'],
-    appTitle:'Weight Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day'},
+    appTitle:'Weight Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day', progType:'Tracking'},
   {cat:'Substance Use & Recovery', icon:'self_improvement',  iconColor:'#4527A0', iconBg:'#EDE7F6', title:'Substance Use Recovery Support',            desc:'Recovery-focused daily support with check-ins, motivational content, and relapse prevention strategies.',                                             audiences:['Adult'],          langs:['English','Spanish'],
     appTitle:'Substance Use Recovery Support', contains:'Check-in, Education', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
   {cat:'Substance Use & Recovery', icon:'self_improvement',  iconColor:'#4527A0', iconBg:'#EDE7F6', title:'Opioid Management Program',                 desc:'Supports members managing opioid use disorder with medication reminders, behavioral health check-ins, and resources.',                                   audiences:['Adult'],          langs:['English'],
@@ -9234,232 +9338,352 @@ var MFP2_PROGRAMS = [
 var BP2_STAFF = [
   // Clinical — no eligibility required
   {cat:'Staff Programs', subtype:'General', icon:'assignment_ind',           iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Care Coordination',              desc:'Assigned to members managing multiple conditions or providers who need a single point of contact. A care manager works with the member to align specialists, close care gaps, and ensure follow-through after ER or hospital visits.',           audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Health Risk Assessment (HRA)',  freq:'Annually'},
-      {icon:'fact_check',       label:'Care Plan Development',         freq:'Within 30 days of enrollment'},
-      {icon:'event_repeat',     label:'Monthly Care Coordination Call',freq:'Monthly'},
-      {icon:'local_hospital',   label:'PCP Follow-Up Coordination',    freq:'After each ER/hospital visit'},
-    ]},
+    activities:['Telephonic Outreach','Health Risk Assessment','Care Plan Development','Follow-Up Call']},
   {cat:'Staff Programs', subtype:'General', icon:'medical_services',         iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Complex Care Management',        desc:'For members with the highest acuity — typically those with 3 or more active chronic conditions, frequent hospitalizations, or social barriers to care. An interdisciplinary team collaborates on a shared care plan with bi-weekly outreach.',                audiences:['Adult'],                   langs:['English'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Health Risk Assessment (HRA)',  freq:'Annually'},
-      {icon:'groups',           label:'Interdisciplinary Care Team Meeting', freq:'Within 14 days of enrollment'},
-      {icon:'fact_check',       label:'Complex Care Plan',             freq:'Within 30 days of enrollment'},
-      {icon:'event_repeat',     label:'Bi-Weekly Check-In',            freq:'Every 2 weeks'},
-      {icon:'medication',       label:'Medication Reconciliation',     freq:'After each transition of care'},
-    ]},
+    activities:['Telephonic Outreach','Health Risk Assessment','Interdisciplinary Team Meeting','Care Plan Development','Medication Reconciliation','Follow-Up Call']},
   {cat:'Staff Programs', subtype:'General', icon:'biotech',                  iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'DCB-T',                          desc:'Disease and Condition-Based Treatment program used when a member\'s diagnosis triggers a standardized clinical protocol. Staff assign the relevant protocol and monitor adherence through quarterly treatment reviews.',      audiences:['Adult'],                   langs:['English'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Disease-Specific Assessment',   freq:'At enrollment & annually'},
-      {icon:'fact_check',       label:'Treatment Protocol Review',     freq:'Quarterly'},
-      {icon:'event_repeat',     label:'Condition Monitoring Check-In', freq:'Monthly'},
-    ]},
+    activities:['Telephonic Outreach','Disease-Specific Assessment','Treatment Protocol Review']},
   {cat:'Staff Programs', subtype:'General', icon:'water_drop',               iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Diabetes Management',            desc:'Added when a Type 2 Diabetes diagnosis is identified during an HRA or chart review. Focuses on HbA1c monitoring, medication adherence, and nutrition referrals. Persists through coverage gaps and may be auto-assigned for D-SNP members.',  audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:[
-      {icon:'monitor_heart',    label:'Quarterly Diabetes Check-In',   freq:'Every 3 months'},
-      {icon:'assignment',       label:'HbA1c Monitoring Follow-Up',    freq:'Quarterly'},
-      {icon:'medication',       label:'Medication Adherence Assessment',freq:'Quarterly'},
-      {icon:'restaurant',       label:'Nutrition Counseling Referral', freq:'Within 60 days of enrollment'},
-    ]},
+    activities:['Telephonic Outreach','HbA1c Monitoring Follow-Up','Medication Adherence Assessment','Nutrition Counseling Referral']},
   {cat:'Staff Programs', subtype:'General', icon:'favorite',                 iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Health and Wellness',            desc:'A preventive program for members who don\'t yet have a chronic diagnosis but are at risk. Staff conduct a wellness intake and help set goals around physical activity, nutrition, and stress — with quarterly check-ins to track progress.',                  audiences:['Adult','Adult Caregiver'], langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Wellness Intake Assessment',    freq:'Once at enrollment'},
-      {icon:'directions_run',   label:'Goal Setting Session',          freq:'Within 30 days of enrollment'},
-      {icon:'event_repeat',     label:'Wellness Check-In',             freq:'Quarterly'},
-    ]},
+    activities:['Telephonic Outreach','Wellness Intake Assessment','Goal Setting Session']},
   {cat:'Staff Programs', subtype:'General', icon:'child_care',               iconColor:'#c2185b', iconBg:'#fce4ec', title:'Maternal Health Program',        desc:'Supports pregnant members from enrollment through 6 weeks postpartum. A care manager coordinates OB appointments, conducts trimester check-ins, reviews medication safety, and provides postpartum follow-up to reduce maternal risk.',                          audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Prenatal Risk Assessment',      freq:'Once at enrollment'},
-      {icon:'pregnant_woman',   label:'OB Care Coordination',          freq:'Each trimester'},
-      {icon:'event_repeat',     label:'Prenatal Check-In',             freq:'Monthly (weekly in 3rd trimester)'},
-      {icon:'child_friendly',   label:'Postpartum Follow-Up',          freq:'At 2 weeks & 6 weeks postpartum'},
-      {icon:'medication',       label:'Medication Safety Review',      freq:'At enrollment & postpartum'},
-    ]},
+    activities:['Telephonic Outreach','Prenatal Risk Assessment','OB Care Coordination','Postpartum Follow-Up','Medication Safety Review']},
   {cat:'Staff Programs', subtype:'General', icon:'self_improvement',         iconColor:'#4527A0', iconBg:'#EDE7F6', title:'Substance Use Disorder Program', desc:'For members diagnosed with alcohol, opioid, or other substance use disorders. Staff develop a recovery plan within 14 days of enrollment, conduct weekly check-ins for the first 90 days, and coordinate peer support and MAT medication reviews.',                       audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'SUD Risk & Needs Assessment',   freq:'At enrollment'},
-      {icon:'fact_check',       label:'Recovery Plan Development',     freq:'Within 14 days of enrollment'},
-      {icon:'event_repeat',     label:'Recovery Check-In',             freq:'Weekly (first 90 days), then monthly'},
-      {icon:'medication',       label:'MAT Medication Review',         freq:'Monthly'},
-      {icon:'support',          label:'Peer Support Referral',         freq:'As clinically indicated'},
-    ]},
+    activities:['Telephonic Outreach','SUD Risk & Needs Assessment','Recovery Plan Development','Follow-Up Call','Medication Reconciliation','Peer Support Referral']},
   // Clinical — no eligibility required (cont.)
   {cat:'Staff Programs', subtype:'General', icon:'transfer_within_a_station',iconColor:'#E65100', iconBg:'#FFF3E0', title:'Transitions of Care',          desc:'Automatically triggered by each hospital discharge. A care manager calls within 48 hours, reconciles medications, and schedules a PCP follow-up within 7 days. The 30-day cycle restarts with every new hospitalization.',             audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Post-Discharge Follow-Up Call', freq:'Within 48 hours of discharge'},
-      {icon:'medication',       label:'Medication Reconciliation',     freq:'Within 72 hours of discharge'},
-      {icon:'local_hospital',   label:'PCP Follow-Up Scheduling',      freq:'Within 7 days of discharge'},
-      {icon:'assignment',       label:'30-Day TOC Assessment',         freq:'Within 30 days of discharge (restarts each hospitalization)'},
-    ]},
+    activities:['Post-Discharge Follow-Up Call','Medication Reconciliation','PCP Follow-Up Scheduling','30-Day TOC Assessment']},
   // Benefit / Eligibility — tied to member's eligibility file (834)
   {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'DSNP Care Management',
     desc:'Opens automatically when the 834 file confirms D-SNP enrollment. Meets CMS requirements for Dual Special Needs Plans — including an HRA within 90 days and an annual individualized care plan. Program closes or pauses if D-SNP eligibility is lost.',
     audiences:['Adult'], langs:['English','Spanish'],
     eligibilities:['FEP'],
-    activities:[
-      {icon:'assignment',   label:'Health Risk Assessment (HRA)',   freq:'Within 90 days of enrollment'},
-      {icon:'phone',        label:'Initial Outreach / Welcome Call',freq:'At enrollment'},
-      {icon:'event_repeat', label:'Annual Reassessment',            freq:'Annually'},
-    ]},
+    activities:['Telephonic Outreach','Health Risk Assessment','Annual Reassessment']},
   {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'CSNP Care Management',
     desc:'Opens when the 834 confirms C-SNP enrollment. Each C-SNP is tied to a qualifying condition such as diabetes, heart failure, or ESRD. Activities include a condition-specific care plan within 30 days and annual reassessment aligned to CMS SNP requirements.',
     audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruists Health Insurance', 'FEP'],
-    activities:[
-      {icon:'assignment',   label:'Health Risk Assessment (HRA)',   freq:'Within 90 days of enrollment'},
-      {icon:'phone',        label:'Initial Outreach / Welcome Call',freq:'At enrollment'},
-      {icon:'fact_check',   label:'Condition-Specific Care Plan',   freq:'Within 30 days of enrollment'},
-      {icon:'event_repeat', label:'Annual Reassessment',            freq:'Annually'},
-    ]},
+    eligibilities:['Altruista Health', 'FEP'],
+    activities:['Telephonic Outreach','Health Risk Assessment','Condition-Specific Care Plan','Annual Reassessment']},
   {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'ISNP Care Management',
     desc:'For members enrolled in an I-SNP, typically residing in a nursing facility or long-term care setting. Care managers coordinate with facility staff quarterly and conduct an annual reassessment. Program depends on active I-SNP eligibility in the 834.',
     audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruists Health Insurance'],
-    activities:[
-      {icon:'assignment',   label:'Health Risk Assessment (HRA)',   freq:'Within 90 days of enrollment'},
-      {icon:'phone',        label:'Initial Outreach / Welcome Call',freq:'At enrollment'},
-      {icon:'groups',       label:'Facility Care Team Coordination',freq:'Quarterly'},
-      {icon:'event_repeat', label:'Annual Reassessment',            freq:'Annually'},
-    ]},
+    eligibilities:['Altruista Health'],
+    activities:['Telephonic Outreach','Health Risk Assessment','Facility Care Team Coordination','Annual Reassessment']},
   {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Medicaid Care Management',
     desc:'Activates when Medicaid enrollment is confirmed on the 834. Fulfills state-mandated care management requirements with an HRA, care plan, and quarterly outreach. If Medicaid eligibility lapses, the program is paused and reviewed for closure.',
     audiences:['Adult','Pediatric'], langs:['English','Spanish'],
-    eligibilities:['Altruists Health Insurance'],
-    activities:[
-      {icon:'assignment',   label:'Health Risk Assessment (HRA)',   freq:'Within 90 days of enrollment'},
-      {icon:'phone',        label:'Welcome Call',                   freq:'At enrollment'},
-      {icon:'fact_check',   label:'Care Plan Development',          freq:'Within 30 days of enrollment'},
-      {icon:'event_repeat', label:'Quarterly Outreach',             freq:'Every 3 months'},
-      {icon:'event_repeat', label:'Annual Reassessment',            freq:'Annually'},
-    ]},
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'LTSS Waiver Program',
+    eligibilities:['Medicaid'],
+    activities:['Telephonic Outreach','Health Risk Assessment','Care Plan Development','Quarterly Outreach','Annual Reassessment']},
+  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', added:true, title:'LTSS Waiver Program',
     desc:'Linked to a member\'s LTSS waiver eligibility. Coordinates in-home personal care, service planning, and ongoing reassessments to help members remain in community settings. A change in waiver status triggers an immediate program review.',
     audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruists Health Insurance', 'FEP'],
-    activities:[
-      {icon:'phone',        label:'Welcome Call',                   freq:'At enrollment'},
-      {icon:'assignment',   label:'Functional Needs Assessment',    freq:'Within 30 days of enrollment'},
-      {icon:'fact_check',   label:'Service Plan Development',       freq:'Within 60 days of enrollment'},
-      {icon:'event_repeat', label:'Semi-Annual Reassessment',       freq:'Every 6 months'},
-    ]},
+    eligibilities:['Medicaid', 'Altruista Health'],
+    activities:['Telephonic Outreach','Functional Needs Assessment','Service Plan Development','Semi-Annual Reassessment']},
   // Additional Clinical Programs
   {cat:'Staff Programs', subtype:'General', icon:'monitor_heart',            iconColor:'#C62828', iconBg:'#FFEBEE', title:'Congestive Heart Failure Program',
     desc:'Added when a CHF diagnosis is confirmed. Members log daily weights and symptoms to help staff catch early signs of decompensation before they lead to hospitalization. Care plans are reviewed quarterly and updated after any inpatient stay.',
     audiences:['Adult'], langs:['English','Spanish'],
-    activities:[
-      {icon:'monitor_heart',    label:'CHF Intake Assessment',         freq:'At enrollment'},
-      {icon:'assignment',       label:'Medication Reconciliation',     freq:'At enrollment & after each hospitalization'},
-      {icon:'event_repeat',     label:'Weekly Weight & Symptom Check', freq:'Weekly'},
-      {icon:'local_hospital',   label:'Post-Hospitalization Follow-Up',freq:'Within 48 hours of discharge'},
-      {icon:'fact_check',       label:'Care Plan Review',              freq:'Quarterly'},
-    ]},
+    activities:['Telephonic Outreach','CHF Intake Assessment','Medication Reconciliation','Post-Hospitalization Follow-Up','Care Plan Review']},
   {cat:'Staff Programs', subtype:'General', icon:'psychology',               iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Behavioral Health Integration',
     desc:'For members with both a behavioral health diagnosis and a chronic physical condition. A behavioral health specialist joins the care team to develop an integrated care plan and ensure mental health needs are addressed alongside medical ones.',
     audiences:['Adult'], langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Behavioral Health Screening',   freq:'At enrollment & annually'},
-      {icon:'fact_check',       label:'Integrated Care Plan',          freq:'Within 30 days of enrollment'},
-      {icon:'event_repeat',     label:'Monthly Mental Health Check-In',freq:'Monthly'},
-      {icon:'support',          label:'Specialist Referral Coordination', freq:'As clinically indicated'},
-    ]},
+    activities:['Telephonic Outreach','Behavioral Health Screening','Integrated Care Plan Development','Specialist Referral Coordination']},
   {cat:'Staff Programs', subtype:'General', icon:'air',                      iconColor:'#00838F', iconBg:'#E0F7FA', title:'Asthma & Respiratory Management',
     desc:'For members with moderate-to-severe asthma, COPD, or other chronic lung conditions. Staff conduct annual respiratory assessments, review inhaler technique semi-annually, and follow up quarterly to monitor symptom control and reduce exacerbations.',
     audiences:['Adult'], langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Respiratory Risk Assessment',   freq:'At enrollment & annually'},
-      {icon:'medication',       label:'Inhaler Technique Review',      freq:'Semi-annually'},
-      {icon:'event_repeat',     label:'Quarterly Symptom Check-In',    freq:'Every 3 months'},
-    ]},
+    activities:['Telephonic Outreach','Respiratory Risk Assessment','Medication Adherence Assessment','Follow-Up Call']},
   {cat:'Staff Programs', subtype:'General', icon:'local_hospital',           iconColor:'#E65100', iconBg:'#FFF3E0', title:'Post-Acute Care Management',
     desc:'Opens when a member is discharged from a skilled nursing or rehabilitation facility. Staff call within 24 hours, reconcile medications, and arrange a PCP follow-up within a week to reduce the risk of readmission.',
     audiences:['Adult'], langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Discharge Follow-Up Call',      freq:'Within 24 hours of discharge'},
-      {icon:'medication',       label:'Medication Reconciliation',     freq:'Within 72 hours of discharge'},
-      {icon:'assignment',       label:'Post-Acute Needs Assessment',   freq:'Within 7 days of discharge'},
-      {icon:'event_repeat',     label:'30-Day Follow-Up',              freq:'30 days post-discharge'},
-    ]},
+    activities:['Post-Discharge Follow-Up Call','Medication Reconciliation','Post-Acute Needs Assessment','PCP Follow-Up Scheduling','30-Day Follow-Up']},
   {cat:'Staff Programs', subtype:'General', icon:'restaurant',               iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Nutrition & Obesity Management',
     desc:'Assigned when a member\'s BMI or obesity-related diagnosis meets clinical criteria. A registered dietitian conducts a nutritional assessment, sets physical activity goals, and follows up monthly to track weight and progress toward sustainable change.',
     audiences:['Adult'], langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Nutritional Assessment',        freq:'At enrollment'},
-      {icon:'directions_run',   label:'Physical Activity Goal Setting',freq:'Within 30 days of enrollment'},
-      {icon:'event_repeat',     label:'Monthly Weight & Progress Check',freq:'Monthly'},
-      {icon:'restaurant',       label:'Nutrition Counseling Session',  freq:'Quarterly'},
-    ]},
+    activities:['Telephonic Outreach','Nutritional Assessment','Goal Setting Session','Follow-Up Call','Nutrition Counseling Referral']},
   {cat:'Staff Programs', subtype:'General', icon:'elderly',                  iconColor:'#37474F', iconBg:'#ECEFF1', title:'Geriatric Care Management',
     desc:'For members 65 and older who have multiple comorbidities or are at elevated risk of falls or polypharmacy harm. Uses a geriatric-specific assessment framework, with semi-annual fall risk screenings and an annual medication review to reduce adverse events.',
     audiences:['Adult'], langs:['English','Spanish'],
-    activities:[
-      {icon:'phone',            label:'Welcome Call',                  freq:'Once at enrollment'},
-      {icon:'assignment',       label:'Geriatric Comprehensive Assessment', freq:'At enrollment & annually'},
-      {icon:'fact_check',       label:'Fall Risk Screening',           freq:'Semi-annually'},
-      {icon:'medication',       label:'Polypharmacy Review',           freq:'Annually'},
-      {icon:'event_repeat',     label:'Quarterly Care Coordination',   freq:'Every 3 months'},
-    ]},
+    activities:['Telephonic Outreach','Geriatric Comprehensive Assessment','Fall Risk Screening','Polypharmacy Review','Quarterly Care Coordination','Follow-Up Call']},
   // Additional Eligibility Programs
   {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Medicare Advantage Care Management',
     desc:'Opens when Medicare Advantage enrollment is confirmed. Focuses on closing preventive care gaps, coordinating the Annual Wellness Visit, and supporting STARS quality measures. Activities are tracked annually to meet CMS reporting requirements.',
     audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruists Health Insurance', 'FEP'],
-    activities:[
-      {icon:'assignment',   label:'Annual Wellness Visit Coordination',freq:'Annually'},
-      {icon:'phone',        label:'Welcome Call',                      freq:'At enrollment'},
-      {icon:'fact_check',   label:'Preventive Care Gap Closure',       freq:'Ongoing'},
-      {icon:'event_repeat', label:'Annual Reassessment',               freq:'Annually'},
-    ]},
+    eligibilities:['Altruista Health', 'FEP'],
+    activities:['Telephonic Outreach','Annual Wellness Visit Coordination','Preventive Care Gap Review','Annual Reassessment']},
   {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Behavioral Health Benefit Program',
     desc:'Activates when a member\'s plan includes an active behavioral health benefit tier. Staff coordinate access to covered mental health and SUD services, review treatment authorizations, and conduct quarterly check-ins to ensure continuity across providers.',
     audiences:['Adult'], langs:['English','Spanish'],
     eligibilities:['FEP'],
-    activities:[
-      {icon:'phone',        label:'Welcome Call',                      freq:'At enrollment'},
-      {icon:'assignment',   label:'Behavioral Health Needs Assessment',freq:'At enrollment'},
-      {icon:'fact_check',   label:'Treatment Authorization Review',    freq:'As indicated'},
-      {icon:'event_repeat', label:'Quarterly Care Coordination',       freq:'Every 3 months'},
-    ]},
+    activities:['Telephonic Outreach','Behavioral Health Needs Assessment','Treatment Authorization Review']},
   {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Dual-Eligible Coordination Program',
     desc:'For members who qualify for both Medicare and Medicaid. A care manager creates an integrated care plan that spans both payers, identifies benefit gaps, and conducts semi-annual reassessments to ensure services from both programs are being fully utilized.',
     audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruists Health Insurance'],
-    activities:[
-      {icon:'phone',        label:'Welcome Call',                      freq:'At enrollment'},
-      {icon:'assignment',   label:'Dual-Eligible Intake Assessment',   freq:'Within 30 days of enrollment'},
-      {icon:'fact_check',   label:'Integrated Care Plan',              freq:'Within 60 days of enrollment'},
-      {icon:'event_repeat', label:'Semi-Annual Reassessment',          freq:'Every 6 months'},
-      {icon:'groups',       label:'Interdisciplinary Care Team Review',freq:'Annually'},
-    ]},
+    eligibilities:['Medicaid', 'Altruista Health'],
+    activities:['Telephonic Outreach','Dual-Eligible Intake Assessment','Integrated Care Plan Development','Semi-Annual Reassessment','Interdisciplinary Team Meeting']},
 ];
 
 
 function bpOptSwitch(n) {
   var o1 = document.getElementById('bpOpt1');
   var o2 = document.getElementById('bpOpt2');
+  var o3 = document.getElementById('bpOpt3');
   var t1 = document.getElementById('bpOptTab-1');
   var t2 = document.getElementById('bpOptTab-2');
-  if (!o1 || !o2) return;
+  var t3 = document.getElementById('bpOptTab-3');
+  if (!o1 || !o2 || !o3) return;
   o1.style.display = n === 1 ? '' : 'none';
   o2.style.display = n === 2 ? '' : 'none';
-  if (n === 1) {
-    t1.style.background='#1378A3'; t1.style.color='#fff'; t1.style.borderColor='#1378A3';
-    t2.style.background='#fff';    t2.style.color='#1378A3'; t2.style.borderColor='#1378A3';
-  } else {
-    t2.style.background='#1378A3'; t2.style.color='#fff'; t2.style.borderColor='#1378A3';
-    t1.style.background='#fff';    t1.style.color='#1378A3'; t1.style.borderColor='#1378A3';
+  o3.style.display = n === 3 ? '' : 'none';
+  [t1,t2,t3].forEach(function(t,i){
+    var active = (i+1) === n;
+    t.style.background  = active ? '#1378A3' : '#fff';
+    t.style.color       = active ? '#fff'    : '#1378A3';
+    t.style.borderColor = '#1378A3';
+  });
+  if (n === 2) {
     bp2ActiveType = '';
     bp2SetType('', document.getElementById('bp2chip-all'));
     bp2Render();
   }
+  if (n === 3) {
+    bp3Pages = {'Benefit': 1, 'General': 1, 'Member-Facing': 1};
+    bp3Render();
+  }
+}
+
+// ── Option 3 helpers ──────────────────────────────────────────────────────────
+
+var BP3_SECTIONS = [
+  {key:'Benefit',       label:'Eligibility Programs',   icon:'verified_user',   iconColor:'#1378A3'},
+  {key:'General',       label:'Clinical Programs',      icon:'medical_services',iconColor:'#1378A3'},
+  {key:'Member-Facing', label:'Member-Facing Programs', icon:'phone_iphone',    iconColor:'#1378A3'},
+];
+
+var BP3_PAGE_SIZE = 14;
+var bp3Pages = {'Benefit': 1, 'General': 1, 'Member-Facing': 1};
+
+var BP3_SORT_OPTIONS = {
+  'Benefit':       [{val:'',         label:'Default'}, {val:'payor', label:'Payor'}],
+  'General':       [{val:'',         label:'Default'}],
+  'Member-Facing': [{val:'',         label:'Default'}, {val:'audience', label:'Target Audience'}, {val:'topic', label:'Topic'}, {val:'type', label:'Type (Educational / Tracking)'}],
+};
+
+function bp3OnTypeChange() {
+  var type = document.getElementById('bp3TypeFilter').value;
+  var sortWrap = document.getElementById('bp3SortWrap');
+  var sortSel  = document.getElementById('bp3SortFilter');
+  var opts = type ? BP3_SORT_OPTIONS[type] : [];
+  if (opts && opts.length > 1) {
+    sortSel.innerHTML = opts.map(function(o){ return '<option value="' + o.val + '">' + o.label + '</option>'; }).join('');
+    sortWrap.style.display = 'flex';
+  } else {
+    sortWrap.style.display = 'none';
+  }
+  bp3Pages = {'Benefit': 1, 'General': 1, 'Member-Facing': 1};
+  bp3Render();
+}
+
+function bp3Render() {
+  var container = document.getElementById('bp3-cols');
+  if (!container) return;
+  var search    = (document.getElementById('bp3Search').value || '').toLowerCase();
+  var typeFilter = document.getElementById('bp3TypeFilter').value;
+  var sortBy    = (document.getElementById('bp3SortFilter') && document.getElementById('bp3SortWrap').style.display !== 'none')
+                    ? document.getElementById('bp3SortFilter').value : '';
+  var hasFilter = search || typeFilter || sortBy;
+  document.getElementById('bp3ClearBtn').style.display = hasFilter ? '' : 'none';
+
+  // Which sections to show — if Program Type is set, only that column; others hidden
+  var sections = typeFilter
+    ? BP3_SECTIONS.filter(function(s){ return s.key === typeFilter; })
+    : BP3_SECTIONS;
+
+  // Grid cols based on visible section count
+  var cols = sections.length === 1 ? '1fr' : sections.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr';
+  container.style.gridTemplateColumns = cols;
+
+  var html = '';
+  BP3_SECTIONS.forEach(function(sec) {
+    var visible = sections.some(function(s){ return s.key === sec.key; });
+    if (!visible) return;
+
+    var allProgs = BP2_ALL_PROGRAMS.filter(function(p) {
+      if (p.subtype !== sec.key) return false;
+      if (search && p.title.toLowerCase().indexOf(search) === -1) return false;
+      return true;
+    }).slice().sort(function(a, b){ return (a.title||'').localeCompare(b.title||''); });
+
+    // Apply sort
+    if (sortBy === 'payor') {
+      allProgs = allProgs.slice().sort(function(a, b) {
+        var ea = (a.eligibilities && a.eligibilities[0]) || '';
+        var eb = (b.eligibilities && b.eligibilities[0]) || '';
+        return ea.localeCompare(eb);
+      });
+    } else if (sortBy === 'audience') {
+      allProgs = allProgs.slice().sort(function(a, b) {
+        var aa = (a.audiences && a.audiences[0]) || '';
+        var ab = (b.audiences && b.audiences[0]) || '';
+        return aa.localeCompare(ab);
+      });
+    } else if (sortBy === 'topic') {
+      allProgs = allProgs.slice().sort(function(a, b) {
+        return (a.topic||a.title).localeCompare(b.topic||b.title);
+      });
+    } else if (sortBy === 'type') {
+      allProgs = allProgs.slice().sort(function(a, b) {
+        var ta = a.progType || 'Educational';
+        var tb = b.progType || 'Educational';
+        return ta.localeCompare(tb);
+      });
+    }
+
+    var total = allProgs.length;
+    var addedCount = allProgs.filter(function(p){ return p.added; }).length;
+    var totalPages = Math.max(1, Math.ceil(total / BP3_PAGE_SIZE));
+    if (bp3Pages[sec.key] > totalPages) bp3Pages[sec.key] = totalPages;
+    var page = bp3Pages[sec.key];
+    var progs = allProgs.slice((page - 1) * BP3_PAGE_SIZE, page * BP3_PAGE_SIZE);
+
+    html += '<div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;">';
+
+    // Column header
+    html += '<div style="background:#E8F4FB;border-bottom:1px solid #C5DFF0;padding:14px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0;">'
+      + '<span class="material-icons" style="font-size:17px;color:' + sec.iconColor + ';">' + sec.icon + '</span>'
+      + '<span style="font-size:13px;font-weight:700;color:#1a1a1a;">' + sec.label + '</span>'
+      + '<div style="margin-left:auto;display:flex;align-items:center;gap:10px;">'
+      +   '<span style="font-size:12px;color:#555;">' + total + ' total</span>'
+      +   '<span style="font-size:12px;color:#555;">' + addedCount + ' added</span>'
+      + '</div>'
+      + '</div>';
+
+    // Cards
+    html += '<div style="padding:0 20px;display:flex;flex-direction:column;flex:1;">';
+    if (progs.length === 0) {
+      html += '<div style="font-size:12px;color:var(--text-muted);padding:16px 0;text-align:center;font-style:italic;">No programs match your filters.</div>';
+    } else {
+      progs.forEach(function(p) {
+        var hasMF = p.subtype === 'Member-Facing';
+        var safeTitle = (p.title||'').replace(/'/g,"\\'");
+        var addFn = hasMF ? 'openMfpProgramModalDirect(\'' + safeTitle + '\')' : 'openStaffProgModal(\'' + safeTitle + '\',\'' + p.subtype + '\')';
+        var iconColor = p.iconColor || sec.iconColor;
+        var iconBg    = p.iconBg    || '#f0f0f0';
+        var icon      = p.icon      || sec.icon;
+
+        // Subtitle: what's shown under the name depends on sort
+        var subtitle = '';
+        if (sortBy === 'payor' && p.eligibilities && p.eligibilities.length) {
+          subtitle = p.eligibilities.join(', ');
+        } else if (sortBy === 'audience' && p.audiences && p.audiences.length) {
+          subtitle = p.audiences.join(', ');
+        } else if (sortBy === 'type') {
+          subtitle = p.progType || 'Educational';
+        } else {
+          subtitle = (p.desc||'').substring(0, 60) + (p.desc && p.desc.length > 60 ? '…' : '');
+        }
+
+        var hasActs = !hasMF && p.activities && p.activities.length;
+        var hasMFDetail = hasMF && (p.desc || p.appTitle || p.contains || p.duration || p.tasksPerDay);
+
+        var detailId = 'bp3d-' + (p.title||'').replace(/\W/g,'');
+        var detailBody = '';
+        var detailLabel = '';
+
+        if (hasActs) {
+          detailLabel = 'Required Activities';
+          detailBody = '<div style="display:flex;flex-direction:column;gap:2px;">'
+            + p.activities.map(function(a){
+                return '<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#333;">'
+                  + '<span style="width:4px;height:4px;border-radius:50%;background:var(--teal);flex-shrink:0;display:inline-block;"></span>' + a + '</div>';
+              }).join('')
+            + '</div>';
+        } else if (hasMFDetail) {
+          detailLabel = 'Program details';
+          var metaPills = '';
+          if (p.duration)    metaPills += '<span style="font-size:10px;background:#E3F2FD;color:#1378A3;border-radius:10px;padding:2px 8px;">' + p.duration + '</span>';
+          if (p.tasksPerDay) metaPills += '<span style="font-size:10px;background:#E8F5E9;color:#2E7D32;border-radius:10px;padding:2px 8px;">' + p.tasksPerDay + '</span>';
+          if (p.contains)    metaPills += '<span style="font-size:10px;background:#F3E5F5;color:#6A1B9A;border-radius:10px;padding:2px 8px;">' + p.contains + '</span>';
+          detailBody = (p.appTitle ? '<div style="font-size:11px;color:#555;margin-bottom:6px;"><span style="color:var(--text-muted);">In app:</span> <em>' + p.appTitle + '</em></div>' : '')
+            + (p.desc ? '<div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:6px;">' + p.desc + '</div>' : '')
+            + (metaPills ? '<div style="display:flex;flex-wrap:wrap;gap:4px;">' + metaPills + '</div>' : '');
+        }
+
+        var hasDetail = detailBody !== '';
+        var chevId = detailId + '-chev';
+        var toggleFn = 'bp3Toggle(\'' + detailId + '\',\'' + chevId + '\')';
+
+        html += '<div style="padding:10px 0;border-bottom:1px solid #f0f0f0;">'
+          + '<div style="display:flex;align-items:center;gap:8px;">'
+          +   (hasDetail
+              ? '<div onclick="' + toggleFn + '" style="flex:1;min-width:0;cursor:pointer;">'
+              : '<div style="flex:1;min-width:0;">')
+          +     '<div style="font-size:13px;font-weight:600;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (p.title||'') + '</div>'
+          +     (!hasMF && p.eligibilities && p.eligibilities.length
+                ? '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">'
+                +   p.eligibilities.map(function(e){
+                      return '<span style="font-size:10px;font-weight:600;color:#1378A3;background:#E3F2FD;border-radius:10px;padding:2px 8px;white-space:nowrap;">' + e + '</span>';
+                    }).join('')
+                + '</div>'
+                : '')
+          +     (hasDetail
+                ? '<div style="display:inline-flex;align-items:center;gap:2px;margin-top:2px;">'
+                +   '<span style="font-size:12px;color:var(--text-muted);">' + detailLabel + '</span>'
+                +   '<span id="' + chevId + '" class="material-icons" style="font-size:14px;color:var(--text-muted);">expand_more</span>'
+                + '</div>'
+                : '')
+          +   '</div>'
+          +   (p.added
+              ? '<span style="flex-shrink:0;display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#2E7D32;white-space:nowrap;padding:7px 0;">'
+              +   '<span class="material-icons" style="font-size:15px;">check_circle</span>Added'
+              + '</span>'
+              : '<button onclick="' + addFn + '" style="flex-shrink:0;font-size:12px;font-weight:700;color:#fff;background:#1378A3;border:none;border-radius:4px;padding:7px 16px;cursor:pointer;white-space:nowrap;">+ Add</button>')
+          + '</div>'
+          + (hasDetail
+            ? '<div id="' + detailId + '" style="display:none;margin-top:8px;background:#F8FAFB;border-radius:6px;padding:10px 12px;">' + detailBody + '</div>'
+            : '')
+          + '</div>';
+      });
+    }
+    html += '</div>';
+
+    // Pager footer
+    html += '<div style="border-top:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:#fafafa;">';
+    html += '<span style="font-size:12px;font-weight:600;color:#555;">Page ' + page + ' of ' + totalPages + '</span>';
+    html += '<div style="display:flex;gap:6px;">';
+    html += '<button onclick="bp3GoPage(\'' + sec.key + '\',' + (page-1) + ',' + totalPages + ')" '
+      + (page <= 1 ? 'disabled ' : '')
+      + 'style="border:1px solid ' + (page<=1?'#ddd':'#1378A3') + ';background:' + (page<=1?'#f5f5f5':'#fff') + ';border-radius:4px;padding:4px 12px;font-size:13px;font-weight:700;cursor:' + (page<=1?'default':'pointer') + ';color:' + (page<=1?'#bbb':'#1378A3') + ';">‹</button>';
+    html += '<button onclick="bp3GoPage(\'' + sec.key + '\',' + (page+1) + ',' + totalPages + ')" '
+      + (page >= totalPages ? 'disabled ' : '')
+      + 'style="border:1px solid ' + (page>=totalPages?'#ddd':'#1378A3') + ';background:' + (page>=totalPages?'#f5f5f5':'#fff') + ';border-radius:4px;padding:4px 12px;font-size:13px;font-weight:700;cursor:' + (page>=totalPages?'default':'pointer') + ';color:' + (page>=totalPages?'#bbb':'#1378A3') + ';">›</button>';
+    html += '</div></div>';
+
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function bp3Toggle(bodyId, chevId) {
+  var b = document.getElementById(bodyId);
+  var c = document.getElementById(chevId);
+  var open = b.style.display === 'none';
+  b.style.display = open ? 'block' : 'none';
+  if (c) c.textContent = open ? 'expand_less' : 'expand_more';
+}
+
+function bp3GoPage(sectionKey, page, totalPages) {
+  bp3Pages[sectionKey] = Math.max(1, Math.min(page, totalPages));
+  bp3Render();
+}
+
+function bp3ClearFilters() {
+  document.getElementById('bp3Search').value = '';
+  document.getElementById('bp3TypeFilter').value = '';
+  document.getElementById('bp3SortWrap').style.display = 'none';
+  bp3Pages = {'Benefit': 1, 'General': 1, 'Member-Facing': 1};
+  bp3Render();
 }
 
 var BP2_CATS_BY_TYPE = [
@@ -9486,7 +9710,7 @@ var BP2_CATS_BY_TOPIC = [
 var BP2_ALL_PROGRAMS = BP2_STAFF.concat(MFP2_PROGRAMS.map(function(p){ return Object.assign({}, p, {subtype:'Member-Facing'}); }));
 
 var bp2ActiveType = '';
-var bp2CurrentPage = 1;
+var bp2Pages = {'': 1, 'Benefit': 1, 'General': 1, 'Member-Facing': 1};
 var BP2_PER_PAGE = 10;
 
 var BP2_TYPE_DESC = {
@@ -9525,6 +9749,12 @@ function bp2SetType(type, btn) {
   var audSel  = document.getElementById('bp2AudFilter');
   if (audWrap) audWrap.style.display = showAud ? 'flex' : 'none';
   if (audSel && !showAud) audSel.value = '';
+  // show program type filter only on Member-Facing tab
+  var showProgType = (type === 'Member-Facing');
+  var progTypeWrap = document.getElementById('bp2ProgTypeWrap');
+  var progTypeSel  = document.getElementById('bp2ProgTypeFilter');
+  if (progTypeWrap) progTypeWrap.style.display = showProgType ? 'flex' : 'none';
+  if (progTypeSel && !showProgType) progTypeSel.value = '';
   // show eligibility dropdown on Eligibility Programs tab and All Programs tab
   var showElig = (type === '' || type === 'Benefit');
   var eligWrap = document.getElementById('bp2EligWrap');
@@ -9534,7 +9764,7 @@ function bp2SetType(type, btn) {
   var s = document.getElementById('bp2Search');
   var clr = document.getElementById('bp2SearchClear');
   if (s && clr) clr.style.display = s.value ? '' : 'none';
-  bp2CurrentPage = 1;
+  bp2Pages[type] = 1;
   bp2Render();
 }
 
@@ -9553,35 +9783,51 @@ function bp2TogglePanel(id) {
 }
 
 function bp2ClearFilters() {
-  var s = document.getElementById('bp2Search');
-  var t = document.getElementById('bp2TopicFilter');
-  var a = document.getElementById('bp2AudFilter');
-  var e = document.getElementById('bp2EligFilter');
-  if (s) s.value = '';
-  if (t) t.value = '';
-  if (a) a.value = '';
-  if (e) e.value = '';
-  bp2CurrentPage = 1;
+  var s  = document.getElementById('bp2Search');
+  var t  = document.getElementById('bp2TopicFilter');
+  var a  = document.getElementById('bp2AudFilter');
+  var pt = document.getElementById('bp2ProgTypeFilter');
+  var e  = document.getElementById('bp2EligFilter');
+  if (s)  s.value  = '';
+  if (t)  t.value  = '';
+  if (a)  a.value  = '';
+  if (pt) pt.value = '';
+  if (e)  e.value  = '';
+  bp2Pages[bp2ActiveType] = 1;
   bp2Render();
 }
 
 function bp2Render() {
-  var searchEl  = document.getElementById('bp2Search');
-  var q         = searchEl ? searchEl.value.toLowerCase().trim() : '';
-  var topicFilt = (document.getElementById('bp2TopicFilter') ? document.getElementById('bp2TopicFilter').value : '');
-  var audFilt   = (document.getElementById('bp2AudFilter')   ? document.getElementById('bp2AudFilter').value   : '');
-  var eligFilt  = (document.getElementById('bp2EligFilter')  ? document.getElementById('bp2EligFilter').value  : '');
+  var searchEl     = document.getElementById('bp2Search');
+  var q            = searchEl ? searchEl.value.toLowerCase().trim() : '';
+  var topicFilt    = (document.getElementById('bp2TopicFilter')    ? document.getElementById('bp2TopicFilter').value    : '');
+  var audFilt      = (document.getElementById('bp2AudFilter')      ? document.getElementById('bp2AudFilter').value      : '');
+  var progTypeFilt = (document.getElementById('bp2ProgTypeFilter') ? document.getElementById('bp2ProgTypeFilter').value : '');
+  var eligFilt     = (document.getElementById('bp2EligFilter')     ? document.getElementById('bp2EligFilter').value     : '');
+  var progTypeHint = document.getElementById('bp2ProgTypeHint');
+  if (progTypeHint) {
+    var hintText = progTypeFilt === 'Tracking'    ? 'Biometric trackers — members record their numbers (blood pressure, blood sugar, weight).'
+                 : progTypeFilt === 'Educational' ? 'Programs with articles and learning tasks on the member\'s daily checklist.'
+                 : '';
+    progTypeHint.textContent = hintText;
+    progTypeHint.style.display = hintText ? '' : 'none';
+  }
   var list  = document.getElementById('bp2-list');
   var clr = document.getElementById('bp2SearchClear');
-  var hasFilter = (searchEl && searchEl.value) || topicFilt || audFilt || eligFilt;
+  var hasFilter = (searchEl && searchEl.value) || topicFilt || audFilt || progTypeFilt || eligFilt;
   if (clr) clr.style.display = hasFilter ? '' : 'none';
   if (!list) return;
 
   var filtered = BP2_ALL_PROGRAMS.filter(function(p) {
     if (bp2ActiveType && p.subtype !== bp2ActiveType) return false;
     if (q && p.title.toLowerCase().indexOf(q) === -1 && p.desc.toLowerCase().indexOf(q) === -1) return false;
-    if (topicFilt && p.cat !== topicFilt) return false;
-    if (audFilt   && p.audiences && p.audiences.indexOf(audFilt) === -1) return false;
+    if (topicFilt    && p.cat !== topicFilt) return false;
+    if (audFilt      && p.audiences && p.audiences.indexOf(audFilt) === -1) return false;
+    if (progTypeFilt && p.subtype === 'Member-Facing') {
+      var isTracker = p.progType === 'Tracking';
+      if (progTypeFilt === 'Tracking'    && !isTracker) return false;
+      if (progTypeFilt === 'Educational' &&  isTracker) return false;
+    }
     if (eligFilt  && p.eligibilities && p.eligibilities.length && p.eligibilities.indexOf(eligFilt) === -1) return false;
     return true;
   }).sort(function(a, b) { return a.title.localeCompare(b.title); });
@@ -9594,7 +9840,9 @@ function bp2Render() {
   }
 
   var totalPages = Math.ceil(filtered.length / BP2_PER_PAGE);
-  if (bp2CurrentPage > totalPages) bp2CurrentPage = totalPages;
+  if (!bp2Pages[bp2ActiveType]) bp2Pages[bp2ActiveType] = 1;
+  if (bp2Pages[bp2ActiveType] > totalPages) bp2Pages[bp2ActiveType] = totalPages;
+  var bp2CurrentPage = bp2Pages[bp2ActiveType];
   var pageStart = (bp2CurrentPage - 1) * BP2_PER_PAGE;
   var pageItems = filtered.slice(pageStart, pageStart + BP2_PER_PAGE);
 
@@ -9687,7 +9935,7 @@ function bp2Render() {
       // footer
       + '<div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">'
       +   toggleBtn
-      +   '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;" onclick="openMfpProgramModalDirect(\''+safeTitle+'\')">'
+      +   '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;" onclick="'+(hasMF ? 'openMfpProgramModalDirect(\''+safeTitle+'\')' : 'openStaffProgModal(\''+safeTitle+'\',\''+p.subtype+'\')')+'">'
       +     '<span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Program'
       +   '</span>'
       + '</div>'
@@ -9719,37 +9967,24 @@ function bp2GoPage(n) {
     if (bp2ActiveType && p.subtype !== bp2ActiveType) return false;
     return true;
   }).length / BP2_PER_PAGE);
-  bp2CurrentPage = Math.max(1, Math.min(n, 999));
+  bp2Pages[bp2ActiveType] = Math.max(1, Math.min(n, totalPages || 1));
   bp2Render();
   var top = document.getElementById('bp2-list');
   if (top) top.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 
-function openMfpProgramModalDirect(title) {
-  var prog = BP2_ALL_PROGRAMS.filter(function(p){ return p.title === title; })[0]
-          || MFP2_PROGRAMS.filter(function(p){ return p.title === title; })[0];
-  if (!prog) return;
-  document.getElementById('mfpViewProgramModalTitle').textContent = prog.title;
-  document.getElementById('mfpViewProgramModalDesc').textContent  = prog.desc;
-  var tagsEl = document.getElementById('mfpViewProgramModalTags');
-  tagsEl.innerHTML = '';
-  prog.audiences.forEach(function(a){
-    var s = document.createElement('span'); s.className='mfp-tag mfp-tag-pop'; s.textContent=a; tagsEl.appendChild(s);
-  });
-  var ls = document.createElement('span');
-  ls.className='mfp-tag mfp-tag-lang';
-  ls.textContent = prog.langs.length > 1 ? 'English · Spanish' : prog.langs[0];
-  tagsEl.appendChild(ls);
-  document.getElementById('mfpViewProgramModal').classList.add('open');
-}
 
 function mfpSelectElig(card) {
   document.querySelectorAll('.mfp-elig-card').forEach(function(c){ c.classList.remove('selected'); });
   card.classList.add('selected');
 }
 
-function mfpPopulateModal(title, desc, audiences, langs, subtype, activities) {
+var _mfpCurrentTitle = '';
+var _mfpCurrentDuration = '';
+function mfpPopulateModal(title, desc, audiences, langs, subtype, activities, appTitle, contains, duration, tasksPerDay) {
+  _mfpCurrentTitle = title || '';
+  _mfpCurrentDuration = duration || '';
   var BADGE_CFG = {
     'Benefit':      {bg:'rgba(255,255,255,0.2)', color:'#fff', icon:'verified_user', label:'Eligibility Programs'},
     'General':      {bg:'rgba(255,255,255,0.2)', color:'#fff', icon:'task_alt',      label:'Clinical Programs'},
@@ -9760,14 +9995,36 @@ function mfpPopulateModal(title, desc, audiences, langs, subtype, activities) {
   document.getElementById('mfpViewProgramModalTitle').textContent = title;
 
   var badgeEl = document.getElementById('mfpViewProgramModalBadge');
-  if (bc) {
-    badgeEl.innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;background:'+bc.bg+';color:'+bc.color+';border-radius:3px;padding:2px 8px;">'
-      + '<span class="material-icons" style="font-size:11px;">'+bc.icon+'</span>'+bc.label+'</span>';
-  } else {
-    badgeEl.innerHTML = '';
+  badgeEl.textContent = bc ? bc.label : '';
+
+  // Member title in app
+  var appTitleEl = document.getElementById('mfpProgAppTitle');
+  if (appTitleEl) {
+    if (appTitle) {
+      appTitleEl.innerHTML = '<strong>Member title in app:</strong> ' + appTitle;
+      appTitleEl.style.display = '';
+    } else {
+      appTitleEl.style.display = 'none';
+    }
   }
 
   document.getElementById('mfpViewProgramModalDesc').textContent = desc;
+
+  // Program Contains / duration / tasks per day
+  var metaEl = document.getElementById('mfpProgContainsMeta');
+  if (metaEl) {
+    if (contains || duration || tasksPerDay) {
+      metaEl.style.display = '';
+      metaEl.innerHTML =
+        (contains ? '<div style="font-size:13px;color:#444;margin-bottom:10px;">Program Contains: ' + contains + '</div>' : '')
+        + ((duration || tasksPerDay) ? '<div style="display:flex;flex-direction:column;gap:6px;">'
+          + (duration    ? '<div style="display:flex;align-items:center;gap:7px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:16px;color:#555;">timer</span>' + duration + '</div>' : '')
+          + (tasksPerDay ? '<div style="display:flex;align-items:center;gap:7px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:16px;color:#555;">format_list_bulleted</span>' + tasksPerDay + '</div>' : '')
+          + '</div>' : '');
+    } else {
+      metaEl.style.display = 'none';
+    }
+  }
 
   var tagsEl = document.getElementById('mfpViewProgramModalTags');
   tagsEl.innerHTML = '';
@@ -9812,45 +10069,318 @@ function mfpPopulateModal(title, desc, audiences, langs, subtype, activities) {
 }
 
 function openMfpProgramModal(btn) {
-  // Option 1 accordion rows — member-facing only
+  // Option 1 accordion rows — look up full data by title
   var row = btn.closest('.mfp-program-row');
   var titleEl = row.querySelector('.mfp-program-title');
-  var descEl  = row.querySelector('.mfp-program-desc');
-  var popTags = Array.from(row.querySelectorAll('.mfp-tag-pop')).map(function(t){ return t.textContent; });
-  var langTags = Array.from(row.querySelectorAll('.mfp-tag-lang')).map(function(t){ return t.textContent; });
-  mfpPopulateModal(
-    titleEl ? titleEl.textContent : '',
-    descEl  ? descEl.textContent  : '',
-    popTags,
-    langTags,
-    'Member-Facing'
-  );
+  var title = titleEl ? titleEl.textContent : '';
+  var prog = MFP2_PROGRAMS.filter(function(p){ return p.title === title; })[0];
+  if (prog) {
+    mfpPopulateModal(prog.title, prog.desc, prog.audiences, prog.langs, 'Member-Facing', prog.activities, prog.appTitle, prog.contains, prog.duration, prog.tasksPerDay);
+  } else {
+    // fallback for any title not in data
+    var descEl  = row.querySelector('.mfp-program-desc');
+    var popTags = Array.from(row.querySelectorAll('.mfp-tag-pop')).map(function(t){ return t.textContent; });
+    var langTags = Array.from(row.querySelectorAll('.mfp-tag-lang')).map(function(t){ return t.textContent; });
+    mfpPopulateModal(title, descEl ? descEl.textContent : '', popTags, langTags, 'Member-Facing');
+  }
 }
 
 function openMfpProgramModalDirect(title) {
   var prog = BP2_ALL_PROGRAMS.filter(function(p){ return p.title === title; })[0]
           || MFP2_PROGRAMS.filter(function(p){ return p.title === title; })[0];
   if (!prog) return;
-  mfpPopulateModal(prog.title, prog.desc, prog.audiences, prog.langs, prog.subtype, prog.activities);
+  mfpPopulateModal(prog.title, prog.desc, prog.audiences, prog.langs, prog.subtype, prog.activities, prog.appTitle, prog.contains, prog.duration, prog.tasksPerDay);
 }
 
 function mfpAddProgramConfirm() {
   document.getElementById('mfpViewProgramModal').classList.remove('open');
+  var b = document.getElementById('progSuccessBanner');
+  if (b) b.style.display = 'flex';
+
+  // Add row to Member Activity in Activity Summary
+  var tbody = document.getElementById('memberActivityTbody');
+  var section = document.getElementById('memberActivitySection');
+  if (tbody && section) {
+    var now = new Date();
+    var fmtDate = function(d) {
+      var mo = d.getMonth()+1, dd = d.getDate(), yr = d.getFullYear();
+      return (mo<10?'0':'')+mo+'/'+(dd<10?'0':'')+dd+'/'+yr;
+    };
+    var startStr = fmtDate(now);
+
+    // Derive end date and initial progress from duration string
+    var endStr = 'Ongoing';
+    var dur = _mfpCurrentDuration || '';
+    var wkMatch = dur.match(/(\d+)\s*week/i);
+    var moMatch = dur.match(/(\d+)\s*month/i);
+    var dayMatch = dur.match(/(\d+)\s*day/i);
+    if (wkMatch) {
+      var end = new Date(now); end.setDate(end.getDate() + parseInt(wkMatch[1])*7);
+      endStr = fmtDate(end);
+    } else if (moMatch) {
+      var end = new Date(now); end.setMonth(end.getMonth() + parseInt(moMatch[1]));
+      endStr = fmtDate(end);
+    } else if (dayMatch) {
+      var end = new Date(now); end.setDate(end.getDate() + parseInt(dayMatch[1]));
+      endStr = fmtDate(end);
+    }
+
+    var pct = 0;
+
+    var progressCell = '<div style="display:flex;align-items:center;gap:6px;">'
+      + '<div style="flex:1;height:6px;background:#e0e0e0;border-radius:3px;min-width:60px;">'
+      + '<div style="width:' + pct + '%;height:100%;background:#1378A3;border-radius:3px;"></div></div>'
+      + '<span style="font-size:11px;color:var(--text-muted);white-space:nowrap;">' + pct + '%</span></div>';
+
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>' + (_mfpCurrentTitle || '—') + '</td>' +
+      '<td>' + startStr + '</td>' +
+      '<td>' + endStr + '</td>' +
+      '<td>' + progressCell + '</td>' +
+      '<td>Care Manager</td>' +
+      '<td><span style="color:#2E7D32;font-weight:600;">Active</span></td>' +
+      '<td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td>';
+    tbody.appendChild(tr);
+    section.style.display = '';
+  }
+}
+</script>
+
+<!-- ══ STAFF PROGRAM Modal (Clinical / Eligibility) ══ -->
+<div class="gc-modal-overlay" id="staffProgModal" role="dialog" aria-modal="true" aria-labelledby="staffProgModalTitle" style="align-items:center;">
+  <div class="gc-modal" style="max-width:480px;border-radius:8px;overflow:hidden;">
+    <!-- Header -->
+    <div style="padding:22px 24px 16px;background:#fff;border-bottom:1px solid #eee;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">
+            <span style="display:inline-block;">
+              <div id="staffProgModalTitle" style="font-size:20px;font-weight:700;color:#1a1a1a;line-height:1.2;"></div>
+              <div style="height:3px;background:#C8821A;margin-top:7px;border-radius:1px;"></div>
+            </span>
+            <span id="staffProgModalBadge" style="font-size:13px;color:#555;font-weight:400;"></span>
+          </div>
+        </div>
+        <button onclick="document.getElementById('staffProgModal').classList.remove('open')" aria-label="Close" style="background:none;border:none;color:#1378A3;cursor:pointer;font-size:22px;line-height:1;flex-shrink:0;margin-top:-2px;">&#x2715;</button>
+      </div>
+    </div>
+    <div style="padding:18px 24px;overflow-y:auto;max-height:calc(100vh - 240px);display:flex;flex-direction:column;gap:14px;background:#fff;">
+
+      <!-- Start / End Date row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Start Date</div>
+          <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;">
+            <input type="text" id="staffProgStartDate" placeholder="MM/DD/YYYY" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;" />
+            <span class="material-icons" style="font-size:16px;color:#888;">calendar_today</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">End Date</div>
+          <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;">
+            <input type="text" id="staffProgEndDate" placeholder="MM/DD/YYYY" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;" />
+            <span class="material-icons" style="font-size:16px;color:#888;">calendar_today</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Status <span style="color:#C62828;">*</span></div>
+          <div style="position:relative;">
+            <select id="staffProgStatus" onchange="staffProgUpdateStatusDesc();staffProgClearErr('staffProgStatusErr',this);" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+              <option value="">Select</option>
+              <option value="Active">Active</option>
+              <option value="Closed">Closed</option>
+              <option value="Inactive">Inactive</option>
+              <option value="Pending">Pending</option>
+            </select>
+            <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+          </div>
+          <div id="staffProgStatusErr" style="display:none;font-size:11px;color:#C62828;margin-top:3px;">Required</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Status Description <span style="color:#C62828;">*</span></div>
+          <div style="position:relative;">
+            <select id="staffProgStatusDesc" onchange="staffProgClearErr('staffProgStatusDescErr',this);" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+              <option value="">Select</option>
+            </select>
+            <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+          </div>
+          <div id="staffProgStatusDescErr" style="display:none;font-size:11px;color:#C62828;margin-top:3px;">Required</div>
+        </div>
+      </div>
+
+      <!-- Referral Source -->
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Referral Source <span style="color:#C62828;">*</span></div>
+        <div style="position:relative;">
+          <select id="staffProgReferral" onchange="staffProgClearErr('staffProgReferralErr',this);" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+            <option value="">Select</option>
+            <option>Care Organization</option>
+            <option>Caregiver</option>
+            <option>Community-Based Provider</option>
+            <option>Discharge Planner/Inpatient Stay</option>
+            <option>Disease Management</option>
+            <option>Disease Management Referral</option>
+            <option>External Referral</option>
+            <option>External Referral – Hospice</option>
+            <option>External Referral – Palliative Care</option>
+            <option>External Referral – Transitional Care</option>
+            <option>Health Information Line</option>
+            <option>Health Plan</option>
+            <option>HRA</option>
+            <option>Interdisciplinary Team Referral</option>
+            <option>Internal</option>
+            <option>Medical Director</option>
+            <option>Member Referral</option>
+            <option>Member Services Referral</option>
+            <option>Member/Legal Authorized Representative</option>
+            <option>Member/Provider Call Center</option>
+            <option>PCP</option>
+            <option>PCP Reference</option>
+            <option>Pharmacy</option>
+            <option>Provider Referral</option>
+            <option>Referral Source</option>
+            <option>Risk Stratification</option>
+            <option>Specialist</option>
+            <option>Utilization Management Referral</option>
+          </select>
+          <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+        </div>
+        <div id="staffProgReferralErr" style="display:none;font-size:11px;color:#C62828;margin-top:3px;">Required</div>
+      </div>
+
+      <!-- Assigned Care Manager -->
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Assigned Care Manager</div>
+        <div style="position:relative;">
+          <select id="staffProgCareManager" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+            <option value="">Select</option>
+            <option>Amanda Torres, RN</option>
+            <option>Brian Nguyen, MSW</option>
+            <option>Carmen Delgado, RN, CCM</option>
+            <option>David Kim, BSN</option>
+            <option>Elena Vasquez, LCSW</option>
+            <option>Frank Okafor, RN</option>
+            <option>Grace Patel, MSN</option>
+            <option>Henry Morrison, CCM</option>
+            <option>Isabel Reyes, RN</option>
+            <option>James Whitfield, LCSW</option>
+            <option>Karen Huang, BSN, CCM</option>
+            <option>Luis Morales, RN</option>
+          </select>
+          <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="padding:16px 24px;border-top:1px solid #e0e0e0;display:flex;justify-content:center;align-items:center;gap:20px;background:#fff;">
+      <button onclick="staffProgSubmit()" style="background:#1378A3;color:#fff;border:none;border-radius:4px;padding:10px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Add Program</button>
+      <a href="#" onclick="event.preventDefault();document.getElementById('staffProgModal').classList.remove('open')" style="font-size:13px;font-weight:700;color:#1378A3;text-decoration:underline;cursor:pointer;">Cancel</a>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('staffProgModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+});
+
+var STAFF_PROG_STATUS_DESC = {
+  'Active':   ['Active', 'Auto-Enrolled', 'Meets Program Criteria', 'Slot Offer', 'Slot Prep'],
+  'Closed':   ['Completed', 'Deceased', 'Disenrolled', 'Lost to Follow-Up', 'Member Declined', 'No Longer Eligible'],
+  'Inactive': ['Deferred', 'On Hold', 'Pending Review', 'Suspended'],
+  'Pending':  ['Awaiting Approval', 'Awaiting Eligibility', 'Awaiting Information', 'In Review'],
+};
+
+function staffProgClearErr(errId, sel) {
+  if (sel.value) {
+    document.getElementById(errId).style.display = 'none';
+    sel.style.borderColor = '';
+  }
+}
+
+function staffProgSubmit() {
+  var status   = document.getElementById('staffProgStatus').value;
+  var statusD  = document.getElementById('staffProgStatusDesc').value;
+  var referral = document.getElementById('staffProgReferral').value;
+  var valid = true;
+  if (!status)   { document.getElementById('staffProgStatusErr').style.display = '';     document.getElementById('staffProgStatus').style.borderColor = '#C62828';   valid = false; }
+  if (!statusD)  { document.getElementById('staffProgStatusDescErr').style.display = ''; document.getElementById('staffProgStatusDesc').style.borderColor = '#C62828'; valid = false; }
+  if (!referral) { document.getElementById('staffProgReferralErr').style.display = '';   document.getElementById('staffProgReferral').style.borderColor = '#C62828'; valid = false; }
+  if (valid) {
+    document.getElementById('staffProgModal').classList.remove('open');
+    var b = document.getElementById('progSuccessBanner');
+    if (b) b.style.display = 'flex';
+  }
+}
+
+function staffProgUpdateStatusDesc() {
+  var status = document.getElementById('staffProgStatus').value;
+  var descSel = document.getElementById('staffProgStatusDesc');
+  descSel.innerHTML = '<option value="">Select</option>';
+  var opts = STAFF_PROG_STATUS_DESC[status] || [];
+  opts.forEach(function(o) {
+    var el = document.createElement('option');
+    el.textContent = o;
+    descSel.appendChild(el);
+  });
+  descSel.disabled = !opts.length;
+}
+
+function openStaffProgModal(title, subtype) {
+  var BADGE = {
+    'General': {icon:'task_alt',     label:'Clinical Program'},
+    'Benefit': {icon:'verified_user', label:'Eligibility Program'},
+  };
+  var bc = BADGE[subtype] || BADGE['General'];
+
+  document.getElementById('staffProgModalTitle').textContent = title;
+  document.getElementById('staffProgModalBadge').textContent = bc.label;
+
+  // Reset fields
+  document.getElementById('staffProgStartDate').value = '';
+  document.getElementById('staffProgEndDate').value   = '';
+  document.getElementById('staffProgStatus').value    = '';
+  document.getElementById('staffProgReferral').value  = '';
+  document.getElementById('staffProgCareManager').value = '';
+  staffProgUpdateStatusDesc();
+  // Reset validation state
+  ['staffProgStatus','staffProgStatusDesc','staffProgReferral'].forEach(function(id) {
+    document.getElementById(id).style.borderColor = '';
+  });
+  ['staffProgStatusErr','staffProgStatusDescErr','staffProgReferralErr'].forEach(function(id) {
+    document.getElementById(id).style.display = 'none';
+  });
+
+  document.getElementById('staffProgModal').classList.add('open');
 }
 </script>
 
 <!-- ══ MFP VIEW PROGRAM Modal ══ -->
-<div class="gc-modal-overlay" id="mfpViewProgramModal" role="dialog" aria-modal="true" aria-labelledby="mfpViewProgramModalTitle">
+<div class="gc-modal-overlay" id="mfpViewProgramModal" role="dialog" aria-modal="true" aria-labelledby="mfpViewProgramModalTitle" style="align-items:center;">
   <div class="gc-modal" style="max-width:500px;border-radius:8px;overflow:hidden;">
-    <div style="background:#1378A3;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;">
-      <div>
-        <div id="mfpViewProgramModalTitle" style="font-size:15px;font-weight:700;color:#fff;"></div>
-        <div id="mfpViewProgramModalBadge" style="margin-top:3px;"></div>
+    <!-- Header -->
+    <div style="padding:22px 24px 16px;background:#fff;border-bottom:1px solid #eee;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">
+            <span style="display:inline-block;">
+              <div id="mfpViewProgramModalTitle" style="font-size:20px;font-weight:700;color:#1a1a1a;line-height:1.2;"></div>
+              <div style="height:3px;background:#C8821A;margin-top:7px;border-radius:1px;"></div>
+            </span>
+            <span id="mfpViewProgramModalBadge" style="font-size:13px;color:#555;font-weight:400;"></span>
+          </div>
+        </div>
+        <button onclick="document.getElementById('mfpViewProgramModal').classList.remove('open')" aria-label="Close" style="background:none;border:none;color:#1378A3;cursor:pointer;font-size:22px;line-height:1;flex-shrink:0;margin-top:-2px;">&#x2715;</button>
       </div>
-      <button onclick="document.getElementById('mfpViewProgramModal').classList.remove('open')" aria-label="Close" style="background:none;border:none;color:#fff;cursor:pointer;font-size:20px;line-height:1;flex-shrink:0;">&times;</button>
     </div>
-    <div style="padding:16px 18px;overflow-y:auto;max-height:calc(100vh - 180px);">
-      <div id="mfpViewProgramModalDesc" style="font-size:12px;color:#444;line-height:1.6;margin-bottom:12px;"></div>
+    <div style="padding:16px 24px;overflow-y:auto;max-height:calc(100vh - 240px);background:#fff;">
+      <div id="mfpProgAppTitle" style="display:none;font-size:13px;color:#222;margin-bottom:10px;"></div>
+      <div id="mfpViewProgramModalDesc" style="font-size:13px;color:#444;line-height:1.6;margin-bottom:10px;"></div>
+      <div id="mfpProgContainsMeta" style="display:none;margin-bottom:14px;"></div>
       <div id="mfpViewProgramModalTags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
 
       <!-- Required activities — populated by JS for Benefit programs -->
@@ -9918,9 +10448,9 @@ function mfpAddProgramConfirm() {
         </label>
       </div>
     </div>
-    <div style="padding:14px 18px;border-top:1px solid #ddd;display:flex;justify-content:flex-end;gap:12px;background:#fff;">
-      <button onclick="document.getElementById('mfpViewProgramModal').classList.remove('open')" style="background:none;border:none;font-size:12px;font-weight:700;color:#555;cursor:pointer;letter-spacing:0.5px;">CANCEL</button>
-      <button id="mfpAddProgramBtn" onclick="mfpAddProgramConfirm()" style="background:#1378A3;color:#fff;border:none;border-radius:4px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px;">ADD PROGRAM</button>
+    <div style="padding:16px 24px;border-top:1px solid #e0e0e0;display:flex;justify-content:center;align-items:center;gap:20px;background:#fff;">
+      <button id="mfpAddProgramBtn" onclick="mfpAddProgramConfirm()" style="background:#1378A3;color:#fff;border:none;border-radius:4px;padding:10px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Add Program</button>
+      <a href="#" onclick="event.preventDefault();document.getElementById('mfpViewProgramModal').classList.remove('open')" style="font-size:13px;font-weight:700;color:#1378A3;text-decoration:underline;cursor:pointer;">Cancel</a>
     </div>
   </div>
 </div>
