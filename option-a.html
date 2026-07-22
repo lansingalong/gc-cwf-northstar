@@ -4353,59 +4353,10 @@
           <!-- Sub-panel: Clinical Programs -->
           <div class="req-subpanel" id="req-clinical" style="display:none;">
             <!-- Inner program tabs (dynamically populated) -->
-            <div id="req-clinical-prog-tabs" style="display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid var(--border);margin-bottom:14px;">
-              <div id="req-clinical-tab-all" onclick="reqClinicalTabSwitch('all')" style="padding:8px 16px;font-size:13px;font-weight:700;color:var(--teal);border-bottom:2px solid var(--teal);margin-bottom:-2px;cursor:pointer;">All Programs</div>
-            </div>
-            <!-- All Programs panel (static) -->
-            <div id="req-clinical-panel-all">
-              <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:12px;text-decoration:underline;cursor:pointer;">Alaska Premier Health</div>
-              <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:6px;">
-                <button class="gc-btn gc-btn-tertiary gc-btn-sm">Bulk Schedule</button>
-                <button class="gc-btn gc-btn-primary gc-btn-sm">Bulk Complete</button>
-              </div>
-              <div class="gc-table-wrap">
-                <div style="overflow-x:auto;">
-                  <table class="gc-table">
-                    <thead><tr>
-                      <th>Program Name</th>
-                      <th>Activity Type</th>
-                      <th>Script Name</th>
-                      <th>Due Date</th>
-                      <th style="width:60px;"></th>
-                    </tr></thead>
-                    <tbody>
-                      <!-- LTSS — 3 activities -->
-                      <tr>
-                        <td rowspan="3" style="vertical-align:top;">LTSS</td>
-                        <td><a href="#" style="color:var(--link);">Initial Assessment</a></td>
-                        <td style="color:var(--link);">LTSS Initial Assessment Script</td>
-                        <td>04/02/2026</td>
-                        <td style="text-align:center;"><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">edit</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">bar_chart</span></td>
-                      </tr>
-                      <tr>
-                        <td><a href="#" style="color:var(--link);">Service Plan Creation</a></td>
-                        <td style="color:var(--link);">N/A</td>
-                        <td>04/20/2026</td>
-                        <td style="text-align:center;"><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">edit</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">bar_chart</span></td>
-                      </tr>
-                      <tr>
-                        <td><a href="#" style="color:var(--link);">Follow-up Call – Staff Review</a></td>
-                        <td style="color:var(--link);">N/A</td>
-                        <td>05/05/2026</td>
-                        <td style="text-align:center;"><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">edit</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">bar_chart</span></td>
-                      </tr>
-                      <!-- Fall Prevention — no activities -->
-                      <tr>
-                        <td>Fall Prevention</td>
-                        <td colspan="3" style="color:var(--text-muted);font-size:12px;">No activities associated with this program.</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <!-- Dynamically added program panels will be inserted here -->
+            <div id="req-clinical-prog-tabs" style="display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--border);margin-bottom:14px;"></div>
+            <!-- Empty state shown until a program is added -->
+            <div id="req-clinical-empty" style="padding:24px 0;color:var(--text-muted);font-size:13px;text-align:center;">No clinical programs added yet.</div>
+            <!-- Dynamically added program panels inserted here -->
           </div>
 
           <!-- Sub-panel: Additional Programs Activity -->
@@ -10347,13 +10298,18 @@ function reqActAddClinicalProgram(title) {
     return;
   }
 
+  // Hide empty state once first program is added
+  var emptyEl = document.getElementById('req-clinical-empty');
+  if (emptyEl) emptyEl.style.display = 'none';
+
   // Add tab button
   var tabsBar = document.getElementById('req-clinical-prog-tabs');
   var tabEl = document.createElement('div');
   tabEl.id = tabId;
   tabEl.setAttribute('data-clinical-key', title.replace(/\W/g, '_'));
-  tabEl.style.cssText = 'padding:8px 16px;font-size:13px;font-weight:400;color:#888;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;';
-  tabEl.textContent = title;
+  tabEl.style.cssText = 'padding:8px 16px;font-size:16px;font-weight:400;color:#888;cursor:pointer;position:relative;margin-bottom:-1px;';
+  tabEl.innerHTML = '<div style="font-size:16px;">' + title + '</div>'
+    + '<div class="req-clinical-tab-line" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;opacity:0;"></div>';
   tabEl.onclick = (function(key) { return function() { reqClinicalTabSwitch(key); }; })(title.replace(/\W/g, '_'));
   tabsBar.appendChild(tabEl);
 
@@ -10386,6 +10342,7 @@ function reqActAddClinicalProgram(title) {
     + '</tr></thead><tbody>' + rowsHtml + '</tbody></table>'
     + '</div></div>';
 
+
   var clinicalPanel = document.getElementById('req-clinical');
   clinicalPanel.appendChild(panelEl);
 
@@ -10398,9 +10355,10 @@ function reqClinicalTabSwitch(key) {
   // Deactivate all inner tabs
   var tabsBar = document.getElementById('req-clinical-prog-tabs');
   tabsBar.querySelectorAll('div[id^="req-clinical-tab-"]').forEach(function(t) {
-    t.style.fontWeight = '400';
-    t.style.color = '#888';
-    t.style.borderBottom = '2px solid transparent';
+    var label = t.querySelector('div');
+    var line  = t.querySelector('.req-clinical-tab-line');
+    if (label) { label.style.fontWeight = '400'; label.style.color = '#888'; }
+    if (line)  { line.style.opacity = '0'; }
   });
   // Hide all inner panels
   document.getElementById('req-clinical').querySelectorAll('div[id^="req-clinical-panel-"]').forEach(function(p) {
@@ -10409,7 +10367,12 @@ function reqClinicalTabSwitch(key) {
   // Activate selected tab and panel
   var activeTab = document.getElementById('req-clinical-tab-' + key);
   var activePanel = document.getElementById('req-clinical-panel-' + key);
-  if (activeTab) { activeTab.style.fontWeight = '700'; activeTab.style.color = 'var(--teal)'; activeTab.style.borderBottom = '2px solid var(--teal)'; }
+  if (activeTab) {
+    var label = activeTab.querySelector('div');
+    var line  = activeTab.querySelector('.req-clinical-tab-line');
+    if (label) { label.style.fontWeight = '700'; label.style.color = '#1a1a1a'; }
+    if (line)  { line.style.opacity = '1'; }
+  }
   if (activePanel) activePanel.style.display = '';
 }
 
