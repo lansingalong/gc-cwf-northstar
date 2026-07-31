@@ -2565,12 +2565,6 @@ Diabetes Management</textarea>
     <div class="left-panel" id="panel-health">
       <div class="content-body">
 
-        <!-- Health tab option toggle -->
-        <div style="display:flex;align-items:center;gap:0;margin-bottom:8px;">
-          <button id="htab-opt-btn-a" onclick="switchHealthOpt('a')" style="padding:5px 16px;font-size:12px;font-weight:700;background:#0D3761;color:#fff;border:1px solid #0D3761;border-radius:3px 0 0 3px;cursor:pointer;font-family:var(--font);">Reminders</button>
-          <button id="htab-opt-btn-c" onclick="switchHealthOpt('c')" style="padding:5px 16px;font-size:12px;font-weight:700;background:#fff;color:#555;border:1px solid #C8D4DA;border-left:none;border-radius:0 3px 3px 0;cursor:pointer;font-family:var(--font);">Member Instructions Option C</button>
-        </div>
-
         <!-- Health tabs -->
         <div class="gc-tabs" id="healthTabs" style="margin-bottom:12px;">
           <div class="gc-tab active" data-htab="medical-info" style="color:var(--teal);border-bottom-color:var(--teal);">Member Medical Info</div>
@@ -2579,8 +2573,7 @@ Diabetes Management</textarea>
           <div class="gc-tab" data-htab="medications">Medications</div>
           <div class="gc-tab" data-htab="health-indicators">Health Indicators</div>
           <div class="gc-tab" data-htab="appointments">Appointments</div>
-          <div id="htab-reminders-tab" class="gc-tab" data-htab="reminders">Member Reminders</div>
-          <div id="htab-member-instructions-tab" class="gc-tab" data-htab="member-instructions" style="display:none;">Member Instructions</div>
+          <div class="gc-tab" data-htab="reminders">Member Reminders</div>
         </div>
 
         <!-- Tab: Member Medical Info -->
@@ -4180,80 +4173,6 @@ Diabetes Management</textarea>
           </div>
         </div>
 
-        <!-- Tab: Member Instructions (Option C only) -->
-        <div class="health-tab-panel" id="htab-member-instructions" style="display:none;">
-
-          <!-- Add Instruction -->
-          <div style="margin-bottom:16px;">
-            <button class="gc-btn gc-btn-primary" style="font-size:12px;"><span class="material-icons" style="font-size:14px;vertical-align:-2px;">add</span> Add Instruction</button>
-          </div>
-
-          <!-- Cards grid -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-
-            <!-- Card 1 -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="padding:16px 18px 10px;">
-                <p style="font-size:13px;color:var(--text-primary);margin:0;line-height:1.5;">Follow up with member weekly until A1C stabilizes below 8.0. Encourage consistent medication timing and low-sodium diet.</p>
-              </div>
-              <div style="padding:8px 18px 14px;flex:1;">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Mike Mckitterick : Care Manager</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">03/20/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated On</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-              <div style="padding:10px 18px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">edit</span>Edit</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">delete</span>Delete</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send to Member</span>
-              </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="padding:16px 18px 10px;">
-                <p style="font-size:13px;color:var(--text-primary);margin:0;line-height:1.5;">Member should avoid strenuous activity until cleared by cardiology. Next stress test scheduled 06/15/2026.</p>
-              </div>
-              <div style="padding:8px 18px 14px;flex:1;">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Dr. Linda Chen : Physician</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">02/28/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated On</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-              <div style="padding:10px 18px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">edit</span>Edit</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">delete</span>Delete</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send to Member</span>
-              </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-              <div style="padding:16px 18px 10px;">
-                <p style="font-size:13px;color:var(--text-primary);margin:0;line-height:1.5;">Member enrolled in 90-day mail order for Metformin and Lisinopril. Remind to reorder 2 weeks before supply runs out.</p>
-              </div>
-              <div style="padding:8px 18px 14px;flex:1;">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created By</div><div style="margin-top:2px;">Jennie Giuliany : All Access Admin</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Created On</div><div style="margin-top:2px;">01/10/2026</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated By</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Updated On</div><div style="margin-top:2px;color:var(--text-muted);">N/A</div></div>
-                </div>
-              </div>
-              <div style="padding:10px 18px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">edit</span>Edit</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">delete</span>Delete</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Send to Member</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -4280,6 +4199,7 @@ Diabetes Management</textarea>
             <div class="cp-subtab" data-tab="barriers" onclick="cpSubTab('barriers')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Care Plan Barriers</div>
             <div class="cp-subtab" data-tab="strengths" onclick="cpSubTab('strengths')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Care Plan Strengths</div>
             <div class="cp-subtab" data-tab="review" onclick="cpSubTab('review')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Care Plan Review</div>
+            <div class="cp-subtab" data-tab="member-instructions" onclick="cpSubTab('member-instructions')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Member Instructions</div>
           </div>
           <span class="material-icons" style="font-size:22px;color:var(--teal);cursor:pointer;margin-left:auto;padding-bottom:6px;">info</span>
         </div>
@@ -4496,6 +4416,109 @@ Diabetes Management</textarea>
             <span>items per page</span>
             <span style="margin-left:auto;color:var(--text-muted);">No items to display</span>
             <span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">refresh</span>
+          </div>
+        </div>
+
+        <!-- SUB-PANEL: Member Instructions -->
+        <div id="cp-panel-member-instructions" class="cp-subpanel" style="display:none;">
+          <!-- Toolbar -->
+          <div style="background:var(--white);border-bottom:1px solid var(--border-light);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);">Member Instructions</span>
+            <span style="font-size:11px;color:var(--text-muted);">Click <strong>Edit</strong> to modify, then <strong>Send in Chat</strong>.</span>
+          </div>
+          <!-- Instruction cards -->
+          <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;" id="mi-card-list">
+
+            <!-- Card 1 -->
+            <div class="mi-card" style="border:1px solid var(--border);border-radius:var(--r-sm);background:var(--white);padding:12px 14px;transition:background 0.2s,border-color 0.2s;">
+              <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;">
+                <input class="mi-title" type="text" readonly value="Medication Adherence Reminder" style="flex:1;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;font-weight:700;color:var(--text-primary);font-family:var(--font);background:transparent;padding:1px 2px;pointer-events:none;min-width:0;" />
+                <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                  <span class="mi-sent-badge" style="display:none;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#2E7D32;white-space:nowrap;"><span class="material-icons" style="font-size:13px;">check_circle</span>Sent in chat</span>
+                  <button class="mi-edit-btn" onclick="miToggleEdit(this)" style="display:inline-flex;align-items:center;gap:3px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:3px 8px;font-size:11px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:var(--font);white-space:nowrap;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</button>
+                </div>
+              </div>
+              <textarea class="mi-body" readonly rows="3" style="width:100%;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;color:var(--text-secondary);font-family:var(--font);background:transparent;resize:none;line-height:1.6;padding:1px 2px;box-sizing:border-box;overflow:hidden;pointer-events:none;">Take your medications at the same time every day, even when you feel well. If you miss a dose, take it as soon as you remember — unless it's almost time for your next dose. Never double up. Keep a current list of all medications and share it at every appointment.</textarea>
+              <div style="display:flex;justify-content:flex-end;margin-top:8px;border-top:1px solid var(--border-light);padding-top:8px;">
+                <button onclick="miSendChat(this)" style="display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 10px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;white-space:nowrap;font-family:var(--font);"><span class="material-icons" style="font-size:14px;color:#bbb;">send</span>Send in Chat</button>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="mi-card" style="border:1px solid var(--border);border-radius:var(--r-sm);background:var(--white);padding:12px 14px;transition:background 0.2s,border-color 0.2s;">
+              <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;">
+                <input class="mi-title" type="text" readonly value="Blood Pressure Monitoring" style="flex:1;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;font-weight:700;color:var(--text-primary);font-family:var(--font);background:transparent;padding:1px 2px;pointer-events:none;min-width:0;" />
+                <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                  <span class="mi-sent-badge" style="display:none;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#2E7D32;white-space:nowrap;"><span class="material-icons" style="font-size:13px;">check_circle</span>Sent in chat</span>
+                  <button class="mi-edit-btn" onclick="miToggleEdit(this)" style="display:inline-flex;align-items:center;gap:3px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:3px 8px;font-size:11px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:var(--font);white-space:nowrap;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</button>
+                </div>
+              </div>
+              <textarea class="mi-body" readonly rows="3" style="width:100%;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;color:var(--text-secondary);font-family:var(--font);background:transparent;resize:none;line-height:1.6;padding:1px 2px;box-sizing:border-box;overflow:hidden;pointer-events:none;">Check your blood pressure at home at the same time each day — ideally in the morning before eating or taking medications. Sit quietly for 5 minutes beforehand. Record your readings in a log and bring it to all provider visits. Call your care team if your systolic (top number) is above 180 or below 90.</textarea>
+              <div style="display:flex;justify-content:flex-end;margin-top:8px;border-top:1px solid var(--border-light);padding-top:8px;">
+                <button onclick="miSendChat(this)" style="display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 10px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;white-space:nowrap;font-family:var(--font);"><span class="material-icons" style="font-size:14px;color:#bbb;">send</span>Send in Chat</button>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="mi-card" style="border:1px solid var(--border);border-radius:var(--r-sm);background:var(--white);padding:12px 14px;transition:background 0.2s,border-color 0.2s;">
+              <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;">
+                <input class="mi-title" type="text" readonly value="Low-Sodium Diet Guidelines" style="flex:1;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;font-weight:700;color:var(--text-primary);font-family:var(--font);background:transparent;padding:1px 2px;pointer-events:none;min-width:0;" />
+                <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                  <span class="mi-sent-badge" style="display:none;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#2E7D32;white-space:nowrap;"><span class="material-icons" style="font-size:13px;">check_circle</span>Sent in chat</span>
+                  <button class="mi-edit-btn" onclick="miToggleEdit(this)" style="display:inline-flex;align-items:center;gap:3px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:3px 8px;font-size:11px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:var(--font);white-space:nowrap;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</button>
+                </div>
+              </div>
+              <textarea class="mi-body" readonly rows="3" style="width:100%;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;color:var(--text-secondary);font-family:var(--font);background:transparent;resize:none;line-height:1.6;padding:1px 2px;box-sizing:border-box;overflow:hidden;pointer-events:none;">Aim for less than 1,500 mg of sodium per day. Avoid processed foods, canned soups, and fast food. Read nutrition labels — look for "sodium" not just "salt." Use herbs, lemon juice, or vinegar to flavor food instead. A low-sodium diet helps control blood pressure and reduces strain on your heart.</textarea>
+              <div style="display:flex;justify-content:flex-end;margin-top:8px;border-top:1px solid var(--border-light);padding-top:8px;">
+                <button onclick="miSendChat(this)" style="display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 10px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;white-space:nowrap;font-family:var(--font);"><span class="material-icons" style="font-size:14px;color:#bbb;">send</span>Send in Chat</button>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="mi-card" style="border:1px solid var(--border);border-radius:var(--r-sm);background:var(--white);padding:12px 14px;transition:background 0.2s,border-color 0.2s;">
+              <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;">
+                <input class="mi-title" type="text" readonly value="Daily Weight Log — CHF" style="flex:1;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;font-weight:700;color:var(--text-primary);font-family:var(--font);background:transparent;padding:1px 2px;pointer-events:none;min-width:0;" />
+                <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                  <span class="mi-sent-badge" style="display:none;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#2E7D32;white-space:nowrap;"><span class="material-icons" style="font-size:13px;">check_circle</span>Sent in chat</span>
+                  <button class="mi-edit-btn" onclick="miToggleEdit(this)" style="display:inline-flex;align-items:center;gap:3px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:3px 8px;font-size:11px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:var(--font);white-space:nowrap;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</button>
+                </div>
+              </div>
+              <textarea class="mi-body" readonly rows="3" style="width:100%;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;color:var(--text-secondary);font-family:var(--font);background:transparent;resize:none;line-height:1.6;padding:1px 2px;box-sizing:border-box;overflow:hidden;pointer-events:none;">Weigh yourself every morning after using the bathroom and before eating or drinking. Use the same scale each time. Record your weight daily. Call your care team right away if you gain more than 2 lbs in one day or 5 lbs in one week — this can be a sign of fluid buildup.</textarea>
+              <div style="display:flex;justify-content:flex-end;margin-top:8px;border-top:1px solid var(--border-light);padding-top:8px;">
+                <button onclick="miSendChat(this)" style="display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 10px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;white-space:nowrap;font-family:var(--font);"><span class="material-icons" style="font-size:14px;color:#bbb;">send</span>Send in Chat</button>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="mi-card" style="border:1px solid var(--border);border-radius:var(--r-sm);background:var(--white);padding:12px 14px;transition:background 0.2s,border-color 0.2s;">
+              <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;">
+                <input class="mi-title" type="text" readonly value="Blood Sugar Monitoring — Diabetes" style="flex:1;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;font-weight:700;color:var(--text-primary);font-family:var(--font);background:transparent;padding:1px 2px;pointer-events:none;min-width:0;" />
+                <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                  <span class="mi-sent-badge" style="display:none;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#2E7D32;white-space:nowrap;"><span class="material-icons" style="font-size:13px;">check_circle</span>Sent in chat</span>
+                  <button class="mi-edit-btn" onclick="miToggleEdit(this)" style="display:inline-flex;align-items:center;gap:3px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:3px 8px;font-size:11px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:var(--font);white-space:nowrap;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</button>
+                </div>
+              </div>
+              <textarea class="mi-body" readonly rows="3" style="width:100%;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;color:var(--text-secondary);font-family:var(--font);background:transparent;resize:none;line-height:1.6;padding:1px 2px;box-sizing:border-box;overflow:hidden;pointer-events:none;">Check your blood sugar as directed by your provider — typically fasting in the morning and 2 hours after meals. Keep a log of your readings. A fasting level between 80–130 mg/dL is the general target. If your reading is below 70 or above 300, follow your provider's sick-day plan and contact your care team.</textarea>
+              <div style="display:flex;justify-content:flex-end;margin-top:8px;border-top:1px solid var(--border-light);padding-top:8px;">
+                <button onclick="miSendChat(this)" style="display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 10px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;white-space:nowrap;font-family:var(--font);"><span class="material-icons" style="font-size:14px;color:#bbb;">send</span>Send in Chat</button>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="mi-card" style="border:1px solid var(--border);border-radius:var(--r-sm);background:var(--white);padding:12px 14px;transition:background 0.2s,border-color 0.2s;">
+              <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;">
+                <input class="mi-title" type="text" readonly value="When to Go to the ER" style="flex:1;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;font-weight:700;color:var(--text-primary);font-family:var(--font);background:transparent;padding:1px 2px;pointer-events:none;min-width:0;" />
+                <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+                  <span class="mi-sent-badge" style="display:none;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#2E7D32;white-space:nowrap;"><span class="material-icons" style="font-size:13px;">check_circle</span>Sent in chat</span>
+                  <button class="mi-edit-btn" onclick="miToggleEdit(this)" style="display:inline-flex;align-items:center;gap:3px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:3px 8px;font-size:11px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:var(--font);white-space:nowrap;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</button>
+                </div>
+              </div>
+              <textarea class="mi-body" readonly rows="3" style="width:100%;border:1px solid transparent;border-radius:3px;outline:none;font-size:12px;color:var(--text-secondary);font-family:var(--font);background:transparent;resize:none;line-height:1.6;padding:1px 2px;box-sizing:border-box;overflow:hidden;pointer-events:none;">Call 911 or go to the nearest emergency room immediately if you experience: chest pain or pressure, sudden shortness of breath, severe dizziness or fainting, sudden numbness or weakness on one side, slurred speech, or vision changes. Do not drive yourself. These symptoms can be life-threatening.</textarea>
+              <div style="display:flex;justify-content:flex-end;margin-top:8px;border-top:1px solid var(--border-light);padding-top:8px;">
+                <button onclick="miSendChat(this)" style="display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 10px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;white-space:nowrap;font-family:var(--font);"><span class="material-icons" style="font-size:14px;color:#bbb;">send</span>Send in Chat</button>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -4971,47 +4994,19 @@ Diabetes Management</textarea>
     <div class="left-panel" id="panel-activity-record">
       <div class="content-body">
 
-        <!-- Activity Record option toggle -->
-        <div style="display:flex;align-items:center;gap:0;margin-bottom:8px;">
-          <div style="display:inline-flex;border-radius:3px;overflow:hidden;">
-            <button id="ar-opt-btn-a" onclick="switchArOpt('a')" style="padding:5px 16px;font-size:12px;font-weight:700;background:#0D3761;color:#fff;border:1px solid #0D3761;border-radius:3px 0 0 3px;cursor:pointer;font-family:var(--font);">Member Activity A</button>
-            <button id="ar-opt-btn-b" onclick="switchArOpt('b')" style="padding:5px 16px;font-size:12px;font-weight:700;background:#fff;color:#555;border:1px solid #C8D4DA;border-left:none;border-radius:0;cursor:pointer;font-family:var(--font);">Member Activity B</button>
-            <button id="ar-opt-btn-c" onclick="switchArOpt('c')" style="padding:5px 16px;font-size:12px;font-weight:700;background:#fff;color:#555;border:1px solid #C8D4DA;border-left:none;border-radius:0 3px 3px 0;cursor:pointer;font-family:var(--font);">Member Activity C</button>
-          </div>
-          <div style="width:40px;"></div>
-          <div style="display:inline-flex;border-radius:3px;overflow:hidden;">
-            <button id="ar-opt-btn-d" onclick="switchArOpt('d')" style="padding:5px 16px;font-size:12px;font-weight:700;background:#fff;color:#555;border:1px solid #C8D4DA;border-radius:3px 0 0 3px;cursor:pointer;font-family:var(--font);">Member Instructions A</button>
-            <button id="ar-opt-btn-e" onclick="switchArOpt('e')" style="padding:5px 16px;font-size:12px;font-weight:700;background:#fff;color:#555;border:1px solid #C8D4DA;border-left:none;border-radius:0 3px 3px 0;cursor:pointer;font-family:var(--font);">Member Instructions B</button>
-          </div>
+
+        <!-- Option A tabs (hidden, kept for JS compatibility) -->
+        <div id="activityTabs" class="gc-tabs" style="display:none;margin-bottom:12px;">
+          <div class="gc-tab" data-artab="notes">Notes</div>
         </div>
 
-        <!-- Option A tabs (original, also carries id="activityTabs" for existing JS) -->
-        <div id="activityTabs" class="gc-tabs" style="margin-bottom:12px;">
-          <div class="gc-tab active" data-artab="notes" style="color:var(--teal);border-bottom-color:var(--teal);">Notes</div>
-          <div class="gc-tab" data-artab="activity-summary">Activity Summary</div>
-          <div class="gc-tab" data-artab="required-activities">Required Activities</div>
-          <div class="gc-tab" data-artab="outstanding-activities">Outstanding Activities</div>
-          <div class="gc-tab" data-artab="documents">Documents</div>
-          <div class="gc-tab" data-artab="articles">Articles</div>
-          <div class="gc-tab" data-artab="consent-forms">Consent Forms</div>
-          <div class="gc-tab" data-artab="guidelines">Guidelines</div>
-          <div class="gc-tab" data-artab="member-alerts">Member Alerts</div>
-          <div class="gc-tab" data-artab="member-activity">Member Activity</div>
-        </div>
-
-        <!-- Option B tabs -->
+        <!-- Option B tabs (hidden, kept for JS compatibility) -->
         <div id="ar-tabs-b" style="display:none;margin-bottom:12px;" class="gc-tabs">
-          <div class="ar-b-tab gc-tab active" data-arb="notes" style="color:var(--teal);border-bottom-color:var(--teal);">Notes</div>
-          <div class="ar-b-tab gc-tab" data-arb="activities">Activities</div>
-          <div class="ar-b-tab gc-tab" data-arb="documents">Documents</div>
-          <div class="ar-b-tab gc-tab" data-arb="articles">Articles</div>
-          <div class="ar-b-tab gc-tab" data-arb="consent-forms">Consent Forms</div>
-          <div class="ar-b-tab gc-tab" data-arb="guidelines">Guidelines</div>
-          <div class="ar-b-tab gc-tab" data-arb="member-alerts">Member Alerts</div>
+          <div class="ar-b-tab gc-tab" data-arb="notes">Notes</div>
         </div>
 
-        <!-- Option C tabs -->
-        <div id="ar-tabs-c" style="display:none;margin-bottom:12px;" class="gc-tabs">
+        <!-- Option C tabs (always visible) -->
+        <div id="ar-tabs-c" style="margin-bottom:12px;" class="gc-tabs">
           <div class="ar-c-tab gc-tab active" data-arc="notes" style="color:var(--teal);border-bottom-color:var(--teal);">Notes</div>
           <div class="ar-c-tab gc-tab" data-arc="activity-summary">Activity Summary</div>
           <div class="ar-c-tab gc-tab" data-arc="required-activities">Required Activities</div>
@@ -5020,30 +5015,6 @@ Diabetes Management</textarea>
           <div class="ar-c-tab gc-tab" data-arc="library">Library</div>
         </div>
 
-        <!-- Option E (Member Instructions B) tabs — mirrors Option C -->
-        <div id="ar-tabs-e" style="display:none;margin-bottom:12px;" class="gc-tabs">
-          <div class="ar-e-tab gc-tab active" data-are="notes" style="color:var(--teal);border-bottom-color:var(--teal);">Notes</div>
-          <div class="ar-e-tab gc-tab" data-are="activity-summary">Activity Summary</div>
-          <div class="ar-e-tab gc-tab" data-are="required-activities">Required Activities</div>
-          <div class="ar-e-tab gc-tab" data-are="outstanding-activities">Outstanding Activities</div>
-          <div class="ar-e-tab gc-tab" data-are="member-activities">Member Activities</div>
-          <div class="ar-e-tab gc-tab" data-are="library">Library</div>
-        </div>
-
-        <!-- Option D tabs -->
-        <div id="ar-tabs-d" style="display:none;margin-bottom:12px;" class="gc-tabs">
-          <div class="ar-d-tab gc-tab active" data-ard="notes" style="color:var(--teal);border-bottom-color:var(--teal);">Notes</div>
-          <div class="ar-d-tab gc-tab" data-ard="instructions">Member Instructions</div>
-          <div class="ar-d-tab gc-tab" data-ard="activity-summary">Activity Summary</div>
-          <div class="ar-d-tab gc-tab" data-ard="required-activities">Required Activities</div>
-          <div class="ar-d-tab gc-tab" data-ard="outstanding-activities">Outstanding Activities</div>
-          <div class="ar-d-tab gc-tab" data-ard="documents">Documents</div>
-          <div class="ar-d-tab gc-tab" data-ard="articles">Articles</div>
-          <div class="ar-d-tab gc-tab" data-ard="consent-forms">Consent Forms</div>
-          <div class="ar-d-tab gc-tab" data-ard="guidelines">Guidelines</div>
-          <div class="ar-d-tab gc-tab" data-ard="member-alerts">Member Alerts</div>
-          <div class="ar-d-tab gc-tab" data-ard="member-activity">Member Activity</div>
-        </div>
 
         <!-- ── Option B/C group sub-tab nav bars (shown in place of a content panel) ── -->
         <div id="artab-b-activities" style="display:none;">
@@ -5071,13 +5042,6 @@ Diabetes Management</textarea>
           </div>
         </div>
 
-        <div id="artab-e-member-activities" style="display:none;">
-          <div class="gc-tabs" style="margin-bottom:12px;">
-            <div class="ar-sub-tab gc-tab active" data-grouptarget="artab-member-activity" style="color:var(--teal);border-bottom-color:var(--teal);">Member Activity</div>
-            <div class="ar-sub-tab gc-tab" data-grouptarget="artab-member-alerts">Member Alerts</div>
-            <div class="ar-sub-tab gc-tab" data-grouptarget="artab-instructions">Member Instructions</div>
-          </div>
-        </div>
 
         <!-- Tab: Notes -->
         <div class="ar-tab-panel active" id="artab-notes">
@@ -7255,8 +7219,8 @@ function openScriptResponseModal() {
     });
   });
 
-  // ── Activity Record Option A/B/C toggle ──
-  var _arOpt = 'a';
+  // ── Activity Record Option C (only option) + Member Instructions D/E toggle ──
+  var _arOpt = 'c';
 
   // Show a real artab-* panel and hide all others (used by B/C sub-tab clicks)
   function showArRealPanel(panelId) {
@@ -7326,63 +7290,10 @@ function openScriptResponseModal() {
         firstSub4.classList.add('active'); firstSub4.style.color='var(--teal)'; firstSub4.style.borderBottomColor='var(--teal)';
         var target4 = firstSub4.getAttribute('data-grouptarget');
         var p9 = document.getElementById(target4); if (p9) { p9.style.display=''; p9.classList.add('active'); }
+        if (target4 === 'artab-member-activity') renderMemberActivityCharts();
       }
     }
   }
-
-  window.switchArOpt = function(opt) {
-    _arOpt = opt;
-    var btnA = document.getElementById('ar-opt-btn-a');
-    var btnB = document.getElementById('ar-opt-btn-b');
-    var btnC = document.getElementById('ar-opt-btn-c');
-    var btnD = document.getElementById('ar-opt-btn-d');
-    var btnE = document.getElementById('ar-opt-btn-e');
-    var active = {background:'#0D3761',color:'#fff',border:'1px solid #0D3761'};
-    var inactive = {background:'#fff',color:'#555',border:'1px solid #C8D4DA'};
-    // group 1: a,b,c — group 2: d,e (each group's non-first buttons get no left border)
-    [['a',btnA,false],['b',btnB,true],['c',btnC,true],['d',btnD,false],['e',btnE,true]].forEach(function(entry) {
-      var key=entry[0], b=entry[1], noLeft=entry[2];
-      var s = key===opt ? active : inactive;
-      b.style.background=s.background; b.style.color=s.color; b.style.border=s.border;
-      if (noLeft) b.style.borderLeft='none';
-    });
-    document.getElementById('activityTabs').style.display = opt==='a' ? '' : 'none';
-    document.getElementById('ar-tabs-b').style.display = opt==='b' ? '' : 'none';
-    document.getElementById('ar-tabs-c').style.display = opt==='c' ? '' : 'none';
-    document.getElementById('ar-tabs-d').style.display = opt==='d' ? '' : 'none';
-    document.getElementById('ar-tabs-e').style.display = opt==='e' ? '' : 'none';
-    // Reset all panels and group panels
-    arPanels.forEach(function(p) { p.style.display='none'; p.classList.remove('active'); });
-    ['artab-b-activities','artab-c-library','artab-c-member-activities','artab-e-member-activities'].forEach(function(id) {
-      var el=document.getElementById(id); if(el) el.style.display='none';
-    });
-    // Reset tab active states
-    arTabs.forEach(function(t) { t.classList.remove('active'); t.style.color=''; t.style.borderBottomColor=''; });
-    document.querySelectorAll('#ar-tabs-b .ar-b-tab').forEach(function(t) { t.classList.remove('active'); t.style.color=''; t.style.borderBottomColor=''; });
-    document.querySelectorAll('#ar-tabs-c .ar-c-tab').forEach(function(t) { t.classList.remove('active'); t.style.color=''; t.style.borderBottomColor=''; });
-    document.querySelectorAll('#ar-tabs-d .ar-d-tab').forEach(function(t) { t.classList.remove('active'); t.style.color=''; t.style.borderBottomColor=''; });
-    document.querySelectorAll('#ar-tabs-e .ar-e-tab').forEach(function(t) { t.classList.remove('active'); t.style.color=''; t.style.borderBottomColor=''; });
-    if (opt==='a') {
-      var firstA = document.querySelector('#activityTabs .gc-tab[data-artab="notes"]');
-      if (firstA) { firstA.classList.add('active'); firstA.style.color='var(--teal)'; firstA.style.borderBottomColor='var(--teal)'; }
-      var n = document.getElementById('artab-notes'); if(n){n.style.display='';n.classList.add('active');}
-    } else if (opt==='b') {
-      activateArBTab('notes');
-    } else if (opt==='c') {
-      activateArCTab('notes');
-    } else if (opt==='d') {
-      activateArDTab('notes');
-    } else if (opt==='e') {
-      activateArETab('notes');
-    }
-  };
-
-  // B tab click handlers
-  document.querySelectorAll('#ar-tabs-b .ar-b-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      activateArBTab(tab.getAttribute('data-arb'));
-    });
-  });
 
   // C tab click handlers
   document.querySelectorAll('#ar-tabs-c .ar-c-tab').forEach(function(tab) {
@@ -7391,76 +7302,10 @@ function openScriptResponseModal() {
     });
   });
 
-  // D tab handlers
-  function activateArDTab(ard) {
-    document.querySelectorAll('#ar-tabs-d .ar-d-tab').forEach(function(t) { t.classList.remove('active'); t.style.color=''; t.style.borderBottomColor=''; });
-    var clicked = document.querySelector('#ar-tabs-d .ar-d-tab[data-ard="' + ard + '"]');
-    if (clicked) { clicked.classList.add('active'); clicked.style.color='var(--teal)'; clicked.style.borderBottomColor='var(--teal)'; }
-    arPanels.forEach(function(p) { p.style.display='none'; p.classList.remove('active'); });
-    var directMapD = {
-      'notes':'artab-notes', 'instructions':'artab-instructions',
-      'activity-summary':'artab-activity-summary', 'required-activities':'artab-required-activities',
-      'outstanding-activities':'artab-outstanding-activities', 'documents':'artab-documents',
-      'articles':'artab-articles', 'consent-forms':'artab-consent-forms',
-      'guidelines':'artab-guidelines', 'member-alerts':'artab-member-alerts',
-      'member-activity':'artab-member-activity'
-    };
-    var panelId = directMapD[ard];
-    if (panelId) {
-      var panel = document.getElementById(panelId);
-      if (panel) { panel.style.display=''; panel.classList.add('active'); }
-      if (panelId==='artab-member-activity') switchMaView(_currentMaView);
-      if (panelId!=='artab-articles' && artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
-    }
-  }
-  document.querySelectorAll('#ar-tabs-d .ar-d-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      activateArDTab(tab.getAttribute('data-ard'));
-    });
-  });
-
-  // E tab handlers (Member Instructions B — mirrors Option C + Member Instructions sub-tab)
-  function activateArETab(are) {
-    document.querySelectorAll('#ar-tabs-e .ar-e-tab').forEach(function(t) { t.classList.remove('active'); t.style.color=''; t.style.borderBottomColor=''; });
-    var clicked = document.querySelector('#ar-tabs-e .ar-e-tab[data-are="' + are + '"]');
-    if (clicked) { clicked.classList.add('active'); clicked.style.color='var(--teal)'; clicked.style.borderBottomColor='var(--teal)'; }
-    arPanels.forEach(function(p) { p.style.display='none'; p.classList.remove('active'); });
-    ['artab-b-activities','artab-c-library','artab-c-member-activities','artab-e-member-activities'].forEach(function(id) {
-      var el=document.getElementById(id); if(el) el.style.display='none';
-    });
-    var directMap = { 'notes':'artab-notes', 'activity-summary':'artab-activity-summary', 'required-activities':'artab-required-activities', 'outstanding-activities':'artab-outstanding-activities' };
-    if (directMap[are]) {
-      var p = document.getElementById(directMap[are]); if (p) { p.style.display=''; p.classList.add('active'); }
-    } else if (are === 'library') {
-      var gl = document.getElementById('artab-c-library'); if (gl) gl.style.display='';
-      var firstSubL = gl ? gl.querySelector('.ar-sub-tab') : null;
-      if (firstSubL) {
-        gl.querySelectorAll('.ar-sub-tab').forEach(function(s) { s.classList.remove('active'); s.style.color=''; s.style.borderBottomColor=''; });
-        firstSubL.classList.add('active'); firstSubL.style.color='var(--teal)'; firstSubL.style.borderBottomColor='var(--teal)';
-        var tl = firstSubL.getAttribute('data-grouptarget');
-        var pl = document.getElementById(tl); if (pl) { pl.style.display=''; pl.classList.add('active'); }
-      }
-    } else if (are === 'member-activities') {
-      var ge = document.getElementById('artab-e-member-activities'); if (ge) ge.style.display='';
-      var firstSubE = ge ? ge.querySelector('.ar-sub-tab') : null;
-      if (firstSubE) {
-        ge.querySelectorAll('.ar-sub-tab').forEach(function(s) { s.classList.remove('active'); s.style.color=''; s.style.borderBottomColor=''; });
-        firstSubE.classList.add('active'); firstSubE.style.color='var(--teal)'; firstSubE.style.borderBottomColor='var(--teal)';
-        var te = firstSubE.getAttribute('data-grouptarget');
-        var pe = document.getElementById(te); if (pe) { pe.style.display=''; pe.classList.add('active'); }
-      }
-    }
-  }
-  document.querySelectorAll('#ar-tabs-e .ar-e-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      activateArETab(tab.getAttribute('data-are'));
-    });
-  });
-
   // Sub-tab click handlers (for group panels)
   document.querySelectorAll('.ar-sub-tab[data-grouptarget]').forEach(function(sub) {
     sub.addEventListener('click', function() {
-      var parent = sub.closest('[id^="artab-b-"],[id^="artab-c-"],[id^="artab-e-"]');
+      var parent = sub.closest('[id^="artab-b-"],[id^="artab-c-"]');
       if (parent) {
         parent.querySelectorAll('.ar-sub-tab').forEach(function(s) { s.classList.remove('active'); s.style.color=''; s.style.borderBottomColor=''; });
       }
@@ -7857,14 +7702,7 @@ function openScriptResponseModal() {
         var arPanel = document.getElementById('panel-activity-record');
         if (arPanel) { arPanel.style.display = ''; arPanel.classList.add('active'); }
         // Switch to Outstanding Activities tab
-        var arTabs = document.querySelectorAll('#activityTabs .gc-tab');
-        var arPanels = document.querySelectorAll('.ar-tab-panel');
-        arTabs.forEach(function(t) { t.classList.remove('active'); t.style.color = ''; t.style.borderBottomColor = ''; });
-        arPanels.forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
-        var oaTab = document.querySelector('#activityTabs .gc-tab[data-artab="outstanding-activities"]');
-        if (oaTab) { oaTab.classList.add('active'); oaTab.style.color = 'var(--teal)'; oaTab.style.borderBottomColor = 'var(--teal)'; }
-        var oaPanel = document.getElementById('artab-outstanding-activities');
-        if (oaPanel) { oaPanel.style.display = ''; oaPanel.classList.add('active'); }
+        activateArCTab('outstanding-activities');
       });
 
 
@@ -9180,14 +9018,7 @@ function openScriptResponseModal() {
     var arPanel = document.getElementById('panel-activity-record');
     if (arPanel) arPanel.classList.add('active');
     // Switch to Activity Summary tab
-    var arTabs = document.querySelectorAll('#activityTabs .gc-tab');
-    var arPanels = document.querySelectorAll('.ar-tab-panel');
-    arTabs.forEach(function(t) { t.classList.remove('active'); t.style.color = ''; t.style.borderBottomColor = ''; });
-    arPanels.forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
-    var asTab = document.querySelector('#activityTabs .gc-tab[data-artab="activity-summary"]');
-    if (asTab) { asTab.classList.add('active'); asTab.style.color = 'var(--teal)'; asTab.style.borderBottomColor = 'var(--teal)'; }
-    var asPanel = document.getElementById('artab-activity-summary');
-    if (asPanel) { asPanel.style.display = ''; asPanel.classList.add('active'); }
+    activateArCTab('activity-summary');
     // Insert the completed HRA row only if one doesn't already exist
     var scriptTbody = document.getElementById('scriptActivityTbody');
     if (scriptTbody && !scriptTbody.querySelector('tr[data-flow="assessment-review"]')) {
@@ -9285,12 +9116,7 @@ function openScriptResponseModal() {
     var arPanel = document.getElementById('panel-activity-record');
     if (arPanel) arPanel.classList.add('active');
     // Switch to Activity Summary tab
-    document.querySelectorAll('#activityTabs .gc-tab').forEach(function(t) { t.classList.remove('active'); t.style.color = ''; t.style.borderBottomColor = ''; });
-    document.querySelectorAll('.ar-tab-panel').forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
-    var asTab = document.querySelector('#activityTabs .gc-tab[data-artab="activity-summary"]');
-    if (asTab) { asTab.classList.add('active'); asTab.style.color = 'var(--teal)'; asTab.style.borderBottomColor = 'var(--teal)'; }
-    var asPanel = document.getElementById('artab-activity-summary');
-    if (asPanel) { asPanel.style.display = ''; asPanel.classList.add('active'); }
+    activateArCTab('activity-summary');
   }
 
   window.captureAndProceed = function() {
@@ -9549,14 +9375,7 @@ function openScriptResponseModal() {
     if (arPanel) arPanel.classList.add('active');
 
     // Switch to Notes tab
-    document.querySelectorAll('#activityTabs .gc-tab').forEach(function(t) {
-      t.classList.remove('active'); t.style.color = ''; t.style.borderBottomColor = '';
-    });
-    document.querySelectorAll('.ar-tab-panel').forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
-    var notesTab = document.querySelector('#activityTabs .gc-tab[data-artab="notes"]');
-    if (notesTab) { notesTab.classList.add('active'); notesTab.style.color = 'var(--teal)'; notesTab.style.borderBottomColor = 'var(--teal)'; }
-    var notesPanel = document.getElementById('artab-notes');
-    if (notesPanel) { notesPanel.style.display = ''; notesPanel.classList.add('active'); }
+    activateArCTab('notes');
 
     // Pre-fill modal
     var now = new Date();
@@ -10774,6 +10593,69 @@ function alOpenSendModal() {
 
 function alCloseSendModal() {
   document.getElementById('al-send-modal-overlay').style.display = 'none';
+}
+
+function miToggleEdit(btn) {
+  var card = btn.closest('.mi-card');
+  var title = card.querySelector('.mi-title');
+  var body = card.querySelector('.mi-body');
+  var icon = btn.querySelector('.material-icons');
+  var editing = title.readOnly === false;
+  if (editing) {
+    // Done — lock back to read-only
+    title.readOnly = true;
+    title.style.pointerEvents = 'none';
+    title.style.borderColor = 'transparent';
+    title.style.background = 'transparent';
+    body.readOnly = true;
+    body.style.pointerEvents = 'none';
+    body.style.borderColor = 'transparent';
+    body.style.background = 'transparent';
+    body.style.overflow = 'hidden';
+    body.style.resize = 'none';
+    icon.textContent = 'edit';
+    btn.innerHTML = '<span class="material-icons" style="font-size:13px;">edit</span>Edit';
+    btn.style.color = 'var(--text-secondary)';
+    card.style.background = 'var(--white)';
+  } else {
+    // Enter edit mode
+    title.readOnly = false;
+    title.style.pointerEvents = 'auto';
+    title.style.borderColor = 'var(--border)';
+    title.style.background = '#fff';
+    body.readOnly = false;
+    body.style.pointerEvents = 'auto';
+    body.style.borderColor = 'var(--border)';
+    body.style.background = '#fff';
+    body.style.overflow = 'auto';
+    body.style.resize = 'vertical';
+    body.style.height = 'auto';
+    body.style.height = body.scrollHeight + 'px';
+    btn.innerHTML = '<span class="material-icons" style="font-size:13px;">check</span>Done';
+    btn.style.color = 'var(--teal)';
+    card.style.background = '#F7FEFF';
+    title.focus();
+  }
+}
+
+function miSendChat(btn) {
+  var card = btn.closest('.mi-card');
+  var title = card.querySelector('.mi-title').value.trim();
+  var body = card.querySelector('.mi-body').value.trim();
+  var msg = title ? title + '\n\n' + body : body;
+  var panel = document.getElementById('wf-chat-panel');
+  panel.classList.add('open');
+  document.getElementById('wf-chat-fab').style.display = 'flex';
+  var chatInput = document.getElementById('wf-chat-input');
+  chatInput.value = msg;
+  chatInput.style.height = 'auto';
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+  chatInput.focus();
+  // Mark card as sent
+  card.style.background = '#F4FBF4';
+  card.style.borderColor = '#A5D6A7';
+  var badge = card.querySelector('.mi-sent-badge');
+  badge.style.display = 'inline-flex';
 }
 
 function benefitSendChat(url) {
@@ -12551,14 +12433,7 @@ function reqEligibilityTabSwitch(key) {
 
 function navToRequiredActivitiesPanel(subPanelId) {
   // Activate Required Activities main tab
-  var arTabs = document.querySelectorAll('#activityTabs .gc-tab');
-  var arPanels = document.querySelectorAll('.ar-tab-panel');
-  arTabs.forEach(function(t) { t.classList.remove('active'); t.style.color = ''; t.style.borderBottomColor = ''; });
-  arPanels.forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
-  var reqTab = document.querySelector('#activityTabs .gc-tab[data-artab="required-activities"]');
-  var reqPanel = document.getElementById('artab-required-activities');
-  if (reqTab) { reqTab.classList.add('active'); reqTab.style.color = 'var(--teal)'; reqTab.style.borderBottomColor = 'var(--teal)'; }
-  if (reqPanel) { reqPanel.style.display = ''; reqPanel.classList.add('active'); }
+  activateArCTab('required-activities');
   // Activate the correct sub-tab
   document.querySelectorAll('.req-subtab').forEach(function(t) {
     var label = t.querySelector('div');
@@ -13542,44 +13417,6 @@ function renderHiCharts() {
 
   stepsEl.innerHTML = stepsSvg;
   bpEl.innerHTML    = bpSvg;
-}
-
-// ── Health tab Option A / C toggle ──
-var _healthOpt = 'a';
-function switchHealthOpt(opt) {
-  _healthOpt = opt;
-  var remTab   = document.getElementById('htab-reminders-tab');
-  var miTab    = document.getElementById('htab-member-instructions-tab');
-  var btnA     = document.getElementById('htab-opt-btn-a');
-  var btnC     = document.getElementById('htab-opt-btn-c');
-  var active   = {background:'#0D3761',color:'#fff'};
-  var inactive = {background:'#fff',color:'#555'};
-
-  // Style buttons
-  [['a',btnA],['c',btnC]].forEach(function(pair) {
-    if (!pair[1]) return;
-    var s = pair[0]===opt ? active : inactive;
-    pair[1].style.background = s.background;
-    pair[1].style.color      = s.color;
-    pair[1].style.border     = pair[0]===opt ? '1px solid #0D3761' : '1px solid #C8D4DA';
-  });
-
-  // Show/hide Reminders tab (Option A only)
-  remTab.style.display = opt === 'a' ? '' : 'none';
-
-  // Show/hide Member Instructions tab (Option C only)
-  miTab.style.display = opt === 'c' ? '' : 'none';
-
-  // If on a tab that's being hidden, redirect to first visible tab
-  var activeTab = document.querySelector('#healthTabs .gc-tab.active');
-  if (activeTab) {
-    var htab = activeTab.getAttribute('data-htab');
-    var redirect = (opt !== 'a' && htab === 'reminders') || (opt !== 'c' && htab === 'member-instructions');
-    if (redirect) {
-      var firstTab = document.querySelector('#healthTabs .gc-tab');
-      if (firstTab) firstTab.click();
-    }
-  }
 }
 
 // ── Health Indicators modal ──
