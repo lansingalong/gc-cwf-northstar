@@ -1556,7 +1556,7 @@ Diabetes Management</textarea>
               <!-- Heading + Grid/List toggle (matches Article Library style) -->
               <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px;">
                 <div style="display:inline-block;">
-                  <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">Browse Programs</div>
+                  <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">Programs</div>
                   <div style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;"></div>
                 </div>
                 <span style="display:flex;align-items:center;gap:12px;font-size:11px;padding-bottom:4px;">
@@ -11660,10 +11660,11 @@ function bp2Render() {
     'Member-Facing':{bg:'#E0F4FA', color:'#006B8F', icon:'phone_iphone',  label:'Member-Facing Programs'},
   };
 
-  // List view rendering
+  // List view rendering — skip card grid entirely
   if (bp2View === 'list') {
     bp2RenderList(pageItems, filtered);
-  }
+    // still render pager below
+  } else {
 
   list.innerHTML = pageItems.map(function(p, pageIdx) {
     var idx = pageStart + pageIdx;
@@ -11740,6 +11741,8 @@ function bp2Render() {
       + '</div>'
       + '</div>';
   }).join('');
+
+  } // end grid-view else
 
   // Render pager
   var pg = document.getElementById('bp2-pager');
