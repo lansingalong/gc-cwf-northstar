@@ -1553,6 +1553,19 @@ Diabetes Management</textarea>
             <!-- ══ OPTION 2: full list + chip sort ══ -->
             <div id="bpOpt2">
 
+              <!-- Heading + Grid/List toggle (matches Article Library style) -->
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px;">
+                <div style="display:inline-block;">
+                  <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">Browse Programs</div>
+                  <div style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;"></div>
+                </div>
+                <span style="display:flex;align-items:center;gap:12px;font-size:11px;padding-bottom:4px;">
+                  <a href="#" id="bp2-view-grid-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-weight:700;" onclick="event.preventDefault();bp2SwitchView('grid')"><span class="material-icons" style="font-size:13px;">grid_view</span> Grid View</a>
+                  <a href="#" id="bp2-view-list-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;color:var(--text-muted);" onclick="event.preventDefault();bp2SwitchView('list')"><span class="material-icons" style="font-size:13px;">view_list</span> List View</a>
+                </span>
+              </div>
+              <div style="height:1px;background:var(--border);margin-bottom:14px;"></div>
+
               <!-- Type segmented control -->
               <div class="bp2-seg">
                 <button id="bp2chip-all"      class="bp2-type-chip bp2-type-chip-active" onclick="bp2SetType('',this)">All Programs<span class="bp2-chip-bar"></span></button>
@@ -1644,8 +1657,24 @@ Diabetes Management</textarea>
               </div>
               </div>
 
-              <!-- Card list -->
+              <!-- Card list (grid view) -->
               <div id="bp2-list" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;"></div>
+
+              <!-- List view table -->
+              <div id="bp2-table" style="display:none;">
+                <table class="gc-table" style="width:100%;">
+                  <thead><tr>
+                    <th>Program</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Audience</th>
+                    <th>Language</th>
+                    <th></th>
+                  </tr></thead>
+                  <tbody id="bp2-table-body"></tbody>
+                </table>
+              </div>
+
               <div id="bp2-pager"></div>
 
             </div><!-- end bpOpt2 -->
@@ -1670,16 +1699,6 @@ Diabetes Management</textarea>
             </span>
           </div>
           <div style="height:1px;background:var(--border);margin-bottom:14px;"></div>
-
-          <!-- Grid / List toggle -->
-          <div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-bottom:12px;">
-            <button id="progViewGrid" onclick="setProgView('grid')" title="Grid view" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #1378A3;border-radius:4px 0 0 4px;background:#1378A3;color:#fff;cursor:pointer;">
-              <span class="material-icons" style="font-size:18px;">grid_view</span>
-            </button>
-            <button id="progViewList" onclick="setProgView('list')" title="List view" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #1378A3;border-left:none;border-radius:0 4px 4px 0;background:#fff;color:#1378A3;cursor:pointer;">
-              <span class="material-icons" style="font-size:18px;">view_list</span>
-            </button>
-          </div>
 
           <!-- ── Add Program Panel ── -->
           <div id="addProgramPanel" style="display:none;margin-bottom:20px;">
@@ -1995,7 +2014,6 @@ Diabetes Management</textarea>
           </div><!-- end addProgramPanel -->
 
           <!-- Unified program card grid -->
-          <div id="programsGridView">
           <div id="programCardGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
             <!-- Card 1: LTSS (Eligibility / Clinical) -->
@@ -2051,67 +2069,7 @@ Diabetes Management</textarea>
 
           </div>
 
-          </div><!-- end programsGridView -->
 
-          <!-- ── Programs List View ── -->
-          <div id="programsListView" style="display:none;">
-            <table class="gc-table" style="width:100%;">
-              <thead><tr>
-                <th>Program</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Start / Enrolled</th>
-                <th>Care Manager / Progress</th>
-                <th>Actions</th>
-              </tr></thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                      <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#E8EEF7;flex-shrink:0;">
-                        <span class="material-icons" style="font-size:15px;color:#0D3761;">verified_user</span>
-                      </span>
-                      <span style="font-size:13px;font-weight:600;color:#1a1a1a;">LTSS</span>
-                    </div>
-                  </td>
-                  <td><span style="font-size:11px;color:#0D3761;background:#E8EEF7;border-radius:10px;padding:2px 8px;font-weight:600;">Eligibility / Clinical</span></td>
-                  <td><span style="color:#2E7D32;font-weight:600;font-size:12px;">Active</span></td>
-                  <td style="font-size:12px;">01/15/2024</td>
-                  <td style="font-size:12px;">Beatrice Kanya, CCM</td>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:12px;white-space:nowrap;">
-                      <a href="#" onclick="event.preventDefault();document.getElementById('editClinicalProgramModal').classList.add('open');" style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;text-decoration:none;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</a>
-                      <span style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:13px;">history</span>History</span>
-                      <span style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:13px;">add_circle_outline</span>Add Activity</span>
-                      <span style="display:inline-flex;align-items:center;gap:3px;color:#C62828;font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:13px;">delete_outline</span>Delete</span>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                      <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#E0F4FA;flex-shrink:0;">
-                        <span class="material-icons" style="font-size:15px;color:#006B8F;">phone_iphone</span>
-                      </span>
-                      <span style="font-size:13px;font-weight:600;color:#1a1a1a;">Welcome Program</span>
-                    </div>
-                  </td>
-                  <td><span style="font-size:11px;color:#006B8F;background:#E0F4FA;border-radius:10px;padding:2px 8px;font-weight:600;">Member-Facing</span></td>
-                  <td><span style="color:#2E7D32;font-weight:600;font-size:12px;">Active</span></td>
-                  <td style="font-size:12px;">03/01/2024</td>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:6px;">
-                      <div style="width:80px;background:#E0F4FA;border-radius:99px;height:6px;"><div style="width:84%;height:100%;background:#1378A3;border-radius:99px;"></div></div>
-                      <span style="font-size:11px;color:#1378A3;font-weight:600;">84%</span>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="#" onclick="event.preventDefault();document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-app');" class="gc-kv-link" style="font-size:12px;display:inline-flex;align-items:center;gap:4px;"><span class="material-icons" style="font-size:13px;">open_in_new</span>View in Wellframe</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div><!-- end programsListView -->
 
           </div><!-- end programsDefaultView -->
         </div>
@@ -7215,6 +7173,15 @@ function openScriptResponseModal() {
     if (!dv || !bp) return;
     dv.style.display = 'none';
     bp.style.display = '';
+    bp2View = 'grid';
+    var gridBtn = document.getElementById('bp2-view-grid-btn');
+    var listBtn = document.getElementById('bp2-view-list-btn');
+    if (gridBtn) { gridBtn.style.fontWeight = '700'; gridBtn.style.color = 'var(--link)'; }
+    if (listBtn) { listBtn.style.fontWeight = '400'; listBtn.style.color = 'var(--text-muted)'; }
+    var listEl = document.getElementById('bp2-list');
+    var tableEl = document.getElementById('bp2-table');
+    if (listEl) listEl.style.display = 'grid';
+    if (tableEl) tableEl.style.display = 'none';
     bp2ActiveType = '';
     bp2SetType('', document.getElementById('bp2chip-all'));
     bp2Render();
@@ -7222,17 +7189,6 @@ function openScriptResponseModal() {
   window.closeBrowseProgramsPage = function() {
     document.getElementById('browseProgramsPage').style.display = 'none';
     document.getElementById('programsDefaultView').style.display = '';
-  };
-  window.setProgView = function(v) {
-    var isGrid = v === 'grid';
-    var gv = document.getElementById('programsGridView');
-    var lv = document.getElementById('programsListView');
-    var gb = document.getElementById('progViewGrid');
-    var lb = document.getElementById('progViewList');
-    if (gv) gv.style.display = isGrid ? '' : 'none';
-    if (lv) lv.style.display = isGrid ? 'none' : '';
-    if (gb) { gb.style.background = isGrid ? '#1378A3' : '#fff'; gb.style.color = isGrid ? '#fff' : '#1378A3'; }
-    if (lb) { lb.style.background = isGrid ? '#fff' : '#1378A3'; lb.style.color = isGrid ? '#1378A3' : '#fff'; }
   };
   window.browseProgTab = function(which) {
     ['staff','member'].forEach(function(t) {
@@ -11594,6 +11550,60 @@ function bp2ClearFilters() {
   bp2Render();
 }
 
+var bp2View = 'grid';
+
+function bp2SwitchView(v) {
+  bp2View = v;
+  var gridBtn = document.getElementById('bp2-view-grid-btn');
+  var listBtn = document.getElementById('bp2-view-list-btn');
+  if (gridBtn) { gridBtn.style.fontWeight = v === 'grid' ? '700' : '400'; gridBtn.style.color = v === 'grid' ? 'var(--link)' : 'var(--text-muted)'; }
+  if (listBtn) { listBtn.style.fontWeight = v === 'list' ? '700' : '400'; listBtn.style.color = v === 'list' ? 'var(--link)' : 'var(--text-muted)'; }
+  var listEl = document.getElementById('bp2-list');
+  var tableEl = document.getElementById('bp2-table');
+  if (listEl) listEl.style.display = v === 'grid' ? 'grid' : 'none';
+  if (tableEl) tableEl.style.display = v === 'list' ? 'block' : 'none';
+  bp2Render();
+}
+
+function bp2RenderList(pageItems, filtered) {
+  var tbody = document.getElementById('bp2-table-body');
+  if (!tbody) return;
+  var BADGE = {
+    'Benefit':      {bg:'#E8EEF7', color:'#0D3761', icon:'verified_user',    label:'Eligibility Program'},
+    'General':      {bg:'#E8EEF7', color:'#0D3761', icon:'medical_services', label:'Clinical Program'},
+    'Member-Facing':{bg:'#E0F4FA', color:'#006B8F', icon:'phone_iphone',     label:'Member-Facing'},
+  };
+  if (!pageItems.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#888;font-size:13px;">No programs match your filters.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = pageItems.map(function(p) {
+    var b = BADGE[p.subtype] || BADGE['General'];
+    var safeTitle = p.title.replace(/'/g,"\'");
+    var hasMF = p.subtype === 'Member-Facing';
+    var addFn = hasMF ? 'openMfpProgramModalDirect('' + safeTitle + '')' : 'openStaffProgModal('' + safeTitle + '','' + p.subtype + '')';
+    var audStr = p.audiences && p.audiences.length ? p.audiences.join(', ') : '—';
+    var langStr = p.langs && p.langs.length ? p.langs.join(', ') : '—';
+    var descSnip = (p.desc||'').substring(0, 90) + ((p.desc||'').length > 90 ? '…' : '');
+    return '<tr>'
+      + '<td><div style="display:flex;align-items:center;gap:8px;min-width:160px;">'
+      +   '<span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:'+b.bg+';flex-shrink:0;">'
+      +     '<span class="material-icons" style="font-size:15px;color:'+b.color+';">'+b.icon+'</span>'
+      +   '</span>'
+      +   '<span style="font-size:13px;font-weight:600;color:#1a1a1a;">'+p.title+'</span>'
+      + '</div></td>'
+      + '<td><span style="font-size:11px;color:'+b.color+';background:'+b.bg+';border-radius:10px;padding:2px 8px;font-weight:600;white-space:nowrap;">'+b.label+'</span></td>'
+      + '<td style="font-size:12px;color:var(--text-secondary);max-width:260px;">'+descSnip+'</td>'
+      + '<td style="font-size:12px;color:#333;">'+audStr+'</td>'
+      + '<td style="font-size:12px;color:#333;">'+langStr+'</td>'
+      + '<td><span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" onclick="'+addFn+'">'
+      +   '<span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Program'
+      + '</span></td>'
+      + '</tr>';
+  }).join('');
+}
+
+
 function bp2Render() {
   var searchEl     = document.getElementById('bp2Search');
   var q            = searchEl ? searchEl.value.toLowerCase().trim() : '';
@@ -11649,6 +11659,11 @@ function bp2Render() {
     'General':      {bg:'#E8EEF7', color:'#0D3761', icon:'medical_services', label:'Clinical Programs'},
     'Member-Facing':{bg:'#E0F4FA', color:'#006B8F', icon:'phone_iphone',  label:'Member-Facing Programs'},
   };
+
+  // List view rendering
+  if (bp2View === 'list') {
+    bp2RenderList(pageItems, filtered);
+  }
 
   list.innerHTML = pageItems.map(function(p, pageIdx) {
     var idx = pageStart + pageIdx;
