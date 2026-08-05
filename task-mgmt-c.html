@@ -7,6 +7,8 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
+  .ctm-panel { display: none; flex: 1; overflow-y: auto; }
+  .ctm-panel.active { display: block; }
   :root {
     --teal:        #1378A3;
     --teal-light:  #E3F2FA;
@@ -594,21 +596,23 @@
   .proto-pill { padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; text-decoration:none; border:1px solid #444; color:#bbb; }
   .proto-pill:hover { border-color:#7EC8E3; color:#7EC8E3; text-decoration:none !important; }
   .proto-pill.active { background:#1378A3; border-color:#1378A3; color:#fff; }
-  .proto-pill.task-pill { border-color:#7B62CC; color:#C4B5F4; }
-  .proto-pill.task-pill:hover { border-color:#C4B5F4; color:#C4B5F4; }
+  .proto-pill.task-pill { border-color:#7B62CC; color:#1a1a1a; }
+  .proto-pill.task-pill.active { background:#5C3FA8; border-color:#5C3FA8; color:#fff; }
+  .proto-pill.task-pill:hover { border-color:#5C3FA8; color:#1a1a1a; }
+  .proto-toggle-bar { display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; padding:6px 16px; border-bottom:1px solid #e0e0e0; font-family:'Open Sans',Arial,sans-serif; }
 </style>
 <body>
 
 <div class="proto-bar">
-  <span class="proto-bar-label">Concept A</span>
+  <span class="proto-bar-label">Task Management</span>
   <div class="proto-nav-pills">
-    <span class="proto-pill active">A : Hub + Integrated</span>
-    <a class="proto-pill" href="option-b.html">B : Integrated</a>
-    <span id="proto-c-toggle" onclick="var el=document.getElementById('proto-c-link');var shown=el.style.display!=='none';el.style.display=shown?'none':'inline-flex';this.textContent=shown?'›':'‹';" style="cursor:pointer;font-size:14px;color:#fff;opacity:0.4;padding:0 2px;line-height:1;font-weight:300;" title="Show/hide C">›</span>
-    <a id="proto-c-link" class="proto-pill" href="option-c.html" title="C — Old" style="display:none;opacity:0.55;font-size:10px;">C : Old</a>
-    <span style="color:#444;margin:0 2px;">|</span>
-    <a class="proto-pill task-pill" href="task-mgmt-a.html">Task Management</a>
+    <a class="proto-pill" href="option-a.html">← Back to Hub + Integrated</a>
   </div>
+</div>
+<div class="proto-toggle-bar">
+  <a class="proto-pill task-pill" href="task-mgmt-a.html">A : Task Management</a>
+  <a class="proto-pill task-pill" href="task-mgmt-b.html">B : Task Management</a>
+  <span class="proto-pill task-pill active">C : Task Management</span>
 </div>
 
 <!-- ══════════════ GLOBAL NAV ══════════════ -->
@@ -704,345 +708,324 @@
 </div>
 
 
-<!-- ══════════════ HOME DASHBOARD ══════════════ -->
-<div id="home-dashboard">
-  <div class="dash-grid">
 
-    <!-- ═══ TOP-LEFT: My Members ═══ -->
-    <div class="dash-panel">
-      <div class="dash-panel-header">
-        <span class="material-icons" style="font-size:13px;">arrow_right</span>
-        My Members
-        <span style="margin-left:auto;display:flex;align-items:center;gap:6px;">
-          <span class="material-icons" style="font-size:13px;cursor:pointer;">lock</span>
-          <span style="font-size:11px;color:rgba(255,255,255,.85);cursor:pointer;">My Care Members</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">format_list_bulleted</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">refresh</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">open_in_full</span>
-        </span>
-      </div>
-      <div class="dash-filter-bar">
-        <label style="font-weight:700;color:var(--text-label);">Assigned Type</label>
-        <select><option>Primary Care Members</option></select>
-        <label style="font-weight:700;color:var(--text-label);">Enrollment Status</label>
-        <select><option>All Members</option></select>
-        <label style="font-weight:700;color:var(--text-label);">Risks</label>
-        <select style="width:120px;"><option>Assigned Risk</option></select>
-      </div>
-      <div class="dash-panel-body" style="overflow:auto;">
-        <table class="gc-table" style="font-size:11px;">
-          <thead>
-            <tr>
-              <th style="padding:4px 8px;width:20px;"></th>
-              <th style="padding:4px 8px;">Eligibility</th>
-              <th style="padding:4px 8px;">Last Name <span class="material-icons" style="font-size:10px;">arrow_upward</span></th>
-              <th style="padding:4px 8px;">First Name</th>
-              <th style="padding:4px 8px;">New ID</th>
-              <th style="padding:4px 8px;">DOB</th>
-              <th style="padding:4px 8px;">Risk</th>
-              <th style="padding:4px 8px;">Next Contact</th>
-              <th style="padding:4px 8px;">Assigned Date</th>
-              <th style="padding:4px 8px;">Program Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="jackson-thomas">Thomas</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="jackson-thomas">Jackson</a></td>
-              <td style="padding:4px 8px;">MBR-2024-0847</td>
-              <td style="padding:4px 8px;">03/15/1958</td>
-              <td style="padding:4px 8px;">High</td>
-              <td style="padding:4px 8px;">04/01/2026</td>
-              <td style="padding:4px 8px;">01/15/2024</td>
-              <td style="padding:4px 8px;">Diabetes Management</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="maria-rivera">Rivera</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="maria-rivera">Maria</a></td>
-              <td style="padding:4px 8px;">MBR-2024-1203</td>
-              <td style="padding:4px 8px;">08/22/1975</td>
-              <td style="padding:4px 8px;">—</td>
-              <td style="padding:4px 8px;">—</td>
-              <td style="padding:4px 8px;">—</td>
-              <td style="padding:4px 8px;">Health Risk Assessment</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="robert-chen">Chen</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="robert-chen">Robert</a></td>
-              <td style="padding:4px 8px;">MBR-2024-0591</td>
-              <td style="padding:4px 8px;">11/03/1982</td>
-              <td style="padding:4px 8px;">Low</td>
-              <td style="padding:4px 8px;">04/10/2026</td>
-              <td style="padding:4px 8px;">02/10/2025</td>
-              <td style="padding:4px 8px;">Fall Prevention</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="sarah-williams">Williams</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="sarah-williams">Sarah</a></td>
-              <td style="padding:4px 8px;">MBR-2024-2108</td>
-              <td style="padding:4px 8px;">06/17/1990</td>
-              <td style="padding:4px 8px;">Medium</td>
-              <td style="padding:4px 8px;">04/12/2026</td>
-              <td style="padding:4px 8px;">02/20/2025</td>
-              <td style="padding:4px 8px;">Maternal Health</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;"><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Active</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="james-oconnor">O'Connor</a></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link member-link" data-member="james-oconnor">James</a></td>
-              <td style="padding:4px 8px;">MBR-2024-0334</td>
-              <td style="padding:4px 8px;">02/28/1968</td>
-              <td style="padding:4px 8px;">High</td>
-              <td style="padding:4px 8px;">04/08/2026</td>
-              <td style="padding:4px 8px;">01/05/2025</td>
-              <td style="padding:4px 8px;">Behavioral Health</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="gc-table-footer" style="font-size:11px;">
-        <span style="display:flex;align-items:center;gap:4px;">
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">first_page</span></button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">chevron_left</span></button>
-          <button class="gc-pager-btn active" style="width:18px;height:18px;font-size:9px;">1</button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">chevron_right</span></button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">last_page</span></button>
-        </span>
-        <select style="height:20px;font-size:10px;border:1px solid var(--border);border-radius:2px;margin-left:4px;">
-          <option>25</option><option>50</option><option>100</option>
-        </select>
-        <span style="font-size:10px;color:var(--text-muted);">items per page</span>
-        <span style="margin-left:auto;font-size:11px;">1 - 5 of 5 items</span>
-        <span class="material-icons" style="font-size:14px;cursor:pointer;color:var(--text-muted);margin-left:4px;">refresh</span>
-      </div>
+<!-- ══════════════ C: TASK MANAGEMENT TABS ══════════════ -->
+<div id="ctm-shell" style="display:flex;flex-direction:column;height:calc(100vh - 82px);font-family:var(--font);background:#F4F6F8;">
+
+  <!-- Tab bar -->
+  <div style="display:flex;align-items:stretch;background:#fff;border-bottom:2px solid var(--border);flex-shrink:0;">
+    <div class="ctm-tab active" data-tab="dashboard" onclick="ctmSwitch(this)" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--teal);border-bottom:2px solid var(--teal);margin-bottom:-2px;cursor:pointer;white-space:nowrap;">
+      <span class="material-icons" style="font-size:16px;">dashboard</span>Dashboard
     </div>
-
-    <!-- ═══ TOP-RIGHT: My Calendar ═══ -->
-    <div class="dash-panel">
-      <div class="dash-panel-header">
-        <span class="material-icons" style="font-size:13px;">arrow_right</span>
-        My Calendar
-        <span style="margin-left:auto;display:flex;align-items:center;gap:6px;">
-          <span class="material-icons" style="font-size:13px;cursor:pointer;">lock</span>
-          <span style="font-size:11px;color:rgba(255,255,255,.85);cursor:pointer;">Care Activity Log</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">refresh</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">open_in_full</span>
-        </span>
-      </div>
-      <div class="cal-header-bar">
-        <button class="gc-btn gc-btn-sm gc-btn-tertiary">Today</button>
-        <span class="material-icons" style="font-size:14px;cursor:pointer;color:var(--text-muted);">chevron_left</span>
-        <span class="material-icons" style="font-size:14px;cursor:pointer;color:var(--text-muted);">chevron_right</span>
-        <span class="material-icons" style="font-size:14px;color:var(--text-muted);">calendar_month</span>
-        <span id="calDateLabel" style="font-weight:600;color:var(--text-primary);"></span>
-        <a href="#" style="font-size:11px;color:var(--link);text-decoration:none;margin-left:12px;">Show full day</a>
-        <span style="margin-left:auto;">
-          <span class="dash-toggle">
-            <button class="dash-toggle-btn active">Day</button>
-            <button class="dash-toggle-btn">Week</button>
-            <button class="dash-toggle-btn">Month</button>
-          </span>
-        </span>
-      </div>
-      <div class="cal-day-header">
-        <div class="cal-time-col">Time</div>
-        <div class="cal-day-col" id="calDayColLabel"></div>
-      </div>
-      <div class="dash-panel-body" style="overflow:auto;">
-        <div class="cal-body" id="dashCalBody"></div>
-      </div>
+    <div class="ctm-tab" data-tab="members" onclick="ctmSwitch(this)" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;">
+      <span class="material-icons" style="font-size:16px;">people</span>Members
     </div>
-
-    <!-- ═══ BOTTOM-LEFT: My Alerts ═══ -->
-    <div class="dash-panel">
-      <div class="dash-panel-header">
-        <span class="material-icons" style="font-size:13px;">arrow_right</span>
-        My Alerts
-        <span style="margin-left:auto;display:flex;align-items:center;gap:6px;">
-          <span class="material-icons" style="font-size:13px;cursor:pointer;">lock</span>
-          <span style="font-size:11px;color:rgba(255,255,255,.85);cursor:pointer;">Manage My Alerts</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">refresh</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">open_in_full</span>
-        </span>
-      </div>
-      <div class="dash-panel-tabs">
-        <div class="dash-panel-tab active">Alerts</div>
-        <div class="dash-panel-tab">Risks</div>
-        <div class="dash-panel-tab">Diseases</div>
-        <div class="dash-panel-tab">Indicators</div>
-      </div>
-      <div class="dash-filter-bar">
-        <label style="font-weight:700;color:var(--text-label);">Alert Source</label>
-        <select style="width:90px;"><option>Select</option></select>
-        <label style="font-weight:700;color:var(--text-label);">Alert Description</label>
-        <input type="text" style="width:140px;" placeholder="Enter Alert Description">
-        <button class="gc-btn gc-btn-sm gc-btn-primary"><span class="material-icons" style="font-size:11px;">search</span> Search</button>
-        <button class="gc-btn gc-btn-sm gc-btn-tertiary"><span class="material-icons" style="font-size:11px;">close</span> Clear</button>
-      </div>
-      <div class="dash-panel-body" style="overflow:auto;">
-        <table class="gc-table" style="font-size:11px;">
-          <thead>
-            <tr>
-              <th style="padding:4px 8px;">Description</th>
-              <th style="padding:4px 8px;">Member(s)</th>
-              <th style="padding:4px 8px;">Source</th>
-              <th style="padding:4px 8px;">Updated On</th>
-            </tr>
-          </thead>
-          <tbody id="dashAlertsTbody">
-            <tr>
-              <td style="padding:4px 8px;">HEALTH_INDICATOR</td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">1</a></td>
-              <td style="padding:4px 8px;">HEALTH_INDICATOR</td>
-              <td style="padding:4px 8px;">N/A</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;">Missed medication check-in</td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">1</a></td>
-              <td style="padding:4px 8px;">Wellframe</td>
-              <td style="padding:4px 8px;">03/24/2026</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;">ER visit reported</td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">1</a></td>
-              <td style="padding:4px 8px;">Claims</td>
-              <td style="padding:4px 8px;">03/23/2026</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;">Assessment overdue</td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">2</a></td>
-              <td style="padding:4px 8px;">Care Plan</td>
-              <td style="padding:4px 8px;">03/22/2026</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;">High A1C lab result</td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">1</a></td>
-              <td style="padding:4px 8px;">Lab Results</td>
-              <td style="padding:4px 8px;">03/20/2026</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="gc-table-footer" style="font-size:11px;">
-        <span style="display:flex;align-items:center;gap:4px;">
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">first_page</span></button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">chevron_left</span></button>
-          <button class="gc-pager-btn active" style="width:18px;height:18px;font-size:9px;">1</button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">chevron_right</span></button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">last_page</span></button>
-        </span>
-        <select style="height:20px;font-size:10px;border:1px solid var(--border);border-radius:2px;margin-left:4px;">
-          <option>10</option><option>25</option><option>50</option>
-        </select>
-        <span style="font-size:10px;color:var(--text-muted);">items per page</span>
-        <span style="margin-left:auto;font-size:11px;">1 - 5 of 5 items</span>
-        <span class="material-icons" style="font-size:14px;cursor:pointer;color:var(--text-muted);margin-left:4px;">refresh</span>
-      </div>
+    <div class="ctm-tab" data-tab="telephonic" onclick="ctmSwitch(this)" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;">
+      <span class="material-icons" style="font-size:16px;">phone</span>Telephonic
     </div>
-
-    <!-- ═══ BOTTOM-RIGHT: Request Received ═══ -->
-    <div class="dash-panel">
-      <div class="dash-panel-header">
-        <span class="material-icons" style="font-size:13px;">arrow_right</span>
-        Request Received
-        <span style="margin-left:auto;display:flex;align-items:center;gap:6px;">
-          <span class="dash-toggle">
-            <button class="dash-toggle-btn active">Received</button>
-            <button class="dash-toggle-btn">Rejected</button>
-          </span>
-          <span class="material-icons" style="font-size:13px;cursor:pointer;">lock</span>
-          <span style="font-size:11px;color:rgba(255,255,255,.85);cursor:pointer;">Care Activity Log</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">refresh</span>
-          <span class="material-icons" style="cursor:pointer;font-size:14px;">open_in_full</span>
-        </span>
-      </div>
-      <div class="dash-filter-bar" style="flex-wrap:wrap;">
-        <label style="font-weight:700;color:var(--text-label);">Module</label>
-        <select style="width:55px;"><option>CM</option><option>UM</option></select>
-        <label style="font-weight:700;color:var(--text-label);">Type</label>
-        <select style="width:80px;"><option>Member</option><option>UM Activity</option></select>
-        <label style="font-weight:700;color:var(--text-label);">Member Name</label>
-        <input type="text" style="width:100px;">
-        <label style="font-weight:700;color:var(--text-label);">Risk Type</label>
-        <select style="width:80px;"><option>Select</option></select>
-        <label style="font-weight:700;color:var(--text-label);">Risk Level</label>
-        <select style="width:80px;"><option>Select</option></select>
-        <label style="font-weight:700;color:var(--text-label);">From Date</label>
-        <input type="text" style="width:80px;" placeholder="MM/DD/YYYY">
-        <span class="material-icons" style="font-size:14px;color:var(--text-muted);cursor:pointer;">calendar_month</span>
-        <label style="font-weight:700;color:var(--text-label);">To Date</label>
-        <input type="text" style="width:80px;" placeholder="MM/DD/YYYY">
-        <span class="material-icons" style="font-size:14px;color:var(--text-muted);cursor:pointer;">calendar_month</span>
-        <label style="font-weight:700;color:var(--text-label);">Work Queue</label>
-        <select style="width:80px;"><option>Select</option></select>
-      </div>
-      <div style="padding:4px 10px;display:flex;justify-content:flex-end;gap:6px;border-bottom:1px solid var(--border-light);background:var(--white);">
-        <button class="gc-btn gc-btn-sm gc-btn-primary"><span class="material-icons" style="font-size:11px;">search</span> Search</button>
-        <button class="gc-btn gc-btn-sm gc-btn-tertiary"><span class="material-icons" style="font-size:11px;">close</span> Clear</button>
-        <button class="gc-btn gc-btn-sm gc-btn-secondary"><span class="material-icons" style="font-size:11px;">check</span> Accept</button>
-      </div>
-      <div class="dash-panel-body" style="overflow:auto;">
-        <table class="gc-table" style="font-size:11px;">
-          <thead>
-            <tr>
-              <th style="padding:4px 8px;width:28px;"><input type="checkbox"></th>
-              <th style="padding:4px 8px;">Member Name</th>
-              <th style="padding:4px 8px;">Refer Date</th>
-              <th style="padding:4px 8px;">Refer by</th>
-              <th style="padding:4px 8px;">Refer To</th>
-              <th style="padding:4px 8px;">Status</th>
-              <th style="padding:4px 8px;">WQ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:4px 8px;"><input type="checkbox"></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Adam Eve</a></td>
-              <td style="padding:4px 8px;">07/25/2025</td>
-              <td style="padding:4px 8px;">Vidya Pitta</td>
-              <td style="padding:4px 8px;">Beatrice Kanya</td>
-              <td style="padding:4px 8px;">Pending</td>
-              <td style="padding:4px 8px;"></td>
-            </tr>
-            <tr>
-              <td style="padding:4px 8px;"><input type="checkbox"></td>
-              <td style="padding:4px 8px;"><a href="#" class="gc-kv-link">Robert Chen</a></td>
-              <td style="padding:4px 8px;">03/18/2026</td>
-              <td style="padding:4px 8px;">Jennifer Reyes</td>
-              <td style="padding:4px 8px;">Beatrice Kanya</td>
-              <td style="padding:4px 8px;">Pending</td>
-              <td style="padding:4px 8px;"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="gc-table-footer" style="font-size:11px;">
-        <span style="display:flex;align-items:center;gap:4px;">
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">first_page</span></button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">chevron_left</span></button>
-          <button class="gc-pager-btn active" style="width:18px;height:18px;font-size:9px;">1</button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">chevron_right</span></button>
-          <button class="gc-pager-btn" style="width:18px;height:18px;"><span class="material-icons" style="font-size:10px;">last_page</span></button>
-        </span>
-        <select style="height:20px;font-size:10px;border:1px solid var(--border);border-radius:2px;margin-left:4px;">
-          <option>10</option><option>25</option><option>50</option>
-        </select>
-        <span style="font-size:10px;color:var(--text-muted);">items per page</span>
-        <span style="margin-left:auto;font-size:11px;">1 - 2 of 2 items</span>
-        <span class="material-icons" style="font-size:14px;cursor:pointer;color:var(--text-muted);margin-left:4px;">refresh</span>
-      </div>
+    <div class="ctm-tab" data-tab="digital" onclick="ctmSwitch(this)" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;">
+      <span class="material-icons" style="font-size:16px;">smartphone</span>Digital
     </div>
-
+    <div class="ctm-tab" data-tab="reports" onclick="ctmSwitch(this)" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;">
+      <span class="material-icons" style="font-size:16px;">bar_chart</span>Reports
+    </div>
   </div>
+
+  <!-- ── DASHBOARD TAB ── -->
+  <div id="ctm-dashboard" class="ctm-panel active" style="padding:20px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div>
+        <div style="font-size:17px;font-weight:700;color:var(--text-primary);">Good morning, Beatrice</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Monday, August 4, 2026</div>
+      </div>
+    </div>
+    <!-- Stat row -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;">
+      <div style="background:#fff;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Total Members</div>
+        <div style="font-size:28px;font-weight:700;color:var(--text-primary);margin-top:4px;">147</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Active caseload</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Due Today</div>
+        <div style="font-size:28px;font-weight:700;color:#1378A3;margin-top:4px;">14</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Tasks scheduled</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">New Alerts</div>
+        <div style="font-size:28px;font-weight:700;color:#E07820;margin-top:4px;">12</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Unacknowledged</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Outreach Needed</div>
+        <div style="font-size:28px;font-weight:700;color:#C62828;margin-top:4px;">26</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Inactive or no invite</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Requests</div>
+        <div style="font-size:28px;font-weight:700;color:#555;margin-top:4px;">10</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Pending accept</div>
+      </div>
+    </div>
+    <!-- Today's work + priority alerts side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;">
+          <span class="material-icons" style="font-size:16px;color:#1378A3;">today</span>Today's Tasks
+        </div>
+        <div style="display:flex;flex-direction:column;">
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#bbb;">phone</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Jackson Thomas</div><div style="font-size:11px;color:var(--text-muted);">Telephonic Outreach · 8:00 AM</div></div>
+            <span style="font-size:11px;color:var(--link);cursor:pointer;">Perform</span>
+          </div>
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#bbb;">description</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">James O'Connor</div><div style="font-size:11px;color:var(--text-muted);">Care Plan Review · 10:00 AM</div></div>
+            <span style="font-size:11px;color:var(--link);cursor:pointer;">Perform</span>
+          </div>
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#bbb;">phone</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Sarah Williams</div><div style="font-size:11px;color:var(--text-muted);">Welcome Call · 9:00 AM</div></div>
+            <span style="font-size:11px;color:var(--link);cursor:pointer;">Perform</span>
+          </div>
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#bbb;">medication</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Robert Chen</div><div style="font-size:11px;color:var(--text-muted);">Medication Reconciliation · 2:00 PM</div></div>
+            <span style="font-size:11px;color:var(--link);cursor:pointer;">Perform</span>
+          </div>
+          <div style="padding:10px 16px;display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#bbb;">assignment</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Maria Rivera</div><div style="font-size:11px;color:var(--text-muted);">HRA Follow-Up · 1:00 PM</div></div>
+            <span style="font-size:11px;color:var(--link);cursor:pointer;">Perform</span>
+          </div>
+        </div>
+        <div style="padding:10px 16px;border-top:1px solid var(--border-light);font-size:12px;color:var(--link);cursor:pointer;">+ 9 more tasks</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;">
+          <span class="material-icons" style="font-size:16px;color:#E07820;">notifications_active</span>Priority Alerts
+        </div>
+        <div style="display:flex;flex-direction:column;">
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#C62828;">warning</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Jackson Thomas</div><div style="font-size:11px;color:var(--text-muted);">Gap in Care — HbA1c overdue</div></div>
+            <span style="font-size:10px;background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-weight:600;">High</span>
+          </div>
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#C62828;">local_hospital</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">James O'Connor</div><div style="font-size:11px;color:var(--text-muted);">Readmission Risk — ED visit within 30 days</div></div>
+            <span style="font-size:10px;background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-weight:600;">High</span>
+          </div>
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#E07820;">notifications</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">George Butler</div><div style="font-size:11px;color:var(--text-muted);">Reported chest tightness several times this week</div></div>
+            <span style="font-size:10px;background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-weight:600;">High</span>
+          </div>
+          <div style="padding:10px 16px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#E07820;">favorite_border</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Debra Washington</div><div style="font-size:11px;color:var(--text-muted);">Blood pressure reading 178/102 — above threshold</div></div>
+            <span style="font-size:10px;background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-weight:600;">High</span>
+          </div>
+          <div style="padding:10px 16px;display:flex;align-items:center;gap:10px;">
+            <span class="material-icons" style="font-size:15px;color:#E07820;">notifications</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Barbara Nguyen</div><div style="font-size:11px;color:var(--text-muted);">Weight gain alert — 4 lbs in 3 days</div></div>
+            <span style="font-size:10px;background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-weight:600;">High</span>
+          </div>
+        </div>
+        <div style="padding:10px 16px;border-top:1px solid var(--border-light);font-size:12px;color:var(--link);cursor:pointer;">+ 7 more alerts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MEMBERS TAB ── -->
+  <div id="ctm-members" class="ctm-panel" style="padding:20px 24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:700;color:var(--text-primary);flex:1;">My Members <span style="font-size:12px;font-weight:400;color:var(--text-muted);">147 total</span></div>
+      <input type="text" placeholder="Search members..." style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;width:180px;outline:none;">
+      <select style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;outline:none;"><option>All Programs</option><option>Diabetes Management</option><option>Behavioral Health</option><option>Maternal Health</option><option>Cardiac Care</option><option>COPD Management</option></select>
+      <select style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;outline:none;"><option>All Risks</option><option>High</option><option>Medium</option><option>Low</option></select>
+    </div>
+    <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="background:#F4F6F8;border-bottom:2px solid var(--border);">
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Member</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Program</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Risk</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Channel</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Last Contact</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Next Activity</th>
+          <th style="padding:10px 14px;"></th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">Jackson Thomas</div><div style="font-size:10px;color:var(--text-muted);">DOB 03/15/1958 · MBR-2024-0847</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Diabetes Management</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">High</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);font-size:11px;"><span class="material-icons" style="font-size:13px;">phone</span>Telephonic</span></td><td style="padding:10px 14px;color:var(--text-secondary);">07/28/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">Telephonic Outreach · Today</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">James O'Connor</div><div style="font-size:10px;color:var(--text-muted);">DOB 02/28/1968 · MBR-2024-0334</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Behavioral Health</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">High</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);font-size:11px;"><span class="material-icons" style="font-size:13px;">phone</span>Telephonic</span></td><td style="padding:10px 14px;color:var(--text-secondary);">07/30/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">Care Plan Review · Today</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">Sarah Williams</div><div style="font-size:10px;color:var(--text-muted);">DOB 06/17/1990 · MBR-2024-2108</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Maternal Health</td><td style="padding:10px 14px;"><span style="background:#FFF8E1;color:#E07820;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">Medium</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--teal);font-size:11px;"><span class="material-icons" style="font-size:13px;">smartphone</span>Digital</span></td><td style="padding:10px 14px;color:var(--text-secondary);">08/02/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">Welcome Call · Today</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">Robert Chen</div><div style="font-size:10px;color:var(--text-muted);">DOB 11/03/1982 · MBR-2024-0591</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Fall Prevention</td><td style="padding:10px 14px;"><span style="background:#E8F5E9;color:#2E7D32;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">Low</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--teal);font-size:11px;"><span class="material-icons" style="font-size:13px;">smartphone</span>Digital</span></td><td style="padding:10px 14px;color:var(--text-secondary);">07/25/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">Medication Reconciliation · Today</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">Maria Rivera</div><div style="font-size:10px;color:var(--text-muted);">DOB 08/22/1975 · MBR-2024-1203</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Health Risk Assessment</td><td style="padding:10px 14px;"><span style="background:#FFF8E1;color:#E07820;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">Medium</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);font-size:11px;"><span class="material-icons" style="font-size:13px;">phone</span>Telephonic</span></td><td style="padding:10px 14px;color:var(--text-secondary);">08/01/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">HRA Follow-Up · Today</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">Barbara Nguyen</div><div style="font-size:10px;color:var(--text-muted);">DOB 07/04/1961 · MBR-2024-0512</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Congestive Heart Failure</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">High</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);font-size:11px;"><span class="material-icons" style="font-size:13px;">phone</span>Telephonic</span></td><td style="padding:10px 14px;color:var(--text-secondary);">07/29/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">Post-Discharge Follow-Up · Today</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">Omar Hassan</div><div style="font-size:10px;color:var(--text-muted);">DOB 03/30/1979 · MBR-2024-1820</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Diabetes Management</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">High</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--teal);font-size:11px;"><span class="material-icons" style="font-size:13px;">smartphone</span>Digital</span></td><td style="padding:10px 14px;color:var(--text-secondary);">07/16/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">—</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;color:var(--text-primary);">Priya Sharma</div><div style="font-size:10px;color:var(--text-muted);">DOB 12/08/1986 · MBR-2024-2255</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Maternal Health</td><td style="padding:10px 14px;"><span style="background:#E8F5E9;color:#2E7D32;border-radius:4px;padding:2px 7px;font-weight:600;font-size:11px;">Low</span></td><td style="padding:10px 14px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--teal);font-size:11px;"><span class="material-icons" style="font-size:13px;">smartphone</span>Digital</span></td><td style="padding:10px 14px;color:var(--text-secondary);">08/03/2026</td><td style="padding:10px 14px;color:var(--text-secondary);">—</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+        </tbody>
+      </table>
+      <div style="padding:10px 16px;border-top:1px solid var(--border-light);font-size:12px;color:var(--link);cursor:pointer;">Showing 8 of 147 members · Load more</div>
+    </div>
+  </div>
+
+  <!-- ── TELEPHONIC TAB ── -->
+  <div id="ctm-telephonic" class="ctm-panel" style="padding:20px 24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:700;color:var(--text-primary);flex:1;">Telephonic Members <span style="font-size:12px;font-weight:400;color:var(--text-muted);">83 members</span></div>
+      <input type="text" placeholder="Search members..." style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;width:180px;outline:none;">
+      <select style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;outline:none;"><option>All Statuses</option><option>Due Today</option><option>Overdue</option><option>Up to Date</option></select>
+    </div>
+    <!-- Summary strip -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;">
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #1378A3;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Due Today</div>
+        <div style="font-size:22px;font-weight:700;color:#1378A3;margin-top:2px;">9</div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #C62828;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Overdue</div>
+        <div style="font-size:22px;font-weight:700;color:#C62828;margin-top:2px;">4</div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #2E7D32;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Up to Date</div>
+        <div style="font-size:22px;font-weight:700;color:#2E7D32;margin-top:2px;">70</div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #E07820;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Avg. Days Since Contact</div>
+        <div style="font-size:22px;font-weight:700;color:#E07820;margin-top:2px;">8</div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="background:#F4F6F8;border-bottom:2px solid var(--border);">
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Member</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Program</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Risk</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Next Activity</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Last Contact</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Status</th>
+          <th style="padding:10px 14px;"></th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;">Jackson Thomas</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-0847</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Diabetes Management</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">High</span></td><td style="padding:10px 14px;color:var(--text-secondary);">Telephonic Outreach · Today</td><td style="padding:10px 14px;color:var(--text-secondary);">07/28/2026</td><td style="padding:10px 14px;"><span style="background:#E3F2FD;color:#1378A3;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Due Today</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">play_circle_outline</span>Perform</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;">James O'Connor</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-0334</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Behavioral Health</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">High</span></td><td style="padding:10px 14px;color:var(--text-secondary);">Care Plan Review · Today</td><td style="padding:10px 14px;color:var(--text-secondary);">07/30/2026</td><td style="padding:10px 14px;"><span style="background:#E3F2FD;color:#1378A3;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Due Today</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">play_circle_outline</span>Perform</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;">Barbara Nguyen</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-0512</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Congestive Heart Failure</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">High</span></td><td style="padding:10px 14px;color:var(--text-secondary);">Post-Discharge Follow-Up · Today</td><td style="padding:10px 14px;color:var(--text-secondary);">07/29/2026</td><td style="padding:10px 14px;"><span style="background:#E3F2FD;color:#1378A3;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Due Today</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">play_circle_outline</span>Perform</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;">Maria Rivera</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-1203</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Health Risk Assessment</td><td style="padding:10px 14px;"><span style="background:#FFF8E1;color:#E07820;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Medium</span></td><td style="padding:10px 14px;color:var(--text-secondary);">HRA Follow-Up · Today</td><td style="padding:10px 14px;color:var(--text-secondary);">08/01/2026</td><td style="padding:10px 14px;"><span style="background:#E3F2FD;color:#1378A3;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Due Today</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">play_circle_outline</span>Perform</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;">Thomas Grant</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-0291</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Cardiac Care</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">High</span></td><td style="padding:10px 14px;color:var(--text-secondary);">Appointment Scheduling</td><td style="padding:10px 14px;color:var(--text-secondary);">07/15/2026</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Overdue</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">play_circle_outline</span>Perform</span></td></tr>
+        </tbody>
+      </table>
+      <div style="padding:10px 16px;border-top:1px solid var(--border-light);font-size:12px;color:var(--link);cursor:pointer;">Showing 5 of 83 members · Load more</div>
+    </div>
+  </div>
+
+  <!-- ── DIGITAL TAB ── -->
+  <div id="ctm-digital" class="ctm-panel" style="padding:20px 24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:700;color:var(--text-primary);flex:1;">Digital Members <span style="font-size:12px;font-weight:400;color:var(--text-muted);">64 members</span></div>
+      <input type="text" placeholder="Search members..." style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;width:180px;outline:none;">
+      <select style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;outline:none;"><option>All Statuses</option><option>Active</option><option>Inactive 7+ Days</option><option>Pending Setup</option><option>No Invite</option></select>
+    </div>
+    <!-- Summary strip -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;">
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #2E7D32;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Active</div>
+        <div style="font-size:22px;font-weight:700;color:#2E7D32;margin-top:2px;">41</div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #C62828;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Inactive 7+ Days</div>
+        <div style="font-size:22px;font-weight:700;color:#C62828;margin-top:2px;">9</div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #E07820;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Pending Setup</div>
+        <div style="font-size:22px;font-weight:700;color:#E07820;margin-top:2px;">7</div>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #888;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">No Invite Sent</div>
+        <div style="font-size:22px;font-weight:700;color:#888;margin-top:2px;">10</div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="background:#F4F6F8;border-bottom:2px solid var(--border);">
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Member</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Program</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">App Status</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Last Active</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">Unread Msgs</th>
+          <th style="padding:10px 14px;text-align:left;font-weight:700;color:var(--text-muted);">New Insights</th>
+          <th style="padding:10px 14px;"></th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;">Sarah Williams</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-2108</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Maternal Health</td><td style="padding:10px 14px;"><span style="background:#E8F5E9;color:#2E7D32;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Active</span></td><td style="padding:10px 14px;color:var(--text-secondary);">Today</td><td style="padding:10px 14px;"><span style="background:#FFF8E1;color:#E07820;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;">2</span></td><td style="padding:10px 14px;"><span style="background:#E3F2FD;color:#1378A3;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;">1</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;">Robert Chen</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-0591</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Fall Prevention</td><td style="padding:10px 14px;"><span style="background:#E8F5E9;color:#2E7D32;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Active</span></td><td style="padding:10px 14px;color:var(--text-secondary);">Yesterday</td><td style="padding:10px 14px;">—</td><td style="padding:10px 14px;"><span style="background:#E3F2FD;color:#1378A3;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;">1</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;">Omar Hassan</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-1820</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Diabetes Management</td><td style="padding:10px 14px;"><span style="background:#FFEBEE;color:#C62828;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Inactive</span></td><td style="padding:10px 14px;color:var(--text-secondary);">07/16/2026</td><td style="padding:10px 14px;">—</td><td style="padding:10px 14px;">—</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);background:#FAFBFC;"><td style="padding:10px 14px;"><div style="font-weight:600;">Priya Sharma</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-2255</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Maternal Health</td><td style="padding:10px 14px;"><span style="background:#E8F5E9;color:#2E7D32;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Active</span></td><td style="padding:10px 14px;color:var(--text-secondary);">Today</td><td style="padding:10px 14px;"><span style="background:#FFF8E1;color:#E07820;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;">2</span></td><td style="padding:10px 14px;"><span style="background:#E3F2FD;color:#1378A3;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;">1</span></td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+          <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;"><div style="font-weight:600;">Angela Scott</div><div style="font-size:10px;color:var(--text-muted);">MBR-2024-1722</div></td><td style="padding:10px 14px;color:var(--text-secondary);">Asthma Management</td><td style="padding:10px 14px;"><span style="background:#FFF8E1;color:#E07820;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;">Pending Setup</span></td><td style="padding:10px 14px;color:var(--text-muted);">Never</td><td style="padding:10px 14px;">—</td><td style="padding:10px 14px;">—</td><td style="padding:10px 14px;"><span style="color:var(--link);cursor:pointer;font-size:12px;">Open</span></td></tr>
+        </tbody>
+      </table>
+      <div style="padding:10px 16px;border-top:1px solid var(--border-light);font-size:12px;color:var(--link);cursor:pointer;">Showing 5 of 64 members · Load more</div>
+    </div>
+  </div>
+
+  <!-- ── REPORTS TAB ── -->
+  <div id="ctm-reports" class="ctm-panel" style="padding:20px 24px;">
+    <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:18px;">Reports & Admin</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <!-- Caseload Summary -->
+      <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:16px;color:#1378A3;">people</span>Caseload Summary</div>
+        <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;font-size:12px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Total Active Members</span><span style="font-weight:600;">147</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Telephonic</span><span style="font-weight:600;">83</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Digital (Wellframe)</span><span style="font-weight:600;">64</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">High Risk</span><span style="font-weight:600;color:#C62828;">41</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Medium Risk</span><span style="font-weight:600;color:#E07820;">63</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Low Risk</span><span style="font-weight:600;color:#2E7D32;">43</span></div>
+        </div>
+        <div style="padding:10px 16px;border-top:1px solid var(--border-light);"><span style="font-size:12px;color:var(--link);cursor:pointer;">Export Report</span></div>
+      </div>
+      <!-- Activity Completion -->
+      <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:16px;color:#2E7D32;">task_alt</span>Activity Completion — July 2026</div>
+        <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;font-size:12px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Total Activities Assigned</span><span style="font-weight:600;">312</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Completed</span><span style="font-weight:600;color:#2E7D32;">274</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Overdue</span><span style="font-weight:600;color:#C62828;">18</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Completion Rate</span><span style="font-weight:600;">87.8%</span></div>
+          <div style="height:6px;background:#F0F0F0;border-radius:3px;overflow:hidden;"><div style="height:100%;width:87.8%;background:#2E7D32;border-radius:3px;"></div></div>
+        </div>
+        <div style="padding:10px 16px;border-top:1px solid var(--border-light);"><span style="font-size:12px;color:var(--link);cursor:pointer;">View Full Report</span></div>
+      </div>
+      <!-- Digital Engagement -->
+      <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:16px;color:var(--teal);">smartphone</span>Digital Engagement — July 2026</div>
+        <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;font-size:12px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Enrolled in Wellframe</span><span style="font-weight:600;">64</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Active (logged in 7 days)</span><span style="font-weight:600;color:#2E7D32;">41</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Avg. Daily Check-ins</span><span style="font-weight:600;">3.2</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Tasks Completed in App</span><span style="font-weight:600;">1,847</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Messages Sent by CM</span><span style="font-weight:600;">203</span></div>
+        </div>
+        <div style="padding:10px 16px;border-top:1px solid var(--border-light);"><span style="font-size:12px;color:var(--link);cursor:pointer;">View Full Report</span></div>
+      </div>
+      <!-- Outreach Outcomes -->
+      <div style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:16px;color:#E07820;">record_voice_over</span>Outreach Outcomes — July 2026</div>
+        <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;font-size:12px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Outreach Attempts</span><span style="font-weight:600;">189</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Reached</span><span style="font-weight:600;color:#2E7D32;">142</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">No Answer / Left VM</span><span style="font-weight:600;color:#E07820;">38</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);">Contact Rate</span><span style="font-weight:600;">75.1%</span></div>
+          <div style="height:6px;background:#F0F0F0;border-radius:3px;overflow:hidden;"><div style="height:100%;width:75.1%;background:#E07820;border-radius:3px;"></div></div>
+        </div>
+        <div style="padding:10px 16px;border-top:1px solid var(--border-light);"><span style="font-size:12px;color:var(--link);cursor:pointer;">Export Report</span></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ══════════════ MEMBER VIEW (banner + app body) ══════════════ -->
@@ -1543,17 +1526,15 @@ Diabetes Management</textarea>
             <!-- Back link + top-level Option switcher -->
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-size:11px;" onclick="event.preventDefault();closeBrowseProgramsPage();"><span class="material-icons" style="font-size:13px;">arrow_back</span> Back to Programs</a>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <span style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.4px;">Variants:</span>
-                <div style="display:flex;gap:0;">
-                  <div id="bpOptTab-1" onclick="bpOptSwitch(1)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border-radius:4px 0 0 4px;border:1px solid #1378A3;">A</div>
-                  <div id="bpOptTab-3" onclick="bpOptSwitch(3)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border-radius:0 4px 4px 0;border:1px solid #1378A3;border-left:none;">B</div>
-                </div>
+              <div style="display:flex;gap:0;">
+                <div id="bpOptTab-1" onclick="bpOptSwitch(1)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#fff;background:#1378A3;border-radius:4px 0 0 4px;border:1px solid #1378A3;">Option 1</div>
+                <div id="bpOptTab-2" onclick="bpOptSwitch(2)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border:1px solid #1378A3;border-left:none;">Option 2</div>
+                <div id="bpOptTab-3" onclick="bpOptSwitch(3)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border-radius:0 4px 4px 0;border:1px solid #1378A3;border-left:none;">Option 3</div>
               </div>
             </div>
 
             <!-- ══ OPTION 1: Staff / Member-Facing tabs ══ -->
-            <div id="bpOpt1" style="display:none;">
+            <div id="bpOpt1">
             <!-- Browse tabs -->
             <div style="display:flex;gap:28px;margin-bottom:0;">
               <div onclick="browseProgTab('staff')" style="cursor:pointer;">
@@ -1826,7 +1807,7 @@ Diabetes Management</textarea>
             </div><!-- end bpOpt1 -->
 
             <!-- ══ OPTION 2: full list + chip sort ══ -->
-            <div id="bpOpt2">
+            <div id="bpOpt2" style="display:none;">
 
               <!-- Type segmented control -->
               <div class="bp2-seg">
@@ -2310,30 +2291,27 @@ Diabetes Management</textarea>
           <!-- Unified program card grid -->
           <div id="programCardGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
-            <!-- Card 1: LTSS (Eligibility / Clinical) -->
+            <!-- Card 1: LTSS -->
             <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">
-              <div style="background:#E8EEF7;padding:12px 16px;display:flex;align-items:center;gap:8px;">
-                <span class="material-icons" style="font-size:18px;color:#0D3761;flex-shrink:0;">verified_user</span>
-                <div style="font-size:14px;font-weight:700;color:#0D3761;line-height:1.4;">LTSS</div>
-              </div>
-              <div style="padding:14px 18px 14px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Long-Term Services and Supports program coordinating in-home care, service planning, and ongoing follow-up for members with complex needs.</p>
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;margin-bottom:14px;">
+              <div style="padding:18px 16px 14px;">
+                <div style="color:#0C5275;font-size:13px;font-weight:700;line-height:1.4;">LTSS</div>
+                <p style="font-size:12px;color:var(--text-secondary);margin:10px 0 14px;line-height:1.5;">Long-Term Services and Supports program coordinating in-home care, service planning, and ongoing follow-up for members with complex needs.</p>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;margin-bottom:16px;">
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:#2E7D32;">Active</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Start Date</div><div style="margin-top:2px;">01/15/2024</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Referral Source</div><div style="margin-top:2px;">PCP Referral</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Assigned Care Manager</div><div style="margin-top:2px;">Beatrice Kanya</div></div>
                 </div>
                 <div style="border-top:1px solid var(--border-light);padding-top:12px;">
-                  <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Required Activities</div>
-                  <div style="display:flex;flex-direction:column;">
-                    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;"><span class="material-icons" style="font-size:13px;color:#1378A3;flex-shrink:0;">task_alt</span><span style="font-size:12px;color:#1a1a1a;">Initial Assessment</span></div>
-                    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid #eef2f6;"><span class="material-icons" style="font-size:13px;color:#1378A3;flex-shrink:0;">task_alt</span><span style="font-size:12px;color:#1a1a1a;">Service Plan Creation</span></div>
-                    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid #eef2f6;"><span class="material-icons" style="font-size:13px;color:#1378A3;flex-shrink:0;">task_alt</span><span style="font-size:12px;color:#1a1a1a;">Follow-up Call – Staff Review</span></div>
+                  <div style="font-size:12px;font-weight:600;color:#1a1a1a;margin-bottom:6px;">Required Activities</div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div style="padding:7px 12px;background:#F8FAFB;border:1px solid var(--border-light);border-radius:var(--r-sm);font-size:12px;color:#1a1a1a;">Initial Assessment</div>
+                    <div style="padding:7px 12px;background:#F8FAFB;border:1px solid var(--border-light);border-radius:var(--r-sm);font-size:12px;color:#1a1a1a;">Service Plan Creation</div>
+                    <div style="padding:7px 12px;background:#F8FAFB;border:1px solid var(--border-light);border-radius:var(--r-sm);font-size:12px;color:#1a1a1a;">Follow-up Call – Staff Review</div>
                   </div>
                 </div>
               </div>
-              <div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
+              <div style="padding:12px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
                 <a href="#" onclick="event.preventDefault();document.getElementById('editClinicalProgramModal').classList.add('open');" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;text-decoration:none;"><span class="material-icons" style="font-size:14px;">edit</span>Edit</a>
                 <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">history</span>History</span>
                 <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Activity</span>
@@ -2341,22 +2319,22 @@ Diabetes Management</textarea>
               </div>
             </div>
 
-            <!-- Card 2: Welcome Program (Wellframe / Member-Facing) -->
+            <!-- Card 2: Welcome Program (Wellframe) -->
             <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">
-              <div style="background:#E0F4FA;padding:12px 16px;display:flex;align-items:center;gap:8px;">
-                <span class="material-icons" style="font-size:18px;color:#006B8F;flex-shrink:0;">phone_iphone</span>
-                <div style="font-size:14px;font-weight:700;color:#006B8F;line-height:1.4;">Welcome Program</div>
-              </div>
-              <div style="padding:14px 18px 14px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Introductory program delivered to the member through the Wellframe app, providing orientation content, daily check-ins, and initial engagement activities.</p>
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:#2E7D32;">Active</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Enrolled</div><div style="margin-top:2px;">03/01/2024</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Completion</div><div style="margin-top:2px;">84%</div></div>
-                  <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Last Activity</div><div style="margin-top:2px;">Yesterday</div></div>
+              <div style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;">
+                <div style="flex:1;min-width:0;">
+                  <div style="color:#0C5275;font-size:13px;font-weight:700;line-height:1.4;">Welcome Program</div>
+                  <div style="margin-top:6px;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;white-space:nowrap;">Member-Facing Program</span></div>
+                  <p style="font-size:12px;color:var(--text-secondary);margin:10px 0 14px;line-height:1.5;">Introductory program delivered to the member through the Wellframe app, providing orientation content, daily check-ins, and initial engagement activities.</p>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:#2E7D32;">Active</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Enrolled</div><div style="margin-top:2px;">03/01/2024</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Completion</div><div style="margin-top:2px;">84%</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Last Activity</div><div style="margin-top:2px;">Yesterday</div></div>
+                  </div>
                 </div>
               </div>
-              <div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;">
+              <div style="padding:12px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
                 <a href="#" onclick="event.preventDefault();document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-app');" class="gc-kv-link" style="font-size:12px;display:inline-flex;align-items:center;gap:4px;"><span class="material-icons" style="font-size:14px;">open_in_new</span>View in Wellframe</a>
               </div>
             </div>
@@ -6952,6 +6930,17 @@ Diabetes Management</textarea>
 </div><!-- /member-view -->
 
 <script>
+function ctmSwitch(el) {
+  var tab = el.getAttribute('data-tab');
+  document.querySelectorAll('.ctm-tab').forEach(function(t) {
+    var isActive = t.getAttribute('data-tab') === tab;
+    t.style.color = isActive ? 'var(--teal)' : 'var(--text-muted)';
+    t.style.borderBottomColor = isActive ? 'var(--teal)' : 'transparent';
+  });
+  document.querySelectorAll('.ctm-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'ctm-' + tab);
+  });
+}
 function crSubTab(name) {
   var isSummary = name === 'summary';
   var findBtn = document.getElementById('cr-btn-find');
@@ -7445,17 +7434,7 @@ function openScriptResponseModal() {
     if (!dv || !bp) return;
     dv.style.display = 'none';
     bp.style.display = '';
-    // Default to Option 2
-    document.getElementById('bpOpt1').style.display = 'none';
-    document.getElementById('bpOpt2').style.display = '';
-    document.getElementById('bpOpt3').style.display = 'none';
-    ['bpOptTab-1','bpOptTab-3'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) { el.style.background = '#fff'; el.style.color = '#1378A3'; }
-    });
-    bp2ActiveType = '';
-    bp2SetType('', document.getElementById('bp2chip-all'));
-    bp2Render();
+    window.browseProgTab('staff');
   };
   window.closeBrowseProgramsPage = function() {
     document.getElementById('browseProgramsPage').style.display = 'none';
@@ -10684,7 +10663,8 @@ function alOpenSendModal() {
   checked.forEach(function(cb) {
     var card = cb.closest('[id^="al-card-"]');
     if (!card) return;
-    var title = card.getAttribute('data-title') || 'Article';
+    var titleEl = card.querySelector('[style*="color:#0C5275"]');
+    var title = titleEl ? titleEl.textContent.trim() : 'Article';
     var source = card.getAttribute('data-source');
     if (source === 'Wellframe') { chatItems.push(title); } else { emailItems.push(title); }
   });
@@ -11481,20 +11461,22 @@ function bpOptSwitch(n) {
   var o2 = document.getElementById('bpOpt2');
   var o3 = document.getElementById('bpOpt3');
   var t1 = document.getElementById('bpOptTab-1');
+  var t2 = document.getElementById('bpOptTab-2');
   var t3 = document.getElementById('bpOptTab-3');
   if (!o1 || !o2 || !o3) return;
-  // n=1 → variant A (Opt1), n=3 → variant B (Opt3); Opt2 is the default and hides when a variant is active
   o1.style.display = n === 1 ? '' : 'none';
-  o2.style.display = (n === 1 || n === 3) ? 'none' : '';
+  o2.style.display = n === 2 ? '' : 'none';
   o3.style.display = n === 3 ? '' : 'none';
-  [t1, t3].forEach(function(t, i) {
-    if (!t) return;
-    var active = (i === 0 ? n === 1 : n === 3);
+  [t1,t2,t3].forEach(function(t,i){
+    var active = (i+1) === n;
     t.style.background  = active ? '#1378A3' : '#fff';
     t.style.color       = active ? '#fff'    : '#1378A3';
+    t.style.borderColor = '#1378A3';
   });
-  if (n === 1) {
-    window.browseProgTab('staff');
+  if (n === 2) {
+    bp2ActiveType = '';
+    bp2SetType('', document.getElementById('bp2chip-all'));
+    bp2Render();
   }
   if (n === 3) {
     bp3Pages = {'Benefit': 1, 'General': 1, 'Member-Facing': 1};
@@ -11915,61 +11897,74 @@ function bp2Render() {
     var hasDeets = hasMF && p.appTitle;
     var hasPanel = hasActs || hasDeets;
 
-    // Collapsible panel: activities list or member-facing details
+    var eligChips = '';
+
+    // inline panel: activities list or schedule TOC
     var panelHtml = '';
     if (hasActs) {
       panelHtml = '<div id="'+panelId+'" style="display:none;margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;">'
         + '<div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Required Activities</div>'
         + p.activities.map(function(a, i) {
-          return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;'+(i>0?'border-top:1px solid #eef2f6;':'')+'">'
+          return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;' + (i > 0 ? 'border-top:1px solid #eef2f6;' : '') + '">'
             + '<span class="material-icons" style="font-size:13px;color:#1378A3;flex-shrink:0;">task_alt</span>'
-            + '<span style="font-size:12px;color:#1a1a1a;">'+a+'</span>'
+            + '<span style="font-size:12px;color:#1a1a1a;">' + a + '</span>'
             + '</div>';
         }).join('')
         + '</div>';
     } else if (hasDeets) {
+      var audChips = p.audiences.map(function(a) {
+        return '<span style="border:1px solid #ccc;border-radius:4px;padding:2px 8px;font-size:11px;color:#555;">' + a.toLowerCase() + '</span>';
+      }).join('');
       panelHtml = '<div id="'+panelId+'" style="display:none;margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;">'
-        + (p.appTitle ? '<div style="font-size:12px;margin-bottom:6px;"><span style="font-weight:700;">Member title in app:</span> '+p.appTitle+'</div>' : '')
-        + '<div style="font-size:12px;color:#444;margin-bottom:10px;">Program Contains: '+p.contains+'</div>'
-        + '<div style="display:flex;flex-direction:column;gap:5px;">'
-        +   (p.duration    ? '<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#333;"><span class="material-icons" style="font-size:15px;color:#555;">timer</span>'+p.duration+'</div>' : '')
-        +   (p.tasksPerDay ? '<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#333;"><span class="material-icons" style="font-size:15px;color:#555;">format_list_bulleted</span>'+p.tasksPerDay+'</div>' : '')
+        + '<div style="font-size:12px;margin-bottom:6px;"><span style="font-weight:700;">Member title in app:</span> ' + p.appTitle + '</div>'
+        + '<p style="font-size:12px;color:#444;margin:0 0 8px;line-height:1.5;">' + p.desc + '</p>'
+        + '<div style="font-size:12px;color:#444;margin-bottom:10px;">Program Contains: ' + p.contains + '</div>'
+        + '<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;">'
+        +   '<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#333;">'
+        +     '<span class="material-icons" style="font-size:15px;color:#555;">timer</span>' + p.duration
+        +   '</div>'
+        +   '<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#333;">'
+        +     '<span class="material-icons" style="font-size:15px;color:#555;">format_list_bulleted</span>' + p.tasksPerDay
+        +   '</div>'
         + '</div>'
         + '</div>';
     }
 
-    // Metadata grid (always visible)
-    var metaHtml = '';
-    if (p.subtype === 'Benefit' && p.eligibilities && p.eligibilities.length) {
-      metaHtml = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;margin-bottom:4px;">'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Payor</div><div style="margin-top:3px;font-size:13px;color:#333;">'+p.eligibilities.join(', ')+'</div></div>'
-        + '</div>';
-    } else if (p.subtype === 'Member-Facing') {
-      metaHtml = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;margin-bottom:4px;">'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Category</div><div style="margin-top:3px;font-size:13px;color:#333;">'+p.cat+'</div></div>'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Audience</div><div style="margin-top:3px;font-size:13px;color:#333;">'+audStr+'</div></div>'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Language</div><div style="margin-top:3px;font-size:13px;color:#333;">'+langStr+'</div></div>'
-        + '</div>';
+    // footer left side: toggle button
+    var toggleBtn = '';
+    if (hasPanel) {
+      var toggleLabel = hasActs ? 'Required Activities' : 'View Program Details';
+      toggleBtn = '<span id="bp2btn-'+panelId+'" onclick="bp2TogglePanel(\''+panelId+'\')" style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;">'
+        + '<span class="material-icons bp2-toggle-icon" style="font-size:14px;">expand_more</span>'+toggleLabel
+        + '</span>';
     }
 
-    // Footer toggle button
-    var toggleBtn = hasPanel
-      ? '<span id="bp2btn-'+panelId+'" onclick="bp2TogglePanel(\''+panelId+'\')" style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;">'
-        + '<span class="material-icons bp2-toggle-icon" style="font-size:14px;">expand_more</span>'
-        + (hasActs ? 'Required Activities' : 'View Program Details')
-        + '</span>'
-      : '';
-
     return '<div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">'
+      // tinted header band with icon + program title
       + '<div style="background:'+b.bg+';padding:12px 16px;display:flex;align-items:center;gap:8px;">'
       +   '<span class="material-icons" style="font-size:18px;color:'+b.color+';flex-shrink:0;">'+b.icon+'</span>'
       +   '<div style="font-size:14px;font-weight:700;color:'+b.color+';line-height:1.4;">'+p.title+'</div>'
       + '</div>'
-      + '<div style="padding:14px 18px 14px;flex:1;">'
-      +   '<p style="font-size:13px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">'+p.desc+'</p>'
-      +   metaHtml
-      +   panelHtml
+      // body
+      + '<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 18px 14px;flex:1;">'
+      +   '<div style="flex:1;min-width:0;">'
+      +     '<p style="font-size:13px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">'+p.desc+'</p>'
+      +     (p.subtype === 'Benefit' && p.eligibilities && p.eligibilities.length
+              ? '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;">'
+                + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Payor</div><div style="margin-top:3px;font-size:13px;color:#333;">'+p.eligibilities.join(', ')+'</div></div>'
+                + '</div>'
+              : '')
+      +     (p.subtype === 'Member-Facing'
+              ? '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;">'
+                + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Category</div><div style="margin-top:3px;font-size:13px;color:#333;">'+p.cat+'</div></div>'
+                + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Audience</div><div style="margin-top:3px;font-size:13px;color:#333;">'+audStr+'</div></div>'
+                + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Language</div><div style="margin-top:3px;font-size:13px;color:#333;">'+langStr+'</div></div>'
+                + '</div>'
+              : '')
+      +     panelHtml
+      +   '</div>'
       + '</div>'
+      // footer
       + '<div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">'
       +   toggleBtn
       +   '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;" onclick="'+(hasMF ? 'openMfpProgramModalDirect(\''+safeTitle+'\')' : 'openStaffProgModal(\''+safeTitle+'\',\''+p.subtype+'\')')+'">'
@@ -12093,7 +12088,7 @@ function mfpPopulateModal(title, desc, audiences, langs, subtype, activities, ap
         + acts.map(function(a, i) {
           return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;'+(i > 0 ? 'border-top:1px solid #f0f0f0;' : '')+'">'
             + '<span class="material-icons" style="font-size:13px;color:#1378A3;flex-shrink:0;">task_alt</span>'
-            + '<span style="font-size:12px;color:#1a1a1a;">'+a+'</span>'
+            + '<span style="font-size:12px;color:#1a1a1a;">'+a.label+'</span>'
             + '</div>';
         }).join('');
     } else {
@@ -13000,7 +12995,7 @@ function alCard(art) {
       '<div style="margin-top:6px;">' + audienceChip + '</div>'
     : '<div style="color:#1a1a1a;font-size:13px;font-weight:700;line-height:1.4;">' + art.title + '</div>';
 
-  return '<div id="al-card-' + idx + '" class="al-card" data-source="' + art.source + '" data-title="' + art.title.replace(/"/g,'&quot;') + '" style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">' +
+  return '<div id="al-card-' + idx + '" class="al-card" data-source="' + art.source + '" style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">' +
     '<div onclick="alCardClick(event,\'al-card-' + idx + '\')" style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;cursor:pointer;">' +
       '<input type="checkbox" id="al-cb-' + idx + '" onchange="alCardCheck(this,\'al-card-' + idx + '\')" style="accent-color:#1378A3;flex-shrink:0;width:14px;height:14px;cursor:pointer;margin-top:3px;" />' +
       '<div style="flex:1;min-width:0;display:flex;flex-direction:column;">' +
@@ -13636,6 +13631,24 @@ function filterTimeline(source) {
                (source === 'careteam' && (s === 'careteam' || s === 'both'));
     el.style.display = show ? 'flex' : 'none';
   });
+}
+
+function tmSwitchView(mode) {
+  var traditional = document.getElementById('home-dashboard');
+  var digital = document.getElementById('digital-view');
+  var btnT = document.getElementById('btnViewTraditional');
+  var btnD = document.getElementById('btnViewDigital');
+  if (mode === 'digital') {
+    if (traditional) traditional.style.display = 'none';
+    if (digital) digital.style.display = '';
+    if (btnT) btnT.classList.remove('active');
+    if (btnD) btnD.classList.add('active');
+  } else {
+    if (traditional) traditional.style.display = '';
+    if (digital) digital.style.display = 'none';
+    if (btnT) btnT.classList.add('active');
+    if (btnD) btnD.classList.remove('active');
+  }
 }
 </script>
 
