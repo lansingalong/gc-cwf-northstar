@@ -1183,6 +1183,9 @@ Diabetes Management</textarea>
     <div class="gc-left-item" data-left="activity-record">
       <span class="gc-left-icon"><span class="material-icons">inventory_2</span></span><span class="gc-left-label">Activity Record</span>
     </div>
+    <div class="gc-left-item" data-left="library">
+      <span class="gc-left-icon"><span class="material-icons">local_library</span></span><span class="gc-left-label">Library</span>
+    </div>
     <div class="gc-left-item" data-left="member-checklist">
       <span class="gc-left-icon"><span class="material-icons">checklist</span></span><span class="gc-left-label">Member Checklist</span>
     </div>
@@ -5121,7 +5124,6 @@ Diabetes Management</textarea>
           <div class="ar-c-tab gc-tab" data-arc="required-activities">Required Activities</div>
           <div class="ar-c-tab gc-tab" data-arc="outstanding-activities">Outstanding Activities</div>
           <div class="ar-c-tab gc-tab" data-arc="member-activities">Member Activities</div>
-          <div class="ar-c-tab gc-tab" data-arc="library">Library</div>
         </div>
 
 
@@ -5132,15 +5134,6 @@ Diabetes Management</textarea>
             <div class="ar-sub-tab gc-tab" data-grouptarget="artab-required-activities">Required Activities</div>
             <div class="ar-sub-tab gc-tab" data-grouptarget="artab-outstanding-activities">Outstanding Activities</div>
             <div class="ar-sub-tab gc-tab" data-grouptarget="artab-member-activity">Member Activity</div>
-          </div>
-        </div>
-
-        <div id="artab-c-library" style="display:none;">
-          <div class="gc-tabs" style="margin-bottom:12px;">
-            <div class="ar-sub-tab gc-tab active" data-grouptarget="artab-documents" style="color:var(--teal);border-bottom-color:var(--teal);">Documents</div>
-            <div class="ar-sub-tab gc-tab" data-grouptarget="artab-articles">Articles</div>
-            <div class="ar-sub-tab gc-tab" data-grouptarget="artab-consent-forms">Consent Forms</div>
-            <div class="ar-sub-tab gc-tab" data-grouptarget="artab-guidelines">Guidelines</div>
           </div>
         </div>
 
@@ -5697,448 +5690,6 @@ Diabetes Management</textarea>
 
         </div>
 
-        <!-- Tab: Documents -->
-        <div class="ar-tab-panel" id="artab-documents" style="display:none;">
-
-          <!-- Filter bar -->
-          <div style="background:var(--surface-light);border:1px solid var(--border);padding:10px 14px;margin-bottom:10px;">
-            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
-              <div style="display:flex;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
-                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:90px;"><option>Select</option></select>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Document Name</label>
-                <input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:120px;" />
-              </div>
-              <div style="display:flex;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Document Type</label>
-                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:100px;"><option>Select</option></select>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">From Date <span style="color:var(--text-muted);font-weight:400;">MM/DD/YYYY</span></label>
-                <div style="display:flex;align-items:center;gap:2px;"><input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:100px;" /><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">calendar_month</span></div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">To Date <span style="color:var(--text-muted);font-weight:400;">MM/DD/YYYY</span></label>
-                <div style="display:flex;align-items:center;gap:2px;"><input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:100px;" /><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">calendar_month</span></div>
-              </div>
-              <button "><span class="material-icons" style="font-size:14px;">search</span> Search</button>
-              <button class="gc-btn gc-btn-text" style="font-size:12px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
-            </div>
-          </div>
-
-          <!-- Toolbar -->
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:4px;">
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">upload</span> Upload</span>
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">view_column</span> Choose Columns</span>
-          </div>
-
-          <!-- Documents table -->
-          <div class="gc-table-wrap">
-            <div style="overflow-x:auto;">
-              <table class="gc-table">
-                <thead><tr>
-                  <th style="width:28px;"><input type="checkbox" /></th>
-                  <th>Document ID</th>
-                  <th>Document</th>
-                  <th>View</th>
-                  <th>Type</th>
-                  <th>Draft</th>
-                  <th>Resend</th>
-                  <th>Member Portal</th>
-                </tr></thead>
-                <tbody>
-                  <tr><td><input type="checkbox" /></td><td>3650</td><td>IDD Non Usage of one Service</td><td></td><td>Letter Draft</td><td><span class="material-icons" style="font-size:14px;color:#C62828;">picture_as_pdf</span> <span class="material-icons" style="font-size:14px;color:var(--teal);">description</span></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3627</td><td><a href="#" style="color:var(--link);">IDD Non Usage of one Service.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3622</td><td><a href="#" style="color:var(--link);">EL Welcome Letter.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3593</td><td><a href="#" style="color:var(--link);">TEST_TEMPLATE_CMS.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3566</td><td><a href="#" style="color:var(--link);">test 4.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3559</td><td><a href="#" style="color:var(--link);">Test training.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3558</td><td><a href="#" style="color:var(--link);">Test training.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3504</td><td><a href="#" style="color:var(--link);">Full Care Plan.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Care Plan</td><td></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3503</td><td><a href="#" style="color:var(--link);">Full Care Plan.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Care Plan</td><td></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                  <tr><td><input type="checkbox" /></td><td>3264</td><td><a href="#" style="color:var(--link);">screenshot-2.png</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Care Literature</td><td></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="gc-table-footer">
-              <div class="gc-pager-btn">«</div><div class="gc-pager-btn">‹</div><div class="gc-pager-btn active">1</div><div class="gc-pager-btn">›</div><div class="gc-pager-btn">»</div>
-              <select style="font-size:11px;border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 4px;margin-left:4px;"><option>20</option></select>
-              <span>items per page</span>
-              <span style="margin-left:auto;font-size:11px;">1 - 10 of 10 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Tab: Articles -->
-        <div class="ar-tab-panel" id="artab-articles" style="display:none;">
-
-          <!-- ── DEFAULT VIEW ── -->
-          <div id="art-default-view">
-
-            <!-- Note row -->
-            <div style="margin-bottom:10px;">
-              <div style="font-size:11px;color:var(--text-secondary);"><strong>Note</strong> - All the system generated e-mails will be stopped if the user is found to have a shared e-mail.</div>
-            </div>
-
-            <!-- Filter bar -->
-            <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px;background:#fafafa;border:1px solid var(--border-light);border-radius:var(--r-sm);padding:10px 14px;">
-              <div style="display:flex;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
-                <input type="text" placeholder="Type here" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
-              </div>
-              <div style="display:flex;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Source</label>
-                <select id="art-src-def" onchange="artFilterChange('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
-                  <option value="">All</option>
-                  <option value="GuidingCare">GuidingCare</option>
-                  <option value="Healthwise">Healthwise</option>
-                  <option value="Wellframe">Wellframe</option>
-                </select>
-              </div>
-              <div id="art-gc-cat-def" style="display:none;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
-                <select id="art-gc-cat-sel-def" onchange="artCatChange('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
-                  <option value="">Select</option><option>Behavioral</option><option>Disease</option><option>Documentation</option><option>Screening Tool</option>
-                </select>
-              </div>
-              <div id="art-gc-subcat-def" style="display:none;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Sub Category</label>
-                <select id="art-gc-subcat-sel-def" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:160px;">
-                  <option value="">Select</option>
-                </select>
-              </div>
-              <div id="art-arttype-def" style="display:none;flex-direction:column;gap:3px;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Type</label>
-                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
-                  <option value="">Select</option><option>Disease Specific</option><option>General Article</option><option>Member Article</option><option>Provider Article</option>
-                </select>
-              </div>
-              <div id="art-wf-audience-def" style="display:none;flex-direction:column;gap:3px;position:relative;">
-                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Target Audience</label>
-                <div id="art-wf-audience-btn-def" onclick="artToggleAudience('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 28px 0 8px;font-size:12px;font-family:var(--font);cursor:pointer;display:flex;align-items:center;background:#fff;min-width:180px;user-select:none;position:relative;">
-                  <span id="art-wf-audience-label-def" style="color:var(--text-secondary);">Select</span>
-                  <span class="material-icons" style="font-size:16px;position:absolute;right:4px;color:#888;">arrow_drop_down</span>
-                </div>
-                <div id="art-wf-audience-dd-def" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);z-index:200;min-width:180px;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:4px 0;margin-top:2px;">
-                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Adult</label>
-                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult Caregiver" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Adult Caregiver</label>
-                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Pediatric" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Pediatric</label>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center;gap:12px;align-self:flex-end;">
-                <button class="gc-btn gc-btn-primary"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
-                <span style="font-size:12px;color:var(--link);cursor:pointer;" onclick="artClearFilter('def')">Clear Filter</span>
-              </div>
-            </div>
-
-            <!-- Toolbar -->
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-              <div style="display:flex;align-items:center;gap:10px;font-size:11px;">
-                <span class="gc-table-action" onclick="toggleArticleLibrary();" style="font-weight:600;font-size:12px;"><span class="material-icons" style="font-size:14px;">add_circle_outline</span> Add &amp; Send Articles</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;"><span class="material-icons" style="font-size:14px;">history</span>Article History</span>
-              </div>
-              <span style="display:flex;align-items:center;gap:12px;font-size:11px;">
-                <a href="#" id="art-def-view-grid-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-weight:700;" onclick="event.preventDefault();artDefSwitchView('grid')"><span class="material-icons" style="font-size:13px;">grid_view</span> Grid View</a>
-                <a href="#" id="art-def-view-list-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;color:var(--text-muted);" onclick="event.preventDefault();artDefSwitchView('list')"><span class="material-icons" style="font-size:13px;">view_list</span> List View</a>
-              </span>
-            </div>
-
-            <!-- Sent article cards — grid -->
-            <div id="art-def-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-
-              <!-- GuidingCare: Understanding Your A1C -->
-              <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-                <div style="padding:18px 20px 10px;">
-                  <span style="color:#1a1a1a;font-size:13px;font-weight:700;line-height:1.4;">Understanding Your A1C: What the Numbers Mean</span>
-                </div>
-                <div style="padding:10px 20px 14px;flex:1;">
-                  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.5;">Learn what your A1C test measures and how to interpret your results to better manage your diabetes.</p>
-                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">GuidingCare</div></div>
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Chronic Disease Mgmt</div></div>
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/15/2026</div></div>
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;">Sent</div></div>
-                  </div>
-                </div>
-                <div style="padding:12px 20px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">email</span>Resend to Email</span>
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">download</span>Download</span>
-                </div>
-              </div>
-
-              <!-- Wellframe: Heart-Healthy Eating -->
-              <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
-                <div style="padding:18px 20px 10px;">
-                  <div style="color:#1a1a1a;font-size:13px;font-weight:700;line-height:1.4;">Heart-Healthy Eating on a Budget</div>
-                  <span style="display:inline-block;margin-top:6px;font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;white-space:nowrap;">Adult</span>
-                </div>
-                <div style="padding:10px 20px 14px;flex:1;">
-                  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.5;">Practical tips for choosing affordable, nutritious foods that support cardiovascular health.</p>
-                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">Wellframe</div></div>
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Nutrition</div></div>
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/01/2026</div></div>
-                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;">Sent</div></div>
-                  </div>
-                </div>
-                <div style="padding:12px 20px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Resend in Chat</span>
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">visibility</span>View</span>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Sent article cards — list -->
-            <div id="art-def-list" style="display:none;">
-              <div class="gc-table-wrap"><div style="overflow-x:auto;">
-                <table class="gc-table">
-                  <thead><tr>
-                    <th>Title</th>
-                    <th>Source</th>
-                    <th>Article Type</th>
-                    <th>Sent On</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr></thead>
-                  <tbody>
-                    <tr>
-                      <td style="font-weight:600;color:#1a1a1a;">Understanding Your A1C: What the Numbers Mean</td>
-                      <td>GuidingCare</td>
-                      <td>Chronic Disease Mgmt</td>
-                      <td>03/15/2026</td>
-                      <td><span style="color:#2E7D32;font-weight:600;">&#10003; Sent</span></td>
-                      <td style="white-space:nowrap;">
-                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;margin-right:10px;">Resend to Email</a>
-                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="font-weight:600;color:#1a1a1a;">Heart-Healthy Eating on a Budget <span style="font-size:10px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:10px;padding:1px 7px;">Adult</span></td>
-                      <td>Wellframe</td>
-                      <td>Nutrition</td>
-                      <td>03/01/2026</td>
-                      <td><span style="color:#2E7D32;font-weight:600;">&#10003; Sent</span></td>
-                      <td style="white-space:nowrap;">
-                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;margin-right:10px;">Resend in Chat</a>
-                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;">View</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div></div>
-            </div>
-
-          </div><!-- end #art-default-view -->
-
-          <!-- ── LIBRARY VIEW (replaces default view when Add & Send Articles is clicked) ── -->
-          <div id="art-library-view" style="display:none;">
-
-            <!-- Page header -->
-            <div style="background:#fff;padding:4px 0 0;">
-              <a href="#" onclick="event.preventDefault();toggleArticleLibrary();" style="display:inline-flex;align-items:center;gap:3px;font-size:12px;color:var(--link);text-decoration:none;margin-bottom:8px;"><span class="material-icons" style="font-size:14px;">arrow_back</span> Back</a>
-              <!-- Filter bar slot for Option A -->
-              <div id="al-lib-filter-bar-a-slot"></div>
-              <!-- Filter bar -->
-              <div id="al-lib-filter-bar" style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px;background:#fafafa;border:1px solid var(--border-light);border-radius:var(--r-sm);padding:10px 14px;">
-                <div id="al-lib-title-search-wrap" style="display:flex;flex-direction:column;gap:3px;">
-                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
-                  <input id="al-a-search" type="text" placeholder="Type here" oninput="alAFilter()" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
-                </div>
-                <div id="al-lib-b-title-wrap" style="display:none;flex-direction:column;gap:3px;">
-                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
-                  <input id="al-b-title-search" type="text" placeholder="Type here" oninput="alBFilter()" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
-                </div>
-                <div id="al-lib-src-wrap" style="display:flex;flex-direction:column;gap:3px;">
-                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Source</label>
-                  <select id="art-src-lib" onchange="artFilterChange('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
-                    <option value="">All</option>
-                    <option value="GuidingCare">GuidingCare</option>
-                    <option value="Healthwise">Healthwise</option>
-                    <option value="Wellframe">Wellframe</option>
-                  </select>
-                </div>
-                <div id="art-gc-cat-lib" style="display:none;flex-direction:column;gap:3px;">
-                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
-                  <select id="art-gc-cat-sel-lib" onchange="artCatChange('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
-                    <option value="">Select</option><option>Behavioral</option><option>Disease</option><option>Documentation</option><option>Screening Tool</option>
-                  </select>
-                </div>
-                <div id="art-gc-subcat-lib" style="display:none;flex-direction:column;gap:3px;">
-                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Sub Category</label>
-                  <select id="art-gc-subcat-sel-lib" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:160px;">
-                    <option value="">Select</option>
-                  </select>
-                </div>
-                <div id="art-arttype-lib" style="display:none;flex-direction:column;gap:3px;">
-                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Type</label>
-                  <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
-                    <option value="">Select</option><option>Disease Specific</option><option>General Article</option><option>Member Article</option><option>Provider Article</option>
-                  </select>
-                </div>
-                <div id="art-wf-audience-lib" style="display:none;flex-direction:column;gap:3px;position:relative;">
-                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Target Audience</label>
-                  <div id="art-wf-audience-btn-lib" onclick="artToggleAudience('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 28px 0 8px;font-size:12px;font-family:var(--font);cursor:pointer;display:flex;align-items:center;background:#fff;min-width:180px;user-select:none;position:relative;">
-                    <span id="art-wf-audience-label-lib" style="color:var(--text-secondary);">Select</span>
-                    <span class="material-icons" style="font-size:16px;position:absolute;right:4px;color:#888;">arrow_drop_down</span>
-                  </div>
-                  <div id="art-wf-audience-dd-lib" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);z-index:200;min-width:180px;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:4px 0;margin-top:2px;">
-                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Adult</label>
-                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult Caregiver" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Adult Caregiver</label>
-                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Pediatric" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Pediatric</label>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;align-self:flex-end;">
-                  <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary);cursor:pointer;white-space:nowrap;">
-                    <input type="checkbox" id="al-filter-sent" onchange="alAFilter()" style="accent-color:#1378A3;width:13px;height:13px;cursor:pointer;"> Sent Articles
-                  </label>
-                  <button class="gc-btn gc-btn-primary"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
-                  <span style="font-size:12px;color:var(--link);cursor:pointer;" onclick="artClearFilter('lib')">Clear Filter</span>
-                </div>
-              </div>
-              <div style="display:flex;align-items:flex-end;justify-content:space-between;">
-                <div id="al-main-heading" style="display:inline-block;">
-                  <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">Article Library</div>
-                  <div style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;"></div>
-                </div>
-                <span style="display:flex;align-items:center;gap:12px;font-size:11px;padding-bottom:4px;">
-                  <a href="#" id="al-view-grid-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-weight:700;" onclick="event.preventDefault();alSwitchView('grid')"><span class="material-icons" style="font-size:13px;">grid_view</span> Grid View</a>
-                  <a href="#" id="al-view-list-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;color:var(--text-muted);" onclick="event.preventDefault();alSwitchView('list')"><span class="material-icons" style="font-size:13px;">view_list</span> List View</a>
-                </span>
-              </div>
-              <div id="al-main-heading-divider" style="height:1px;background:var(--border);margin-top:0;margin-bottom:12px;"></div>
-            </div>
-
-            <!-- Selection bar (shown when ≥1 card checked) -->
-            <div id="al-selection-bar" style="display:none;align-items:center;justify-content:space-between;background:#F4FBFE;border:1px solid #D6EDF7;border-radius:var(--r-sm);padding:12px 14px;margin-bottom:10px;">
-              <span id="al-selection-count" style="font-size:13px;color:#0C5275;font-weight:600;"></span>
-              <button class="gc-btn gc-btn-primary" onclick="alOpenSendModal()" style="padding:8px 16px;font-size:12px;">Send to Member</button>
-            </div>
-
-            <!-- Success banner (shown after Send to Member confirmed) -->
-            <div id="al-success-banner" style="display:none;margin-bottom:10px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid #ccc;border-radius:var(--r-sm);padding:10px 14px;background:#fff;">
-                <div style="display:flex;align-items:center;gap:12px;">
-                  <div style="width:36px;height:36px;background:#2E7D32;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <span class="material-icons" style="color:#fff;font-size:20px;">check_circle</span>
-                  </div>
-                  <span style="font-size:13px;color:#1a1a1a;">Health Article(s) have been sent successfully.</span>
-                </div>
-                <button onclick="document.getElementById('al-success-banner').style.display='none';" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:0;"><span class="material-icons" style="font-size:16px;">close</span></button>
-              </div>
-              <div style="font-size:11px;color:#1a1a1a;margin-top:6px;"><strong>Note</strong> - All the system generated e-mails will be stopped if the user is found to have a shared e-mail.</div>
-            </div>
-
-            <!-- ── Option A panel ── -->
-            <div id="art-lib-opt-a" style="display:block;">
-              <div id="al-a-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;"></div>
-              <div id="al-a-list" style="display:none;">
-                <div class="gc-table-wrap"><div style="overflow-x:auto;">
-                  <table class="gc-table" id="al-a-list-table">
-                    <thead><tr>
-                      <th style="width:28px;"><input type="checkbox" id="al-list-check-all" onchange="alListCheckAll(this.checked)"></th>
-                      <th>Title</th>
-                      <th>Source</th>
-                      <th>Category</th>
-                      <th>Sub Category</th>
-                      <th>Audience</th>
-                      <th>Sent</th>
-                      <th>Actions</th>
-                    </tr></thead>
-                    <tbody id="al-a-list-body"></tbody>
-                  </table>
-                </div></div>
-              </div>
-              <div id="al-a-pagination" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:14px 0;flex-wrap:wrap;"></div>
-            </div>
-
-
-
-          </div><!-- end #art-library-view -->
-
-        </div>
-
-        <!-- Tab: Consent Forms -->
-        <div class="ar-tab-panel" id="artab-consent-forms" style="display:none;">
-
-          <!-- Sub-tabs -->
-          <div style="display:flex;gap:16px;margin-bottom:12px;font-size:12px;">
-            <span style="font-weight:700;color:var(--text-primary);border:2px solid #D94F2C;border-radius:var(--r-sm);padding:2px 8px;cursor:pointer;">Release of Information ROI</span>
-            <span style="color:var(--teal);cursor:pointer;">Consent Form</span>
-          </div>
-
-          <!-- Toolbar -->
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:4px;">
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">add</span> Add</span>
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">edit</span> Edit</span>
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">add_circle</span> Add Activity</span>
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">history</span> History</span>
-            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">unfold_more</span> Expand All</span>
-          </div>
-
-          <!-- ROI table -->
-          <div class="gc-table-wrap">
-            <div style="overflow-x:auto;">
-              <table class="gc-table">
-                <thead><tr>
-                  <th style="width:28px;"><input type="checkbox" /></th>
-                  <th>ROI Form</th>
-                  <th>ROI To</th>
-                  <th>Status</th>
-                  <th>ROI Active</th>
-                  <th>Valid From<br>Valid To</th>
-                  <th>Care Staff</th>
-                  <th>Remarks</th>
-                </tr></thead>
-                <tbody>
-                  <tr><td><input type="checkbox" /></td><td>Authorization to Release Health Information</td><td>Providence Medical Center</td><td><span class="gc-badge gc-badge-teal">Signed</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td><td>01/15/2026<br>01/15/2027</td><td>Sarah Mitchell, RN</td><td>Member signed ROI for discharge records and lab results from Providence ED visit.</td></tr>
-                  <tr><td><input type="checkbox" /></td><td>Care Management Program Consent</td><td>Alaska Premier Health</td><td><span class="gc-badge gc-badge-teal">Signed</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td><td>10/22/2025<br>10/22/2026</td><td>James Okafor, CCM</td><td>Consent obtained for participation in Complex Care Management program.</td></tr>
-                  <tr><td><input type="checkbox" /></td><td>Telehealth Services Consent</td><td>N/A</td><td><span class="gc-badge gc-badge-warn">Pending</span></td><td></td><td>N/A<br>N/A</td><td>Priya Nandakumar, CCM</td><td>Awaiting member signature for telehealth consent — form mailed 03/10/2026.</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="gc-table-footer">
-              <div class="gc-pager-btn">«</div><div class="gc-pager-btn">‹</div><div class="gc-pager-btn active">1</div><div class="gc-pager-btn">›</div><div class="gc-pager-btn">»</div>
-              <select style="font-size:11px;border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 4px;margin-left:4px;"><option>10</option></select>
-              <span>items per page</span>
-              <span style="margin-left:auto;font-size:11px;">1 - 3 of 3 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Tab: Guidelines -->
-        <div class="ar-tab-panel" id="artab-guidelines" style="display:none;">
-          <div class="gc-table-wrap">
-            <div style="overflow-x:auto;">
-              <table class="gc-table">
-                <thead><tr>
-                  <th>Guideline Name</th>
-                  <th>Episode ID</th>
-                  <th>Created By</th>
-                  <th>Date Created</th>
-                  <th>View Documentation</th>
-                  <th>View Episode Summary</th>
-                </tr></thead>
-                <tbody>
-                  <tr><td><a href="#" style="color:var(--link);">HEDIS Comprehensive Diabetes Care</a></td><td>EP-2026-0412</td><td>Sarah Mitchell, RN</td><td>01/15/2026</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">summarize</span></td></tr>
-                  <tr><td><a href="#" style="color:var(--link);">ACC/AHA Guideline for Management of Heart Failure</a></td><td>EP-2026-0398</td><td>James Okafor, CCM</td><td>02/10/2026</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">summarize</span></td></tr>
-                  <tr><td><a href="#" style="color:var(--link);">USPSTF Statin Use for Primary Prevention of CVD</a></td><td>EP-2026-0445</td><td>Tom Callahan, RN</td><td>03/05/2026</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">summarize</span></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="gc-table-footer">
-              <div class="gc-pager-btn">«</div><div class="gc-pager-btn">‹</div><div class="gc-pager-btn active">1</div><div class="gc-pager-btn">›</div><div class="gc-pager-btn">»</div>
-              <select style="font-size:11px;border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 4px;margin-left:4px;"><option>20</option></select>
-              <span>items per page</span>
-              <span style="margin-left:auto;font-size:11px;">1 - 3 of 3 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
-            </div>
-          </div>
-        </div>
-
         <!-- Tab: Member Alerts -->
         <div class="ar-tab-panel" id="artab-member-alerts" style="display:none;">
 
@@ -6616,6 +6167,463 @@ Diabetes Management</textarea>
 
       </div>
     </div>
+
+    <!-- ═══ LEFT PANEL: Library ═══ -->
+    <div class="left-panel" id="panel-library">
+      <div class="content-body">
+
+        <div id="lib-tabs-c" class="gc-tabs" style="margin-bottom:12px;">
+          <div class="lib-sub-tab gc-tab active" data-libtarget="artab-documents" style="color:var(--teal);border-bottom-color:var(--teal);">Documents</div>
+          <div class="lib-sub-tab gc-tab" data-libtarget="artab-articles">Articles</div>
+          <div class="lib-sub-tab gc-tab" data-libtarget="artab-consent-forms">Consent Forms</div>
+          <div class="lib-sub-tab gc-tab" data-libtarget="artab-guidelines">Guidelines</div>
+        </div>
+
+        <!-- Tab: Documents -->
+        <div class="ar-tab-panel" id="artab-documents">
+
+          <!-- Filter bar -->
+          <div style="background:var(--surface-light);border:1px solid var(--border);padding:10px 14px;margin-bottom:10px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
+                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:90px;"><option>Select</option></select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Document Name</label>
+                <input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:120px;" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Document Type</label>
+                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:100px;"><option>Select</option></select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">From Date <span style="color:var(--text-muted);font-weight:400;">MM/DD/YYYY</span></label>
+                <div style="display:flex;align-items:center;gap:2px;"><input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:100px;" /><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">calendar_month</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">To Date <span style="color:var(--text-muted);font-weight:400;">MM/DD/YYYY</span></label>
+                <div style="display:flex;align-items:center;gap:2px;"><input type="text" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:100px;" /><span class="material-icons" style="font-size:16px;color:var(--teal);cursor:pointer;">calendar_month</span></div>
+              </div>
+              <button "><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+              <button class="gc-btn gc-btn-text" style="font-size:12px;"><span class="material-icons" style="font-size:14px;">close</span> Clear</button>
+            </div>
+          </div>
+
+          <!-- Toolbar -->
+          <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:4px;">
+            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">upload</span> Upload</span>
+            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">view_column</span> Choose Columns</span>
+          </div>
+
+          <!-- Documents table -->
+          <div class="gc-table-wrap">
+            <div style="overflow-x:auto;">
+              <table class="gc-table">
+                <thead><tr>
+                  <th style="width:28px;"><input type="checkbox" /></th>
+                  <th>Document ID</th>
+                  <th>Document</th>
+                  <th>View</th>
+                  <th>Type</th>
+                  <th>Draft</th>
+                  <th>Resend</th>
+                  <th>Member Portal</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td><input type="checkbox" /></td><td>3650</td><td>IDD Non Usage of one Service</td><td></td><td>Letter Draft</td><td><span class="material-icons" style="font-size:14px;color:#C62828;">picture_as_pdf</span> <span class="material-icons" style="font-size:14px;color:var(--teal);">description</span></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3627</td><td><a href="#" style="color:var(--link);">IDD Non Usage of one Service.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3622</td><td><a href="#" style="color:var(--link);">EL Welcome Letter.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3593</td><td><a href="#" style="color:var(--link);">TEST_TEMPLATE_CMS.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3566</td><td><a href="#" style="color:var(--link);">test 4.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3559</td><td><a href="#" style="color:var(--link);">Test training.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3558</td><td><a href="#" style="color:var(--link);">Test training.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Letter Document</td><td></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">info</span> <span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">content_copy</span></td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3504</td><td><a href="#" style="color:var(--link);">Full Care Plan.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Care Plan</td><td></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3503</td><td><a href="#" style="color:var(--link);">Full Care Plan.pdf</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Care Plan</td><td></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                  <tr><td><input type="checkbox" /></td><td>3264</td><td><a href="#" style="color:var(--link);">screenshot-2.png</a></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td>Care Literature</td><td></td><td>N/A</td><td><span style="color:var(--link);cursor:pointer;font-size:11px;">Share</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="gc-table-footer">
+              <div class="gc-pager-btn">«</div><div class="gc-pager-btn">‹</div><div class="gc-pager-btn active">1</div><div class="gc-pager-btn">›</div><div class="gc-pager-btn">»</div>
+              <select style="font-size:11px;border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 4px;margin-left:4px;"><option>20</option></select>
+              <span>items per page</span>
+              <span style="margin-left:auto;font-size:11px;">1 - 10 of 10 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tab: Articles -->
+        <div class="ar-tab-panel" id="artab-articles" style="display:none;">
+
+          <!-- ── DEFAULT VIEW ── -->
+          <div id="art-default-view">
+
+            <!-- Note row -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:11px;color:var(--text-secondary);"><strong>Note</strong> - All the system generated e-mails will be stopped if the user is found to have a shared e-mail.</div>
+            </div>
+
+            <!-- Filter bar -->
+            <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px;background:#fafafa;border:1px solid var(--border-light);border-radius:var(--r-sm);padding:10px 14px;">
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
+                <input type="text" placeholder="Type here" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Source</label>
+                <select id="art-src-def" onchange="artFilterChange('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                  <option value="">All</option>
+                  <option value="GuidingCare">GuidingCare</option>
+                  <option value="Healthwise">Healthwise</option>
+                  <option value="Wellframe">Wellframe</option>
+                </select>
+              </div>
+              <div id="art-gc-cat-def" style="display:none;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
+                <select id="art-gc-cat-sel-def" onchange="artCatChange('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                  <option value="">Select</option><option>Behavioral</option><option>Disease</option><option>Documentation</option><option>Screening Tool</option>
+                </select>
+              </div>
+              <div id="art-gc-subcat-def" style="display:none;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Sub Category</label>
+                <select id="art-gc-subcat-sel-def" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:160px;">
+                  <option value="">Select</option>
+                </select>
+              </div>
+              <div id="art-arttype-def" style="display:none;flex-direction:column;gap:3px;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Type</label>
+                <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                  <option value="">Select</option><option>Disease Specific</option><option>General Article</option><option>Member Article</option><option>Provider Article</option>
+                </select>
+              </div>
+              <div id="art-wf-audience-def" style="display:none;flex-direction:column;gap:3px;position:relative;">
+                <label style="font-size:11px;font-weight:700;color:var(--text-label);">Target Audience</label>
+                <div id="art-wf-audience-btn-def" onclick="artToggleAudience('def')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 28px 0 8px;font-size:12px;font-family:var(--font);cursor:pointer;display:flex;align-items:center;background:#fff;min-width:180px;user-select:none;position:relative;">
+                  <span id="art-wf-audience-label-def" style="color:var(--text-secondary);">Select</span>
+                  <span class="material-icons" style="font-size:16px;position:absolute;right:4px;color:#888;">arrow_drop_down</span>
+                </div>
+                <div id="art-wf-audience-dd-def" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);z-index:200;min-width:180px;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:4px 0;margin-top:2px;">
+                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Adult</label>
+                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult Caregiver" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Adult Caregiver</label>
+                  <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Pediatric" onchange="artUpdateAudience('def')" style="accent-color:#1378A3;" /> Pediatric</label>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;align-self:flex-end;">
+                <button class="gc-btn gc-btn-primary"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+                <span style="font-size:12px;color:var(--link);cursor:pointer;" onclick="artClearFilter('def')">Clear Filter</span>
+              </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:11px;">
+                <span class="gc-table-action" onclick="toggleArticleLibrary();" style="font-weight:600;font-size:12px;"><span class="material-icons" style="font-size:14px;">add_circle_outline</span> Add &amp; Send Articles</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;"><span class="material-icons" style="font-size:14px;">history</span>Article History</span>
+              </div>
+              <span style="display:flex;align-items:center;gap:12px;font-size:11px;">
+                <a href="#" id="art-def-view-grid-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-weight:700;" onclick="event.preventDefault();artDefSwitchView('grid')"><span class="material-icons" style="font-size:13px;">grid_view</span> Grid View</a>
+                <a href="#" id="art-def-view-list-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;color:var(--text-muted);" onclick="event.preventDefault();artDefSwitchView('list')"><span class="material-icons" style="font-size:13px;">view_list</span> List View</a>
+              </span>
+            </div>
+
+            <!-- Sent article cards — grid -->
+            <div id="art-def-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+              <!-- GuidingCare: Understanding Your A1C -->
+              <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
+                <div style="padding:18px 20px 10px;">
+                  <span style="color:#1a1a1a;font-size:13px;font-weight:700;line-height:1.4;">Understanding Your A1C: What the Numbers Mean</span>
+                </div>
+                <div style="padding:10px 20px 14px;flex:1;">
+                  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.5;">Learn what your A1C test measures and how to interpret your results to better manage your diabetes.</p>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">GuidingCare</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Chronic Disease Mgmt</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/15/2026</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;">Sent</div></div>
+                  </div>
+                </div>
+                <div style="padding:12px 20px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">email</span>Resend to Email</span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">download</span>Download</span>
+                </div>
+              </div>
+
+              <!-- Wellframe: Heart-Healthy Eating -->
+              <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;border-left:4px solid #0080A3;display:flex;flex-direction:column;">
+                <div style="padding:18px 20px 10px;">
+                  <div style="color:#1a1a1a;font-size:13px;font-weight:700;line-height:1.4;">Heart-Healthy Eating on a Budget</div>
+                  <span style="display:inline-block;margin-top:6px;font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;white-space:nowrap;">Adult</span>
+                </div>
+                <div style="padding:10px 20px 14px;flex:1;">
+                  <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.5;">Practical tips for choosing affordable, nutritious foods that support cardiovascular health.</p>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Source</div><div style="margin-top:2px;">Wellframe</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Article Type</div><div style="margin-top:2px;">Nutrition</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Sent On</div><div style="margin-top:2px;">03/01/2026</div></div>
+                    <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;">Sent</div></div>
+                  </div>
+                </div>
+                <div style="padding:12px 20px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">send</span>Resend in Chat</span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">visibility</span>View</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Sent article cards — list -->
+            <div id="art-def-list" style="display:none;">
+              <div class="gc-table-wrap"><div style="overflow-x:auto;">
+                <table class="gc-table">
+                  <thead><tr>
+                    <th>Title</th>
+                    <th>Source</th>
+                    <th>Article Type</th>
+                    <th>Sent On</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr>
+                      <td style="font-weight:600;color:#1a1a1a;">Understanding Your A1C: What the Numbers Mean</td>
+                      <td>GuidingCare</td>
+                      <td>Chronic Disease Mgmt</td>
+                      <td>03/15/2026</td>
+                      <td><span style="color:#2E7D32;font-weight:600;">&#10003; Sent</span></td>
+                      <td style="white-space:nowrap;">
+                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;margin-right:10px;">Resend to Email</a>
+                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;">Download</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:600;color:#1a1a1a;">Heart-Healthy Eating on a Budget <span style="font-size:10px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:10px;padding:1px 7px;">Adult</span></td>
+                      <td>Wellframe</td>
+                      <td>Nutrition</td>
+                      <td>03/01/2026</td>
+                      <td><span style="color:#2E7D32;font-weight:600;">&#10003; Sent</span></td>
+                      <td style="white-space:nowrap;">
+                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;margin-right:10px;">Resend in Chat</a>
+                        <a href="#" onclick="event.preventDefault();" class="gc-kv-link" style="font-size:11px;">View</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div></div>
+            </div>
+
+          </div><!-- end #art-default-view -->
+
+          <!-- ── LIBRARY VIEW (replaces default view when Add & Send Articles is clicked) ── -->
+          <div id="art-library-view" style="display:none;">
+
+            <!-- Page header -->
+            <div style="background:#fff;padding:4px 0 0;">
+              <a href="#" onclick="event.preventDefault();toggleArticleLibrary();" style="display:inline-flex;align-items:center;gap:3px;font-size:12px;color:var(--link);text-decoration:none;margin-bottom:8px;"><span class="material-icons" style="font-size:14px;">arrow_back</span> Back</a>
+              <!-- Filter bar slot for Option A -->
+              <div id="al-lib-filter-bar-a-slot"></div>
+              <!-- Filter bar -->
+              <div id="al-lib-filter-bar" style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px;background:#fafafa;border:1px solid var(--border-light);border-radius:var(--r-sm);padding:10px 14px;">
+                <div id="al-lib-title-search-wrap" style="display:flex;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
+                  <input id="al-a-search" type="text" placeholder="Type here" oninput="alAFilter()" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
+                </div>
+                <div id="al-lib-b-title-wrap" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Title</label>
+                  <input id="al-b-title-search" type="text" placeholder="Type here" oninput="alBFilter()" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);outline:none;width:160px;" />
+                </div>
+                <div id="al-lib-src-wrap" style="display:flex;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Source</label>
+                  <select id="art-src-lib" onchange="artFilterChange('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                    <option value="">All</option>
+                    <option value="GuidingCare">GuidingCare</option>
+                    <option value="Healthwise">Healthwise</option>
+                    <option value="Wellframe">Wellframe</option>
+                  </select>
+                </div>
+                <div id="art-gc-cat-lib" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Category</label>
+                  <select id="art-gc-cat-sel-lib" onchange="artCatChange('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                    <option value="">Select</option><option>Behavioral</option><option>Disease</option><option>Documentation</option><option>Screening Tool</option>
+                  </select>
+                </div>
+                <div id="art-gc-subcat-lib" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Sub Category</label>
+                  <select id="art-gc-subcat-sel-lib" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:160px;">
+                    <option value="">Select</option>
+                  </select>
+                </div>
+                <div id="art-arttype-lib" style="display:none;flex-direction:column;gap:3px;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Article Type</label>
+                  <select style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 22px 0 8px;font-size:12px;font-family:var(--font);outline:none;appearance:none;background:white url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 4px center;width:150px;">
+                    <option value="">Select</option><option>Disease Specific</option><option>General Article</option><option>Member Article</option><option>Provider Article</option>
+                  </select>
+                </div>
+                <div id="art-wf-audience-lib" style="display:none;flex-direction:column;gap:3px;position:relative;">
+                  <label style="font-size:11px;font-weight:700;color:var(--text-label);">Target Audience</label>
+                  <div id="art-wf-audience-btn-lib" onclick="artToggleAudience('lib')" style="height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 28px 0 8px;font-size:12px;font-family:var(--font);cursor:pointer;display:flex;align-items:center;background:#fff;min-width:180px;user-select:none;position:relative;">
+                    <span id="art-wf-audience-label-lib" style="color:var(--text-secondary);">Select</span>
+                    <span class="material-icons" style="font-size:16px;position:absolute;right:4px;color:#888;">arrow_drop_down</span>
+                  </div>
+                  <div id="art-wf-audience-dd-lib" style="display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);z-index:200;min-width:180px;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:4px 0;margin-top:2px;">
+                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Adult</label>
+                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Adult Caregiver" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Adult Caregiver</label>
+                    <label style="display:flex;align-items:center;gap:8px;padding:5px 12px;font-size:12px;cursor:pointer;"><input type="checkbox" value="Pediatric" onchange="artUpdateAudience('lib')" style="accent-color:#1378A3;" /> Pediatric</label>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;align-self:flex-end;">
+                  <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary);cursor:pointer;white-space:nowrap;">
+                    <input type="checkbox" id="al-filter-sent" onchange="alAFilter()" style="accent-color:#1378A3;width:13px;height:13px;cursor:pointer;"> Sent Articles
+                  </label>
+                  <button class="gc-btn gc-btn-primary"><span class="material-icons" style="font-size:14px;">search</span> Search</button>
+                  <span style="font-size:12px;color:var(--link);cursor:pointer;" onclick="artClearFilter('lib')">Clear Filter</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                <div id="al-main-heading" style="display:inline-block;">
+                  <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">Article Library</div>
+                  <div style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;"></div>
+                </div>
+                <span style="display:flex;align-items:center;gap:12px;font-size:11px;padding-bottom:4px;">
+                  <a href="#" id="al-view-grid-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-weight:700;" onclick="event.preventDefault();alSwitchView('grid')"><span class="material-icons" style="font-size:13px;">grid_view</span> Grid View</a>
+                  <a href="#" id="al-view-list-btn" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;color:var(--text-muted);" onclick="event.preventDefault();alSwitchView('list')"><span class="material-icons" style="font-size:13px;">view_list</span> List View</a>
+                </span>
+              </div>
+              <div id="al-main-heading-divider" style="height:1px;background:var(--border);margin-top:0;margin-bottom:12px;"></div>
+            </div>
+
+            <!-- Selection bar (shown when ≥1 card checked) -->
+            <div id="al-selection-bar" style="display:none;align-items:center;justify-content:space-between;background:#F4FBFE;border:1px solid #D6EDF7;border-radius:var(--r-sm);padding:12px 14px;margin-bottom:10px;">
+              <span id="al-selection-count" style="font-size:13px;color:#0C5275;font-weight:600;"></span>
+              <button class="gc-btn gc-btn-primary" onclick="alOpenSendModal()" style="padding:8px 16px;font-size:12px;">Send to Member</button>
+            </div>
+
+            <!-- Success banner (shown after Send to Member confirmed) -->
+            <div id="al-success-banner" style="display:none;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid #ccc;border-radius:var(--r-sm);padding:10px 14px;background:#fff;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:36px;height:36px;background:#2E7D32;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <span class="material-icons" style="color:#fff;font-size:20px;">check_circle</span>
+                  </div>
+                  <span style="font-size:13px;color:#1a1a1a;">Health Article(s) have been sent successfully.</span>
+                </div>
+                <button onclick="document.getElementById('al-success-banner').style.display='none';" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:0;"><span class="material-icons" style="font-size:16px;">close</span></button>
+              </div>
+              <div style="font-size:11px;color:#1a1a1a;margin-top:6px;"><strong>Note</strong> - All the system generated e-mails will be stopped if the user is found to have a shared e-mail.</div>
+            </div>
+
+            <!-- ── Option A panel ── -->
+            <div id="art-lib-opt-a" style="display:block;">
+              <div id="al-a-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;"></div>
+              <div id="al-a-list" style="display:none;">
+                <div class="gc-table-wrap"><div style="overflow-x:auto;">
+                  <table class="gc-table" id="al-a-list-table">
+                    <thead><tr>
+                      <th style="width:28px;"><input type="checkbox" id="al-list-check-all" onchange="alListCheckAll(this.checked)"></th>
+                      <th>Title</th>
+                      <th>Source</th>
+                      <th>Category</th>
+                      <th>Sub Category</th>
+                      <th>Audience</th>
+                      <th>Sent</th>
+                      <th>Actions</th>
+                    </tr></thead>
+                    <tbody id="al-a-list-body"></tbody>
+                  </table>
+                </div></div>
+              </div>
+              <div id="al-a-pagination" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:14px 0;flex-wrap:wrap;"></div>
+            </div>
+
+
+
+          </div><!-- end #art-library-view -->
+
+        </div>
+
+        <!-- Tab: Consent Forms -->
+        <div class="ar-tab-panel" id="artab-consent-forms" style="display:none;">
+
+          <!-- Sub-tabs -->
+          <div style="display:flex;gap:16px;margin-bottom:12px;font-size:12px;">
+            <span style="font-weight:700;color:var(--text-primary);border:2px solid #D94F2C;border-radius:var(--r-sm);padding:2px 8px;cursor:pointer;">Release of Information ROI</span>
+            <span style="color:var(--teal);cursor:pointer;">Consent Form</span>
+          </div>
+
+          <!-- Toolbar -->
+          <div style="display:flex;align-items:center;gap:10px;font-size:11px;margin-bottom:4px;">
+            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">add</span> Add</span>
+            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">edit</span> Edit</span>
+            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">add_circle</span> Add Activity</span>
+            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">history</span> History</span>
+            <span class="gc-table-action"><span class="material-icons" style="font-size:13px;">unfold_more</span> Expand All</span>
+          </div>
+
+          <!-- ROI table -->
+          <div class="gc-table-wrap">
+            <div style="overflow-x:auto;">
+              <table class="gc-table">
+                <thead><tr>
+                  <th style="width:28px;"><input type="checkbox" /></th>
+                  <th>ROI Form</th>
+                  <th>ROI To</th>
+                  <th>Status</th>
+                  <th>ROI Active</th>
+                  <th>Valid From<br>Valid To</th>
+                  <th>Care Staff</th>
+                  <th>Remarks</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td><input type="checkbox" /></td><td>Authorization to Release Health Information</td><td>Providence Medical Center</td><td><span class="gc-badge gc-badge-teal">Signed</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td><td>01/15/2026<br>01/15/2027</td><td>Sarah Mitchell, RN</td><td>Member signed ROI for discharge records and lab results from Providence ED visit.</td></tr>
+                  <tr><td><input type="checkbox" /></td><td>Care Management Program Consent</td><td>Alaska Premier Health</td><td><span class="gc-badge gc-badge-teal">Signed</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span></td><td>10/22/2025<br>10/22/2026</td><td>James Okafor, CCM</td><td>Consent obtained for participation in Complex Care Management program.</td></tr>
+                  <tr><td><input type="checkbox" /></td><td>Telehealth Services Consent</td><td>N/A</td><td><span class="gc-badge gc-badge-warn">Pending</span></td><td></td><td>N/A<br>N/A</td><td>Priya Nandakumar, CCM</td><td>Awaiting member signature for telehealth consent — form mailed 03/10/2026.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="gc-table-footer">
+              <div class="gc-pager-btn">«</div><div class="gc-pager-btn">‹</div><div class="gc-pager-btn active">1</div><div class="gc-pager-btn">›</div><div class="gc-pager-btn">»</div>
+              <select style="font-size:11px;border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 4px;margin-left:4px;"><option>10</option></select>
+              <span>items per page</span>
+              <span style="margin-left:auto;font-size:11px;">1 - 3 of 3 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tab: Guidelines -->
+        <div class="ar-tab-panel" id="artab-guidelines" style="display:none;">
+          <div class="gc-table-wrap">
+            <div style="overflow-x:auto;">
+              <table class="gc-table">
+                <thead><tr>
+                  <th>Guideline Name</th>
+                  <th>Episode ID</th>
+                  <th>Created By</th>
+                  <th>Date Created</th>
+                  <th>View Documentation</th>
+                  <th>View Episode Summary</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td><a href="#" style="color:var(--link);">HEDIS Comprehensive Diabetes Care</a></td><td>EP-2026-0412</td><td>Sarah Mitchell, RN</td><td>01/15/2026</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">summarize</span></td></tr>
+                  <tr><td><a href="#" style="color:var(--link);">ACC/AHA Guideline for Management of Heart Failure</a></td><td>EP-2026-0398</td><td>James Okafor, CCM</td><td>02/10/2026</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">summarize</span></td></tr>
+                  <tr><td><a href="#" style="color:var(--link);">USPSTF Statin Use for Primary Prevention of CVD</a></td><td>EP-2026-0445</td><td>Tom Callahan, RN</td><td>03/05/2026</td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">visibility</span></td><td><span class="material-icons" style="font-size:14px;color:var(--teal);cursor:pointer;">summarize</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="gc-table-footer">
+              <div class="gc-pager-btn">«</div><div class="gc-pager-btn">‹</div><div class="gc-pager-btn active">1</div><div class="gc-pager-btn">›</div><div class="gc-pager-btn">»</div>
+              <select style="font-size:11px;border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 4px;margin-left:4px;"><option>20</option></select>
+              <span>items per page</span>
+              <span style="margin-left:auto;font-size:11px;">1 - 3 of 3 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 
     <!-- ═══ LEFT PANEL: Member Checklist ═══ -->
     <div class="left-panel" id="panel-member-checklist">
@@ -7285,6 +7293,16 @@ function openScriptResponseModal() {
       leftPanels.forEach(function(p) { p.classList.remove('active'); });
       var panel = document.getElementById('panel-' + target);
       if (panel) panel.classList.add('active');
+
+      // When navigating to Library, activate Documents sub-tab
+      if (target === 'library') {
+        libPanelIds.forEach(function(id) { var p = document.getElementById(id); if (p) { p.style.display='none'; p.classList.remove('active'); } });
+        document.querySelectorAll('#lib-tabs-c .lib-sub-tab').forEach(function(s) { s.classList.remove('active'); s.style.color=''; s.style.borderBottomColor=''; });
+        var firstLibTab = document.querySelector('#lib-tabs-c .lib-sub-tab');
+        if (firstLibTab) { firstLibTab.classList.add('active'); firstLibTab.style.color='var(--teal)'; firstLibTab.style.borderBottomColor='var(--teal)'; }
+        var docsPanel = document.getElementById('artab-documents');
+        if (docsPanel) { docsPanel.style.display=''; docsPanel.classList.add('active'); }
+      }
     });
   });
 
@@ -7335,7 +7353,7 @@ function openScriptResponseModal() {
   function showArRealPanel(panelId) {
     arPanels.forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
     // Also hide group nav divs
-    ['artab-b-activities','artab-c-library','artab-c-member-activities'].forEach(function(id) {
+    ['artab-b-activities','artab-c-member-activities'].forEach(function(id) {
       var el = document.getElementById(id); if (el) el.style.display = 'none';
     });
     var panel = document.getElementById(panelId);
@@ -7351,7 +7369,7 @@ function openScriptResponseModal() {
     if (clicked) { clicked.classList.add('active'); clicked.style.color = 'var(--teal)'; clicked.style.borderBottomColor = 'var(--teal)'; }
     // Hide all panels and group panels first
     arPanels.forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
-    ['artab-b-activities','artab-c-library','artab-c-member-activities'].forEach(function(id) {
+    ['artab-b-activities','artab-c-member-activities'].forEach(function(id) {
       var el = document.getElementById(id); if (el) el.style.display = 'none';
     });
     var directMapB = { 'notes':'artab-notes', 'documents':'artab-documents', 'articles':'artab-articles', 'consent-forms':'artab-consent-forms', 'guidelines':'artab-guidelines', 'member-alerts':'artab-member-alerts' };
@@ -7376,21 +7394,12 @@ function openScriptResponseModal() {
     var clicked = document.querySelector('#ar-tabs-c .ar-c-tab[data-arc="' + arc + '"]');
     if (clicked) { clicked.classList.add('active'); clicked.style.color = 'var(--teal)'; clicked.style.borderBottomColor = 'var(--teal)'; }
     arPanels.forEach(function(p) { p.style.display = 'none'; p.classList.remove('active'); });
-    ['artab-b-activities','artab-c-library','artab-c-member-activities'].forEach(function(id) {
+    ['artab-b-activities','artab-c-member-activities'].forEach(function(id) {
       var el = document.getElementById(id); if (el) el.style.display = 'none';
     });
     var directMap = { 'notes':'artab-notes', 'activity-summary':'artab-activity-summary', 'required-activities':'artab-required-activities', 'outstanding-activities':'artab-outstanding-activities' };
     if (directMap[arc]) {
       var p7 = document.getElementById(directMap[arc]); if (p7) { p7.style.display=''; p7.classList.add('active'); }
-    } else if (arc === 'library') {
-      var g3 = document.getElementById('artab-c-library'); if (g3) g3.style.display = '';
-      var firstSub3 = g3 ? g3.querySelector('.ar-sub-tab') : null;
-      if (firstSub3) {
-        g3.querySelectorAll('.ar-sub-tab').forEach(function(s) { s.classList.remove('active'); s.style.color=''; s.style.borderBottomColor=''; });
-        firstSub3.classList.add('active'); firstSub3.style.color='var(--teal)'; firstSub3.style.borderBottomColor='var(--teal)';
-        var target3 = firstSub3.getAttribute('data-grouptarget');
-        var p8 = document.getElementById(target3); if (p8) { p8.style.display=''; p8.classList.add('active'); }
-      }
     } else if (arc === 'member-activities') {
       var g4 = document.getElementById('artab-c-member-activities'); if (g4) g4.style.display = '';
       var firstSub4 = g4 ? g4.querySelector('.ar-sub-tab') : null;
@@ -7408,6 +7417,20 @@ function openScriptResponseModal() {
   document.querySelectorAll('#ar-tabs-c .ar-c-tab').forEach(function(tab) {
     tab.addEventListener('click', function() {
       activateArCTab(tab.getAttribute('data-arc'));
+    });
+  });
+
+  // Library panel sub-tab click handlers
+  var libPanelIds = ['artab-documents','artab-articles','artab-consent-forms','artab-guidelines'];
+  document.querySelectorAll('#lib-tabs-c .lib-sub-tab').forEach(function(sub) {
+    sub.addEventListener('click', function() {
+      document.querySelectorAll('#lib-tabs-c .lib-sub-tab').forEach(function(s) { s.classList.remove('active'); s.style.color=''; s.style.borderBottomColor=''; });
+      sub.classList.add('active'); sub.style.color='var(--teal)'; sub.style.borderBottomColor='var(--teal)';
+      var target = sub.getAttribute('data-libtarget');
+      libPanelIds.forEach(function(id) { var p = document.getElementById(id); if (p) { p.style.display='none'; p.classList.remove('active'); } });
+      var panel = document.getElementById(target);
+      if (panel) { panel.style.display=''; panel.classList.add('active'); }
+      if (target!=='artab-articles' && artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
     });
   });
 
