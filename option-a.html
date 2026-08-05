@@ -6258,7 +6258,7 @@ Diabetes Management</textarea>
         <div class="ar-tab-panel" id="artab-articles" style="display:none;">
 
           <!-- ── DEFAULT VIEW ── -->
-          <div id="art-default-view">
+          <div id="art-default-view" style="display:none;">
 
             <!-- Note row -->
             <div style="margin-bottom:10px;">
@@ -6417,7 +6417,7 @@ Diabetes Management</textarea>
           </div><!-- end #art-default-view -->
 
           <!-- ── LIBRARY VIEW (replaces default view when Add & Send Articles is clicked) ── -->
-          <div id="art-library-view" style="display:none;">
+          <div id="art-library-view">
 
             <!-- Page header -->
             <div style="background:#fff;padding:4px 0 0;">
@@ -7341,7 +7341,7 @@ function openScriptResponseModal() {
       var target = tab.getAttribute('data-artab');
       var panel = document.getElementById('artab-' + target);
       if (panel) { panel.style.display = ''; panel.classList.add('active'); }
-      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = false; document.getElementById('art-default-view').style.display = 'block'; document.getElementById('art-library-view').style.display = 'none'; }
+      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; }
       if (target === 'member-activity') switchMaView(_currentMaView);
     });
   });
@@ -7359,7 +7359,7 @@ function openScriptResponseModal() {
     var panel = document.getElementById(panelId);
     if (panel) { panel.style.display = ''; panel.classList.add('active'); }
     if (panelId === 'artab-member-activity') switchMaView(_currentMaView);
-    if (panelId !== 'artab-articles' && artLibraryOpen) { artLibraryOpen = false; document.getElementById('art-default-view').style.display = 'block'; document.getElementById('art-library-view').style.display = 'none'; }
+    if (panelId !== 'artab-articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; }
   }
 
   // Click a B-tab
@@ -12876,7 +12876,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ── Article Library toggle ────────────────────────────────
-var artLibraryOpen = false;
+var artLibraryOpen = true;
 
 function toggleArticleLibrary() {
   artLibraryOpen = !artLibraryOpen;
