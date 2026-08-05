@@ -7041,7 +7041,7 @@ function openScriptResponseModal() {
       var target = tab.getAttribute('data-artab');
       var panel = document.getElementById('artab-' + target);
       if (panel) { panel.style.display = ''; panel.classList.add('active'); }
-      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; }
+      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; alAFilter(); }
       if (target === 'member-activity') switchMaView(_currentMaView);
     });
   });
@@ -7059,7 +7059,7 @@ function openScriptResponseModal() {
     var panel = document.getElementById(panelId);
     if (panel) { panel.style.display = ''; panel.classList.add('active'); }
     if (panelId === 'artab-member-activity') switchMaView(_currentMaView);
-    if (panelId !== 'artab-articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; }
+    if (panelId !== 'artab-articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; alAFilter(); }
   }
 
   // Click a B-tab
@@ -12614,6 +12614,9 @@ document.addEventListener('click', function(e) {
 
 // ── Article Library toggle ────────────────────────────────
 var artLibraryOpen = true;
+
+// Populate library grid on page load since list view is default
+document.addEventListener('DOMContentLoaded', function() { alAFilter(); });
 
 function toggleArticleLibrary() {
   artLibraryOpen = !artLibraryOpen;
