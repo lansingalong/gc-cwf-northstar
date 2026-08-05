@@ -1546,287 +1546,9 @@ Diabetes Management</textarea>
             <!-- Back link + top-level Option switcher -->
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-size:11px;" onclick="event.preventDefault();closeBrowseProgramsPage();"><span class="material-icons" style="font-size:13px;">arrow_back</span> Back to Programs</a>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <span style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.4px;">Variants:</span>
-                <div style="display:flex;gap:0;">
-                  <div id="bpOptTab-1" onclick="bpOptSwitch(1)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border-radius:4px 0 0 4px;border:1px solid #1378A3;">A</div>
-                  <div id="bpOptTab-3" onclick="bpOptSwitch(3)" style="cursor:pointer;padding:5px 14px;font-size:12px;font-weight:700;color:#1378A3;background:#fff;border-radius:0 4px 4px 0;border:1px solid #1378A3;border-left:none;">B</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ══ OPTION 1: Staff / Member-Facing tabs ══ -->
-            <div id="bpOpt1" style="display:none;">
-            <!-- Browse tabs -->
-            <div style="display:flex;gap:28px;margin-bottom:0;">
-              <div onclick="browseProgTab('staff')" style="cursor:pointer;">
-                <div id="bpLbl-staff" style="font-size:16px;font-weight:700;color:#1a1a1a;">Eligible and Clinical Programs</div>
-                <div id="bpLine-staff" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;"></div>
-              </div>
-              <div onclick="browseProgTab('member')" style="cursor:pointer;">
-                <div id="bpLbl-member" style="font-size:16px;font-weight:700;color:#888;">Member-Facing Programs</div>
-                <div id="bpLine-member" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;opacity:0;"></div>
-              </div>
-            </div>
-            <div style="height:1px;background:var(--border);margin-bottom:20px;"></div>
-            <!-- Staff Programs content -->
-            <div id="bpPanel-staff">
-
-              <!-- Top bar: New Enrollment label + Save/Discard -->
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-                <div style="font-size:13px;font-weight:600;color:#1a1a1a;">New Enrollment</div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;" onclick="event.preventDefault();var t=document.getElementById('bpClinicalProgramInput');openStaffProgModal(t&&t.value.trim()?t.value.trim():'Clinical Program','General');"><span class="material-icons" style="font-size:14px;">save</span> Save</a>
-                  <a href="#" onclick="event.preventDefault();closeBrowseProgramsPage();" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#C62828;text-decoration:none;"><span class="material-icons" style="font-size:14px;">close</span> Discard</a>
-                </div>
-              </div>
-
-              <!-- Payor label -->
-              <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Payor</div>
-
-              <!-- Member Eligibility section -->
-              <div style="border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:16px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-                  <div style="display:flex;align-items:center;gap:8px;">
-                    <span class="material-icons" style="font-size:16px;color:#C8821A;">group</span>
-                    <span style="font-size:14px;font-weight:700;color:#1a1a1a;">Member Eligibility</span>
-                    <span style="font-size:12px;color:var(--text-muted);">Displays eligibility</span>
-                  </div>
-                  <div style="display:flex;gap:20px;font-size:12px;">
-                    <span id="bpEligTab-active" onclick="bpEligFilter('active')" style="color:var(--teal);font-weight:700;cursor:pointer;border-bottom:2px solid var(--teal);padding-bottom:2px;">Active Eligibility</span>
-                    <span id="bpEligTab-inactive" onclick="bpEligFilter('inactive')" style="color:var(--text-muted);cursor:pointer;padding-bottom:2px;">Inactive Eligibility</span>
-                  </div>
-                </div>
-
-                <!-- Payor cards -->
-                <div id="bpEligCards-active" style="display:flex;flex-direction:column;gap:10px;">
-
-                  <!-- Altruists Health Insurance -->
-                  <div class="bp-elig-card" onclick="bpSelectEligCard(this)" style="border:1px solid #DDDDDD;border-radius:6px;padding:12px 16px;cursor:pointer;background:#fff;">
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:4px 0;font-size:12px;pointer-events:none;">
-                      <div><span style="color:var(--text-muted);">Payor </span><a href="#" class="gc-kv-link" style="pointer-events:none;font-weight:700;">Altruists Health Insurance</a></div>
-                      <div><span style="color:var(--text-muted);">Code </span><a href="#" class="gc-kv-link" style="pointer-events:none;font-weight:700;">AHI</a></div>
-                      <div></div>
-                      <div style="text-align:right;"><span style="color:var(--text-muted);">Status </span><span style="color:#2E7D32;font-weight:600;">&#10003; Active</span></div>
-                      <div><span style="color:var(--text-muted);">Plan </span><a href="#" class="gc-kv-link" style="pointer-events:none;">CareOptions</a></div>
-                      <div><span style="color:var(--text-muted);">Group </span><a href="#" class="gc-kv-link" style="pointer-events:none;">Active</a> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>ACT</strong></div>
-                      <div><span style="color:var(--text-muted);">Subgroup </span><strong>Individual</strong> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>IND</strong></div>
-                      <div style="text-align:right;"><span style="color:var(--text-muted);">Start Date </span><strong>02/01/2020</strong></div>
-                      <div><span style="color:var(--text-muted);">Code </span><strong>CO</strong></div>
-                      <div><span style="color:var(--text-muted);">Class </span><strong>AHS3C</strong> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>AHS3C</strong></div>
-                      <div><span style="color:var(--text-muted);">Product </span><a href="#" class="gc-kv-link" style="pointer-events:none;">Select Option</a> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>SO</strong></div>
-                      <div style="text-align:right;"><span style="color:var(--text-muted);">End Date </span><strong>05/11/2099</strong></div>
-                    </div>
-                  </div>
-
-                  <!-- FEP -->
-                  <div class="bp-elig-card" onclick="bpSelectEligCard(this)" style="border:1px solid #DDDDDD;border-radius:6px;padding:12px 16px;cursor:pointer;background:#fff;">
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:4px 0;font-size:12px;pointer-events:none;">
-                      <div><span style="color:var(--text-muted);">Payor </span><a href="#" class="gc-kv-link" style="pointer-events:none;font-weight:700;">FEP</a></div>
-                      <div><span style="color:var(--text-muted);">Code </span><a href="#" class="gc-kv-link" style="pointer-events:none;font-weight:700;">FP</a></div>
-                      <div></div>
-                      <div style="text-align:right;"><span style="color:var(--text-muted);">Status </span><span style="color:#2E7D32;font-weight:600;">&#10003; Active</span></div>
-                      <div><span style="color:var(--text-muted);">Plan </span><a href="#" class="gc-kv-link" style="pointer-events:none;">FEDERAL EMPLOYEE PROGRAM</a></div>
-                      <div><span style="color:var(--text-muted);">Group </span><a href="#" class="gc-kv-link" style="pointer-events:none;">FEDERAL EMPLOYEE PROGRAM</a> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>10023000</strong></div>
-                      <div><span style="color:var(--text-muted);">Subgroup </span><strong>FEP Self Plus One Basic Option</strong> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>A113</strong></div>
-                      <div style="text-align:right;"><span style="color:var(--text-muted);">Start Date </span><strong>02/01/2020</strong></div>
-                      <div><span style="color:var(--text-muted);">Code </span><strong>000004554</strong></div>
-                      <div><span style="color:var(--text-muted);">Class </span><strong>PFM00003</strong> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>PFM00003</strong></div>
-                      <div><span style="color:var(--text-muted);">Product </span><a href="#" class="gc-kv-link" style="pointer-events:none;">FEP MEDICARE BASIC OPTION 2002</a> &nbsp;<span style="color:var(--text-muted);">Code </span><strong>PFM0006A</strong></div>
-                      <div style="text-align:right;"><span style="color:var(--text-muted);">End Date </span><strong>05/11/2099</strong></div>
-                    </div>
-                  </div>
-
-                </div>
-                <div id="bpEligCards-inactive" style="display:none;color:var(--text-muted);font-size:12px;padding:8px 0;">No inactive eligibility records.</div>
-              </div>
-
-              <!-- Add Clinical Program -->
-              <div style="margin-bottom:20px;">
-                <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#1a1a1a;cursor:pointer;margin-bottom:10px;">
-                  <input type="checkbox" id="bpAddClinical" onchange="bpToggleClinicalForm(this.checked)" style="width:14px;height:14px;cursor:pointer;"> Add Clinical Program
-                </label>
-                <div id="bpClinicalForm" style="display:none;">
-                  <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr 1fr auto;gap:8px;align-items:end;">
-                    <div>
-                      <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">Program</div>
-                      <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;overflow:hidden;">
-                        <input type="text" id="bpClinicalProgramInput" placeholder="Enter Program Name..." style="flex:1;border:none;outline:none;font-size:12px;padding:5px 8px;font-family:var(--font);">
-                        <span class="material-icons" style="font-size:16px;color:var(--text-muted);padding:0 6px;">search</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">Start Date</div>
-                      <input type="text" placeholder="MM/DD/YYYY" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);box-sizing:border-box;">
-                    </div>
-                    <div>
-                      <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">End Date</div>
-                      <input type="text" placeholder="MM/DD/YYYY" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);box-sizing:border-box;">
-                    </div>
-                    <div>
-                      <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">Status</div>
-                      <select style="width:100%;border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);background:#fff;"><option>Select</option></select>
-                    </div>
-                    <div>
-                      <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">Status Description</div>
-                      <select style="width:100%;border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);background:#fff;"><option>Select</option></select>
-                    </div>
-                    <div>
-                      <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">Referral Source</div>
-                      <select style="width:100%;border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);background:#fff;"><option>Select</option></select>
-                    </div>
-                    <div>
-                      <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">Assigned Care Manager</div>
-                      <select style="width:100%;border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);background:#fff;"><option>Select</option></select>
-                    </div>
-                    <div style="display:flex;gap:4px;padding-bottom:1px;">
-                      <button style="background:var(--teal);color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><span class="material-icons" style="font-size:16px;">add</span></button>
-                      <button style="background:#C62828;color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><span class="material-icons" style="font-size:16px;">remove</span></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
             </div>
-            <!-- Member-Facing Programs content -->
-            <div id="bpPanel-member" style="display:none;">
-              <p style="font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.5;">These programs can be enrolled directly to the member and will appear in their Wellframe mobile app. Browse by category and select a program to enroll Jackson in it.</p>
 
-              <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;margin-bottom:14px;overflow:hidden;">
-                <span class="material-icons" style="font-size:16px;color:var(--text-muted);padding:0 8px;">search</span>
-                <input type="text" id="mfpSearch" placeholder="Search programs..." oninput="mfpFilterPrograms(this.value)" style="flex:1;border:none;outline:none;font-size:12px;padding:7px 0;font-family:var(--font);">
-                <span id="mfpSearchClear" onclick="document.getElementById('mfpSearch').value='';mfpFilterPrograms('');" style="display:none;cursor:pointer;padding:0 8px;color:var(--text-muted);font-size:18px;line-height:1;">&times;</span>
-              </div>
-
-              <div class="gc-accordion" style="background:#E3F2FD;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#1378A3;background:#E3F2FD;border-radius:6px;padding:4px;">water_drop</span>Diabetes Management<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">3 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Diabetes Management Program</div><div class="mfp-program-desc">Structured program for blood sugar control, medication adherence, and lifestyle coaching.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Blood Sugar Tracker</div><div class="mfp-program-desc">Daily blood glucose logging and trend visualization to support diabetes self-management.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Diabetes Self-Management Education (DSME)</div><div class="mfp-program-desc">Evidence-based education on nutrition, exercise, and medication management for people with diabetes.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#FCE4EC;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#AD1457;background:#FCE4EC;border-radius:6px;padding:4px;">child_care</span>Prenatal &amp; Postpartum<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">3 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Maternal Health Program</div><div class="mfp-program-desc">Comprehensive support for pregnant members covering prenatal care, nutrition, and birth preparation.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Postpartum Recovery &amp; Support</div><div class="mfp-program-desc">Guides new mothers through physical recovery, infant feeding, and postpartum mental health.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">High-Risk Pregnancy Monitoring</div><div class="mfp-program-desc">Daily check-ins and symptom tracking for members with high-risk pregnancies requiring closer follow-up.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English</span><span class="mfp-tag mfp-tag-type">Monitoring</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#FFEBEE;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#C62828;background:#FFEBEE;border-radius:6px;padding:4px;">favorite</span>Cardiovascular Health<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">3 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Cardiac Rehab</div><div class="mfp-program-desc">Cardiac wellness program covering diet, activity tracking, and medication management post-event.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Heart Health Program</div><div class="mfp-program-desc">Preventive heart health education focused on lifestyle habits, risk reduction, and medication adherence.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Blood Pressure Tracker</div><div class="mfp-program-desc">Member logs weekly blood pressure readings; supports hypertension management and care team visibility.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#F3E5F5;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#6A1B9A;background:#F3E5F5;border-radius:6px;padding:4px;">psychology</span>Behavioral Health<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">3 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Behavioral Health Support</div><div class="mfp-program-desc">Ongoing mental health support with daily check-ins, mood tracking, and coping skill content.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Anxiety &amp; Depression Management</div><div class="mfp-program-desc">CBT-informed program with structured activities to help members manage anxiety and depressive symptoms.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Mental Health Support Program</div><div class="mfp-program-desc">General mental wellness content and self-care activities for members with mild to moderate mental health needs.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#E0F7FA;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#00838F;background:#E0F7FA;border-radius:6px;padding:4px;">air</span>Respiratory &amp; Pulmonary<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">2 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">COPD Management Program</div><div class="mfp-program-desc">Symptom monitoring, inhaler technique education, and exacerbation prevention for members with COPD.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Asthma Action Plan</div><div class="mfp-program-desc">Personalized asthma management with trigger tracking, peak flow logging, and escalation guidance.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Monitoring</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#FFF3E0;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#E65100;background:#FFF3E0;border-radius:6px;padding:4px;">accessibility_new</span>Musculoskeletal &amp; Fall Prevention<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">3 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Fall Prevention Program</div><div class="mfp-program-desc">Exercise and safety education program to reduce fall risk for high-risk members.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Osteoporosis Management</div><div class="mfp-program-desc">Bone health education, calcium and vitamin D guidance, and fracture prevention for members with osteoporosis.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Joint &amp; Mobility Support</div><div class="mfp-program-desc">Guided exercises and pain management strategies for members with arthritis or joint conditions.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#E8F5E9;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#2E7D32;background:#E8F5E9;border-radius:6px;padding:4px;">biotech</span>Oncology &amp; Chronic Disease<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">2 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Cancer Care Navigation</div><div class="mfp-program-desc">Guides members through cancer treatment with appointment reminders, side-effect tracking, and emotional support.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Chronic Disease Self-Management</div><div class="mfp-program-desc">General self-management program for members living with one or more long-term chronic conditions.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#F1F8E9;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#558B2F;background:#F1F8E9;border-radius:6px;padding:4px;">restaurant</span>Nutrition &amp; Weight Management<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">3 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Healthy Living — Nutrition</div><div class="mfp-program-desc">Practical nutrition education and meal planning guidance to support healthy eating habits.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Weight Management Program</div><div class="mfp-program-desc">Structured program for members seeking to achieve and maintain a healthy weight through behavioral change.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Weight Tracker</div><div class="mfp-program-desc">Member logs weekly weigh-ins; useful for CHF and obesity management program monitoring.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#EDE7F6;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#4527A0;background:#EDE7F6;border-radius:6px;padding:4px;">self_improvement</span>Substance Use &amp; Recovery<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">2 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Substance Use Recovery Support</div><div class="mfp-program-desc">Recovery-focused daily support with check-ins, motivational content, and relapse prevention strategies.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Opioid Management Program</div><div class="mfp-program-desc">Supports members managing opioid use disorder with medication reminders, behavioral health check-ins, and resources.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#FFFDE7;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#F57F17;background:#FFFDE7;border-radius:6px;padding:4px;">child_friendly</span>Pediatric &amp; Child Health<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">2 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Pediatric Wellness Program</div><div class="mfp-program-desc">Age-appropriate health education and check-in activities for pediatric members and their caregivers.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Pediatric</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">EPSDT Outreach Program</div><div class="mfp-program-desc">Outreach program supporting preventive screenings and follow-up care for members under 21.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Pediatric</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Outreach</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#ECEFF1;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#37474F;background:#ECEFF1;border-radius:6px;padding:4px;">elderly</span>Senior &amp; Long-Term Care<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">3 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">LTSS Program</div><div class="mfp-program-desc">Long-Term Services and Supports program coordinating in-home care, service planning, and ongoing follow-up.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Aging in Place Support</div><div class="mfp-program-desc">Resources and daily check-ins to help older adults live safely and independently at home.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Digital</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Caregiver Education &amp; Support</div><div class="mfp-program-desc">Education and emotional support content for family caregivers managing a loved one's chronic care needs.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult Caregiver</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="gc-accordion" style="background:#E1F5FE;" onclick="this.classList.toggle('open')">
-                <div class="gc-accordion-header" style="background:transparent;"><span class="material-icons">chevron_right</span><span class="material-icons" style="font-size:16px;color:#0277BD;background:#E1F5FE;border-radius:6px;padding:4px;">rocket_launch</span>Onboarding &amp; Engagement<span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--text-muted);">2 programs</span></div>
-                <div class="gc-accordion-body">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Welcome Program</div><div class="mfp-program-desc">Introduces new members to the app, sets health goals, and establishes a baseline for care management.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Onboarding</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                    <div class="mfp-program-row"><div class="mfp-program-body"><div class="mfp-program-title">Member Orientation &amp; Activation</div><div class="mfp-program-desc">Guided activation flow helping members complete their profile, connect devices, and set communication preferences.</div><div class="mfp-program-tags"><span class="mfp-tag mfp-tag-pop">Adult</span><span class="mfp-tag mfp-tag-lang">English · Spanish</span><span class="mfp-tag mfp-tag-type">Onboarding</span></div></div><div class="mfp-program-action"><a href="#" class="gc-btn gc-btn-sm gc-btn-primary" onclick="event.preventDefault();event.stopPropagation();openMfpProgramModal(this);" style="white-space:nowrap;">View Program</a></div></div>
-                  </div>
-                </div>
-              </div>
-
-            </div><!-- end bpPanel-member -->
-            </div><!-- end bpOpt1 -->
 
             <!-- ══ OPTION 2: full list + chip sort ══ -->
             <div id="bpOpt2">
@@ -1929,54 +1651,6 @@ Diabetes Management</textarea>
             </div><!-- end bpOpt2 -->
 
             <!-- ══ OPTION 3: 3-column layout, one column per program type ══ -->
-            <div id="bpOpt3" style="display:none;">
-
-              <!-- Filter bar -->
-              <div style="background:#F5F5F5;border-radius:6px;padding:12px 14px;margin-bottom:16px;">
-                <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;">
-                  <!-- Program Name -->
-                  <div style="display:flex;flex-direction:column;gap:4px;">
-                    <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Program Name</label>
-                    <input type="text" id="bp3Search" placeholder="Type here" oninput="bp3Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;font-family:var(--font);width:160px;outline:none;color:#333;">
-                  </div>
-                  <!-- Program Type -->
-                  <div style="display:flex;flex-direction:column;gap:4px;">
-                    <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Program Type</label>
-                    <div style="position:relative;display:inline-flex;align-items:center;">
-                      <select id="bp3TypeFilter" onchange="bp3OnTypeChange()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:170px;">
-                        <option value="">All</option>
-                        <option value="Benefit">Eligibility</option>
-                        <option value="General">Clinical</option>
-                        <option value="Member-Facing">Member-Facing</option>
-                      </select>
-                      <span class="material-icons" style="position:absolute;right:4px;font-size:16px;color:#888;pointer-events:none;">expand_more</span>
-                    </div>
-                  </div>
-                  <!-- Sort by — dynamic based on Program Type -->
-                  <div id="bp3SortWrap" style="display:none;flex-direction:column;gap:4px;">
-                    <label style="font-size:11px;font-weight:700;color:#1a1a1a;">Sort By</label>
-                    <div style="position:relative;display:inline-flex;align-items:center;">
-                      <select id="bp3SortFilter" onchange="bp3Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:160px;">
-                      </select>
-                      <span class="material-icons" style="position:absolute;right:4px;font-size:16px;color:#888;pointer-events:none;">expand_more</span>
-                    </div>
-                  </div>
-                  <!-- Search + Clear -->
-                  <div style="display:flex;align-items:center;gap:10px;padding-bottom:1px;">
-                    <button onclick="bp3Render()" style="display:inline-flex;align-items:center;gap:5px;background:#1378A3;color:#fff;border:none;border-radius:4px;padding:6px 14px;font-size:12px;font-weight:600;font-family:var(--font);cursor:pointer;">
-                      <span class="material-icons" style="font-size:14px;">search</span>Search
-                    </button>
-                    <span id="bp3ClearBtn" onclick="bp3ClearFilters()" style="display:none;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;">Clear Filters</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 3-column grid — each column is one section -->
-              <div id="bp3-cols" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start;">
-                <!-- Columns rendered by bp3Render() -->
-              </div>
-
-            </div><!-- end bpOpt3 -->
 
           </div><!-- end browseProgramsPage -->
 
@@ -1996,6 +1670,16 @@ Diabetes Management</textarea>
             </span>
           </div>
           <div style="height:1px;background:var(--border);margin-bottom:14px;"></div>
+
+          <!-- Grid / List toggle -->
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-bottom:12px;">
+            <button id="progViewGrid" onclick="setProgView('grid')" title="Grid view" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #1378A3;border-radius:4px 0 0 4px;background:#1378A3;color:#fff;cursor:pointer;">
+              <span class="material-icons" style="font-size:18px;">grid_view</span>
+            </button>
+            <button id="progViewList" onclick="setProgView('list')" title="List view" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #1378A3;border-left:none;border-radius:0 4px 4px 0;background:#fff;color:#1378A3;cursor:pointer;">
+              <span class="material-icons" style="font-size:18px;">view_list</span>
+            </button>
+          </div>
 
           <!-- ── Add Program Panel ── -->
           <div id="addProgramPanel" style="display:none;margin-bottom:20px;">
@@ -2311,6 +1995,7 @@ Diabetes Management</textarea>
           </div><!-- end addProgramPanel -->
 
           <!-- Unified program card grid -->
+          <div id="programsGridView">
           <div id="programCardGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
             <!-- Card 1: LTSS (Eligibility / Clinical) -->
@@ -2365,6 +2050,68 @@ Diabetes Management</textarea>
             </div>
 
           </div>
+
+          </div><!-- end programsGridView -->
+
+          <!-- ── Programs List View ── -->
+          <div id="programsListView" style="display:none;">
+            <table class="gc-table" style="width:100%;">
+              <thead><tr>
+                <th>Program</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Start / Enrolled</th>
+                <th>Care Manager / Progress</th>
+                <th>Actions</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#E8EEF7;flex-shrink:0;">
+                        <span class="material-icons" style="font-size:15px;color:#0D3761;">verified_user</span>
+                      </span>
+                      <span style="font-size:13px;font-weight:600;color:#1a1a1a;">LTSS</span>
+                    </div>
+                  </td>
+                  <td><span style="font-size:11px;color:#0D3761;background:#E8EEF7;border-radius:10px;padding:2px 8px;font-weight:600;">Eligibility / Clinical</span></td>
+                  <td><span style="color:#2E7D32;font-weight:600;font-size:12px;">Active</span></td>
+                  <td style="font-size:12px;">01/15/2024</td>
+                  <td style="font-size:12px;">Beatrice Kanya, CCM</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:12px;white-space:nowrap;">
+                      <a href="#" onclick="event.preventDefault();document.getElementById('editClinicalProgramModal').classList.add('open');" style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;text-decoration:none;"><span class="material-icons" style="font-size:13px;">edit</span>Edit</a>
+                      <span style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:13px;">history</span>History</span>
+                      <span style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:13px;">add_circle_outline</span>Add Activity</span>
+                      <span style="display:inline-flex;align-items:center;gap:3px;color:#C62828;font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:13px;">delete_outline</span>Delete</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:#E0F4FA;flex-shrink:0;">
+                        <span class="material-icons" style="font-size:15px;color:#006B8F;">phone_iphone</span>
+                      </span>
+                      <span style="font-size:13px;font-weight:600;color:#1a1a1a;">Welcome Program</span>
+                    </div>
+                  </td>
+                  <td><span style="font-size:11px;color:#006B8F;background:#E0F4FA;border-radius:10px;padding:2px 8px;font-weight:600;">Member-Facing</span></td>
+                  <td><span style="color:#2E7D32;font-weight:600;font-size:12px;">Active</span></td>
+                  <td style="font-size:12px;">03/01/2024</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <div style="width:80px;background:#E0F4FA;border-radius:99px;height:6px;"><div style="width:84%;height:100%;background:#1378A3;border-radius:99px;"></div></div>
+                      <span style="font-size:11px;color:#1378A3;font-weight:600;">84%</span>
+                    </div>
+                  </td>
+                  <td>
+                    <a href="#" onclick="event.preventDefault();document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-app');" class="gc-kv-link" style="font-size:12px;display:inline-flex;align-items:center;gap:4px;"><span class="material-icons" style="font-size:13px;">open_in_new</span>View in Wellframe</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- end programsListView -->
 
           </div><!-- end programsDefaultView -->
         </div>
@@ -7468,14 +7215,6 @@ function openScriptResponseModal() {
     if (!dv || !bp) return;
     dv.style.display = 'none';
     bp.style.display = '';
-    // Default to Option 2
-    document.getElementById('bpOpt1').style.display = 'none';
-    document.getElementById('bpOpt2').style.display = '';
-    document.getElementById('bpOpt3').style.display = 'none';
-    ['bpOptTab-1','bpOptTab-3'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) { el.style.background = '#fff'; el.style.color = '#1378A3'; }
-    });
     bp2ActiveType = '';
     bp2SetType('', document.getElementById('bp2chip-all'));
     bp2Render();
@@ -7483,6 +7222,17 @@ function openScriptResponseModal() {
   window.closeBrowseProgramsPage = function() {
     document.getElementById('browseProgramsPage').style.display = 'none';
     document.getElementById('programsDefaultView').style.display = '';
+  };
+  window.setProgView = function(v) {
+    var isGrid = v === 'grid';
+    var gv = document.getElementById('programsGridView');
+    var lv = document.getElementById('programsListView');
+    var gb = document.getElementById('progViewGrid');
+    var lb = document.getElementById('progViewList');
+    if (gv) gv.style.display = isGrid ? '' : 'none';
+    if (lv) lv.style.display = isGrid ? 'none' : '';
+    if (gb) { gb.style.background = isGrid ? '#1378A3' : '#fff'; gb.style.color = isGrid ? '#fff' : '#1378A3'; }
+    if (lb) { lb.style.background = isGrid ? '#fff' : '#1378A3'; lb.style.color = isGrid ? '#1378A3' : '#fff'; }
   };
   window.browseProgTab = function(which) {
     ['staff','member'].forEach(function(t) {
@@ -11498,32 +11248,6 @@ var BP2_STAFF = [
     activities:['Telephonic Outreach','Dual-Eligible Intake Assessment','Integrated Care Plan Development','Semi-Annual Reassessment','Interdisciplinary Team Meeting']},
 ];
 
-
-function bpOptSwitch(n) {
-  var o1 = document.getElementById('bpOpt1');
-  var o2 = document.getElementById('bpOpt2');
-  var o3 = document.getElementById('bpOpt3');
-  var t1 = document.getElementById('bpOptTab-1');
-  var t3 = document.getElementById('bpOptTab-3');
-  if (!o1 || !o2 || !o3) return;
-  // n=1 → variant A (Opt1), n=3 → variant B (Opt3); Opt2 is the default and hides when a variant is active
-  o1.style.display = n === 1 ? '' : 'none';
-  o2.style.display = (n === 1 || n === 3) ? 'none' : '';
-  o3.style.display = n === 3 ? '' : 'none';
-  [t1, t3].forEach(function(t, i) {
-    if (!t) return;
-    var active = (i === 0 ? n === 1 : n === 3);
-    t.style.background  = active ? '#1378A3' : '#fff';
-    t.style.color       = active ? '#fff'    : '#1378A3';
-  });
-  if (n === 1) {
-    window.browseProgTab('staff');
-  }
-  if (n === 3) {
-    bp3Pages = {'Benefit': 1, 'General': 1, 'Member-Facing': 1};
-    bp3Render();
-  }
-}
 
 // ── Option 3 helpers ──────────────────────────────────────────────────────────
 
