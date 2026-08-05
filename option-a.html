@@ -11581,7 +11581,7 @@ function bp2RenderList(pageItems, filtered) {
     var b = BADGE[p.subtype] || BADGE['General'];
     var safeTitle = p.title.replace(/'/g,"\'");
     var hasMF = p.subtype === 'Member-Facing';
-    var addFn = hasMF ? 'openMfpProgramModalDirect('' + safeTitle + '')' : 'openStaffProgModal('' + safeTitle + '','' + p.subtype + '')';
+    var addFn = hasMF ? 'openMfpProgramModalDirect(\'' + safeTitle + '\')' : 'openStaffProgModal(\'' + safeTitle + '\',\'' + p.subtype + '\')';
     var audStr = p.audiences && p.audiences.length ? p.audiences.join(', ') : '—';
     var langStr = p.langs && p.langs.length ? p.langs.join(', ') : '—';
     var descSnip = (p.desc||'').substring(0, 90) + ((p.desc||'').length > 90 ? '…' : '');
