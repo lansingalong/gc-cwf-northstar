@@ -478,7 +478,12 @@
   .wf-tasks-wrap { padding: 8px 10px 0; max-width: 720px; margin: 0 auto; width: 100%; }
   .wf-tasks-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); padding: 8px 4px 6px; }
   .wf-alert-card { border: 1px solid #D8E0E6; border-radius: 6px; margin-bottom: 10px; background: #fff; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-  .wf-alert-card-inner { padding: 14px 44px 12px 16px; }
+  .wf-alert-card-inner { padding: 14px 16px 12px 16px; }
+  .wf-alert-actions { display: flex; gap: 8px; padding: 8px 14px 10px; border-top: 1px solid #EEF2F5; justify-content: flex-end; }
+  .wf-alert-btn-ack { font-size: 11px; font-weight: 700; color: #fff; background: var(--teal); border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; }
+  .wf-alert-btn-ack:hover { background: var(--teal-dark); }
+  .wf-alert-btn-dis { font-size: 11px; font-weight: 700; color: #555; background: #F0F0F0; border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; }
+  .wf-alert-btn-dis:hover { background: #E0E0E0; }
   .wf-alert-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
   .wf-alert-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .wf-alert-icon .material-icons { font-size: 22px; color: #E07820; }
@@ -4445,7 +4450,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Pending — not yet completed.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Check-In card (pending) -->
@@ -4459,7 +4467,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Pending — not yet completed.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Medication card (done) -->
@@ -4473,7 +4484,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Completed by member.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Article card (done) -->
@@ -4487,7 +4501,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Completed by member.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <div class="wf-tasks-section-title" style="margin-top:4px;">Check-Ins</div>
@@ -4503,7 +4520,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Due Apr 20, 2026</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">0% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Check-In detail card 2 -->
@@ -4517,7 +4537,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Due May 1, 2026</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">40% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
             </div>
@@ -6416,7 +6439,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Pending — not yet completed.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Check-In card (pending) -->
@@ -6430,7 +6456,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Pending — not yet completed.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Medication card (done) -->
@@ -6444,7 +6473,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Completed by member.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Article card (done) -->
@@ -6458,7 +6490,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Completed by member.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <div class="wf-tasks-section-title" style="margin-top:4px;">Check-Ins</div>
@@ -6474,7 +6509,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Due Apr 20, 2026</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">0% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Check-In detail card 2 -->
@@ -6488,7 +6526,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Due May 3, 2026</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">0% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
           </div>
@@ -8269,7 +8310,10 @@ function openScriptResponseModal() {
               (opts.checkbox ? '<label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:#444;cursor:pointer;"><input type="checkbox" style="width:16px;height:16px;accent-color:#0080A3;border:2px solid #0080A3;flex-shrink:0;" />' + opts.checkboxLabel + '</label>' : '') +
               (hasFooter ? '<div class="wf-alert-footer"><span class="wf-alert-time">' + (opts.time||'') + '</span>' + (opts.action ? '<a class="wf-alert-action">' + opts.actionLabel + '</a>' : '') + '</div>' : '') +
             '</div>' +
-            '<button class="wf-alert-dismiss" onclick="this.closest(\'.wf-alert-card\').remove()" aria-label="Dismiss">&#x2715;</button>' +
+            '<div class="wf-alert-actions">' +
+              '<button class="wf-alert-btn-ack" onclick="this.closest(\'.wf-alert-card\').remove()">Acknowledge</button>' +
+              '<button class="wf-alert-btn-dis" onclick="this.closest(\'.wf-alert-card\').remove()">Dismiss</button>' +
+            '</div>' +
             (opts.suggested ?
               '<button class="wf-suggested-msg" aria-expanded="false" onclick="var e=this.querySelector(\'.expand-icon\');var exp=this.getAttribute(\'aria-expanded\')===\'true\';e.textContent=exp?\'expand_more\':\'expand_less\';this.setAttribute(\'aria-expanded\',exp?\'false\':\'true\');">' +
                 '<span class="wf-suggested-msg-label"><span class="wf-suggested-msg-icon"><span class="material-icons" aria-hidden="true">chat</span></span>Suggested Message</span>' +
