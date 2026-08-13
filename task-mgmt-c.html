@@ -485,7 +485,12 @@
   .wf-tasks-wrap { padding: 8px 10px 0; max-width: 720px; margin: 0 auto; width: 100%; }
   .wf-tasks-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); padding: 8px 4px 6px; }
   .wf-alert-card { border: 1px solid #D8E0E6; border-radius: 6px; margin-bottom: 10px; background: #fff; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-  .wf-alert-card-inner { padding: 14px 44px 12px 16px; }
+  .wf-alert-card-inner { padding: 14px 16px 12px 16px; }
+  .wf-alert-actions { display: flex; gap: 8px; padding: 8px 14px 10px; border-top: 1px solid #EEF2F5; justify-content: flex-end; }
+  .wf-alert-btn-ack { font-size: 11px; font-weight: 700; color: #fff; background: var(--teal); border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; }
+  .wf-alert-btn-ack:hover { background: var(--teal-dark); }
+  .wf-alert-btn-dis { font-size: 11px; font-weight: 700; color: #555; background: #F0F0F0; border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; }
+  .wf-alert-btn-dis:hover { background: #E0E0E0; }
   .wf-alert-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
   .wf-alert-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .wf-alert-icon .material-icons { font-size: 22px; color: #E07820; }
@@ -629,11 +634,11 @@
   .pw-main-title { font-size:15px; font-weight:700; color:var(--text-primary); display:flex; align-items:center; gap:8px; }
   .pw-main-title .material-icons { font-size:18px; }
   .pw-main-subtitle { font-size:12px; color:var(--text-muted); margin-top:3px; }
-  .pw-toolbar { display:flex; align-items:center; gap:8px; padding:8px 20px; border-bottom:1px solid var(--border-light); background:#fff; flex-shrink:0; flex-wrap:wrap; }
-  .pw-toolbar-action { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:600; color:var(--link); cursor:pointer; padding:3px 6px; border-radius:3px; }
-  .pw-toolbar-action:hover { background:#EBF4F8; }
-  .pw-toolbar-action.disabled { color:#bbb; pointer-events:none; }
-  .pw-toolbar-sep { width:1px; height:14px; background:var(--border); }
+  .pw-toolbar { display:flex; align-items:center; gap:6px; padding:8px 16px; border-bottom:1px solid var(--border-light); background:#fff; flex-shrink:0; flex-wrap:wrap; }
+  .pw-toolbar-action { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:var(--teal-dark); cursor:pointer; padding:5px 11px; border-radius:4px; border:1px solid var(--border); background:#fff; white-space:nowrap; }
+  .pw-toolbar-action:hover { background:#EBF4FA; border-color:var(--teal); }
+  .pw-toolbar-action.disabled { color:#bbb; border-color:#e8e8e8; background:#f7f7f7; pointer-events:none; }
+  .pw-toolbar-sep { width:1px; height:20px; background:var(--border); margin:0 2px; }
   .pw-filter-bar { display:flex; align-items:center; gap:8px; padding:6px 16px; border-bottom:1px solid var(--border-light); background:#fff; flex-shrink:0; flex-wrap:wrap; font-size:11px; }
   .pw-filter-bar label { font-weight:700; color:var(--text-label); }
   .pw-filter-bar select, .pw-filter-bar input[type=text] { height:24px; border:1px solid var(--border); border-radius:var(--r-sm); padding:0 6px; font-size:11px; font-family:var(--font); }
@@ -732,6 +737,20 @@
   .pw-act-btn-primary:hover { border-color:#1378A3; background:#EBF4FA; color:#0D5A82; }
   .pw-act-btn-ghost { border-color:#C5D8E8; color:#1378A3; }
   .pw-act-btn-ghost:hover { border-color:#1378A3; background:#EBF4FA; color:#0D5A82; }
+  .pw-ack-section-label { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text-muted); padding:6px 2px 2px; display:flex; align-items:center; gap:4px; }
+  .pw-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:9000; display:flex; align-items:center; justify-content:center; }
+  .pw-modal { background:#fff; border-radius:8px; box-shadow:0 8px 32px rgba(0,0,0,.18); padding:28px 28px 20px; width:360px; max-width:90vw; }
+  .pw-modal-title { font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:10px; }
+  .pw-modal-body { font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:22px; }
+  .pw-modal-actions { display:flex; gap:8px; justify-content:flex-end; }
+  .pw-modal-btn { font-size:13px; font-weight:600; padding:7px 18px; border-radius:4px; cursor:pointer; border:1px solid; font-family:var(--font); }
+  .pw-modal-btn-confirm { background:#C0392B; color:#fff; border-color:#A93226; }
+  .pw-modal-btn-confirm:hover { background:#A93226; }
+  .pw-modal-btn-cancel { background:#fff; color:var(--text-secondary); border-color:var(--border); }
+  .pw-modal-btn-cancel:hover { background:#f5f5f5; }
+  .pw-mc-act-label-muted { color:var(--text-muted); }
+  .pw-act-btn-acked-state { background:#F0F4F7; color:#999; border-color:#DDE3E8; cursor:default; }
+  .pw-act-btn-acked-state:hover { background:#F0F4F7; color:#999; border-color:#DDE3E8; }
 </style>
 <body>
 
@@ -1144,12 +1163,11 @@
       </div><!-- end pwHomePanel -->
 
       <div class="pw-toolbar">
-        <span class="pw-toolbar-action disabled" id="pwActBatchAssign"><span class="material-icons" style="font-size:13px;">person_add</span> Reassign</span>
-        <span class="pw-toolbar-action disabled" id="pwActBatchAck"><span class="material-icons" style="font-size:13px;">done_all</span> Acknowledge</span>
-        <span class="pw-toolbar-action disabled" id="pwActBatchDismiss"><span class="material-icons" style="font-size:13px;">cancel</span> Dismiss</span>
+        <span class="pw-toolbar-action disabled" id="pwActBatchAck" onclick="pwBatchAck()"><span class="material-icons" style="font-size:14px;">done_all</span> Acknowledge</span>
+        <span class="pw-toolbar-action disabled" id="pwActBatchDismiss" onclick="pwBatchDismiss()"><span class="material-icons" style="font-size:14px;">cancel</span> Dismiss</span>
         <span class="pw-toolbar-sep"></span>
-        <span class="pw-toolbar-action" onclick="pwSelectAll()"><span class="material-icons" style="font-size:13px;">check_box</span> Select All</span>
-        <span class="pw-toolbar-action" onclick="pwClearAll()"><span class="material-icons" style="font-size:13px;">check_box_outline_blank</span> Clear</span>
+        <span class="pw-toolbar-action" onclick="pwSelectAll()"><span class="material-icons" style="font-size:14px;">check_box</span> Select All</span>
+        <span class="pw-toolbar-action" onclick="pwClearAll()"><span class="material-icons" style="font-size:14px;">check_box_outline_blank</span> Clear</span>
         <span id="pwViewToggle" style="display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;margin-left:auto;">
           <button id="pwToggleGrid" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
           <button id="pwToggleList" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
@@ -5553,7 +5571,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Pending — not yet completed.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Check-In card (pending) -->
@@ -5567,7 +5588,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Pending — not yet completed.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Medication card (done) -->
@@ -5581,7 +5605,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Completed by member.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Article card (done) -->
@@ -5595,7 +5622,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Completed by member.</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <div class="wf-tasks-section-title" style="margin-top:4px;">Check-Ins</div>
@@ -5611,7 +5641,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Due Apr 20, 2026</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">0% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
               <!-- Check-In detail card 2 -->
@@ -5625,7 +5658,10 @@ Diabetes Management</textarea>
                   <div class="wf-alert-desc">Due May 1, 2026</div>
                   <div class="wf-alert-footer"><span class="wf-alert-time">40% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
                 </div>
-                <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+                <div class="wf-alert-actions">
+                  <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                  <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+                </div>
               </div>
 
             </div>
@@ -7519,7 +7555,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Pending — not yet completed.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Check-In card (pending) -->
@@ -7533,7 +7572,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Pending — not yet completed.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Pending</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Medication card (done) -->
@@ -7547,7 +7589,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Completed by member.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Article card (done) -->
@@ -7561,7 +7606,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Completed by member.</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">Done</span></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <div class="wf-tasks-section-title" style="margin-top:4px;">Check-Ins</div>
@@ -7577,7 +7625,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Due Apr 20, 2026</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">0% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
             <!-- Check-In detail card 2 -->
@@ -7591,7 +7642,10 @@ Diabetes Management</textarea>
                 <div class="wf-alert-desc">Due May 3, 2026</div>
                 <div class="wf-alert-footer"><span class="wf-alert-time">0% complete</span><a class="wf-alert-action">VIEW DETAIL</a></div>
               </div>
-              <button class="wf-alert-dismiss" onclick="this.closest('.wf-alert-card').remove()" aria-label="Dismiss">&#x2715;</button>
+              <div class="wf-alert-actions">
+                <button class="wf-alert-btn-ack" onclick="this.closest('.wf-alert-card').remove()">Acknowledge</button>
+                <button class="wf-alert-btn-dis" onclick="this.closest('.wf-alert-card').remove()">Dismiss</button>
+              </div>
             </div>
 
           </div>
@@ -7956,32 +8010,32 @@ var PW_DATA = {
     members: [
       { id: 'jackson-thomas', name: 'Jackson Thomas', meta: 'DOB 03/15/1958 · MBR-2024-0847 · High Risk', program: 'Transitions of Care',
         tags: [
-          { label: 'Post-discharge follow-up overdue', origin: 'NCQA requirement · Transitions of Care', type: 'urgent', icon: 'local_hospital', source: 'gc', gcOriginLabel: 'NCQA', alertBehavior: 'resolve' }
+          { label: 'ADT: Admitted · St. Mary\'s Medical Center, 04/09/2026 — ED visit for acute chest pain. Transitions of Care follow-up required within 48 hrs.', origin: 'ADT Feed · Transitions of Care', type: 'urgent', icon: 'local_hospital', source: 'gc', gcOriginLabel: 'ADT', alertBehavior: 'resolve' }
         ], date: '04/10/2026' },
-      { id: 'james-oconnor', name: 'James O\'Connor', meta: 'DOB 02/28/1968 · MBR-2024-0334 · High Risk', program: 'Diabetes Management',
+      { id: 'james-oconnor', name: 'James O\'Connor', meta: 'DOB 02/28/1968 · MBR-2024-0334 · High Risk', program: 'Transitions of Care',
         tags: [
-          { label: 'Colorectal cancer screening overdue', origin: 'CMS / Medicare Advantage · HEDIS measure COL-E', type: 'urgent', icon: 'warning', source: 'gc', gcOriginLabel: 'CMS / Medicare Advantage', alertBehavior: 'resolve' }
+          { label: 'ADT: Discharged · Regional Medical Center, 04/07/2026 — Hip replacement surgery. Post-discharge follow-up and care plan update required within 7 days.', origin: 'ADT Feed · Post-Acute Care', type: 'urgent', icon: 'logout', source: 'gc', gcOriginLabel: 'ADT', alertBehavior: 'resolve' }
         ], date: '04/08/2026' },
       { id: 'barbara-nguyen', name: 'Barbara Nguyen', meta: 'DOB 07/04/1961 · MBR-2024-0512 · Medium Risk', program: 'Care Management',
         tags: [
-          { label: 'Language access requirement', origin: 'State Medicaid contract · Language access requirement', type: 'gc', icon: 'language', source: 'gc', gcOriginLabel: 'State Medicaid', alertBehavior: 'persist' }
+          { label: 'Care plan review due 04/15/2026 — Last reviewed 04/15/2025. Member has 3 open goals requiring reassessment.', origin: 'Care Management · Annual Review Schedule', type: 'urgent', icon: 'assignment', source: 'gc', gcOriginLabel: 'Care Mgmt', alertBehavior: 'resolve' }
         ], date: '04/09/2026' },
-      { id: 'thomas-grant', name: 'Thomas Grant', meta: 'DOB 11/22/1955 · MBR-2024-0291 · High Risk', program: 'Behavioral Health',
+      { id: 'thomas-grant', name: 'Thomas Grant', meta: 'DOB 11/22/1955 · MBR-2024-0291 · High Risk', program: 'Hypertension Management',
         tags: [
-          { label: 'Records restriction active', origin: '42 CFR Part 2 · Substance use disorder records restriction', type: 'urgent', icon: 'lock', source: 'gc', gcOriginLabel: '42 CFR Part 2', alertBehavior: 'persist' }
+          { label: 'Health indicator: Blood pressure 168/102 mmHg — Reading logged 04/07/2026. Above hypertension threshold. Clinical review recommended.', origin: 'Health Indicators · Hypertension Monitoring', type: 'urgent', icon: 'monitor_heart', source: 'gc', gcOriginLabel: 'Health Indicators', alertBehavior: 'resolve' }
         ], date: '04/07/2026' },
-      { id: 'debra-washington', name: 'Debra Washington', meta: 'DOB 05/18/1970 · MBR-2024-1644 · Medium Risk', program: 'Member Services',
+      { id: 'debra-washington', name: 'Debra Washington', meta: 'DOB 05/18/1970 · MBR-2024-1644 · Medium Risk', program: 'Care Management',
         tags: [
-          { label: 'Open grievance on file', origin: 'Health plan policy · Open grievance', type: 'urgent', icon: 'gavel', source: 'gc', gcOriginLabel: 'Health plan policy', alertBehavior: 'resolve' }
+          { label: 'Authorization update: PA-2026-04847 approved — Home health services, 30 visits approved effective 04/06/2026. Update care plan to reflect approved services.', origin: 'Authorization Management · Home Health', type: 'urgent', icon: 'verified', source: 'gc', gcOriginLabel: 'Authorization', alertBehavior: 'resolve' }
         ], date: '04/06/2026' },
       { id: 'helen-cho', name: 'Helen Cho', meta: 'DOB 09/29/1973 · MBR-2024-0739 · High Risk', program: 'Diabetes Management',
         tags: [
-          { label: 'Colorectal cancer screening overdue', origin: 'CMS / Medicare Advantage · HEDIS measure COL-E', type: 'urgent', icon: 'warning', source: 'gc', gcOriginLabel: 'CMS / Medicare Advantage', alertBehavior: 'resolve' },
+          { label: 'Health indicator: HbA1c 9.2% — Lab result received 04/05/2026. Above target range (>8%). Medication adjustment may be needed.', origin: 'Health Indicators · Diabetes Monitoring', type: 'urgent', icon: 'science', source: 'gc', gcOriginLabel: 'Health Indicators', alertBehavior: 'resolve' },
           { label: 'Helen has reported skipping insulin doses for the past 3 days. Please message the member to assess barriers to adherence and provide support.', origin: 'Wellframe alert', type: 'wf', icon: 'notifications', source: 'wf' }
         ], date: '04/06/2026' },
       { id: 'jerome-banks', name: 'Jerome Banks', meta: 'DOB 01/14/1960 · MBR-2024-0483 · High Risk', program: 'Behavioral Health',
         tags: [
-          { label: 'Records restriction active', origin: '42 CFR Part 2 · Substance use disorder records restriction', type: 'urgent', icon: 'lock', source: 'gc', gcOriginLabel: '42 CFR Part 2', alertBehavior: 'persist' },
+          { label: 'Care plan review overdue — Review was due 04/01/2026. Member has had 2 ED visits since last review. Reassessment required.', origin: 'Care Management · Overdue Reviews', type: 'urgent', icon: 'assignment_late', source: 'gc', gcOriginLabel: 'Care Mgmt', alertBehavior: 'resolve' },
           { label: 'Jerome\'s T-score on the PROMIS Depression survey is higher than the mean. Please message the member to follow up.', origin: 'Wellframe alert', type: 'wf', icon: 'notifications', source: 'wf' }
         ], date: '04/05/2026' },
       { id: 'robert-chen', name: 'Robert Chen', meta: 'DOB 11/03/1982 · MBR-2024-0591 · Low Risk', program: 'Fall Prevention',
@@ -9580,13 +9634,13 @@ function pwRender() {
       return '<button class="pw-act-btn ' + cls + '" ' + (extra||'') + '><span class="material-icons">' + icon + '</span>' + txt + '</button>';
     };
     if (pwCurrentBucket === 'new-alerts' && t.source === 'gc') {
-      var behavior = t.alertBehavior || 'resolve';
-      if (behavior === 'resolve') {
-        return btn('pw-act-btn-primary pw-act-dismiss-alert', 'check_circle_outline', 'Resolve &amp; Dismiss', 'data-rowkey="'+rowKey+'"');
-      }
-      // persist: Acknowledge only; once acked the row becomes a note — no buttons shown
       var isAcked = pwAckedAlerts.has(rowKey);
-      return isAcked ? '' : btn('pw-act-btn-ghost pw-act-ack-alert', 'check_circle_outline', 'Acknowledge', 'data-rowkey="'+rowKey+'"');
+      if (isAcked) {
+        return '<button class="pw-act-btn pw-act-btn-acked-state" disabled><span class="material-icons">check_circle</span>Acknowledged</button>' +
+               btn('pw-act-btn-ghost pw-act-dismiss-alert', 'close', 'Dismiss', 'data-rowkey="'+rowKey+'"');
+      }
+      return btn('pw-act-btn-primary pw-act-ack-alert', 'check_circle_outline', 'Acknowledge', 'data-rowkey="'+rowKey+'"') +
+             btn('pw-act-btn-ghost pw-act-dismiss-alert', 'close', 'Dismiss', 'data-rowkey="'+rowKey+'"');
     }
     if (pwCurrentBucket === 'requests-received') {
       var b = btn('pw-act-btn-primary pw-act-perform', 'check_circle_outline', 'Accept', 'data-member="'+mid+'" data-label="'+lbl+'" data-priority="'+p+'"');
@@ -9636,19 +9690,43 @@ function pwRender() {
   }
 
   var is1Col = ['new-alerts','new-insights','wf-inactive','wf-pending-signup','wf-no-invite'].indexOf(pwCurrentBucket) !== -1;
-  var html = '<div class="pw-card-list' + (is1Col ? ' pw-card-list-1col' : '') + '">';
+  var isAlertsBucket = pwCurrentBucket === 'new-alerts';
+  var activeHtml = '', ackedHtml = '', aCount = 0, rCount = 0;
+  var html = isAlertsBucket ? '' : '<div class="pw-card-list' + (is1Col ? ' pw-card-list-1col' : '') + '">';
   memberOrder.forEach(function(mid) {
     var entry = memberMap[mid];
     var m = entry.m;
+    var curCard = '';
     var checked = pwSelected.has(m.id);
     var isInactive = pwCurrentBucket === 'wf-inactive';
     var isPendingSignup = pwCurrentBucket === 'wf-pending-signup';
+
+    // For alerts bucket: determine if all non-dismissed GC alerts are acknowledged
+    var gcNotDismissed = 0, gcAcked = 0;
+    if (isAlertsBucket) {
+      entry.activities.forEach(function(t, ti) {
+        var rk = 'pwmsg-' + m.id + '-' + ti;
+        if (t.source === 'gc' && !pwDismissedAlerts.has(rk)) { gcNotDismissed++; if (pwAckedAlerts.has(rk)) gcAcked++; }
+      });
+    }
+    var allGcAcked = isAlertsBucket && gcNotDismissed > 0 && gcNotDismissed === gcAcked;
+
+    // Skip card entirely if all rows are dismissed (nothing left to show)
+    if (isAlertsBucket) {
+      var hasVisibleRow = entry.activities.some(function(t, ti) {
+        var rk = 'pwmsg-' + m.id + '-' + ti;
+        if (t.source === 'gc' && pwDismissedAlerts.has(rk)) return false;
+        if (t.source === 'gc' && t.alertBehavior === 'persist' && pwAckedAlerts.has(rk)) return false;
+        return true;
+      });
+      if (!hasVisibleRow) return;
+    }
 
     var wfIcon = pwHasWf(m.id) ? pwWfIcon() : '';
     var isAlertInsight = pwCurrentBucket === 'new-alerts' || pwCurrentBucket === 'new-insights';
     var groupActionsHtml = (isAlertInsight && wfIcon) ?
       '<div style="font-size:11px;font-weight:700;color:#1378A3;letter-spacing:.4px;cursor:pointer;display:flex;align-items:center;gap:3px;white-space:nowrap;flex-shrink:0;margin-left:auto;">GROUP ACTIONS <span class="material-icons" style="font-size:14px;">arrow_drop_down</span></div>' : '';
-    html += '<div class="pw-member-card' + (checked ? ' selected' : '') + '" data-id="' + m.id + '">' +
+    curCard += '<div class="pw-member-card' + (checked ? ' selected' : '') + '" data-id="' + m.id + '">' +
       '<div class="pw-mc-header">' +
         '<input type="checkbox"' + (checked ? ' checked' : '') + ' onchange="pwToggle(\'' + m.id + '\',this)" onclick="event.stopPropagation()" style="flex-shrink:0;margin-top:2px;accent-color:var(--teal);">' +
         '<div class="pw-mc-identity">' +
@@ -9709,17 +9787,18 @@ function pwRender() {
           actionsHtml;
       } else {
         var isGcAlert = pwCurrentBucket === 'new-alerts' && t.source === 'gc';
+        var isAckedRow = isGcAlert && pwAckedAlerts.has(rowId);
         var showOrigin = t.origin && t.origin !== 'Wellframe alert' && t.origin !== 'Wellframe overdue task' && !isGcAlert;
         rowContent =
-          srcDot +
+          (isAckedRow ? '' : srcDot) +
           '<div class="pw-mc-act-body">' +
-            '<span class="pw-mc-act-label">' + t.label + '</span>' +
+            '<span class="pw-mc-act-label' + (isAckedRow ? ' pw-mc-act-label-muted' : '') + '">' + t.label + '</span>' +
             (showOrigin ? '<span class="pw-mc-act-origin">' + t.origin + '</span>' : '') +
             actionsHtml +
           '</div>';
       }
 
-      html += '<div class="pw-mc-activity">' + rowContent + '</div>' +
+      curCard += '<div class="pw-mc-activity">' + rowContent + '</div>' +
         (sugMsg ? '<div id="' + rowId + '" style="display:none;padding:10px 16px 14px 31px;border-top:1px solid var(--border-light);background:#F8FBFD;">' +
           '<div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;">Suggested message to member</div>' +
           '<textarea style="width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--font);line-height:1.6;resize:vertical;min-height:80px;outline:none;background:#fff;">' + sugMsg + '</textarea>' +
@@ -9733,16 +9812,32 @@ function pwRender() {
     // Persist notes strip — shown at bottom of card after all activities
     if (persistNotes.length > 0) {
       persistNotes.forEach(function(note) {
-        html += '<div style="display:flex;align-items:flex-start;gap:6px;padding:7px 14px 7px 14px;border-top:1px solid var(--border-light);background:#FFFBF0;">' +
+        curCard += '<div style="display:flex;align-items:flex-start;gap:6px;padding:7px 14px 7px 14px;border-top:1px solid var(--border-light);background:#FFFBF0;">' +
           '<span class="material-icons" style="font-size:13px;color:#996600;flex-shrink:0;margin-top:1px;">info</span>' +
           '<span style="font-size:11px;color:#7A5200;line-height:1.5;">' + note + '</span>' +
         '</div>';
       });
     }
 
-    html += '</div></div>';
+    curCard += '</div></div>';
+
+    if (isAlertsBucket) {
+      if (allGcAcked) { ackedHtml += curCard; rCount++; }
+      else { activeHtml += curCard; aCount++; }
+    } else {
+      html += curCard;
+    }
   });
-  html += '</div>';
+
+  if (isAlertsBucket) {
+    var listContent = activeHtml;
+    if (ackedHtml) {
+      listContent += '<div class="pw-ack-section-label"><span class="material-icons" style="font-size:12px;">check_circle</span> Acknowledged</div>' + ackedHtml;
+    }
+    html = '<div class="pw-card-list pw-card-list-1col">' + listContent + '</div>';
+  } else {
+    html += '</div>';
+  }
 
   if (memberList) memberList.innerHTML = html;
   pwUpdateToolbar();
@@ -9759,7 +9854,7 @@ function pwUpdateToolbar() {
   var n = pwSelected.size;
   var el = document.getElementById('pwSelCount');
   if (el) el.textContent = n > 0 ? n + ' selected' : '';
-  ['pwActBatchAssign','pwActBatchAck','pwActBatchDismiss'].forEach(function(id) {
+  ['pwActBatchAck','pwActBatchDismiss'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (btn) btn.classList.toggle('disabled', n === 0);
   });
@@ -9775,6 +9870,38 @@ function pwSelectAll() {
 function pwClearAll() {
   pwSelected.clear();
   pwRender();
+}
+
+function pwBatchAck() {
+  if (pwCurrentBucket !== 'new-alerts') return;
+  var bucket = PW_DATA[pwCurrentBucket];
+  if (!bucket) return;
+  bucket.members.forEach(function(m) {
+    if (!pwSelected.has(m.id)) return;
+    m.tags.forEach(function(t, ti) {
+      var rk = 'pwmsg-' + m.id + '-' + ti;
+      if (t.source === 'gc' && !pwDismissedAlerts.has(rk)) pwAckedAlerts.add(rk);
+    });
+  });
+  pwSelected.clear();
+  pwRender();
+}
+
+function pwBatchDismiss() {
+  if (pwCurrentBucket !== 'new-alerts') return;
+  pwShowDismissModal(function() {
+    var bucket = PW_DATA[pwCurrentBucket];
+    if (!bucket) return;
+    bucket.members.forEach(function(m) {
+      if (!pwSelected.has(m.id)) return;
+      m.tags.forEach(function(t, ti) {
+        var rk = 'pwmsg-' + m.id + '-' + ti;
+        if (t.source === 'gc' && !pwDismissedAlerts.has(rk)) pwDismissedAlerts.add(rk);
+      });
+    });
+    pwSelected.clear();
+    pwRender();
+  });
 }
 
 function pwSelectAlertTab(el, panel) {
@@ -10143,8 +10270,10 @@ document.addEventListener('DOMContentLoaded', function() {
       if (dismissAlertBtn) {
         e.stopPropagation();
         var rk = dismissAlertBtn.getAttribute('data-rowkey');
-        pwDismissedAlerts.add(rk);
-        pwRender();
+        pwShowDismissModal(function() {
+          pwDismissedAlerts.add(rk);
+          pwRender();
+        });
         return;
       }
     });
@@ -11784,7 +11913,10 @@ function openScriptResponseModal() {
               (opts.checkbox ? '<label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:#444;cursor:pointer;"><input type="checkbox" style="width:16px;height:16px;accent-color:#0080A3;border:2px solid #0080A3;flex-shrink:0;" />' + opts.checkboxLabel + '</label>' : '') +
               (hasFooter ? '<div class="wf-alert-footer"><span class="wf-alert-time">' + (opts.time||'') + '</span>' + (opts.action ? '<a class="wf-alert-action">' + opts.actionLabel + '</a>' : '') + '</div>' : '') +
             '</div>' +
-            '<button class="wf-alert-dismiss" onclick="this.closest(\'.wf-alert-card\').remove()" aria-label="Dismiss">&#x2715;</button>' +
+            '<div class="wf-alert-actions">' +
+              '<button class="wf-alert-btn-ack" onclick="this.closest(\'.wf-alert-card\').remove()">Acknowledge</button>' +
+              '<button class="wf-alert-btn-dis" onclick="this.closest(\'.wf-alert-card\').remove()">Dismiss</button>' +
+            '</div>' +
             (opts.suggested ?
               '<button class="wf-suggested-msg" aria-expanded="false" onclick="var e=this.querySelector(\'.expand-icon\');var exp=this.getAttribute(\'aria-expanded\')===\'true\';e.textContent=exp?\'expand_more\':\'expand_less\';this.setAttribute(\'aria-expanded\',exp?\'false\':\'true\');">' +
                 '<span class="wf-suggested-msg-label"><span class="wf-suggested-msg-icon"><span class="material-icons" aria-hidden="true">chat</span></span>Suggested Message</span>' +
@@ -17290,5 +17422,31 @@ function filterTimeline(source) {
 
 
 
+<!-- Dismiss confirmation modal -->
+<div id="pwDismissModal" class="pw-modal-overlay" style="display:none;" onclick="if(event.target===this)pwDismissModalCancel()">
+  <div class="pw-modal">
+    <div class="pw-modal-title">Dismiss Alert</div>
+    <div class="pw-modal-body">Are you sure you want to dismiss this alert?</div>
+    <div class="pw-modal-actions">
+      <button class="pw-modal-btn pw-modal-btn-cancel" onclick="pwDismissModalCancel()">Cancel</button>
+      <button class="pw-modal-btn pw-modal-btn-confirm" onclick="pwDismissModalConfirm()">Dismiss</button>
+    </div>
+  </div>
+</div>
+<script>
+var _pwDismissPendingFn = null;
+function pwShowDismissModal(fn) {
+  _pwDismissPendingFn = fn;
+  document.getElementById('pwDismissModal').style.display = 'flex';
+}
+function pwDismissModalConfirm() {
+  document.getElementById('pwDismissModal').style.display = 'none';
+  if (_pwDismissPendingFn) { _pwDismissPendingFn(); _pwDismissPendingFn = null; }
+}
+function pwDismissModalCancel() {
+  document.getElementById('pwDismissModal').style.display = 'none';
+  _pwDismissPendingFn = null;
+}
+</script>
 </body>
 </html>
