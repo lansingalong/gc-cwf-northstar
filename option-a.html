@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concept A — Hub + Integrated</title>
+<title>GuidingCare × Wellframe North Star</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
@@ -600,14 +600,9 @@
 <body>
 
 <div class="proto-bar">
-  <span class="proto-bar-label">Concept A</span>
+  <span class="proto-bar-label">Care-Wellframe Northstar Prototype</span>
   <div class="proto-nav-pills">
-    <span class="proto-pill active">A : Hub + Integrated</span>
-    <a class="proto-pill" href="option-b.html">B : Integrated</a>
-    <span id="proto-c-toggle" onclick="var el=document.getElementById('proto-c-link');var shown=el.style.display!=='none';el.style.display=shown?'none':'inline-flex';this.textContent=shown?'›':'‹';" style="cursor:pointer;font-size:14px;color:#fff;opacity:0.4;padding:0 2px;line-height:1;font-weight:300;" title="Show/hide C">›</span>
-    <a id="proto-c-link" class="proto-pill" href="option-c.html" title="C — Old" style="display:none;opacity:0.55;font-size:10px;">C : Old</a>
-    <span style="color:#444;margin:0 2px;">|</span>
-    <a class="proto-pill task-pill" href="task-mgmt-a.html">Task Management</a>
+    <a class="proto-pill task-pill" href="task-mgmt-c.html">Task Management</a>
   </div>
 </div>
 
@@ -5958,7 +5953,7 @@ Diabetes Management</textarea>
         <div class="ar-tab-panel" id="artab-articles" style="display:none;">
 
           <!-- ── DEFAULT VIEW ── -->
-          <div id="art-default-view" style="display:none;">
+          <div id="art-default-view">
 
             <!-- Note row -->
             <div style="margin-bottom:10px;">
@@ -6117,7 +6112,7 @@ Diabetes Management</textarea>
           </div><!-- end #art-default-view -->
 
           <!-- ── LIBRARY VIEW (replaces default view when Add & Send Articles is clicked) ── -->
-          <div id="art-library-view">
+          <div id="art-library-view" style="display:none">
 
             <!-- Page header -->
             <div style="background:#fff;padding:4px 0 0;">
@@ -7041,7 +7036,7 @@ function openScriptResponseModal() {
       var target = tab.getAttribute('data-artab');
       var panel = document.getElementById('artab-' + target);
       if (panel) { panel.style.display = ''; panel.classList.add('active'); }
-      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; alAFilter(); }
+      if (artLibraryOpen) { artLibraryOpen = false; document.getElementById('art-default-view').style.display = 'block'; document.getElementById('art-library-view').style.display = 'none'; }
       if (target === 'member-activity') switchMaView(_currentMaView);
     });
   });
@@ -7059,7 +7054,7 @@ function openScriptResponseModal() {
     var panel = document.getElementById(panelId);
     if (panel) { panel.style.display = ''; panel.classList.add('active'); }
     if (panelId === 'artab-member-activity') switchMaView(_currentMaView);
-    if (panelId !== 'artab-articles' && artLibraryOpen) { artLibraryOpen = true; document.getElementById('art-default-view').style.display = 'none'; document.getElementById('art-library-view').style.display = 'block'; alAFilter(); }
+    if (artLibraryOpen) { artLibraryOpen = false; document.getElementById('art-default-view').style.display = 'block'; document.getElementById('art-library-view').style.display = 'none'; }
   }
 
   // Click a B-tab
@@ -7075,7 +7070,7 @@ function openScriptResponseModal() {
     var directMapB = { 'notes':'artab-notes', 'documents':'artab-documents', 'articles':'artab-articles', 'consent-forms':'artab-consent-forms', 'guidelines':'artab-guidelines', 'member-alerts':'artab-member-alerts' };
     if (directMapB[arb]) {
       var p = document.getElementById(directMapB[arb]); if (p) { p.style.display=''; p.classList.add('active'); }
-      if (arb === 'articles' && artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
+      if (arb === 'articles') { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
     } else if (arb === 'activities') {
       var g = document.getElementById('artab-b-activities'); if (g) g.style.display = '';
       var firstSub = g ? g.querySelector('.ar-sub-tab') : null;
@@ -7130,7 +7125,8 @@ function openScriptResponseModal() {
       libPanelIds.forEach(function(id) { var p = document.getElementById(id); if (p) { p.style.display='none'; p.classList.remove('active'); } });
       var panel = document.getElementById(target);
       if (panel) { panel.style.display=''; panel.classList.add('active'); }
-      if (target!=='artab-articles' && artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
+      if (artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
+      if (target==='artab-articles') { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
     });
   });
 
@@ -7147,7 +7143,8 @@ function openScriptResponseModal() {
       var panel = document.getElementById(target);
       if (panel) { panel.style.display=''; panel.classList.add('active'); }
       if (target==='artab-member-activity') switchMaView(_currentMaView);
-      if (target!=='artab-articles' && artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
+      if (artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
+      if (target==='artab-articles') { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
     });
   });
 
@@ -12613,10 +12610,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ── Article Library toggle ────────────────────────────────
-var artLibraryOpen = true;
-
-// Populate library grid on page load since list view is default
-document.addEventListener('DOMContentLoaded', function() { alAFilter(); });
+var artLibraryOpen = false;
 
 function toggleArticleLibrary() {
   artLibraryOpen = !artLibraryOpen;
