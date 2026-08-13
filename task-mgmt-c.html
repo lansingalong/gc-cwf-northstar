@@ -728,8 +728,8 @@
   .pw-mc-act-label { font-size:13px; color:var(--text-primary); line-height:1.4; display:block; }
   .pw-mc-act-origin { font-size:11px; color:var(--text-muted); display:block; margin-top:2px; }
   .pw-mc-act-actions { display:flex; gap:6px; align-items:flex-start; flex-wrap:wrap; flex-shrink:0; padding-top:1px; }
-  .pw-mc-act-body .pw-mc-act-actions { padding-top:7px; }
-  .pw-mc-act-body .pw-act-btn { font-size:11px; padding:3px 10px; }
+  .pw-mc-act-body .pw-mc-act-actions { padding-top:12px; padding-bottom:5px; }
+  .pw-mc-act-body .pw-act-btn { font-size:11px; padding:5px 12px; }
   .pw-act-btn { display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:600; padding:5px 14px; border-radius:4px; cursor:pointer; white-space:nowrap; border:1px solid #C5D8E8; background:#fff; color:#1378A3; font-family:var(--font); line-height:1.4; }
   .pw-act-btn:hover { border-color:#1378A3; background:#EBF4FA; color:#0D5A82; }
   .pw-act-btn .material-icons { display:none; }
@@ -738,6 +738,24 @@
   .pw-act-btn-ghost { border-color:#C5D8E8; color:#1378A3; }
   .pw-act-btn-ghost:hover { border-color:#1378A3; background:#EBF4FA; color:#0D5A82; }
   .pw-ack-section-label { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text-muted); padding:6px 2px 2px; display:flex; align-items:center; gap:4px; }
+  .pw-group-actions { font-size:11px; font-weight:700; letter-spacing:.4px; display:flex; align-items:center; gap:3px; white-space:nowrap; flex-shrink:0; color:#bbb; cursor:default; user-select:none; }
+  .pw-group-actions.active { color:#1378A3; cursor:pointer; }
+  .pw-group-actions.active:hover { text-decoration:underline; }
+  .pw-mc-right { display:flex; align-items:center; gap:6px; margin-left:auto; flex-shrink:0; }
+  .pw-mc-member-menu-btn { display:flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:4px; cursor:pointer; color:var(--text-muted); flex-shrink:0; }
+  .pw-mc-member-menu-btn:hover { background:#EAECEF; color:var(--text-primary); }
+  .pw-mc-member-menu-btn .material-icons { font-size:18px; }
+  .pw-ga-menu { position:fixed; background:#fff; border:1px solid var(--border-light); border-radius:6px; box-shadow:0 4px 20px rgba(0,0,0,.13); z-index:8000; min-width:210px; padding:6px 0; }
+  .pw-ga-item { padding:10px 20px; font-size:13px; color:#333; cursor:pointer; }
+  .pw-ga-item:hover { background:#F4F6F8; color:var(--teal-dark); }
+  .pw-member-menu { position:fixed; background:#fff; border:1px solid var(--border-light); border-radius:6px; box-shadow:0 4px 20px rgba(0,0,0,.13); z-index:8000; min-width:190px; padding:4px 0; }
+  .pw-member-menu-item { padding:9px 18px; font-size:13px; color:#333; cursor:pointer; border-bottom:1px solid #F0F0F0; }
+  .pw-member-menu-item:last-child { border-bottom:none; }
+  .pw-member-menu-item:hover { background:#F4F6F8; }
+  .pw-sugg-toggle { display:flex; align-items:center; gap:6px; padding:7px 14px; border-top:1px solid var(--border-light); font-size:11.5px; font-weight:600; color:var(--teal-dark); cursor:pointer; background:#FAFBFC; user-select:none; }
+  .pw-sugg-toggle:hover { background:#EBF4FA; }
+  .pw-sugg-toggle .pw-sugg-chevron { margin-left:auto; font-size:16px; color:var(--text-muted); transition:transform .15s; }
+  .pw-sugg-toggle.open .pw-sugg-chevron { transform:rotate(180deg); }
   .pw-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:9000; display:flex; align-items:center; justify-content:center; }
   .pw-modal { background:#fff; border-radius:8px; box-shadow:0 8px 32px rgba(0,0,0,.18); padding:28px 28px 20px; width:360px; max-width:90vw; }
   .pw-modal-title { font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:10px; }
@@ -885,7 +903,7 @@
           <div class="pw-bucket-label">
             Alerts
           </div>
-          <span class="pw-bucket-count urgent">14</span>
+          <span class="pw-bucket-count urgent" id="pwAlertsCount">14</span>
         </div>
 
         <div class="pw-bucket" data-bucket="new-insights" onclick="pwSelectBucket(this)">
@@ -9657,7 +9675,8 @@ function pwRender() {
     }
     if (pwCurrentBucket === 'new-alerts' && t.source === 'wf') {
       return btn('pw-act-view-survey', 'assignment', 'Survey', 'data-member="'+mid+'" data-label="'+lbl+'"') +
-             btn('pw-act-btn-primary pw-act-toggle-msg', 'chat', 'Message', 'data-member="'+mid+'" data-label="'+lbl+'" data-name="'+nm+'"');
+             btn('pw-act-btn-primary pw-act-toggle-msg', 'chat', 'Message', 'data-member="'+mid+'" data-label="'+lbl+'" data-name="'+nm+'"') +
+             btn('pw-act-btn-ghost pw-act-dismiss-alert', 'close', 'Dismiss', 'data-rowkey="'+rowKey+'"');
     }
     if (pwCurrentBucket === 'wf-inactive' || pwCurrentBucket === 'wf-pending-signup' || pwCurrentBucket === 'wf-no-invite') {
       return btn('pw-act-btn-primary pw-act-toggle-msg', 'chat', 'Message', 'data-member="'+mid+'" data-label="'+lbl+'" data-name="'+nm+'"');
@@ -9715,7 +9734,7 @@ function pwRender() {
     if (isAlertsBucket) {
       var hasVisibleRow = entry.activities.some(function(t, ti) {
         var rk = 'pwmsg-' + m.id + '-' + ti;
-        if (t.source === 'gc' && pwDismissedAlerts.has(rk)) return false;
+        if (pwDismissedAlerts.has(rk)) return false;
         if (t.source === 'gc' && t.alertBehavior === 'persist' && pwAckedAlerts.has(rk)) return false;
         return true;
       });
@@ -9724,8 +9743,12 @@ function pwRender() {
 
     var wfIcon = pwHasWf(m.id) ? pwWfIcon() : '';
     var isAlertInsight = pwCurrentBucket === 'new-alerts' || pwCurrentBucket === 'new-insights';
-    var groupActionsHtml = (isAlertInsight && wfIcon) ?
-      '<div style="font-size:11px;font-weight:700;color:#1378A3;letter-spacing:.4px;cursor:pointer;display:flex;align-items:center;gap:3px;white-space:nowrap;flex-shrink:0;margin-left:auto;">GROUP ACTIONS <span class="material-icons" style="font-size:14px;">arrow_drop_down</span></div>' : '';
+    var gaHtml = (isAlertInsight && wfIcon) ?
+      '<div class="pw-group-actions' + (checked ? ' active' : '') + '" onclick="pwShowGroupActions(event,\'' + m.id + '\')">GROUP ACTIONS <span class="material-icons" style="font-size:14px;">arrow_drop_down</span></div>' : '';
+    var memberMenuBtn = isAlertsBucket ?
+      '<div class="pw-mc-member-menu-btn" onclick="pwShowMemberMenu(event,\'' + m.id + '\')" title="More actions"><span class="material-icons">more_vert</span></div>' : '';
+    var groupActionsHtml = (gaHtml || memberMenuBtn) ?
+      '<div class="pw-mc-right">' + gaHtml + memberMenuBtn + '</div>' : '';
     curCard += '<div class="pw-member-card' + (checked ? ' selected' : '') + '" data-id="' + m.id + '">' +
       '<div class="pw-mc-header">' +
         '<input type="checkbox"' + (checked ? ' checked' : '') + ' onchange="pwToggle(\'' + m.id + '\',this)" onclick="event.stopPropagation()" style="flex-shrink:0;margin-top:2px;accent-color:var(--teal);">' +
@@ -9752,7 +9775,7 @@ function pwRender() {
         return;
       }
 
-      if (pwCurrentBucket === 'new-alerts' && t.source === 'gc' && pwDismissedAlerts.has(rowKey)) return;
+      if (pwCurrentBucket === 'new-alerts' && pwDismissedAlerts.has(rowKey)) return;
       var sugMsg = ((pwCurrentBucket === 'new-alerts' || pwCurrentBucket === 'new-insights') && t.source === 'wf') ? pwSuggestedMessage(m.name.split(' ')[0], t.label) : '';
       var srcDot = '<span class="pw-src-dot ' + (t.source === 'wf' ? 'pw-src-dot-wf' : 'pw-src-dot-gc') + '"></span>';
 
@@ -9799,14 +9822,20 @@ function pwRender() {
       }
 
       curCard += '<div class="pw-mc-activity">' + rowContent + '</div>' +
-        (sugMsg ? '<div id="' + rowId + '" style="display:none;padding:10px 16px 14px 31px;border-top:1px solid var(--border-light);background:#F8FBFD;">' +
-          '<div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;">Suggested message to member</div>' +
-          '<textarea style="width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--font);line-height:1.6;resize:vertical;min-height:80px;outline:none;background:#fff;">' + sugMsg + '</textarea>' +
-          '<div style="margin-top:8px;display:flex;align-items:center;gap:8px;">' +
-            '<button class="pw-act-btn pw-act-btn-primary" onclick="document.getElementById(\'' + rowId + '\').style.display=\'none\';"><span class="material-icons">send</span>Send via Chat</button>' +
-            '<button class="pw-act-btn pw-act-btn-ghost" onclick="document.getElementById(\'' + rowId + '\').style.display=\'none\';">Cancel</button>' +
+        (sugMsg ?
+          '<div class="pw-sugg-toggle" onclick="pwToggleSugg(this)">' +
+            '<span class="material-icons" style="font-size:14px;color:var(--teal);">chat_bubble_outline</span>' +
+            'Suggested message' +
+            '<span class="material-icons pw-sugg-chevron">expand_more</span>' +
           '</div>' +
-        '</div>' : '');
+          '<div id="' + rowId + '" style="display:none;padding:10px 14px 14px;border-top:1px solid var(--border-light);background:#F8FBFD;">' +
+            '<textarea style="width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--font);line-height:1.6;resize:vertical;min-height:80px;outline:none;background:#fff;">' + sugMsg + '</textarea>' +
+            '<div style="margin-top:8px;display:flex;align-items:center;gap:8px;">' +
+              '<button class="pw-act-btn pw-act-btn-primary"><span class="material-icons">send</span>Send via Chat</button>' +
+              '<button class="pw-act-btn pw-act-btn-ghost" onclick="pwToggleSugg(this.closest(\'[style]\').previousElementSibling)">Cancel</button>' +
+            '</div>' +
+          '</div>'
+        : '');
     });
 
     // Persist notes strip — shown at bottom of card after all activities
@@ -9841,6 +9870,7 @@ function pwRender() {
 
   if (memberList) memberList.innerHTML = html;
   pwUpdateToolbar();
+  pwUpdateAlertsCount();
 }
 
 function pwToggle(id, cb) {
@@ -9870,6 +9900,33 @@ function pwSelectAll() {
 function pwClearAll() {
   pwSelected.clear();
   pwRender();
+}
+
+function pwToggleSugg(toggleEl) {
+  var body = toggleEl.nextElementSibling;
+  if (!body) return;
+  var isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  toggleEl.classList.toggle('open', !isOpen);
+  if (!isOpen) { var ta = body.querySelector('textarea'); if (ta) ta.focus(); }
+}
+
+function pwUpdateAlertsCount() {
+  var el = document.getElementById('pwAlertsCount');
+  if (!el) return;
+  var bucket = PW_DATA['new-alerts'];
+  if (!bucket) return;
+  var count = 0;
+  bucket.members.forEach(function(m) {
+    var hasActive = m.tags.some(function(t, ti) {
+      var rk = 'pwmsg-' + m.id + '-' + ti;
+      if (pwDismissedAlerts.has(rk)) return false;
+      if (t.source === 'gc' && pwAckedAlerts.has(rk)) return false;
+      return true;
+    });
+    if (hasActive) count++;
+  });
+  el.textContent = count;
 }
 
 function pwBatchAck() {
@@ -10165,12 +10222,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var d = new Date();
     todayLabel.textContent = d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
   }
-  // Show alert filter bar on initial load (default bucket is new-alerts)
-  var initAlertBar = document.getElementById('pwFilterBarAlerts');
-  var initDefBar = document.getElementById('pwFilterBarDefault');
-  if (initAlertBar) initAlertBar.style.display = '';
-  if (initDefBar) initDefBar.style.display = 'none';
-  pwRender();
+  // Initialize to home bucket (hides toolbar, filter bars, member list)
+  var initHomeBtn = document.querySelector('[data-bucket="home"]');
+  if (initHomeBtn) pwSelectBucket(initHomeBtn);
   // Delegated handlers for priority worklist action buttons
   var pwList = document.getElementById('pwMemberList');
   if (pwList) {
@@ -10241,13 +10295,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Find the sibling expand pane by walking up to .pw-mc-activity then finding the next sibling
         var actRow = toggleMsg.closest('.pw-mc-activity');
         if (actRow) {
-          var pane = actRow.nextElementSibling;
-          if (pane && pane.id && pane.id.startsWith('pwmsg-')) {
-            pane.style.display = pane.style.display === 'none' ? '' : 'none';
-            if (pane.style.display !== 'none') {
-              var ta = pane.querySelector('textarea');
-              if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
-            }
+          var next = actRow.nextElementSibling;
+          // Skip the sugg-toggle row to find the panel
+          if (next && next.classList.contains('pw-sugg-toggle')) next = next.nextElementSibling;
+          if (next && next.id && next.id.startsWith('pwmsg-')) {
+            var toggleRow = next.previousElementSibling;
+            if (toggleRow && toggleRow.classList.contains('pw-sugg-toggle')) pwToggleSugg(toggleRow);
           }
         }
         return;
@@ -17421,6 +17474,51 @@ function filterTimeline(source) {
 </div>
 
 
+
+<!-- WF Group Actions dropdown -->
+<div id="pwGroupActionsMenu" class="pw-ga-menu" style="display:none;">
+  <div class="pw-ga-item">Send in-app message</div>
+  <div class="pw-ga-item">Add follow-up</div>
+  <div class="pw-ga-item">Add instruction</div>
+  <div class="pw-ga-item">Edit care team</div>
+  <div class="pw-ga-item">Edit care programs</div>
+  <div class="pw-ga-item">Update gap status</div>
+</div>
+
+<!-- Per-member context menu -->
+<div id="pwMemberMenu" class="pw-member-menu" style="display:none;">
+  <div class="pw-member-menu-item">Add Activity</div>
+  <div class="pw-member-menu-item">View Calendar</div>
+  <div class="pw-member-menu-item">View Summary</div>
+  <div class="pw-member-menu-item">Required Activities</div>
+  <div class="pw-member-menu-item">Create Message</div>
+  <div class="pw-member-menu-item">View Member Alerts</div>
+</div>
+<script>
+function pwShowGroupActions(e, memberId) {
+  if (!pwSelected.has(memberId)) return;
+  e.stopPropagation();
+  var menu = document.getElementById('pwGroupActionsMenu');
+  var rect = e.currentTarget.getBoundingClientRect();
+  menu.style.left = rect.left + 'px';
+  menu.style.top = (rect.bottom + 4) + 'px';
+  menu.style.display = 'block';
+}
+function pwShowMemberMenu(e, memberId) {
+  e.stopPropagation();
+  var menu = document.getElementById('pwMemberMenu');
+  var rect = e.currentTarget.getBoundingClientRect();
+  menu.style.left = (rect.right - 190) + 'px';
+  menu.style.top = (rect.bottom + 4) + 'px';
+  menu.style.display = 'block';
+}
+document.addEventListener('click', function() {
+  var ga = document.getElementById('pwGroupActionsMenu');
+  var mm = document.getElementById('pwMemberMenu');
+  if (ga) ga.style.display = 'none';
+  if (mm) mm.style.display = 'none';
+});
+</script>
 
 <!-- Dismiss confirmation modal -->
 <div id="pwDismissModal" class="pw-modal-overlay" style="display:none;" onclick="if(event.target===this)pwDismissModalCancel()">
