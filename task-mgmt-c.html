@@ -122,18 +122,25 @@
   .gc-banner-expand { margin-left: auto; cursor: pointer; color: #315E7B; }
 
   /* ── Left sidebar nav (collapsed, icon-only, per-item hover tooltip) ── */
-  .gc-left-nav { width: 44px; min-width: 44px; background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 4px 0; overflow: visible; position: relative; z-index: 50; }
+  .gc-left-nav { width: 44px; min-width: 44px; background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 4px 0; overflow-y: auto; overflow-x: visible; position: relative; z-index: 50; scrollbar-width: none; }
+  .gc-left-nav::-webkit-scrollbar { display: none; }
   .gc-left-item { display: flex; align-items: center; justify-content: center; padding: 10px 0; font-size: 11px; color: var(--text-secondary); cursor: pointer; border-left: 3px solid transparent; line-height: 1.2; user-select: none; position: relative; }
   .gc-left-item:hover { background: var(--surface-light); color: var(--teal); }
   .gc-left-item.active { background: var(--teal-light); color: var(--teal-dark); border-left-color: var(--teal); font-weight: 700; }
   .gc-left-icon { font-size: 22px; line-height: 1; }
   .gc-left-icon .material-icons { color: #315E7B; font-size: 22px; }
   .gc-left-item.active .gc-left-icon .material-icons { color: var(--teal-dark); }
-  .gc-left-label { position: absolute; left: 100%; top: 50%; transform: translateY(-50%); background: var(--white); border: 1px solid var(--border); border-left: none; border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 6px 14px 6px 10px; font-size: 12px; font-weight: 600; color: var(--teal); white-space: nowrap; box-shadow: 2px 1px 6px rgba(0,0,0,0.1); opacity: 0; pointer-events: none; transition: opacity 0.12s ease; z-index: 60; }
+  .gc-left-label { position: fixed; left: 44px; top: 0; background: var(--white); border: 1px solid var(--border); border-left: none; border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 6px 14px 6px 10px; font-size: 12px; font-weight: 600; color: var(--teal); white-space: nowrap; box-shadow: 2px 1px 6px rgba(0,0,0,0.1); opacity: 0; pointer-events: none; transition: opacity 0.12s ease; z-index: 9999; transform: translateY(-50%); }
   .gc-left-item:hover .gc-left-label { opacity: 1; pointer-events: auto; }
+  .gc-left-divider { margin: 6px 6px 2px; border-top: 1px solid var(--border); padding-top: 4px; text-align: center; font-size: 8px; font-weight: 700; letter-spacing: 0.6px; color: #aaa; text-transform: uppercase; cursor: default; user-select: none; }
 
   /* ── Member detail tabs ── */
   .gc-tabs { display: flex; border-bottom: 2px solid var(--border-light); padding: 0; margin-bottom: 0; background: var(--white); }
+  /* Article library view: hidden by default, shown only via .art-lib-open class.
+     !important ensures stale JS inline styles can never override the default. */
+  #art-library-view { display: none !important; }
+  #artab-articles.art-lib-open #art-library-view { display: block !important; }
+  #artab-articles.art-lib-open #art-default-view { display: none !important; }
   .gc-tab { padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; user-select: none; }
   .gc-tab:hover { color: var(--text-secondary); }
   .gc-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
@@ -690,7 +697,8 @@
   .pw-source-badge img { width:12px; height:12px; }
 
   /* ── card-list view ── */
-  .pw-card-list { flex:1; overflow-y:auto; padding:12px 16px; display:flex; flex-direction:column; gap:8px; background:#F4F6F8; }
+  .pw-card-list { flex:1; overflow-y:auto; padding:12px 16px; display:grid; grid-template-columns:repeat(2,1fr); gap:10px; background:#F4F6F8; align-content:start; }
+  .pw-card-list-1col { grid-template-columns:1fr; }
   .pw-member-card { background:#fff; border-radius:6px; border:1px solid var(--border-light); box-shadow:0 1px 2px rgba(0,0,0,.05); overflow:hidden; }
   .pw-member-card.selected { border-color:var(--teal); box-shadow:0 0 0 2px rgba(19,120,163,.12); }
   .pw-mc-header { display:flex; align-items:flex-start; gap:10px; padding:10px 14px 8px; }
@@ -730,13 +738,13 @@
 <div class="proto-bar">
   <span class="proto-bar-label">Task Management</span>
   <div class="proto-nav-pills">
-    <a class="proto-pill" href="option-a.html">← Back to Hub + Integrated</a>
+    <a class="proto-pill" href="option-a.html">← Back to Home</a>
   </div>
 </div>
 <div class="proto-toggle-bar">
-  <a class="proto-pill task-pill" href="task-mgmt-a.html">A : Task Management</a>
-  <a class="proto-pill task-pill" href="task-mgmt-b.html">B : Task Management</a>
-  <span class="proto-pill task-pill active">C : Task Management</span>
+  <a class="proto-pill task-pill" href="task-mgmt-a.html" style="display:none">A : Task Management</a>
+  <a class="proto-pill task-pill" href="task-mgmt-b.html" style="display:none">B : Task Management</a>
+  <span class="proto-pill task-pill active" style="display:none">C : Task Management</span>
 </div>
 
 <!-- ══════════════ GLOBAL NAV ══════════════ -->
@@ -895,6 +903,12 @@
           <span class="pw-bucket-count">5</span>
         </div>
 
+        <div class="pw-bucket" data-bucket="my-care-activity" onclick="pwSelectBucket(this)">
+          <span class="material-icons pw-bucket-icon" style="color:#1378A3;">assignment</span>
+          <div class="pw-bucket-label">My Care Activity Log</div>
+          <span class="pw-bucket-count">5</span>
+        </div>
+
         <div class="pw-bucket-divider">Outreach Needed</div>
 
         <div class="pw-bucket" data-bucket="wf-pending-signup" onclick="pwSelectBucket(this)">
@@ -919,6 +933,32 @@
             No Invite Sent
           </div>
           <span class="pw-bucket-count">10</span>
+        </div>
+
+        <div class="pw-bucket-divider">Utilization Management</div>
+
+        <div class="pw-bucket" data-bucket="um-open-auth" onclick="pwSelectBucket(this)">
+          <span class="material-icons pw-bucket-icon" style="color:#1378A3;">verified_user</span>
+          <div class="pw-bucket-label">Open Authorization</div>
+          <span class="pw-bucket-count">8</span>
+        </div>
+
+        <div class="pw-bucket" data-bucket="um-pending-auth" onclick="pwSelectBucket(this)">
+          <span class="material-icons pw-bucket-icon" style="color:#1378A3;">pending_actions</span>
+          <div class="pw-bucket-label">Pending Authorization Activities</div>
+          <span class="pw-bucket-count">5</span>
+        </div>
+
+        <div class="pw-bucket" data-bucket="um-open-complaints" onclick="pwSelectBucket(this)">
+          <span class="material-icons pw-bucket-icon" style="color:#1378A3;">gavel</span>
+          <div class="pw-bucket-label">Open Complaints</div>
+          <span class="pw-bucket-count">3</span>
+        </div>
+
+        <div class="pw-bucket" data-bucket="um-pending-complaints" onclick="pwSelectBucket(this)">
+          <span class="material-icons pw-bucket-icon" style="color:#1378A3;">assignment_late</span>
+          <div class="pw-bucket-label">Pending Complaint Activities</div>
+          <span class="pw-bucket-count">4</span>
         </div>
 
       </div>
@@ -1110,7 +1150,11 @@
         <span class="pw-toolbar-sep"></span>
         <span class="pw-toolbar-action" onclick="pwSelectAll()"><span class="material-icons" style="font-size:13px;">check_box</span> Select All</span>
         <span class="pw-toolbar-action" onclick="pwClearAll()"><span class="material-icons" style="font-size:13px;">check_box_outline_blank</span> Clear</span>
-        <span style="margin-left:auto;font-size:11px;color:var(--text-muted);" id="pwSelCount"></span>
+        <span id="pwViewToggle" style="display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;margin-left:auto;">
+          <button id="pwToggleGrid" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
+          <button id="pwToggleList" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
+        </span>
+        <span style="font-size:11px;color:var(--text-muted);" id="pwSelCount"></span>
       </div>
 
       <div class="pw-filter-bar" id="pwFilterBarDefault">
@@ -1123,28 +1167,91 @@
       </div>
 
       <div class="pw-filter-bar" id="pwFilterBarRequests" style="display:none;">
-        <label>Module</label>
-        <select id="rrModuleFilter" style="width:80px;" onchange="pwFilterRequests()">
-          <option value="">All</option>
-          <option value="CM">CM</option>
-          <option value="MS">MS</option>
-          <option value="UM">UM</option>
-          <option value="AG">AG</option>
-        </select>
-        <label>Type</label>
-        <select id="rrTypeFilter" style="width:120px;" onchange="pwFilterRequests()">
-          <option value="">All Types</option>
-          <option value="Activity">Activity</option>
-          <option value="Appointment">Appointment</option>
-          <option value="Care Plan">Care Plan</option>
-          <option value="Messages">Messages</option>
-          <option value="Faxes">Faxes</option>
-        </select>
-        <label>Member</label>
-        <input type="text" id="rrMemberFilter" placeholder="Search name..." style="width:120px;" oninput="pwFilterRequests()">
-        <span class="pw-toolbar-action" style="margin-left:auto;" onclick="pwClearRequestsFilter()"><span class="material-icons" style="font-size:13px;">refresh</span> Refresh</span>
+        <span id="rrTabReceived" onclick="rrSelectTab('received')" style="font-size:12px;font-weight:700;color:var(--teal-dark);cursor:pointer;padding:3px 0;border-bottom:2px solid var(--teal);white-space:nowrap;">Received Requests</span>
+        <span id="rrTabRejected" onclick="rrSelectTab('rejected')" style="font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;padding:3px 0;border-bottom:2px solid transparent;white-space:nowrap;">Rejected Requests</span>
+        <span class="pw-toolbar-sep"></span>
+        <span id="rrFilters" style="display:inline-flex;align-items:center;gap:8px;">
+          <label>Module</label>
+          <select id="rrModuleFilter" style="width:80px;" onchange="pwFilterRequests()">
+            <option value="">All</option>
+            <option value="CM">CM</option>
+            <option value="MS">MS</option>
+            <option value="UM">UM</option>
+            <option value="AG">AG</option>
+          </select>
+          <label>Type</label>
+          <select id="rrTypeFilter" style="width:120px;" onchange="pwFilterRequests()">
+            <option value="">All Types</option>
+            <option value="Activity">Activity</option>
+            <option value="Appointment">Appointment</option>
+            <option value="Care Plan">Care Plan</option>
+            <option value="Messages">Messages</option>
+            <option value="Faxes">Faxes</option>
+          </select>
+          <label>Member</label>
+          <input type="text" id="rrMemberFilter" placeholder="Search name..." style="width:120px;" oninput="pwFilterRequests()">
+          <span class="pw-toolbar-action" onclick="pwClearRequestsFilter()"><span class="material-icons" style="font-size:13px;">refresh</span> Refresh</span>
+        </span>
         <span class="pw-toolbar-sep"></span>
         <span class="pw-toolbar-action" style="color:#1378A3;font-weight:600;"><span class="material-icons" style="font-size:13px;">assignment</span> Care Activity Log</span>
+      </div>
+
+
+      <div class="pw-filter-bar" id="pwFilterBarOpenAuth" style="display:none;">
+        <label>Auth ID</label>
+        <input type="text" id="oaAuthIdFilter" placeholder="e.g. AUTH-2026-0341" style="width:140px;" oninput="pwRenderOpenAuth()">
+        <label>First Name</label>
+        <input type="text" id="oaFirstNameFilter" placeholder="First name..." style="width:100px;" oninput="pwRenderOpenAuth()">
+        <label>Last Name</label>
+        <input type="text" id="oaLastNameFilter" placeholder="Last name..." style="width:100px;" oninput="pwRenderOpenAuth()">
+        <label>From Date</label>
+        <input type="date" id="oaDateFrom" style="height:24px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:11px;font-family:var(--font);" onchange="pwRenderOpenAuth()">
+        <span style="font-size:11px;color:var(--text-muted);">–</span>
+        <input type="date" id="oaDateTo" style="height:24px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:11px;font-family:var(--font);" onchange="pwRenderOpenAuth()">
+        <span class="pw-toolbar-action" onclick="oaClearFilters()"><span class="material-icons" style="font-size:13px;">refresh</span> Clear</span>
+      </div>
+
+      <div id="pwFilterBarCareActivity" style="display:none;flex-direction:column;border-bottom:1px solid var(--border-light);background:#fff;flex-shrink:0;">
+        <!-- Tab strip -->
+        <div style="display:flex;gap:0;padding:0 16px;border-bottom:1px solid var(--border-light);overflow-x:auto;flex-shrink:0;">
+          <span id="calTab-today"            onclick="calSelectTab('today')"            style="font-size:12px;font-weight:700;color:var(--teal-dark);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid var(--teal);white-space:nowrap;">Today's Activities</span>
+          <span id="calTab-open-auth"        onclick="calSelectTab('open-auth')"        style="font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid transparent;white-space:nowrap;">Open Authorizations</span>
+          <span id="calTab-open-complaints"  onclick="calSelectTab('open-complaints')"  style="font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid transparent;white-space:nowrap;">Open Complaints</span>
+          <span id="calTab-received"         onclick="calSelectTab('received')"         style="font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid transparent;white-space:nowrap;">Requests Received</span>
+          <span id="calTab-rejected"         onclick="calSelectTab('rejected')"         style="font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid transparent;white-space:nowrap;">Requests Rejected</span>
+          <span id="calTab-other-staff"      onclick="calSelectTab('other-staff')"      style="font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid transparent;white-space:nowrap;">Activities by Other Staff</span>
+        </div>
+        <!-- Filter row -->
+        <div id="calFilterRow" style="display:flex;align-items:flex-end;padding:10px 16px;gap:0;flex-wrap:wrap;">
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Module</span>
+            <select id="calModuleFilter" style="width:72px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:12px;font-family:var(--font);background:#fff;">
+              <option>CM</option><option>MS</option><option>UM</option><option>AG</option>
+            </select>
+          </div>
+          <div id="calCareStaffField" style="display:flex;flex-direction:column;gap:3px;margin-left:10px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Care Staff</span>
+            <input type="text" id="calCareStaffFilter" value="Y Cai : All Access Admin" style="width:180px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-left:10px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Member ID</span>
+            <input type="text" id="calMemberIdFilter" style="width:110px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-left:10px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Member Name</span>
+            <input type="text" id="calMemberNameFilter" style="width:140px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-left:10px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">From Date <span style="font-weight:400;color:var(--text-muted);">MM/DD/YYYY</span></span>
+            <input type="date" id="calDateFrom" style="width:140px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-left:10px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">To Date <span style="font-weight:400;color:var(--text-muted);">MM/DD/YYYY</span></span>
+            <input type="date" id="calDateTo" style="width:140px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <button onclick="pwRenderCareActivityLog()" style="margin-left:12px;height:28px;padding:0 14px;background:#1C4F6B;color:#fff;border:none;border-radius:var(--r-sm);font-size:12px;font-weight:600;font-family:var(--font);cursor:pointer;display:inline-flex;align-items:center;gap:5px;align-self:flex-end;"><span class="material-icons" style="font-size:14px;">search</span>Search</button>
+          <span onclick="calClearFilters()" style="margin-left:8px;font-size:12px;font-weight:600;color:var(--link);cursor:pointer;display:inline-flex;align-items:center;gap:3px;align-self:flex-end;"><span style="font-size:14px;">×</span> Clear</span>
+        </div>
       </div>
 
       <div class="pw-filter-bar" id="pwFilterBarAlerts" style="display:none;">
@@ -1883,6 +1990,19 @@ Diabetes Management</textarea>
     </div>
     <div class="gc-left-item" data-left="wellframe" role="button" aria-label="Wellframe">
       <span class="gc-left-icon"><img src="assets/Wellframe/Logomark.png" alt="" aria-hidden="true" style="width:22px;height:22px;object-fit:contain;" /></span><span class="gc-left-label">Wellframe</span>
+    </div>
+    <div class="gc-left-divider" title="Utilization Management">UM</div>
+    <div class="gc-left-item" data-left="open-authorization">
+      <span class="gc-left-icon"><span class="material-icons">verified_user</span></span><span class="gc-left-label">Open Authorization</span>
+    </div>
+    <div class="gc-left-item" data-left="pending-auth-activities">
+      <span class="gc-left-icon"><span class="material-icons">pending_actions</span></span><span class="gc-left-label">Pending Authorization Activities</span>
+    </div>
+    <div class="gc-left-item" data-left="open-complaints">
+      <span class="gc-left-icon"><span class="material-icons">gavel</span></span><span class="gc-left-label">Open Complaints</span>
+    </div>
+    <div class="gc-left-item" data-left="pending-complaint-activities">
+      <span class="gc-left-icon"><span class="material-icons">assignment_late</span></span><span class="gc-left-label">Pending Complaint Activities</span>
     </div>
   </nav>
 
@@ -6621,7 +6741,7 @@ Diabetes Management</textarea>
           </div><!-- end #art-default-view -->
 
           <!-- ── LIBRARY VIEW (replaces default view when Add & Send Articles is clicked) ── -->
-          <div id="art-library-view" style="display:none;">
+          <div id="art-library-view" style="display:none !important">
 
             <!-- Page header -->
             <div style="background:#fff;padding:4px 0 0;">
@@ -7632,6 +7752,194 @@ Diabetes Management</textarea>
       </div>
     </div>
 
+    <!-- ═══ LEFT PANEL: Open Authorization ═══ -->
+    <div class="left-panel" id="panel-open-authorization">
+      <div class="content-body">
+        <div class="gc-table-wrap">
+          <div class="gc-table-toolbar">
+            <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">add</span> New Authorization</span>
+            <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">2 record(s)</span>
+          </div>
+          <table class="gc-table">
+            <thead>
+              <tr>
+                <th>Auth ID</th>
+                <th>Type</th>
+                <th>Service</th>
+                <th>Provider</th>
+                <th>Status</th>
+                <th>Requested Date</th>
+                <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#" class="gc-kv-link">AUTH-2026-0341</a></td>
+                <td>Inpatient</td>
+                <td>Cardiac Rehabilitation (12 sessions)</td>
+                <td>Providence Heart Institute</td>
+                <td><span class="gc-badge gc-badge-warn">Pending Review</span></td>
+                <td>08/01/2026</td>
+                <td>08/15/2026</td>
+              </tr>
+              <tr>
+                <td><a href="#" class="gc-kv-link">AUTH-2026-0298</a></td>
+                <td>DME</td>
+                <td>Home Oxygen Equipment</td>
+                <td>AlaskaCare Medical Supply</td>
+                <td><span class="gc-badge gc-badge-warn">Under Review</span></td>
+                <td>07/28/2026</td>
+                <td>08/11/2026</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="gc-table-footer">
+            <span>Showing 1-2 of 2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LEFT PANEL: Pending Authorization Activities ═══ -->
+    <div class="left-panel" id="panel-pending-auth-activities">
+      <div class="content-body">
+        <div class="gc-table-wrap">
+          <div class="gc-table-toolbar">
+            <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">3 record(s)</span>
+          </div>
+          <table class="gc-table">
+            <thead>
+              <tr>
+                <th>Activity ID</th>
+                <th>Auth ID</th>
+                <th>Activity Type</th>
+                <th>Assigned To</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#" class="gc-kv-link">ACT-2026-1102</a></td>
+                <td><a href="#" class="gc-kv-link">AUTH-2026-0341</a></td>
+                <td>Clinical Review</td>
+                <td>Jennifer Reyes, RN</td>
+                <td>08/10/2026</td>
+                <td><span class="gc-badge gc-badge-danger">High</span></td>
+                <td><span class="gc-badge gc-badge-warn">Pending</span></td>
+              </tr>
+              <tr>
+                <td><a href="#" class="gc-kv-link">ACT-2026-1098</a></td>
+                <td><a href="#" class="gc-kv-link">AUTH-2026-0298</a></td>
+                <td>Medical Records Request</td>
+                <td>Sarah Kim, CM</td>
+                <td>08/08/2026</td>
+                <td><span class="gc-badge gc-badge-warn">Medium</span></td>
+                <td><span class="gc-badge gc-badge-warn">Pending</span></td>
+              </tr>
+              <tr>
+                <td><a href="#" class="gc-kv-link">ACT-2026-1087</a></td>
+                <td><a href="#" class="gc-kv-link">AUTH-2026-0298</a></td>
+                <td>Peer-to-Peer Review</td>
+                <td>Dr. Marcus Webb</td>
+                <td>08/12/2026</td>
+                <td><span class="gc-badge gc-badge-warn">Medium</span></td>
+                <td><span class="gc-badge gc-badge-neutral">Scheduled</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="gc-table-footer">
+            <span>Showing 1-3 of 3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LEFT PANEL: Open Complaints ═══ -->
+    <div class="left-panel" id="panel-open-complaints">
+      <div class="content-body">
+        <div class="gc-table-wrap">
+          <div class="gc-table-toolbar">
+            <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">add</span> File Complaint</span>
+            <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">1 record(s)</span>
+          </div>
+          <table class="gc-table">
+            <thead>
+              <tr>
+                <th>Complaint ID</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Filed Date</th>
+                <th>Status</th>
+                <th>Resolution Due</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#" class="gc-kv-link">CMP-2026-0188</a></td>
+                <td>Utilization Review</td>
+                <td>Denial of home oxygen authorization</td>
+                <td>07/30/2026</td>
+                <td><span class="gc-badge gc-badge-warn">Open</span></td>
+                <td>08/29/2026</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="gc-table-footer">
+            <span>Showing 1 of 1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LEFT PANEL: Pending Complaint Activities ═══ -->
+    <div class="left-panel" id="panel-pending-complaint-activities">
+      <div class="content-body">
+        <div class="gc-table-wrap">
+          <div class="gc-table-toolbar">
+            <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">2 record(s)</span>
+          </div>
+          <table class="gc-table">
+            <thead>
+              <tr>
+                <th>Activity ID</th>
+                <th>Complaint ID</th>
+                <th>Activity Type</th>
+                <th>Assigned To</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#" class="gc-kv-link">ACT-2026-1115</a></td>
+                <td><a href="#" class="gc-kv-link">CMP-2026-0188</a></td>
+                <td>Acknowledgement Letter</td>
+                <td>Sarah Kim, CM</td>
+                <td>08/06/2026</td>
+                <td><span class="gc-badge gc-badge-danger">High</span></td>
+                <td><span class="gc-badge gc-badge-warn">Pending</span></td>
+              </tr>
+              <tr>
+                <td><a href="#" class="gc-kv-link">ACT-2026-1118</a></td>
+                <td><a href="#" class="gc-kv-link">CMP-2026-0188</a></td>
+                <td>Investigation Review</td>
+                <td>Jennifer Reyes, RN</td>
+                <td>08/20/2026</td>
+                <td><span class="gc-badge gc-badge-warn">Medium</span></td>
+                <td><span class="gc-badge gc-badge-neutral">Not Started</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="gc-table-footer">
+            <span>Showing 1-2 of 2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -7760,6 +8068,19 @@ var PW_DATA = {
         tags: [{ label: 'Member inquiry — inhaler coverage question', origin: 'Module: UM · Type: Activity · Eligibility: COPD Management · Routed by: Marcus Webb', type: 'gc', icon: 'chat', source: 'gc', isRequest: true, hasAttachment: false, activityType: 'Messages', scheduledDate: '—', referDate: '08/04/2026', status: 'Pending' }], date: '08/04/2026' },
       { id: 'patricia-flores', name: 'Patricia Flores', meta: 'DOB 02/19/1979 · MBR-2024-1487 · Medium Risk', program: 'Behavioral Health',
         tags: [{ label: 'Appeal — denial of outpatient behavioral health services', origin: 'Module: AG · Type: Appeal · Work Queue: AG > AG Appeal > BH WQ · Routed by: System', type: 'urgent', icon: 'gavel', source: 'gc', isRequest: true, hasAttachment: true, activityType: 'Activity', scheduledDate: '08/09/2026', referDate: '08/01/2026', status: 'Pending' }], date: '08/01/2026' }
+    ]
+  },
+  'requests-rejected': {
+    title: 'Rejected Requests',
+    icon: 'inbox',
+    iconColor: '#555',
+    subtitle: '5 requests · Activities and cases declined from your work queue',
+    members: [
+      { id: 'thomas-grant',    name: 'Thomas Grant',    meta: 'DOB 11/22/1955 · MBR-2024-0291 · High Risk',   program: 'Behavioral Health',    tags: [{ label: 'Psychiatric Follow-Up',            origin: 'Module: CM · Type: Activity',   activityType: 'Activity',    referDate: '07/28/2026' }], declinedBy: 'Beatrice Okafor', declinedDate: '07/29/2026', reason: 'Not in my panel' },
+      { id: 'maria-rivera',    name: 'Maria Rivera',    meta: 'DOB 08/22/1975 · MBR-2024-1203',               program: 'Health Risk Assessment', tags: [{ label: 'HRA Outreach Call',                origin: 'Module: MS · Type: Activity',   activityType: 'Activity',    referDate: '07/30/2026' }], declinedBy: 'Beatrice Okafor', declinedDate: '07/31/2026', reason: 'Duplicate request' },
+      { id: 'robert-chen',     name: 'Robert Chen',     meta: 'DOB 11/03/1982 · MBR-2024-0591 · Low Risk',    program: 'Fall Prevention',        tags: [{ label: 'Inbound fax — PT referral',        origin: 'Module: CM · Type: Activity',   activityType: 'Faxes',       referDate: '08/01/2026' }], declinedBy: 'Beatrice Okafor', declinedDate: '08/01/2026', reason: 'Wrong work queue' },
+      { id: 'helen-cho',       name: 'Helen Cho',       meta: 'DOB 09/29/1973 · MBR-2024-0739 · High Risk',   program: 'Diabetes Management',    tags: [{ label: 'Medication Adherence Check-In',    origin: 'Module: UM · Type: Activity',   activityType: 'Messages',    referDate: '08/02/2026' }], declinedBy: 'Beatrice Okafor', declinedDate: '08/02/2026', reason: 'Member inactive' },
+      { id: 'barbara-nguyen',  name: 'Barbara Nguyen',  meta: 'DOB 07/04/1961 · MBR-2024-0512 · Medium Risk', program: 'Care Management',        tags: [{ label: 'Care Plan Update — CHF Protocol',  origin: 'Module: CM · Type: Care Plan',  activityType: 'Care Plan',   referDate: '08/03/2026' }], declinedBy: 'Beatrice Okafor', declinedDate: '08/04/2026', reason: 'Already completed' }
     ]
   },
   'due-today': {
@@ -7938,6 +8259,79 @@ var PW_DATA = {
       { id: 'sarah-williams', name: 'Sarah Williams', lastName: 'Williams',firstName: 'Sarah',   eligibility: 'Active', dob: '06/17/1990', memberId: 'MBR-2024-2108', risk: 'Medium', nextContact: '08/12/2026', assignedDate: '02/20/2025', program: 'Maternal Health', tags: [], date: '' },
       { id: 'james-oconnor', name: "James O'Connor", lastName: "O'Connor",firstName: 'James',   eligibility: 'Active', dob: '02/28/1968', memberId: 'MBR-2024-0334', risk: 'High', nextContact: '08/08/2026', assignedDate: '01/05/2025', program: 'Behavioral Health', tags: [], date: '' }
     ]
+  },
+  'um-open-auth': {
+    title: 'Open Authorization',
+    icon: 'verified_user',
+    iconColor: '#1378A3',
+    subtitle: '8 members · Authorization requests currently open and pending decision',
+    members: [
+      { id: 'jackson-thomas', name: 'Jackson Thomas', eligibility: 'Active', memberId: 'MBR-2024-0847', authId: 'AUTH-2026-0341', authType: 'Inpatient', fromDate: '08/01/2026', provider: 'Providence Heart Institute', authDueDate: '08/15/2026', nextReviewDate: '08/10/2026', tags: [], date: '08/01/2026' },
+      { id: 'debra-washington', name: 'Debra Washington', eligibility: 'Active', memberId: 'MBR-2024-1644', authId: 'AUTH-2026-0298', authType: 'DME', fromDate: '07/28/2026', provider: 'AlaskaCare Medical Supply', authDueDate: '08/11/2026', nextReviewDate: '08/07/2026', tags: [], date: '07/28/2026' },
+      { id: 'helen-cho', name: 'Helen Cho', eligibility: 'Active', memberId: 'MBR-2024-0739', authId: 'AUTH-2026-0312', authType: 'DME', fromDate: '07/30/2026', provider: 'MedEquip Alaska', authDueDate: '08/13/2026', nextReviewDate: '08/09/2026', tags: [], date: '07/30/2026' },
+      { id: 'jerome-banks', name: 'Jerome Banks', eligibility: 'Active', memberId: 'MBR-2024-0483', authId: 'AUTH-2026-0287', authType: 'Inpatient', fromDate: '07/25/2026', provider: 'Alaska Psychiatric Institute', authDueDate: '08/08/2026', nextReviewDate: '08/05/2026', tags: [], date: '07/25/2026' },
+      { id: 'barbara-nguyen', name: 'Barbara Nguyen', eligibility: 'Active', memberId: 'MBR-2024-0512', authId: 'AUTH-2026-0302', authType: 'Outpatient', fromDate: '07/29/2026', provider: 'Alaska Physical Therapy Group', authDueDate: '08/12/2026', nextReviewDate: '08/08/2026', tags: [], date: '07/29/2026' },
+      { id: 'robert-chen', name: 'Robert Chen', eligibility: 'Active', memberId: 'MBR-2024-0591', authId: 'AUTH-2026-0319', authType: 'Outpatient', fromDate: '08/02/2026', provider: 'Providence Radiology', authDueDate: '08/16/2026', nextReviewDate: '08/11/2026', tags: [], date: '08/02/2026' },
+      { id: 'maria-rivera', name: 'Maria Rivera', eligibility: 'Active', memberId: 'MBR-2024-1203', authId: 'AUTH-2026-0326', authType: 'Outpatient', fromDate: '08/03/2026', provider: 'Alaska Surgery Center', authDueDate: '08/17/2026', nextReviewDate: '08/12/2026', tags: [], date: '08/03/2026' },
+      { id: 'thomas-grant', name: 'Thomas Grant', eligibility: 'Active', memberId: 'MBR-2024-0291', authId: 'AUTH-2026-0334', authType: 'Home Health', fromDate: '08/04/2026', provider: 'Anchorage Home Health Services', authDueDate: '08/18/2026', nextReviewDate: '08/13/2026', tags: [], date: '08/04/2026' }
+    ]
+  },
+  'um-pending-auth': {
+    title: 'Pending Authorization Activities',
+    icon: 'pending_actions',
+    iconColor: '#1378A3',
+    subtitle: '5 members · Authorization activities requiring action',
+    members: [
+      { id: 'jackson-thomas',  name: 'Jackson Thomas',  altruistaId: 'ALT-48291', authId: 'AUTH-2026-0341', authDueDate: '08/15/2026', activityType: 'Clinical Review',        activityDueDate: '08/10/2026', activityFollowUpDate: '08/12/2026', assignedBy: 'Jennifer Reyes, RN',  provider: 'Providence Heart Institute',      tags: [], date: '08/10/2026' },
+      { id: 'debra-washington', name: 'Debra Washington', altruistaId: 'ALT-53104', authId: 'AUTH-2026-0298', authDueDate: '08/11/2026', activityType: 'Medical Records Request', activityDueDate: '08/08/2026', activityFollowUpDate: '08/09/2026', assignedBy: 'Sarah Kim, CM',        provider: 'AlaskaCare Medical Supply',       tags: [], date: '08/08/2026' },
+      { id: 'jerome-banks',    name: 'Jerome Banks',    altruistaId: 'ALT-61837', authId: 'AUTH-2026-0287', authDueDate: '08/08/2026', activityType: 'Peer-to-Peer Review',    activityDueDate: '08/12/2026', activityFollowUpDate: '08/14/2026', assignedBy: 'Dr. Marcus Webb',     provider: 'Alaska Psychiatric Institute',    tags: [], date: '08/12/2026' },
+      { id: 'helen-cho',       name: 'Helen Cho',       altruistaId: 'ALT-39572', authId: 'AUTH-2026-0312', authDueDate: '08/13/2026', activityType: 'Physician Review',       activityDueDate: '08/09/2026', activityFollowUpDate: '08/11/2026', assignedBy: 'Jennifer Reyes, RN',  provider: 'MedEquip Alaska',                 tags: [], date: '08/09/2026' },
+      { id: 'barbara-nguyen',  name: 'Barbara Nguyen',  altruistaId: 'ALT-27648', authId: 'AUTH-2026-0302', authDueDate: '08/12/2026', activityType: 'Member Notification',    activityDueDate: '08/07/2026', activityFollowUpDate: '08/08/2026', assignedBy: 'Sarah Kim, CM',        provider: 'Alaska Physical Therapy Group',   tags: [], date: '08/07/2026' }
+    ]
+  },
+  'um-open-complaints': {
+    title: 'Open Complaints',
+    icon: 'gavel',
+    iconColor: '#1378A3',
+    subtitle: '3 members · Complaints currently open and under investigation',
+    members: [
+      { id: 'debra-washington', name: 'Debra Washington', eligibility: 'Active', complaintId: 'CMP-2026-0188', level: 'Level 1', complaintType: 'Utilization Review', altruistaId: 'ALT-53104', complaintDueDate: '08/29/2026', activityType: 'Acknowledgement Letter', activityDate: '07/30/2026', tags: [], date: '07/30/2026' },
+      { id: 'barbara-nguyen',   name: 'Barbara Nguyen',   eligibility: 'Active', complaintId: 'CMP-2026-0174', level: 'Level 1', complaintType: 'Access to Care',      altruistaId: 'ALT-27648', complaintDueDate: '08/21/2026', activityType: 'Investigation Review',  activityDate: '07/22/2026', tags: [], date: '07/22/2026' },
+      { id: 'thomas-grant',     name: 'Thomas Grant',     eligibility: 'Active', complaintId: 'CMP-2026-0165', level: 'Level 2', complaintType: 'Billing Dispute',     altruistaId: 'ALT-74319', complaintDueDate: '08/14/2026', activityType: 'Member Interview',      activityDate: '07/15/2026', tags: [], date: '07/15/2026' }
+    ]
+  },
+  'um-pending-complaints': {
+    title: 'Pending Complaint Activities',
+    icon: 'assignment_late',
+    iconColor: '#1378A3',
+    subtitle: '4 members · Complaint activities requiring action',
+    members: [
+      { id: 'debra-washington', name: 'Debra Washington', altruistaId: 'ALT-53104', complaintId: 'CMP-2026-0188', level: 'Level 1', complaintDueDate: '08/29/2026', activityType: 'Acknowledgement Letter', activityDueDate: '08/06/2026', assignedBy: 'Sarah Kim, CM',       priority: 'High',   tags: [], date: '08/06/2026' },
+      { id: 'debra-washington', name: 'Debra Washington', altruistaId: 'ALT-53104', complaintId: 'CMP-2026-0188', level: 'Level 1', complaintDueDate: '08/29/2026', activityType: 'Investigation Review',  activityDueDate: '08/20/2026', assignedBy: 'Jennifer Reyes, RN', priority: 'Medium', tags: [], date: '08/20/2026' },
+      { id: 'barbara-nguyen',   name: 'Barbara Nguyen',   altruistaId: 'ALT-27648', complaintId: 'CMP-2026-0174', level: 'Level 1', complaintDueDate: '08/21/2026', activityType: 'Resolution Letter',    activityDueDate: '08/22/2026', assignedBy: 'Sarah Kim, CM',       priority: 'Medium', tags: [], date: '08/22/2026' },
+      { id: 'thomas-grant',     name: 'Thomas Grant',     altruistaId: 'ALT-74319', complaintId: 'CMP-2026-0165', level: 'Level 2', complaintDueDate: '08/14/2026', activityType: 'Member Interview',      activityDueDate: '08/15/2026', assignedBy: 'Dr. Marcus Webb',    priority: 'High',   tags: [], date: '08/15/2026' }
+    ]
+  },
+  'my-care-activity': {
+    title: 'My Care Activity Log',
+    icon: 'assignment',
+    iconColor: '#1378A3',
+    subtitle: '5 activities · Today\'s care activities assigned to you',
+    rows: [
+      { eligibility: 'Active',   lastName: 'Thomas',    firstName: 'Jackson', memberId: 'MBR-2024-0847', activityType: 'Phone Outreach',          mp: 'CM', followUpDateTime: '08/14/2026 10:00 AM', dueDate: '08/15/2026', assignedBy: 'Y. Cai',   reassignedBy: '',            providerName: 'Dr. A. Singh',         priority: 'High',   payor: 'Medicaid', programName: 'Diabetes Management',     scriptType: 'Outreach Script A' },
+      { eligibility: 'Active',   lastName: 'Rivera',    firstName: 'Maria',   memberId: 'MBR-2024-1203', activityType: 'HRA Interview',           mp: 'MS', followUpDateTime: '08/14/2026 02:00 PM', dueDate: '08/14/2026', assignedBy: 'Y. Cai',   reassignedBy: '',            providerName: '',                     priority: 'Normal', payor: 'Medicaid', programName: 'Health Risk Assessment',  scriptType: 'HRA Script' },
+      { eligibility: 'Active',   lastName: 'Williams',  firstName: 'Sarah',   memberId: 'MBR-2024-2108', activityType: 'Welcome Call',            mp: 'CM', followUpDateTime: '08/15/2026 09:00 AM', dueDate: '08/15/2026', assignedBy: 'Y. Cai',   reassignedBy: '',            providerName: 'Valley OB/GYN',        priority: 'Normal', payor: 'Medicaid', programName: 'Maternal Health',         scriptType: 'Welcome Script' },
+      { eligibility: 'Active',   lastName: 'Chen',      firstName: 'Robert',  memberId: 'MBR-2024-0591', activityType: 'Medication Reconciliation', mp: 'CM', followUpDateTime: '08/16/2026 11:00 AM', dueDate: '08/16/2026', assignedBy: 'Y. Cai',   reassignedBy: '',            providerName: 'Fall Prevention Center', priority: 'Normal', payor: 'Medicare', programName: 'Fall Prevention',        scriptType: 'Med Rec Script' },
+      { eligibility: 'Active',   lastName: "O'Connor",  firstName: 'James',   memberId: 'MBR-2024-0334', activityType: 'Psychiatric Follow-Up',   mp: 'CM', followUpDateTime: '08/18/2026 03:00 PM', dueDate: '08/18/2026', assignedBy: 'Y. Cai',   reassignedBy: 'J. Reyes, RN', providerName: 'Alaska Psychiatric Institute', priority: 'High', payor: 'Medicaid', programName: 'Behavioral Health', scriptType: 'Outreach Script B' }
+    ],
+    otherStaffRows: [
+      { eligibility: 'Active',  lastName: 'Grant',     firstName: 'Thomas',  memberId: 'MBR-2024-0291', activityType: 'Psychiatric Follow-Up',    mp: 'CM', datePerformed: '08/13/2026 08:45 AM', careStaff: 'Beatrice Okafor, CM', assignedBy: 'B. Okafor', reassignedBy: '',         providerName: 'Alaska Psychiatric Institute', priority: 'High',   payor: 'Medicaid', programName: 'Behavioral Health',    scriptType: 'Outreach Script B' },
+      { eligibility: 'Active',  lastName: 'Washington',firstName: 'Debra',   memberId: 'MBR-2024-1644', activityType: 'Blood Pressure Check-In',   mp: 'CM', datePerformed: '08/13/2026 10:30 AM', careStaff: 'Jennifer Reyes, RN',  assignedBy: 'J. Reyes',  reassignedBy: '',         providerName: 'Providence Heart Institute',   priority: 'Normal', payor: 'Medicaid', programName: 'Hypertension',          scriptType: 'Monitoring Script' },
+      { eligibility: 'Active',  lastName: 'Reed',      firstName: 'Charles', memberId: 'MBR-2024-1102', activityType: 'Diabetes Education Session', mp: 'CM', datePerformed: '08/13/2026 01:15 PM', careStaff: 'Sarah Kim, CM',        assignedBy: 'S. Kim',    reassignedBy: '',         providerName: 'Dr. A. Singh',                 priority: 'Normal', payor: 'Medicaid', programName: 'Diabetes Management',  scriptType: 'Education Script' },
+      { eligibility: 'Active',  lastName: 'Cho',       firstName: 'Helen',   memberId: 'MBR-2024-0739', activityType: 'Asthma Action Plan Review', mp: 'CM', datePerformed: '08/12/2026 03:00 PM', careStaff: 'Marcus Webb, MD',      assignedBy: 'M. Webb',   reassignedBy: 'J. Reyes', providerName: 'Alaska Respiratory Care',      priority: 'Normal', payor: 'Medicaid', programName: 'Asthma Management',    scriptType: 'Clinical Script A' },
+      { eligibility: 'Active',  lastName: 'Powell',    firstName: 'Angela',  memberId: 'MBR-2024-1855', activityType: 'Nutrition Coaching Call',   mp: 'MS', datePerformed: '08/12/2026 11:00 AM', careStaff: 'Jennifer Reyes, RN',  assignedBy: 'J. Reyes',  reassignedBy: '',         providerName: '',                             priority: 'Normal', payor: 'Medicare', programName: 'Weight Management',    scriptType: 'Coaching Script' }
+    ],
+    members: []
   }
 };
 
@@ -7960,7 +8354,7 @@ function pwWfIcon() {
 }
 function pwCol(label, value) {
   return '<span style="display:inline-flex;flex-direction:column;gap:2px;min-width:80px;">' +
-    '<span style="font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;">' + label + '</span>' +
+    '<span style="font-size:11px;font-weight:600;color:var(--text-muted);">' + label + '</span>' +
     '<span style="font-size:12px;color:var(--text-primary);">' + value + '</span>' +
   '</span>';
 }
@@ -7968,6 +8362,9 @@ function pwCol(label, value) {
 var pwSelected = new Set();
 var pwCurrentBucket = 'home';
 var pwActiveMember = 'all';
+var pwViewMode = 'grid';
+var rrCurrentTab = 'received';
+var calCurrentTab = 'today';
 var pwAckedAlerts = new Set();
 var pwDismissedAlerts = new Set();
 
@@ -8214,7 +8611,87 @@ function pwInitCalendar() {
 
 function pwRenderRequestsTable() {
   var memberList = document.getElementById('pwMemberList');
+
+  // Rejected tab
+  if (rrCurrentTab === 'rejected') {
+    var rejBucket = PW_DATA['requests-rejected'];
+    if (pwViewMode === 'list') {
+      var rCols = ['Member Name','Activity','Activity Type','Refer Date','Declined By','Declined Date','Reason'];
+      var rRows = rejBucket.members.map(function(m) {
+        var t = m.tags[0];
+        var r = [
+          { val: '<span style="font-weight:600;color:var(--link);">' + m.name + '</span>' },
+          { val: t.label || '—' },
+          { val: t.activityType || '—' },
+          { val: t.referDate || '—' },
+          { val: m.declinedBy || '—' },
+          { val: m.declinedDate || '—' },
+          { val: m.reason || '—' }
+        ];
+        r._memberId = m.id;
+        return r;
+      });
+      pwRenderTable(memberList, rCols, rRows);
+      return;
+    }
+    var rHtml = '<div class="pw-card-list">';
+    rejBucket.members.forEach(function(m) {
+      var t = m.tags[0];
+      rHtml += '<div class="pw-member-card" data-id="' + m.id + '">' +
+        '<div class="pw-mc-header"><div class="pw-mc-identity">' +
+          '<div class="pw-mc-name-row"><span class="pw-mc-name pw-open-btn" data-member="' + m.id + '">' + m.name + '</span></div>' +
+          '<div class="pw-mc-meta-line">' + m.program + '</div>' +
+        '</div></div>' +
+        '<div class="pw-mc-activities"><div class="pw-mc-activity" style="gap:0;"><div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
+          pwCol('Activity', t.label || '—') +
+          pwCol('Type', t.activityType || '—') +
+          pwCol('Refer Date', t.referDate || '—') +
+          pwCol('Declined By', m.declinedBy || '—') +
+          pwCol('Declined Date', m.declinedDate || '—') +
+          pwCol('Reason', m.reason || '—') +
+        '</div></div></div>' +
+        '<div style="border-top:1px solid var(--border-light);padding:8px 14px;display:flex;gap:6px;">' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">View Details</button>' +
+        '</div>' +
+      '</div>';
+    });
+    rHtml += '</div>';
+    if (memberList) memberList.innerHTML = rHtml;
+    memberList.querySelectorAll('.pw-open-btn').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var switcher = document.querySelector('[data-member="' + this.dataset.member + '"].member-switcher-item');
+        if (switcher) switcher.click();
+      });
+    });
+    return;
+  }
+
+  // Received tab
   var bucket = PW_DATA['requests-received'];
+
+  if (pwViewMode === 'list') {
+    var cols = ['Member Name','Activity','Scheduled','Refer Date','Assigned By','Priority','Status'];
+    var rows = bucket.members.map(function(m) {
+      var t = m.tags[0];
+      var origin = t.origin || '';
+      var assignedBy = ((origin.match(/Routed by: ([^·]+)/) || [])[1] || '—').trim();
+      var priority = t.type === 'urgent' ? 'High' : 'Normal';
+      var status = t.status || 'Pending';
+      var r = [
+        { val: '<span style="font-weight:600;color:var(--link);">' + m.name + '</span>' },
+        { val: t.activityType || '—' },
+        { val: t.scheduledDate || '—' },
+        { val: t.referDate || m.date || '—' },
+        { val: assignedBy },
+        { val: priority },
+        { val: status }
+      ];
+      r._memberId = m.id;
+      return r;
+    });
+    pwRenderTable(memberList, cols, rows);
+    return;
+  }
 
   var html = '<div class="pw-card-list" id="rrCardList">';
   bucket.members.forEach(function(m) {
@@ -8236,7 +8713,7 @@ function pwRenderRequestsTable() {
       '</div>' +
       '<div class="pw-mc-activities">' +
         '<div class="pw-mc-activity" style="gap:0;">' +
-          '<div style="display:flex;align-items:center;gap:24px;flex:1;flex-wrap:wrap;">' +
+          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
             pwCol('Activity', t.activityType || '—') +
             pwCol('Scheduled', t.scheduledDate || '—') +
             pwCol('Refer Date', t.referDate || m.date) +
@@ -8293,10 +8770,252 @@ function rrClearSelection() {
 function rrBulkAccept() { rrClearSelection(); }
 function rrBulkDecline() { rrClearSelection(); }
 
+function calClearFilters() {
+  ['calMemberIdFilter','calMemberNameFilter','calDateFrom','calDateTo'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  pwRenderCareActivityLog();
+}
+
+function calSelectTab(tab) {
+  calCurrentTab = tab;
+  var tabs = ['today','open-auth','open-complaints','received','rejected','other-staff'];
+  tabs.forEach(function(t) {
+    var el = document.getElementById('calTab-' + t);
+    if (!el) return;
+    var isActive = t === tab;
+    el.style.color = isActive ? 'var(--teal-dark)' : 'var(--text-muted)';
+    el.style.borderBottomColor = isActive ? 'var(--teal)' : 'transparent';
+    el.style.fontWeight = isActive ? '700' : '600';
+  });
+  // show/hide Care Staff field depending on tab
+  var csField = document.getElementById('calCareStaffField');
+  if (csField) csField.style.display = (tab === 'other-staff') ? 'flex' : 'none';
+  pwRenderCareActivityLog();
+}
+
+function calMakeTable(cols, rows, emptyMsg) {
+  var pColor = { 'High': '#C62828', 'Medium': '#E07820', 'Normal': '#444', 'Low': '#2E7D32' };
+  var td = 'style="padding:8px 10px;border-bottom:1px solid var(--border-light);white-space:nowrap;"';
+  var html = '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="background:#F0F4F8;">';
+  cols.forEach(function(c) {
+    html += '<th style="padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;border-bottom:2px solid var(--border);">' + c + '</th>';
+  });
+  html += '</tr></thead><tbody>';
+  if (rows.length === 0) {
+    html += '<tr><td colspan="' + cols.length + '" style="padding:20px;text-align:center;color:var(--text-muted);">' + (emptyMsg || 'No items to display') + '</td></tr>';
+  }
+  rows.forEach(function(cells, i) {
+    html += '<tr style="background:' + (i%2===0?'#fff':'#FAFAFA') + ';">';
+    cells.forEach(function(c) {
+      html += '<td style="padding:8px 10px;border-bottom:1px solid var(--border-light);' + (c.nowrap!==false?'white-space:nowrap;':'') + (c.style||'') + '">' + (c.v||'—') + '</td>';
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function calPagination(count) {
+  return '<div style="display:flex;align-items:center;gap:4px;padding:8px 16px;border-top:1px solid var(--border-light);background:#fff;font-size:12px;">' +
+    '<button style="background:none;border:1px solid var(--border);border-radius:3px;width:24px;height:24px;cursor:pointer;font-size:12px;color:var(--text-muted);">|◀</button>' +
+    '<button style="background:none;border:1px solid var(--border);border-radius:3px;width:24px;height:24px;cursor:pointer;font-size:14px;color:var(--text-muted);">◀</button>' +
+    '<span style="width:28px;height:24px;border-radius:50%;background:var(--teal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">' + count + '</span>' +
+    '<button style="background:none;border:1px solid var(--border);border-radius:3px;width:24px;height:24px;cursor:pointer;font-size:14px;color:var(--text-muted);">▶</button>' +
+    '<button style="background:none;border:1px solid var(--border);border-radius:3px;width:24px;height:24px;cursor:pointer;font-size:12px;color:var(--text-muted);">▶|</button>' +
+    '<select style="height:24px;border:1px solid var(--border);border-radius:3px;padding:0 4px;font-size:11px;font-family:var(--font);margin-left:8px;"><option>10</option><option>25</option><option>50</option></select>' +
+    '<span style="font-size:11px;color:var(--text-muted);margin-left:2px;">items per page</span>' +
+    '<span style="margin-left:auto;font-size:11px;color:var(--text-muted);">' + (count === 0 ? 'No items to display' : 'Showing ' + count + ' item' + (count!==1?'s':'')) + '</span>' +
+    '<button onclick="pwRenderCareActivityLog()" style="background:none;border:none;cursor:pointer;color:var(--text-muted);margin-left:8px;" title="Refresh"><span class="material-icons" style="font-size:16px;vertical-align:middle;">refresh</span></button>' +
+  '</div>';
+}
+
+function calActionBar(actions) {
+  var html = '<div style="background:#fff;border-bottom:1px solid var(--border-light);padding:7px 16px;display:flex;gap:6px;align-items:center;">';
+  actions.forEach(function(a) {
+    html += '<span class="pw-toolbar-action"' + (a.color?' style="color:'+a.color+';"':'') + '>' +
+      '<span class="material-icons" style="font-size:13px;">' + a.icon + '</span> ' + a.label + '</span>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function pwRenderCareActivityLog() {
+  var memberList = document.getElementById('pwMemberList');
+  if (!memberList) return;
+  var midQ   = ((document.getElementById('calMemberIdFilter')   || {}).value || '').toLowerCase();
+  var nameQ  = ((document.getElementById('calMemberNameFilter') || {}).value || '').toLowerCase();
+  var dFromV = (document.getElementById('calDateFrom') || {}).value || '';
+  var dToV   = (document.getElementById('calDateTo')   || {}).value || '';
+  var dFrom  = dFromV ? new Date(dFromV) : null;
+  var dTo    = dToV   ? new Date(dToV)   : null;
+  var pColor = { 'High': '#C62828', 'Medium': '#E07820', 'Normal': '#444', 'Low': '#2E7D32' };
+
+  function parseDate(str) {
+    if (!str) return null;
+    var p = str.split('/'); if (p.length === 3) return new Date(p[2], p[0]-1, p[1]);
+    return new Date(str);
+  }
+  function nameMatch(lastName, firstName) {
+    if (!nameQ) return true;
+    return (firstName + ' ' + lastName).toLowerCase().indexOf(nameQ) !== -1 ||
+           lastName.toLowerCase().indexOf(nameQ) !== -1;
+  }
+  function idMatch(id) { return !midQ || (id||'').toLowerCase().indexOf(midQ) !== -1; }
+  function dateMatch(dateStr) {
+    if (!dFrom && !dTo) return true;
+    var d = parseDate(dateStr); if (!d) return true;
+    if (dFrom && d < dFrom) return false;
+    if (dTo   && d > dTo)   return false;
+    return true;
+  }
+  function pc(priority) { return pColor[priority] || '#444'; }
+  function link(v) { return '<span style="color:var(--link);font-weight:600;">' + (v||'—') + '</span>'; }
+  function pri(v) { return '<span style="font-weight:700;color:' + pc(v) + ';">' + (v||'—') + '</span>'; }
+  function chk() { return '<input type="checkbox" style="accent-color:var(--teal);">'; }
+  function btn(label) { return '<button class="pw-act-btn" onclick="event.stopPropagation()" style="font-size:11px;padding:3px 10px;">' + label + '</button>'; }
+
+  var html = '';
+
+  if (calCurrentTab === 'today') {
+    var rows = PW_DATA['my-care-activity'].rows.filter(function(r) {
+      return idMatch(r.memberId) && nameMatch(r.lastName, r.firstName) && dateMatch(r.dueDate);
+    });
+    html = calActionBar([
+      {icon:'schedule',label:'Reschedule'},{icon:'visibility',label:'View'},
+      {icon:'edit',label:'Edit'},{icon:'delete_outline',label:'Delete',color:'#C62828'}
+    ]) + calMakeTable(
+      ['','Eligibility','Last Name','First Name','Member ID','Activity Type','MP','Follow up Date & Time','Due Date','Assigned By','Reassigned By','Provider Name','Priority','Payor','Program Name','Script/Type','Perform Activity'],
+      rows.map(function(r) { return [
+        {v:chk()},{v:r.eligibility},{v:link(r.lastName),nowrap:false},{v:r.firstName},
+        {v:'<span style="color:var(--link);">'+r.memberId+'</span>'},{v:r.activityType},{v:r.mp},
+        {v:r.followUpDateTime},{v:r.dueDate},{v:r.assignedBy},{v:r.reassignedBy||'—'},
+        {v:r.providerName||'—',nowrap:false},{v:pri(r.priority)},{v:r.payor},
+        {v:r.programName||'—'},{v:r.scriptType||'—'},{v:btn('Perform')}
+      ]; })
+    ) + calPagination(rows.length);
+
+  } else if (calCurrentTab === 'open-auth') {
+    var authRows = PW_DATA['um-open-auth'].members.filter(function(m) {
+      return idMatch(m.memberId) && nameMatch(m.name.split(' ').slice(1).join(' '), m.name.split(' ')[0]) && dateMatch(m.fromDate);
+    });
+    html = calActionBar([
+      {icon:'verified_user',label:'Review Auth'},{icon:'edit',label:'Edit'},{icon:'close',label:'Deny',color:'#C62828'}
+    ]) + calMakeTable(
+      ['','Eligibility','Member ID','Member Name','Auth ID','Auth Type','From Date','Provider / Facility','Auth Due Date','Next Review Date','Actions'],
+      authRows.map(function(m) { return [
+        {v:chk()},{v:m.eligibility||'—'},
+        {v:'<span style="color:var(--link);">'+m.memberId+'</span>'},
+        {v:link(m.name),nowrap:false},
+        {v:'<span style="color:var(--link);">'+m.authId+'</span>'},
+        {v:m.authType},{v:m.fromDate},{v:m.provider||'—',nowrap:false},
+        {v:m.authDueDate},{v:m.nextReviewDate},{v:btn('Review')}
+      ]; })
+    ) + calPagination(authRows.length);
+
+  } else if (calCurrentTab === 'open-complaints') {
+    var compRows = PW_DATA['um-open-complaints'].members.filter(function(m) {
+      return idMatch(m.memberId) && nameMatch(m.name.split(' ').slice(1).join(' '), m.name.split(' ')[0]) && dateMatch(m.complaintDueDate);
+    });
+    html = calActionBar([
+      {icon:'report_problem',label:'Review Complaint'},{icon:'edit',label:'Edit'},{icon:'close',label:'Close',color:'#C62828'}
+    ]) + calMakeTable(
+      ['','Eligibility','Member ID','Member Name','Complaint ID','Level','Complaint Type','Altruista ID','Complaint Due Date','Activity Type','Activity Date','Actions'],
+      compRows.map(function(m) { return [
+        {v:chk()},{v:m.eligibility||'—'},
+        {v:'<span style="color:var(--link);">'+m.memberId+'</span>'},
+        {v:link(m.name),nowrap:false},
+        {v:'<span style="color:var(--link);">'+m.complaintId+'</span>'},
+        {v:m.level},{v:m.complaintType||'—',nowrap:false},{v:m.altruistaId||'—'},
+        {v:m.complaintDueDate},{v:m.activityType||'—'},{v:m.activityDate||'—'},{v:btn('Review')}
+      ]; })
+    ) + calPagination(compRows.length);
+
+  } else if (calCurrentTab === 'received') {
+    var rcvRows = PW_DATA['requests-received'].members.filter(function(m) {
+      return idMatch('') && nameMatch(m.name.split(' ').slice(1).join(' '), m.name.split(' ')[0]);
+    });
+    html = calActionBar([
+      {icon:'check_circle_outline',label:'Accept'},{icon:'cancel',label:'Decline',color:'#C62828'}
+    ]) + calMakeTable(
+      ['','Member Name','Activity','Activity Type','Scheduled Date','Refer Date','Assigned By','Priority','Status','Actions'],
+      rcvRows.map(function(m) {
+        var t = m.tags[0] || {};
+        var origin = t.origin || '';
+        var assignedBy = ((origin.match(/Routed by: ([^·]+)/) || [])[1] || '—').trim();
+        return [
+          {v:chk()},{v:link(m.name),nowrap:false},{v:t.label||'—',nowrap:false},
+          {v:t.activityType||'—'},{v:t.scheduledDate||'—'},{v:t.referDate||m.date||'—'},
+          {v:assignedBy},{v:pri(t.type==='urgent'?'High':'Normal')},{v:t.status||'Pending'},
+          {v:btn('Accept')+'&nbsp;'+btn('Decline')}
+        ];
+      })
+    ) + calPagination(rcvRows.length);
+
+  } else if (calCurrentTab === 'rejected') {
+    var rejRows = PW_DATA['requests-rejected'].members.filter(function(m) {
+      return nameMatch(m.name.split(' ').slice(1).join(' '), m.name.split(' ')[0]);
+    });
+    html = calActionBar([
+      {icon:'visibility',label:'View Details'},{icon:'undo',label:'Re-route'}
+    ]) + calMakeTable(
+      ['','Member Name','Activity','Activity Type','Refer Date','Declined By','Declined Date','Reason'],
+      rejRows.map(function(m) {
+        var t = m.tags[0] || {};
+        return [
+          {v:chk()},{v:link(m.name),nowrap:false},{v:t.label||'—',nowrap:false},
+          {v:t.activityType||'—'},{v:t.referDate||'—'},{v:m.declinedBy||'—'},
+          {v:m.declinedDate||'—'},{v:m.reason||'—',nowrap:false}
+        ];
+      })
+    ) + calPagination(rejRows.length);
+
+  } else if (calCurrentTab === 'other-staff') {
+    var staffQ = ((document.getElementById('calCareStaffFilter') || {}).value || '').toLowerCase();
+    var otherRows = PW_DATA['my-care-activity'].otherStaffRows.filter(function(r) {
+      return idMatch(r.memberId) && nameMatch(r.lastName, r.firstName) && dateMatch(r.datePerformed) &&
+             (!staffQ || r.careStaff.toLowerCase().indexOf(staffQ) !== -1);
+    });
+    html = calActionBar([
+      {icon:'visibility',label:'View'},{icon:'redo',label:'Reassign'}
+    ]) + calMakeTable(
+      ['','Eligibility','Last Name','First Name','Member ID','Activity Type','MP','Date Performed','Care Staff','Assigned By','Reassigned By','Provider Name','Priority','Payor','Program Name','Script/Type'],
+      otherRows.map(function(r) { return [
+        {v:chk()},{v:r.eligibility},{v:link(r.lastName),nowrap:false},{v:r.firstName},
+        {v:'<span style="color:var(--link);">'+r.memberId+'</span>'},{v:r.activityType},{v:r.mp},
+        {v:r.datePerformed},{v:'<span style="font-weight:600;">'+r.careStaff+'</span>',nowrap:false},
+        {v:r.assignedBy},{v:r.reassignedBy||'—'},
+        {v:r.providerName||'—',nowrap:false},{v:pri(r.priority)},{v:r.payor},
+        {v:r.programName||'—'},{v:r.scriptType||'—'}
+      ]; })
+    ) + calPagination(otherRows.length);
+  }
+
+  memberList.innerHTML = html;
+}
+
 function pwRenderMyMembers() {
   var memberList = document.getElementById('pwMemberList');
   var bucket = PW_DATA['my-members'];
   var riskColor = { 'High': '#C62828', 'Medium': '#E07820', 'Low': '#2E7D32' };
+
+  if (pwViewMode === 'list') {
+    var cols = ['Member Name','Program','Risk','Next Contact','Assigned Date'];
+    var rows = bucket.members.map(function(m) {
+      var rColor = riskColor[m.risk] || '#444';
+      var r = [
+        { val: '<span style="font-weight:600;color:var(--link);">' + m.name + '</span>' },
+        { val: m.program || '—' },
+        { val: m.risk ? '<span style="font-weight:700;color:' + rColor + ';">' + m.risk + '</span>' : '—' },
+        { val: m.nextContact || '—' },
+        { val: m.assignedDate || '—' }
+      ];
+      r._memberId = m.id;
+      return r;
+    });
+    pwRenderTable(memberList, cols, rows);
+    return;
+  }
 
   var html = '<div class="pw-card-list">';
 
@@ -8313,13 +9032,17 @@ function pwRenderMyMembers() {
       '</div>' +
       '<div class="pw-mc-activities">' +
         '<div class="pw-mc-activity" style="gap:0;">' +
-          '<div style="display:flex;align-items:center;gap:24px;flex:1;flex-wrap:wrap;">' +
+          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
             pwCol('Program', m.program) +
             pwCol('Risk', m.risk || '—') +
             pwCol('Next Contact', m.nextContact || '—') +
             pwCol('Assigned Date', m.assignedDate || '—') +
           '</div>' +
         '</div>' +
+      '</div>' +
+      '<div style="border-top:1px solid var(--border-light);padding:8px 14px;display:flex;gap:6px;">' +
+        '<button class="pw-act-btn" onclick="event.stopPropagation()">Add Activity</button>' +
+        '<button class="pw-act-btn" onclick="event.stopPropagation()">Message</button>' +
       '</div>' +
     '</div>';
   });
@@ -8338,6 +9061,338 @@ function pwRenderMyMembers() {
   });
 }
 
+
+function pwSetView(mode) {
+  pwViewMode = mode;
+  var active = 'padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;';
+  var inactive = 'padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);';
+  var gBtn = document.getElementById('pwToggleGrid');
+  var lBtn = document.getElementById('pwToggleList');
+  if (gBtn) gBtn.style.cssText = mode === 'grid' ? active : inactive;
+  if (lBtn) lBtn.style.cssText = mode === 'list' ? active : inactive;
+  // re-render current bucket
+  var b = pwCurrentBucket;
+  if (b === 'home' || b === 'due-today' || b === 'my-care-activity') return;
+  if (b === 'requests-received') pwRenderRequestsTable();
+  else if (b === 'my-members') pwRenderMyMembers();
+  else if (b === 'um-open-auth') pwRenderOpenAuth();
+  else if (b === 'um-pending-auth') pwRenderPendingAuth();
+  else if (b === 'um-open-complaints') pwRenderOpenComplaints();
+  else if (b === 'um-pending-complaints') pwRenderPendingComplaints();
+  else pwRender();
+}
+
+function oaClearFilters() {
+  ['oaAuthIdFilter','oaFirstNameFilter','oaLastNameFilter','oaDateFrom','oaDateTo'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  pwRenderOpenAuth();
+}
+
+function pwRenderOpenAuth() {
+  var memberList = document.getElementById('pwMemberList');
+  var bucket = PW_DATA['um-open-auth'];
+
+  var authIdQ  = (document.getElementById('oaAuthIdFilter')    || {}).value || '';
+  var firstQ   = (document.getElementById('oaFirstNameFilter') || {}).value || '';
+  var lastQ    = (document.getElementById('oaLastNameFilter')  || {}).value || '';
+  var dateFrom = (document.getElementById('oaDateFrom')        || {}).value || '';
+  var dateTo   = (document.getElementById('oaDateTo')          || {}).value || '';
+
+  function parseDate(str) {
+    if (!str) return null;
+    var p = str.split('/');
+    if (p.length === 3) return new Date(p[2], p[0]-1, p[1]);
+    return new Date(str);
+  }
+  var dFrom = dateFrom ? new Date(dateFrom) : null;
+  var dTo   = dateTo   ? new Date(dateTo)   : null;
+
+  var members = bucket.members.filter(function(m) {
+    var nameParts = m.name.split(' ');
+    var first = nameParts[0] || '';
+    var last  = nameParts.slice(1).join(' ') || '';
+    if (authIdQ  && m.authId.toLowerCase().indexOf(authIdQ.toLowerCase())  === -1) return false;
+    if (firstQ   && first.toLowerCase().indexOf(firstQ.toLowerCase())      === -1) return false;
+    if (lastQ    && last.toLowerCase().indexOf(lastQ.toLowerCase())         === -1) return false;
+    if (dFrom || dTo) {
+      var d = parseDate(m.fromDate);
+      if (d) {
+        if (dFrom && d < dFrom) return false;
+        if (dTo   && d > dTo)   return false;
+      }
+    }
+    return true;
+  });
+
+  if (pwViewMode === 'grid') {
+    var html = '<div class="pw-card-list pw-card-list-1col">';
+    if (members.length === 0) html += '<div style="padding:20px;color:var(--text-muted);font-size:12px;">No results match your search.</div>';
+    members.forEach(function(m) {
+      html += '<div class="pw-member-card" data-id="' + m.id + '">' +
+        '<div class="pw-mc-header">' +
+          '<div class="pw-mc-identity">' +
+            '<div class="pw-mc-name-row"><span class="pw-mc-name pw-open-btn" data-member="' + m.id + '">' + m.name + '</span></div>' +
+            '<div class="pw-mc-meta-line">' + (m.memberId || '') + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pw-mc-activities"><div class="pw-mc-activity" style="gap:0;"><div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
+          pwCol('Eligibility', m.eligibility || '—') +
+          pwCol('Auth ID', m.authId || '—') +
+          pwCol('Auth Type', m.authType || '—') +
+          pwCol('From Date', m.fromDate || '—') +
+          pwCol('Provider', m.provider || '—') +
+          pwCol('Auth Due Date', m.authDueDate || '—') +
+          pwCol('Next Review Date', m.nextReviewDate || '—') +
+        '</div></div></div>' +
+        '<div style="border-top:1px solid var(--border-light);padding:8px 14px;display:flex;gap:6px;">' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Review Auth</button>' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Add Activity</button>' +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    if (memberList) memberList.innerHTML = html;
+    memberList.querySelectorAll('.pw-open-btn').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var switcher = document.querySelector('[data-member="' + this.dataset.member + '"].member-switcher-item');
+        if (switcher) switcher.click();
+      });
+    });
+    return;
+  }
+
+  var cols = ['Eligibility','Member ID','Member Name','Auth ID','Auth Type','From Date','Facility / Provider Name','Auth Due Date','Next Review Date'];
+  var html = '<div style="overflow-x:auto;padding:0;">' +
+    '<table style="width:100%;border-collapse:collapse;font-size:12px;">' +
+    '<thead><tr style="background:#F0F4F8;">';
+  cols.forEach(function(c) {
+    html += '<th style="padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;border-bottom:2px solid var(--border);">' + c + '</th>';
+  });
+  html += '</tr></thead><tbody>';
+  if (members.length === 0) {
+    html += '<tr><td colspan="9" style="padding:20px;text-align:center;color:var(--text-muted);font-size:12px;">No results match your search.</td></tr>';
+  }
+  members.forEach(function(m, i) {
+    var bg = i % 2 === 0 ? '#fff' : '#FAFAFA';
+    html += '<tr style="background:' + bg + ';cursor:pointer;" class="pw-open-btn" data-member="' + m.id + '">' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;">'                        + (m.eligibility    || '—') + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;color:var(--link);">'      + (m.memberId       || '—') + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;font-weight:600;color:var(--link);">' + m.name + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;color:var(--link);">'      + (m.authId         || '—') + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;">'                        + (m.authType       || '—') + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;">'                        + (m.fromDate       || '—') + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);">'                                           + (m.provider       || '—') + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;">'                        + (m.authDueDate    || '—') + '</td>' +
+      '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;">'                        + (m.nextReviewDate || '—') + '</td>' +
+    '</tr>';
+  });
+  html += '</tbody></table></div>';
+  if (memberList) memberList.innerHTML = html;
+  memberList.querySelectorAll('tr.pw-open-btn').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var mid = this.dataset.member;
+      var switcher = document.querySelector('[data-member="' + mid + '"].member-switcher-item');
+      if (switcher) switcher.click();
+    });
+  });
+}
+
+function pwRenderTable(memberList, cols, rows, openMember) {
+  var html = '<div style="overflow-x:auto;padding:0;"><table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="background:#F0F4F8;">';
+  cols.forEach(function(c) {
+    html += '<th style="padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;border-bottom:2px solid var(--border);">' + c + '</th>';
+  });
+  html += '</tr></thead><tbody>';
+  if (rows.length === 0) {
+    html += '<tr><td colspan="' + cols.length + '" style="padding:20px;text-align:center;color:var(--text-muted);font-size:12px;">No results match your search.</td></tr>';
+  }
+  rows.forEach(function(cells, i) {
+    var bg = i % 2 === 0 ? '#fff' : '#FAFAFA';
+    var memberId = cells._memberId || '';
+    html += '<tr style="background:' + bg + ';cursor:pointer;" class="pw-open-btn" data-member="' + memberId + '">';
+    cells.forEach(function(cell) {
+      html += '<td style="padding:9px 12px;border-bottom:1px solid var(--border-light);white-space:nowrap;' + (cell.style || '') + '">' + (cell.val || '—') + '</td>';
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+  if (memberList) memberList.innerHTML = html;
+  memberList.querySelectorAll('tr.pw-open-btn').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var switcher = document.querySelector('[data-member="' + this.dataset.member + '"].member-switcher-item');
+      if (switcher) switcher.click();
+    });
+  });
+}
+
+function pwRenderPendingAuth() {
+  var memberList = document.getElementById('pwMemberList');
+  var members = PW_DATA['um-pending-auth'].members;
+  if (pwViewMode === 'grid') {
+    var html = '<div class="pw-card-list pw-card-list-1col">';
+    members.forEach(function(m) {
+      html += '<div class="pw-member-card" data-id="' + m.id + '">' +
+        '<div class="pw-mc-header"><div class="pw-mc-identity">' +
+          '<div class="pw-mc-name-row"><span class="pw-mc-name pw-open-btn" data-member="' + m.id + '">' + m.name + '</span></div>' +
+          '<div class="pw-mc-meta-line">' + (m.altruistaId || '') + '</div>' +
+        '</div></div>' +
+        '<div class="pw-mc-activities"><div class="pw-mc-activity" style="gap:0;"><div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
+          pwCol('Authorization ID', m.authId || '—') +
+          pwCol('Auth Due Date', m.authDueDate || '—') +
+          pwCol('Activity Type', m.activityType || '—') +
+          pwCol('Activity Due Date', m.activityDueDate || '—') +
+          pwCol('Follow-up Date', m.activityFollowUpDate || '—') +
+          pwCol('Assigned By', m.assignedBy || '—') +
+          pwCol('Provider', m.provider || '—') +
+        '</div></div></div>' +
+        '<div style="border-top:1px solid var(--border-light);padding:8px 14px;display:flex;gap:6px;">' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Complete Activity</button>' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Add Note</button>' +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    if (memberList) memberList.innerHTML = html;
+    memberList.querySelectorAll('.pw-open-btn').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var switcher = document.querySelector('[data-member="' + this.dataset.member + '"].member-switcher-item');
+        if (switcher) switcher.click();
+      });
+    });
+    return;
+  }
+  var cols = ['Altruista ID','Member Name','Authorization ID','Authorization Due Date','Activity Type','Activity Due Date','Activity Follow-up Date','Assigned By','Provider'];
+  var rows = members.map(function(m) {
+    var r = [
+      { val: m.altruistaId },
+      { val: '<span style="font-weight:600;color:var(--link);">' + m.name + '</span>' },
+      { val: '<span style="color:var(--link);">' + (m.authId || '—') + '</span>' },
+      { val: m.authDueDate },
+      { val: m.activityType },
+      { val: m.activityDueDate },
+      { val: m.activityFollowUpDate },
+      { val: m.assignedBy },
+      { val: m.provider }
+    ];
+    r._memberId = m.id;
+    return r;
+  });
+  pwRenderTable(memberList, cols, rows);
+}
+
+function pwRenderOpenComplaints() {
+  var memberList = document.getElementById('pwMemberList');
+  var members = PW_DATA['um-open-complaints'].members;
+  if (pwViewMode === 'grid') {
+    var html = '<div class="pw-card-list pw-card-list-1col">';
+    members.forEach(function(m) {
+      html += '<div class="pw-member-card" data-id="' + m.id + '">' +
+        '<div class="pw-mc-header"><div class="pw-mc-identity">' +
+          '<div class="pw-mc-name-row"><span class="pw-mc-name pw-open-btn" data-member="' + m.id + '">' + m.name + '</span></div>' +
+          '<div class="pw-mc-meta-line">' + (m.altruistaId || '') + '</div>' +
+        '</div></div>' +
+        '<div class="pw-mc-activities"><div class="pw-mc-activity" style="gap:0;"><div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
+          pwCol('Eligibility', m.eligibility || '—') +
+          pwCol('Complaint ID', m.complaintId || '—') +
+          pwCol('Level', m.level || '—') +
+          pwCol('Complaint Type', m.complaintType || '—') +
+          pwCol('Complaint Due Date', m.complaintDueDate || '—') +
+          pwCol('Activity Type', m.activityType || '—') +
+          pwCol('Activity Date', m.activityDate || '—') +
+        '</div></div></div>' +
+        '<div style="border-top:1px solid var(--border-light);padding:8px 14px;display:flex;gap:6px;">' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Review Complaint</button>' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Add Activity</button>' +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    if (memberList) memberList.innerHTML = html;
+    memberList.querySelectorAll('.pw-open-btn').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var switcher = document.querySelector('[data-member="' + this.dataset.member + '"].member-switcher-item');
+        if (switcher) switcher.click();
+      });
+    });
+    return;
+  }
+  var cols = ['Eligibility','Complaint ID','Level','Complaint Type','Altruista ID','Member Name','Complaint Due Date','Activity Type','Activity Date'];
+  var rows = members.map(function(m) {
+    var r = [
+      { val: m.eligibility },
+      { val: '<span style="color:var(--link);">' + (m.complaintId || '—') + '</span>' },
+      { val: m.level },
+      { val: m.complaintType },
+      { val: m.altruistaId },
+      { val: '<span style="font-weight:600;color:var(--link);">' + m.name + '</span>' },
+      { val: m.complaintDueDate },
+      { val: m.activityType },
+      { val: m.activityDate }
+    ];
+    r._memberId = m.id;
+    return r;
+  });
+  pwRenderTable(memberList, cols, rows);
+}
+
+function pwRenderPendingComplaints() {
+  var memberList = document.getElementById('pwMemberList');
+  var members = PW_DATA['um-pending-complaints'].members;
+  var priorityColor = { 'High': '#C62828', 'Medium': '#E07820', 'Low': '#2E7D32' };
+  if (pwViewMode === 'grid') {
+    var html = '<div class="pw-card-list pw-card-list-1col">';
+    members.forEach(function(m) {
+      var pColor = priorityColor[m.priority] || '#444';
+      html += '<div class="pw-member-card" data-id="' + m.id + '">' +
+        '<div class="pw-mc-header"><div class="pw-mc-identity">' +
+          '<div class="pw-mc-name-row"><span class="pw-mc-name pw-open-btn" data-member="' + m.id + '">' + m.name + '</span></div>' +
+          '<div class="pw-mc-meta-line">' + (m.altruistaId || '') + '</div>' +
+        '</div></div>' +
+        '<div class="pw-mc-activities"><div class="pw-mc-activity" style="gap:0;"><div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
+          pwCol('Complaint ID', m.complaintId || '—') +
+          pwCol('Level', m.level || '—') +
+          pwCol('Complaint Due Date', m.complaintDueDate || '—') +
+          pwCol('Activity Type', m.activityType || '—') +
+          pwCol('Activity Due Date', m.activityDueDate || '—') +
+          pwCol('Assigned By', m.assignedBy || '—') +
+          pwCol('Priority', '<span style="font-weight:700;color:' + pColor + ';">' + (m.priority || '—') + '</span>') +
+        '</div></div></div>' +
+        '<div style="border-top:1px solid var(--border-light);padding:8px 14px;display:flex;gap:6px;">' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Complete Activity</button>' +
+          '<button class="pw-act-btn" onclick="event.stopPropagation()">Add Note</button>' +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    if (memberList) memberList.innerHTML = html;
+    memberList.querySelectorAll('.pw-open-btn').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var switcher = document.querySelector('[data-member="' + this.dataset.member + '"].member-switcher-item');
+        if (switcher) switcher.click();
+      });
+    });
+    return;
+  }
+  var cols = ['Altruista ID','Member Name','Complaint ID','Level','Complaint Due Date','Activity Type','Activity Due Date','Assigned By','Priority'];
+  var rows = members.map(function(m) {
+    var pColor = priorityColor[m.priority] || '#444';
+    var r = [
+      { val: m.altruistaId },
+      { val: '<span style="font-weight:600;color:var(--link);">' + m.name + '</span>' },
+      { val: '<span style="color:var(--link);">' + (m.complaintId || '—') + '</span>' },
+      { val: m.level },
+      { val: m.complaintDueDate },
+      { val: m.activityType },
+      { val: m.activityDueDate },
+      { val: m.assignedBy },
+      { val: '<span style="font-weight:700;color:' + pColor + ';">' + (m.priority || '—') + '</span>' }
+    ];
+    r._memberId = m.id;
+    return r;
+  });
+  pwRenderTable(memberList, cols, rows);
+}
 
 function pwRender() {
   var splitView = document.getElementById('pwSplitView');
@@ -8361,6 +9416,41 @@ function pwRender() {
     if (memberList) memberList.style.display = '';
     if (splitView) splitView.style.display = 'none';
     pwRenderMyMembers();
+    return;
+  }
+
+  if (pwCurrentBucket === 'my-care-activity') {
+    if (memberList) memberList.style.display = '';
+    if (splitView) splitView.style.display = 'none';
+    pwRenderCareActivityLog();
+    return;
+  }
+
+  if (pwCurrentBucket === 'um-open-auth') {
+    if (memberList) memberList.style.display = '';
+    if (splitView) splitView.style.display = 'none';
+    pwRenderOpenAuth();
+    return;
+  }
+
+  if (pwCurrentBucket === 'um-pending-auth') {
+    if (memberList) memberList.style.display = '';
+    if (splitView) splitView.style.display = 'none';
+    pwRenderPendingAuth();
+    return;
+  }
+
+  if (pwCurrentBucket === 'um-open-complaints') {
+    if (memberList) memberList.style.display = '';
+    if (splitView) splitView.style.display = 'none';
+    pwRenderOpenComplaints();
+    return;
+  }
+
+  if (pwCurrentBucket === 'um-pending-complaints') {
+    if (memberList) memberList.style.display = '';
+    if (splitView) splitView.style.display = 'none';
+    pwRenderPendingComplaints();
     return;
   }
 
@@ -8523,7 +9613,30 @@ function pwRender() {
            btn('pw-act-btn-ghost pw-act-delete', 'delete_outline', '', 'data-member="'+mid+'" data-label="'+lbl+'" title="Delete"');
   }
 
-  var html = '<div class="pw-card-list">';
+  if (pwViewMode === 'list') {
+    var listCols = ['Member Name','Program','Date','Detail','Priority'];
+    var listRows = memberOrder.map(function(mid) {
+      var entry = memberMap[mid];
+      var m = entry.m;
+      var t = entry.activities[0] || {};
+      var p = priorityFor(t);
+      var r = [
+        { val: '<span style="font-weight:600;color:var(--link);">' + m.name + '</span>' },
+        { val: m.program || '—' },
+        { val: m.date || '—' },
+        { val: t.label || '—' },
+        { val: p }
+      ];
+      r._memberId = m.id;
+      return r;
+    });
+    pwRenderTable(memberList, listCols, listRows);
+    pwUpdateToolbar();
+    return;
+  }
+
+  var is1Col = ['new-alerts','new-insights','wf-inactive','wf-pending-signup','wf-no-invite'].indexOf(pwCurrentBucket) !== -1;
+  var html = '<div class="pw-card-list' + (is1Col ? ' pw-card-list-1col' : '') + '">';
   memberOrder.forEach(function(mid) {
     var entry = memberMap[mid];
     var m = entry.m;
@@ -8570,7 +9683,7 @@ function pwRender() {
       var actionsHtml = actBtns ? '<div class="pw-mc-act-actions">' + actBtns + '</div>' : '';
       if (isInactive) {
         rowContent =
-          '<div style="display:flex;align-items:center;gap:24px;flex:1;flex-wrap:wrap;">' +
+          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
             pwCol('Program', m.program || '—') +
             pwCol('Inactive', t.dayCount || '—') +
             pwCol('Last Contact', t.lastContact || '—') +
@@ -8579,7 +9692,7 @@ function pwRender() {
           actionsHtml;
       } else if (isPendingSignup) {
         rowContent =
-          '<div style="display:flex;align-items:center;gap:24px;flex:1;flex-wrap:wrap;">' +
+          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
             pwCol('Program', m.program || '—') +
             pwCol('Status', t.inviteStatus || 'Invited') +
             pwCol('Days Since Invite', t.dayCount || '—') +
@@ -8589,7 +9702,7 @@ function pwRender() {
           actionsHtml;
       } else if (pwCurrentBucket === 'wf-no-invite') {
         rowContent =
-          '<div style="display:flex;align-items:center;gap:24px;flex:1;flex-wrap:wrap;">' +
+          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
             pwCol('Program', m.program || '—') +
             pwCol('Status', 'No invite sent') +
           '</div>' +
@@ -8699,9 +9812,13 @@ function pwSelectBucket(el) {
   var isRequests = pwCurrentBucket === 'requests-received';
   var isMyMembers = pwCurrentBucket === 'my-members';
   var isAlerts = pwCurrentBucket === 'new-alerts';
+  var isOpenAuth = pwCurrentBucket === 'um-open-auth';
+  var isCareActivity = pwCurrentBucket === 'my-care-activity';
   var defBar = document.getElementById('pwFilterBarDefault');
   var reqBar = document.getElementById('pwFilterBarRequests');
   var alertBar = document.getElementById('pwFilterBarAlerts');
+  var openAuthBar = document.getElementById('pwFilterBarOpenAuth');
+  var careActivityBar = document.getElementById('pwFilterBarCareActivity');
   var toolbar = document.querySelector('.pw-toolbar');
   var tabStrip = document.getElementById('pwAlertTabStrip');
   var memberList = document.getElementById('pwMemberList');
@@ -8713,14 +9830,33 @@ function pwSelectBucket(el) {
   // Show/hide home panel vs normal content
   if (homePanel) homePanel.style.display = isHome ? '' : 'none';
   if (mainHeader) mainHeader.style.display = isHome ? 'none' : '';
-  if (toolbar) toolbar.style.display = (isMyMembers || isHome) ? 'none' : '';
+  if (toolbar) toolbar.style.display = (isHome || isCareActivity) ? 'none' : '';
+  var viewToggle = document.getElementById('pwViewToggle');
+  if (viewToggle) viewToggle.style.display = (pwCurrentBucket === 'due-today' || isHome || isCareActivity) ? 'none' : '';
   if (memberList) memberList.style.display = isHome ? 'none' : '';
   if (risksPanel) risksPanel.style.display = 'none';
   if (diseasesPanel) diseasesPanel.style.display = 'none';
   if (indicatorsPanel) indicatorsPanel.style.display = 'none';
-  if (defBar) defBar.style.display = (isRequests || isMyMembers || isAlerts || isHome) ? 'none' : '';
+  var isUmBucket = pwCurrentBucket === 'um-open-auth' || pwCurrentBucket === 'um-pending-auth' || pwCurrentBucket === 'um-open-complaints' || pwCurrentBucket === 'um-pending-complaints';
+  if (defBar) defBar.style.display = (isRequests || isMyMembers || isAlerts || isHome || isUmBucket || isCareActivity) ? 'none' : '';
   if (reqBar) reqBar.style.display = (isRequests && !isHome) ? '' : 'none';
+  if (isRequests) { rrCurrentTab = 'received'; var filtersEl = document.getElementById('rrFilters'); if (filtersEl) filtersEl.style.display = ''; var tR = document.getElementById('rrTabReceived'); var tJ = document.getElementById('rrTabRejected'); if (tR) { tR.style.color='var(--teal-dark)'; tR.style.borderBottomColor='var(--teal)'; tR.style.fontWeight='700'; } if (tJ) { tJ.style.color='var(--text-muted)'; tJ.style.borderBottomColor='transparent'; tJ.style.fontWeight='600'; } }
   if (alertBar) alertBar.style.display = (isAlerts && !isHome) ? '' : 'none';
+  if (openAuthBar) openAuthBar.style.display = (isOpenAuth && !isHome) ? '' : 'none';
+  if (careActivityBar) careActivityBar.style.display = (isCareActivity && !isHome) ? 'flex' : 'none';
+  if (isCareActivity) {
+    calCurrentTab = 'today';
+    var csField = document.getElementById('calCareStaffField');
+    if (csField) csField.style.display = 'none';
+    var tabs = ['today','open-auth','open-complaints','received','rejected','other-staff'];
+    tabs.forEach(function(t) {
+      var el = document.getElementById('calTab-' + t);
+      if (!el) return;
+      el.style.color = t==='today' ? 'var(--teal-dark)' : 'var(--text-muted)';
+      el.style.borderBottomColor = t==='today' ? 'var(--teal)' : 'transparent';
+      el.style.fontWeight = t==='today' ? '700' : '600';
+    });
+  }
   if (isHome) return;
   // Reset alert sub-panels to Alerts tab whenever switching buckets
   if (tabStrip) {
@@ -8742,6 +9878,17 @@ function pwSelectBucket(el) {
     if (subEl) subEl.textContent = bucket.subtitle;
   }
   pwRender();
+}
+
+function rrSelectTab(tab) {
+  rrCurrentTab = tab;
+  var tR = document.getElementById('rrTabReceived');
+  var tJ = document.getElementById('rrTabRejected');
+  var filters = document.getElementById('rrFilters');
+  if (tR) { tR.style.color = tab === 'received' ? 'var(--teal-dark)' : 'var(--text-muted)'; tR.style.borderBottomColor = tab === 'received' ? 'var(--teal)' : 'transparent'; tR.style.fontWeight = tab === 'received' ? '700' : '600'; }
+  if (tJ) { tJ.style.color = tab === 'rejected' ? 'var(--teal-dark)' : 'var(--text-muted)'; tJ.style.borderBottomColor = tab === 'rejected' ? 'var(--teal)' : 'transparent'; tJ.style.fontWeight = tab === 'rejected' ? '700' : '600'; }
+  if (filters) filters.style.display = tab === 'received' ? '' : 'none';
+  pwRenderRequestsTable();
 }
 
 function pwFilterRequests() {
@@ -9330,6 +10477,16 @@ function openScriptResponseModal() {
   const leftItems = document.querySelectorAll('.gc-left-item');
   const leftPanels = document.querySelectorAll('.left-panel');
 
+  // Position fixed labels to track their icon's viewport position
+  leftItems.forEach(function(item) {
+    var label = item.querySelector('.gc-left-label');
+    if (!label) return;
+    item.addEventListener('mouseenter', function() {
+      var rect = item.getBoundingClientRect();
+      label.style.top = (rect.top + rect.height / 2) + 'px';
+    });
+  });
+
   leftItems.forEach(function(item) {
     if (!item.getAttribute('data-left')) return; // skip non-panel items (e.g. home arrow)
     item.addEventListener('click', function() {
@@ -9385,7 +10542,7 @@ function openScriptResponseModal() {
       var target = tab.getAttribute('data-artab');
       var panel = document.getElementById('artab-' + target);
       if (panel) { panel.style.display = ''; panel.classList.add('active'); }
-      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = false; document.getElementById('art-default-view').style.display = 'block'; document.getElementById('art-library-view').style.display = 'none'; }
+      if (target !== 'articles' && artLibraryOpen) { artLibraryOpen = false; (function(){ var _p=document.getElementById('artab-articles'); if(_p) _p.classList.remove('art-lib-open'); var _d=document.getElementById('art-default-view'); if(_d) _d.style.display=''; var _l=document.getElementById('art-library-view'); if(_l) _l.style.display='none'; })(); }
       if (target === 'member-activity') switchMaView(_currentMaView);
     });
   });
@@ -9403,7 +10560,7 @@ function openScriptResponseModal() {
     var panel = document.getElementById(panelId);
     if (panel) { panel.style.display = ''; panel.classList.add('active'); }
     if (panelId === 'artab-member-activity') switchMaView(_currentMaView);
-    if (panelId !== 'artab-articles' && artLibraryOpen) { artLibraryOpen = false; document.getElementById('art-default-view').style.display = 'block'; document.getElementById('art-library-view').style.display = 'none'; }
+    if (panelId === 'artab-articles' || artLibraryOpen) { artLibraryOpen = false; (function(){ var _p=document.getElementById('artab-articles'); if(_p) _p.classList.remove('art-lib-open'); var _d=document.getElementById('art-default-view'); if(_d) _d.style.display=''; var _l=document.getElementById('art-library-view'); if(_l) _l.style.display='none'; })(); }
   }
 
   // Click a B-tab
@@ -9419,7 +10576,7 @@ function openScriptResponseModal() {
     var directMapB = { 'notes':'artab-notes', 'documents':'artab-documents', 'articles':'artab-articles', 'consent-forms':'artab-consent-forms', 'guidelines':'artab-guidelines', 'member-alerts':'artab-member-alerts' };
     if (directMapB[arb]) {
       var p = document.getElementById(directMapB[arb]); if (p) { p.style.display=''; p.classList.add('active'); }
-      if (arb === 'articles' && artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
+      if (arb === 'articles' && artLibraryOpen) { artLibraryOpen=false; var _pB=document.getElementById('artab-articles'); if(_pB)_pB.classList.remove('art-lib-open'); var _dB=document.getElementById('art-default-view'); if(_dB)_dB.style.display=''; var _lB=document.getElementById('art-library-view'); if(_lB)_lB.style.display='none'; }
     } else if (arb === 'activities') {
       var g = document.getElementById('artab-b-activities'); if (g) g.style.display = '';
       var firstSub = g ? g.querySelector('.ar-sub-tab') : null;
@@ -9445,6 +10602,14 @@ function openScriptResponseModal() {
     if (directMap[arc]) {
       var p7 = document.getElementById(directMap[arc]); if (p7) { p7.style.display=''; p7.classList.add('active'); }
     } else if (arc === 'library') {
+      // Reset article library state whenever Library tab is activated
+      artLibraryOpen = false;
+      var _ap2 = document.getElementById('artab-articles');
+      if (_ap2) _ap2.classList.remove('art-lib-open');
+      var _adv2 = document.getElementById('art-default-view');
+      var _alv2 = document.getElementById('art-library-view');
+      if (_adv2) _adv2.style.display = '';
+      if (_alv2) _alv2.style.display = 'none';
       var g3 = document.getElementById('artab-c-library'); if (g3) g3.style.display = '';
       var firstSub3 = g3 ? g3.querySelector('.ar-sub-tab') : null;
       if (firstSub3) {
@@ -9486,7 +10651,7 @@ function openScriptResponseModal() {
       var panel = document.getElementById(target);
       if (panel) { panel.style.display=''; panel.classList.add('active'); }
       if (target==='artab-member-activity') switchMaView(_currentMaView);
-      if (target!=='artab-articles' && artLibraryOpen) { artLibraryOpen=false; document.getElementById('art-default-view').style.display='block'; document.getElementById('art-library-view').style.display='none'; }
+      if (target==='artab-articles' || artLibraryOpen) { artLibraryOpen=false; var _pS=document.getElementById('artab-articles'); if(_pS)_pS.classList.remove('art-lib-open'); var _dS=document.getElementById('art-default-view'); if(_dS)_dS.style.display=''; var _lS=document.getElementById('art-library-view'); if(_lS)_lS.style.display='none'; }
     });
   });
 
@@ -10167,6 +11332,15 @@ function openScriptResponseModal() {
     var m = memberData[key];
     if (!m) return;
     currentMemberKey = window.currentMemberKey = key;
+
+    // Always reset article library to default view on member switch
+    artLibraryOpen = false;
+    var _ap = document.getElementById('artab-articles');
+    if (_ap) _ap.classList.remove('art-lib-open');
+    var _adv = document.getElementById('art-default-view');
+    var _alv = document.getElementById('art-library-view');
+    if (_adv) _adv.style.display = '';
+    if (_alv) _alv.style.display = 'none';
 
     // Banner
     document.querySelector('.gc-banner-name').textContent = m.name;
@@ -15239,13 +16413,20 @@ var artLibraryOpen = false;
 
 function toggleArticleLibrary() {
   artLibraryOpen = !artLibraryOpen;
-  document.getElementById('art-default-view').style.display = artLibraryOpen ? 'none' : 'block';
-  document.getElementById('art-library-view').style.display = artLibraryOpen ? 'block' : 'none';
+  var artPanel = document.getElementById('artab-articles');
+  if (artPanel) artPanel.classList.toggle('art-lib-open', artLibraryOpen);
+  var adv = document.getElementById('art-default-view');
+  var alv = document.getElementById('art-library-view');
   if (artLibraryOpen) {
+    if (adv) adv.style.setProperty('display', 'none', 'important');
+    if (alv) alv.style.setProperty('display', 'block', 'important');
     var filterBar = document.getElementById('al-lib-filter-bar');
     var slotA = document.getElementById('al-lib-filter-bar-a-slot');
     if (filterBar && slotA) { slotA.after(filterBar); }
     alAFilter();
+  } else {
+    if (adv) adv.style.removeProperty('display');
+    if (alv) alv.style.setProperty('display', 'none', 'important');
   }
 }
 
