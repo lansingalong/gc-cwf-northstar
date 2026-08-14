@@ -706,6 +706,35 @@
   .pw-card-list-1col { grid-template-columns:1fr; }
   .pw-member-card { background:#fff; border-radius:6px; border:1px solid var(--border-light); box-shadow:0 1px 2px rgba(0,0,0,.05); overflow:hidden; }
   .pw-member-card.selected { border-color:var(--teal); box-shadow:0 0 0 2px rgba(19,120,163,.12); }
+  /* Row format for alerts — two-column grid */
+  .pw-card-list-alerts { background:#F4F6F8; padding:12px 16px; gap:10px; }
+  .pw-card-list-alerts .pw-member-card { display:block; position:relative; background:#fff; border:1px solid var(--border-light); border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.06); overflow:visible; padding:15px 21px; max-width:860px; margin:0 auto; width:100%; }
+  .pw-card-list-alerts .pw-member-card.selected { border-color:var(--teal); box-shadow:0 0 0 2px rgba(19,120,163,.12); }
+  .pw-card-list-alerts .pw-mc-header { padding:0 34px 11px 0; align-items:center; gap:11px; border-bottom:1px solid var(--border-light); }
+  .pw-card-list-alerts .pw-mc-identity { flex:1 1 auto; min-width:0; }
+  .pw-card-list-alerts .pw-mc-right { position:absolute; top:11px; right:13px; margin-left:0; }
+  .pw-card-list-alerts .pw-mc-name { font-size:13.7px; }
+  .pw-card-list-alerts .pw-mc-activities { border-top:none; padding-top:0; }
+  .pw-card-list-alerts .pw-mc-activity { padding:11px 0 4px 27px; border-top:none; gap:7px; align-items:flex-start; }
+  .pw-card-list-alerts .pw-mc-activities .pw-mc-activity:first-child { border-top:none; padding-top:11px; }
+  .pw-card-list-alerts .pw-mc-activity .pw-src-dot { margin-top:6px; flex-shrink:0; }
+  .pw-card-list-alerts .pw-mc-act-label { font-size:13.7px; color:#4A5568; line-height:1.6; }
+  .pw-card-list-alerts .pw-mc-act-actions { padding-top:11px; gap:6px; padding-bottom:0; }
+  .pw-card-list-alerts .pw-mc-act-body .pw-act-btn { font-size:11.6px; padding:4px 12px; border-radius:4px; }
+  .pw-card-list-alerts .pw-act-btn.pw-act-ack-alert:not([disabled]) { background:#fff; border-color:#1378A3; color:#1378A3; }
+  .pw-card-list-alerts .pw-act-btn.pw-act-ack-alert:not([disabled]):hover { background:#EBF4FA; }
+  .pw-card-list-alerts .pw-act-btn.pw-act-dismiss-alert { background:transparent; border-color:#CDD5DB; color:#8A9198; }
+  .pw-card-list-alerts .pw-act-btn.pw-act-dismiss-alert:hover { background:#F5F7F8; border-color:#B0BAC0; color:#5A6472; }
+  .pw-alerts-action-bar { display:flex; align-items:center; gap:6px; max-width:860px; margin:0 auto 10px; width:100%; }
+  .pw-card-list-styled .pw-member-card { display:block; position:relative; background:#fff; border:1px solid var(--border-light); border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.06); overflow:visible; max-width:860px; margin:0 auto; width:100%; }
+  .pw-card-list-styled .pw-member-card.selected { border-color:var(--teal); box-shadow:0 0 0 2px rgba(19,120,163,.12); }
+  .pw-card-list-styled .pw-mc-header { padding:12px 46px 12px 15px; align-items:center; gap:11px; border-bottom:1px solid var(--border-light); }
+  .pw-card-list-styled .pw-mc-identity { flex:1 1 auto; min-width:0; }
+  .pw-card-list-styled .pw-mc-right { position:absolute; top:11px; right:13px; margin-left:0; }
+  .pw-card-list-styled .pw-mc-name { font-size:13.7px; }
+  .pw-card-list-styled .pw-mc-activities { border-top:none; padding-top:0; }
+  .pw-card-list-styled .pw-mc-activity { padding:12px 15px 10px; border-top:none; }
+  .pw-card-list-styled .pw-mc-activities .pw-mc-activity:first-child { padding-top:12px; }
   .pw-mc-header { display:flex; align-items:flex-start; gap:10px; padding:10px 14px 8px; }
   .pw-mc-identity { flex:1; min-width:0; }
   .pw-mc-name-row { display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:3px; }
@@ -1180,19 +1209,6 @@
 
       </div><!-- end pwHomePanel -->
 
-      <div class="pw-toolbar">
-        <span class="pw-toolbar-action disabled" id="pwActBatchAck" onclick="pwBatchAck()"><span class="material-icons" style="font-size:14px;">done_all</span> Acknowledge</span>
-        <span class="pw-toolbar-action disabled" id="pwActBatchDismiss" onclick="pwBatchDismiss()"><span class="material-icons" style="font-size:14px;">cancel</span> Dismiss</span>
-        <span class="pw-toolbar-sep"></span>
-        <span class="pw-toolbar-action" onclick="pwSelectAll()"><span class="material-icons" style="font-size:14px;">check_box</span> Select All</span>
-        <span class="pw-toolbar-action" onclick="pwClearAll()"><span class="material-icons" style="font-size:14px;">check_box_outline_blank</span> Clear</span>
-        <span id="pwViewToggle" style="display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;margin-left:auto;">
-          <button id="pwToggleGrid" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
-          <button id="pwToggleList" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
-        </span>
-        <span style="font-size:11px;color:var(--text-muted);" id="pwSelCount"></span>
-      </div>
-
       <div class="pw-filter-bar" id="pwFilterBarDefault">
         <label>Program</label>
         <select style="width:130px;"><option>All Programs</option><option>Diabetes Management</option><option>Behavioral Health</option><option>Maternal Health</option><option>Fall Prevention</option></select>
@@ -1200,6 +1216,10 @@
         <select style="width:80px;"><option>All Risks</option><option>High</option><option>Medium</option><option>Low</option></select>
         <label>Member</label>
         <input type="text" placeholder="Search name..." style="width:120px;">
+        <span class="pw-view-toggle" style="margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;">
+          <button class="pw-view-grid-btn" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
+          <button class="pw-view-list-btn" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
+        </span>
       </div>
 
       <div class="pw-filter-bar" id="pwFilterBarRequests" style="display:none;">
@@ -1230,6 +1250,10 @@
         </span>
         <span class="pw-toolbar-sep"></span>
         <span class="pw-toolbar-action" style="color:#1378A3;font-weight:600;"><span class="material-icons" style="font-size:13px;">assignment</span> Care Activity Log</span>
+        <span class="pw-view-toggle" style="margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;">
+          <button class="pw-view-grid-btn" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
+          <button class="pw-view-list-btn" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
+        </span>
       </div>
 
 
@@ -1245,6 +1269,10 @@
         <span style="font-size:11px;color:var(--text-muted);">–</span>
         <input type="date" id="oaDateTo" style="height:24px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:11px;font-family:var(--font);" onchange="pwRenderOpenAuth()">
         <span class="pw-toolbar-action" onclick="oaClearFilters()"><span class="material-icons" style="font-size:13px;">refresh</span> Clear</span>
+        <span class="pw-view-toggle" style="margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;">
+          <button class="pw-view-grid-btn" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
+          <button class="pw-view-list-btn" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
+        </span>
       </div>
 
       <div id="pwFilterBarCareActivity" style="display:none;flex-direction:column;border-bottom:1px solid var(--border-light);background:#fff;flex-shrink:0;">
@@ -1340,6 +1368,17 @@
           <option value="description">Description</option>
         </select>
         <input type="text" id="pwAlertSearchText" placeholder="Search..." style="font-size:12px;border:1px solid var(--border);border-radius:4px;padding:3px 8px;color:var(--text-primary);outline:none;width:160px;" oninput="pwRender()">
+        <span class="pw-view-toggle" style="margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;">
+          <button class="pw-view-grid-btn" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
+          <button class="pw-view-list-btn" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
+        </span>
+      </div>
+
+      <div class="pw-filter-bar" id="pwFilterBarGeneric" style="display:none;">
+        <span class="pw-view-toggle" style="margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;">
+          <button class="pw-view-grid-btn" onclick="pwSetView('grid')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;">Grid view</button>
+          <button class="pw-view-list-btn" onclick="pwSetView('list')" style="padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);">List view</button>
+        </span>
       </div>
 
       <!-- Default: member list -->
@@ -8706,7 +8745,7 @@ function pwRenderRequestsTable() {
       pwRenderTable(memberList, rCols, rRows);
       return;
     }
-    var rHtml = '<div class="pw-card-list">';
+    var rHtml = '<div class="pw-card-list pw-card-list-1col pw-card-list-styled">';
     rejBucket.members.forEach(function(m) {
       var t = m.tags[0];
       rHtml += '<div class="pw-member-card" data-id="' + m.id + '">' +
@@ -8765,7 +8804,15 @@ function pwRenderRequestsTable() {
     return;
   }
 
-  var html = '<div class="pw-card-list" id="rrCardList">';
+  var rrActionBar = '<div class="pw-alerts-action-bar">' +
+    '<span class="pw-toolbar-action disabled" id="rrInlineAccept" onclick="rrBulkAccept()"><span class="material-icons" style="font-size:14px;">check_circle_outline</span> Accept Selected</span>' +
+    '<span class="pw-toolbar-action disabled" id="rrInlineDecline" onclick="rrBulkDecline()"><span class="material-icons" style="font-size:14px;">cancel</span> Decline Selected</span>' +
+    '<span class="pw-toolbar-sep"></span>' +
+    '<span class="pw-toolbar-action" onclick="rrSelectAll()"><span class="material-icons" style="font-size:14px;">check_box</span> Select All</span>' +
+    '<span class="pw-toolbar-action" onclick="rrClearSelection()"><span class="material-icons" style="font-size:14px;">check_box_outline_blank</span> Clear</span>' +
+    '<span id="rrBulkCount" style="font-size:11px;color:var(--text-muted);margin-left:4px;"></span>' +
+  '</div>';
+  var html = '<div class="pw-card-list pw-card-list-1col pw-card-list-styled" id="rrCardList">' + rrActionBar;
   bucket.members.forEach(function(m) {
     var t = m.tags[0];
     var origin = t.origin || '';
@@ -8803,13 +8850,7 @@ function pwRenderRequestsTable() {
     '</div>';
   });
 
-  html += '</div>' +
-    '<div id="rrBulkBar" style="display:none;position:sticky;bottom:0;background:#1378A3;color:#fff;padding:10px 20px;align-items:center;gap:16px;font-size:13px;">' +
-      '<span id="rrBulkCount" style="font-weight:600;"></span>' +
-      '<span style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;opacity:.9;" onclick="rrBulkAccept()"><span class="material-icons" style="font-size:15px;">check_circle_outline</span>Accept Selected</span>' +
-      '<span style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;opacity:.9;" onclick="rrBulkDecline()"><span class="material-icons" style="font-size:15px;">cancel</span>Decline Selected</span>' +
-      '<span style="margin-left:auto;cursor:pointer;opacity:.7;" onclick="rrClearSelection()"><span class="material-icons" style="font-size:15px;vertical-align:middle;">close</span></span>' +
-    '</div>';
+  html += '</div>';
   if (memberList) memberList.innerHTML = html;
 }
 
@@ -8820,16 +8861,23 @@ function rrToggleAll(cb) {
 
 function rrUpdateBulkBar() {
   var checked = document.querySelectorAll('.rr-row-check:checked');
-  var bar = document.getElementById('rrBulkBar');
+  var n = checked.length;
   var countEl = document.getElementById('rrBulkCount');
-  var total = document.querySelectorAll('.rr-row-check').length;
-  if (bar) bar.style.display = checked.length > 0 ? 'flex' : 'none';
-  if (countEl) countEl.textContent = checked.length + ' selected';
+  if (countEl) countEl.textContent = n > 0 ? n + ' selected' : '';
+  ['rrInlineAccept','rrInlineDecline'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.classList.toggle('disabled', n === 0);
+  });
   document.querySelectorAll('#pwMemberList .pw-member-card').forEach(function(card) {
     var cb = card.querySelector('.rr-row-check');
-    if (cb && cb.checked) card.style.outline = '2px solid var(--teal)';
-    else card.style.outline = '';
+    if (cb && cb.checked) card.classList.add('selected');
+    else card.classList.remove('selected');
   });
+}
+
+function rrSelectAll() {
+  document.querySelectorAll('.rr-row-check').forEach(function(c) { c.checked = true; });
+  rrUpdateBulkBar();
 }
 
 function rrClearSelection() {
@@ -9089,12 +9137,18 @@ function pwRenderMyMembers() {
     return;
   }
 
-  var html = '<div class="pw-card-list">';
+  var mmActionBar = '<div class="pw-alerts-action-bar">' +
+    '<span class="pw-toolbar-action" onclick="pwSelectAll()"><span class="material-icons" style="font-size:14px;">check_box</span> Select All</span>' +
+    '<span class="pw-toolbar-action" onclick="pwClearAll()"><span class="material-icons" style="font-size:14px;">check_box_outline_blank</span> Clear</span>' +
+    '<span id="pwInlineSelCount" style="font-size:11px;color:var(--text-muted);margin-left:4px;"></span>' +
+  '</div>';
+  var html = '<div class="pw-card-list pw-card-list-1col pw-card-list-styled">' + mmActionBar;
 
   bucket.members.forEach(function(m) {
-    html += '<div class="pw-member-card" data-id="' + m.id + '">' +
+    var checked = pwSelected.has(m.id);
+    html += '<div class="pw-member-card' + (checked ? ' selected' : '') + '" data-id="' + m.id + '">' +
       '<div class="pw-mc-header">' +
-        '<input type="checkbox" onchange="pwToggle(\'' + m.id + '\',this)" onclick="event.stopPropagation()" style="flex-shrink:0;margin-top:2px;accent-color:var(--teal);">' +
+        '<input type="checkbox"' + (checked ? ' checked' : '') + ' onchange="pwToggle(\'' + m.id + '\',this)" onclick="event.stopPropagation()" style="flex-shrink:0;margin-top:2px;accent-color:var(--teal);">' +
         '<div class="pw-mc-identity">' +
           '<div class="pw-mc-name-row">' +
             '<span class="pw-mc-name pw-open-btn" data-member="' + m.id + '">' + m.name + '</span>' +
@@ -9131,6 +9185,7 @@ function pwRenderMyMembers() {
       if (switcher) switcher.click();
     });
   });
+  pwUpdateToolbar();
 }
 
 
@@ -9138,10 +9193,8 @@ function pwSetView(mode) {
   pwViewMode = mode;
   var active = 'padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#1378A3;color:#fff;';
   var inactive = 'padding:3px 10px;font-size:11px;font-weight:600;font-family:var(--font);border:none;cursor:pointer;background:#fff;color:var(--text-secondary);';
-  var gBtn = document.getElementById('pwToggleGrid');
-  var lBtn = document.getElementById('pwToggleList');
-  if (gBtn) gBtn.style.cssText = mode === 'grid' ? active : inactive;
-  if (lBtn) lBtn.style.cssText = mode === 'list' ? active : inactive;
+  document.querySelectorAll('.pw-view-grid-btn').forEach(function(btn) { btn.style.cssText = mode === 'grid' ? active : inactive; });
+  document.querySelectorAll('.pw-view-list-btn').forEach(function(btn) { btn.style.cssText = mode === 'list' ? active : inactive; });
   // re-render current bucket
   var b = pwCurrentBucket;
   if (b === 'home' || b === 'due-today' || b === 'my-care-activity') return;
@@ -9198,7 +9251,7 @@ function pwRenderOpenAuth() {
   });
 
   if (pwViewMode === 'grid') {
-    var html = '<div class="pw-card-list pw-card-list-1col">';
+    var html = '<div class="pw-card-list pw-card-list-1col pw-card-list-styled">';
     if (members.length === 0) html += '<div style="padding:20px;color:var(--text-muted);font-size:12px;">No results match your search.</div>';
     members.forEach(function(m) {
       html += '<div class="pw-member-card" data-id="' + m.id + '">' +
@@ -9302,7 +9355,7 @@ function pwRenderPendingAuth() {
   var memberList = document.getElementById('pwMemberList');
   var members = PW_DATA['um-pending-auth'].members;
   if (pwViewMode === 'grid') {
-    var html = '<div class="pw-card-list pw-card-list-1col">';
+    var html = '<div class="pw-card-list pw-card-list-1col pw-card-list-styled">';
     members.forEach(function(m) {
       html += '<div class="pw-member-card" data-id="' + m.id + '">' +
         '<div class="pw-mc-header"><div class="pw-mc-identity">' +
@@ -9357,7 +9410,7 @@ function pwRenderOpenComplaints() {
   var memberList = document.getElementById('pwMemberList');
   var members = PW_DATA['um-open-complaints'].members;
   if (pwViewMode === 'grid') {
-    var html = '<div class="pw-card-list pw-card-list-1col">';
+    var html = '<div class="pw-card-list pw-card-list-1col pw-card-list-styled">';
     members.forEach(function(m) {
       html += '<div class="pw-member-card" data-id="' + m.id + '">' +
         '<div class="pw-mc-header"><div class="pw-mc-identity">' +
@@ -9413,7 +9466,7 @@ function pwRenderPendingComplaints() {
   var members = PW_DATA['um-pending-complaints'].members;
   var priorityColor = { 'High': '#C62828', 'Medium': '#E07820', 'Low': '#2E7D32' };
   if (pwViewMode === 'grid') {
-    var html = '<div class="pw-card-list pw-card-list-1col">';
+    var html = '<div class="pw-card-list pw-card-list-1col pw-card-list-styled">';
     members.forEach(function(m) {
       var pColor = priorityColor[m.priority] || '#444';
       html += '<div class="pw-member-card" data-id="' + m.id + '">' +
@@ -9710,8 +9763,9 @@ function pwRender() {
 
   var is1Col = ['new-alerts','new-insights','wf-inactive','wf-pending-signup','wf-no-invite'].indexOf(pwCurrentBucket) !== -1;
   var isAlertsBucket = pwCurrentBucket === 'new-alerts';
+  var isStyledBucket = ['new-insights','wf-inactive','wf-pending-signup','wf-no-invite'].indexOf(pwCurrentBucket) !== -1;
   var activeHtml = '', ackedHtml = '', aCount = 0, rCount = 0;
-  var html = isAlertsBucket ? '' : '<div class="pw-card-list' + (is1Col ? ' pw-card-list-1col' : '') + '">';
+  var html = isAlertsBucket ? '' : '<div class="pw-card-list' + (is1Col ? ' pw-card-list-1col' : '') + (isStyledBucket ? ' pw-card-list-styled' : '') + '">';
   memberOrder.forEach(function(mid) {
     var entry = memberMap[mid];
     var m = entry.m;
@@ -9863,9 +9917,26 @@ function pwRender() {
     if (ackedHtml) {
       listContent += '<div class="pw-ack-section-label"><span class="material-icons" style="font-size:12px;">check_circle</span> Acknowledged</div>' + ackedHtml;
     }
-    html = '<div class="pw-card-list pw-card-list-1col">' + listContent + '</div>';
+    var actionBar = '<div class="pw-alerts-action-bar">' +
+      '<span class="pw-toolbar-action disabled" id="pwActBatchAck" onclick="pwBatchAck()"><span class="material-icons" style="font-size:14px;">done_all</span> Acknowledge</span>' +
+      '<span class="pw-toolbar-action disabled" id="pwActBatchDismiss" onclick="pwBatchDismiss()"><span class="material-icons" style="font-size:14px;">cancel</span> Dismiss</span>' +
+      '<span class="pw-toolbar-sep"></span>' +
+      '<span class="pw-toolbar-action" onclick="pwSelectAll()"><span class="material-icons" style="font-size:14px;">check_box</span> Select All</span>' +
+      '<span class="pw-toolbar-action" onclick="pwClearAll()"><span class="material-icons" style="font-size:14px;">check_box_outline_blank</span> Clear</span>' +
+      '<span id="pwInlineSelCount" style="font-size:11px;color:var(--text-muted);margin-left:4px;"></span>' +
+    '</div>';
+    html = '<div class="pw-card-list pw-card-list-1col pw-card-list-alerts">' + actionBar + listContent + '</div>';
   } else {
     html += '</div>';
+    if (isStyledBucket) {
+      var styledActionBar = '<div class="pw-alerts-action-bar">' +
+        '<span class="pw-toolbar-action" onclick="pwSelectAll()"><span class="material-icons" style="font-size:14px;">check_box</span> Select All</span>' +
+        '<span class="pw-toolbar-action" onclick="pwClearAll()"><span class="material-icons" style="font-size:14px;">check_box_outline_blank</span> Clear</span>' +
+        '<span id="pwInlineSelCount" style="font-size:11px;color:var(--text-muted);margin-left:4px;"></span>' +
+      '</div>';
+      var firstClose = html.indexOf('>');
+      html = html.slice(0, firstClose + 1) + styledActionBar + html.slice(firstClose + 1);
+    }
   }
 
   if (memberList) memberList.innerHTML = html;
@@ -9882,8 +9953,8 @@ function pwToggle(id, cb) {
 
 function pwUpdateToolbar() {
   var n = pwSelected.size;
-  var el = document.getElementById('pwSelCount');
-  if (el) el.textContent = n > 0 ? n + ' selected' : '';
+  var elInline = document.getElementById('pwInlineSelCount');
+  if (elInline) elInline.textContent = n > 0 ? n + ' selected' : '';
   ['pwActBatchAck','pwActBatchDismiss'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (btn) btn.classList.toggle('disabled', n === 0);
@@ -9969,21 +10040,18 @@ function pwSelectAlertTab(el, panel) {
   var diseasesPanel = document.getElementById('pwAlertPanelDiseases');
   var indicatorsPanel = document.getElementById('pwAlertPanelIndicators');
   var alertBar = document.getElementById('pwFilterBarAlerts');
-  var toolbar = document.querySelector('.pw-toolbar');
   if (panel === 'alerts') {
     if (memberList) memberList.style.display = '';
     if (risksPanel) risksPanel.style.display = 'none';
     if (diseasesPanel) diseasesPanel.style.display = 'none';
     if (indicatorsPanel) indicatorsPanel.style.display = 'none';
     if (alertBar) alertBar.style.display = '';
-    if (toolbar) toolbar.style.display = '';
   } else {
     if (memberList) memberList.style.display = 'none';
     if (risksPanel) risksPanel.style.display = panel === 'risks' ? 'flex' : 'none';
     if (diseasesPanel) diseasesPanel.style.display = panel === 'diseases' ? 'flex' : 'none';
     if (indicatorsPanel) indicatorsPanel.style.display = panel === 'indicators' ? 'flex' : 'none';
     if (alertBar) alertBar.style.display = 'none';
-    if (toolbar) toolbar.style.display = 'none';
   }
 }
 
@@ -10003,7 +10071,7 @@ function pwSelectBucket(el) {
   var alertBar = document.getElementById('pwFilterBarAlerts');
   var openAuthBar = document.getElementById('pwFilterBarOpenAuth');
   var careActivityBar = document.getElementById('pwFilterBarCareActivity');
-  var toolbar = document.querySelector('.pw-toolbar');
+  var genericBar = document.getElementById('pwFilterBarGeneric');
   var tabStrip = document.getElementById('pwAlertTabStrip');
   var memberList = document.getElementById('pwMemberList');
   var risksPanel = document.getElementById('pwAlertPanelRisks');
@@ -10014,19 +10082,22 @@ function pwSelectBucket(el) {
   // Show/hide home panel vs normal content
   if (homePanel) homePanel.style.display = isHome ? '' : 'none';
   if (mainHeader) mainHeader.style.display = isHome ? 'none' : '';
-  if (toolbar) toolbar.style.display = (isHome || isCareActivity) ? 'none' : '';
-  var viewToggle = document.getElementById('pwViewToggle');
-  if (viewToggle) viewToggle.style.display = (pwCurrentBucket === 'due-today' || isHome || isCareActivity) ? 'none' : '';
   if (memberList) memberList.style.display = isHome ? 'none' : '';
   if (risksPanel) risksPanel.style.display = 'none';
   if (diseasesPanel) diseasesPanel.style.display = 'none';
   if (indicatorsPanel) indicatorsPanel.style.display = 'none';
   var isUmBucket = pwCurrentBucket === 'um-open-auth' || pwCurrentBucket === 'um-pending-auth' || pwCurrentBucket === 'um-open-complaints' || pwCurrentBucket === 'um-pending-complaints';
+  var isGenericBar = isMyMembers || pwCurrentBucket === 'um-pending-auth' || pwCurrentBucket === 'um-open-complaints' || pwCurrentBucket === 'um-pending-complaints';
   if (defBar) defBar.style.display = (isRequests || isMyMembers || isAlerts || isHome || isUmBucket || isCareActivity) ? 'none' : '';
+  if (defBar && defBar.style.display !== 'none') {
+    var defToggle = defBar.querySelector('.pw-view-toggle');
+    if (defToggle) defToggle.style.display = (pwCurrentBucket === 'due-today') ? 'none' : '';
+  }
   if (reqBar) reqBar.style.display = (isRequests && !isHome) ? '' : 'none';
   if (isRequests) { rrCurrentTab = 'received'; var filtersEl = document.getElementById('rrFilters'); if (filtersEl) filtersEl.style.display = ''; var tR = document.getElementById('rrTabReceived'); var tJ = document.getElementById('rrTabRejected'); if (tR) { tR.style.color='var(--teal-dark)'; tR.style.borderBottomColor='var(--teal)'; tR.style.fontWeight='700'; } if (tJ) { tJ.style.color='var(--text-muted)'; tJ.style.borderBottomColor='transparent'; tJ.style.fontWeight='600'; } }
   if (alertBar) alertBar.style.display = (isAlerts && !isHome) ? '' : 'none';
   if (openAuthBar) openAuthBar.style.display = (isOpenAuth && !isHome) ? '' : 'none';
+  if (genericBar) genericBar.style.display = (isGenericBar && !isHome) ? '' : 'none';
   if (careActivityBar) careActivityBar.style.display = (isCareActivity && !isHome) ? 'flex' : 'none';
   if (isCareActivity) {
     calCurrentTab = 'today';
