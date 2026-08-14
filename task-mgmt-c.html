@@ -735,6 +735,9 @@
   .pw-card-list-styled .pw-mc-activities { border-top:none; padding-top:0; }
   .pw-card-list-styled .pw-mc-activity { padding:12px 15px 10px; border-top:none; }
   .pw-card-list-styled .pw-mc-activities .pw-mc-activity:first-child { padding-top:12px; }
+  .pw-card-list-styled .pw-mc-act-label { font-size:13.7px; color:#4A5568; line-height:1.6; }
+  .pw-card-list-styled .pw-mc-act-actions { padding-top:10px; gap:6px; padding-bottom:0; }
+  .pw-card-list-styled .pw-act-btn { font-size:11.6px; padding:4px 12px; border-radius:4px; }
   .pw-mc-header { display:flex; align-items:flex-start; gap:10px; padding:10px 14px 8px; }
   .pw-mc-identity { flex:1; min-width:0; }
   .pw-mc-name-row { display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:3px; }
@@ -8465,8 +8468,8 @@ function pwWfIcon() {
 }
 function pwCol(label, value) {
   return '<span style="display:inline-flex;flex-direction:column;gap:2px;min-width:80px;">' +
-    '<span style="font-size:11px;font-weight:600;color:var(--text-muted);">' + label + '</span>' +
-    '<span style="font-size:12px;color:var(--text-primary);">' + value + '</span>' +
+    '<span style="font-size:11.6px;font-weight:600;color:var(--text-muted);">' + label + '</span>' +
+    '<span style="font-size:12.6px;color:var(--text-primary);">' + value + '</span>' +
   '</span>';
 }
 
@@ -8831,19 +8834,21 @@ function pwRenderRequestsTable() {
         '</div>' +
       '</div>' +
       '<div class="pw-mc-activities">' +
-        '<div class="pw-mc-activity" style="gap:0;">' +
-          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
-            pwCol('Activity', t.activityType || '—') +
-            pwCol('Scheduled', t.scheduledDate || '—') +
-            pwCol('Refer Date', t.referDate || m.date) +
-            pwCol('Assigned By', assignedBy) +
-            pwCol('Priority', priority) +
-            pwCol('Status', status) +
-            (t.hasAttachment ? pwCol('Files', '<span style="color:var(--link);cursor:pointer;">View</span>') : '') +
-          '</div>' +
-          '<div class="pw-mc-act-actions" style="margin-left:12px;">' +
-            '<button class="pw-act-btn pw-act-perform" data-member="' + m.id + '" data-label="' + t.label + '" data-priority="Normal">Accept</button>' +
-            '<button class="pw-act-btn pw-act-delete" data-member="' + m.id + '" data-label="' + t.label + '">Decline</button>' +
+        '<div class="pw-mc-activity">' +
+          '<div style="display:flex;flex-direction:column;">' +
+            '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' +
+              pwCol('Activity', t.activityType || '—') +
+              pwCol('Scheduled', t.scheduledDate || '—') +
+              pwCol('Refer Date', t.referDate || m.date) +
+              pwCol('Assigned By', assignedBy) +
+              pwCol('Priority', priority) +
+              pwCol('Status', status) +
+              (t.hasAttachment ? pwCol('Files', '<span style="color:var(--link);cursor:pointer;">View</span>') : '') +
+            '</div>' +
+            '<div class="pw-mc-act-actions">' +
+              '<button class="pw-act-btn pw-act-perform" data-member="' + m.id + '" data-label="' + t.label + '" data-priority="Normal">Accept</button>' +
+              '<button class="pw-act-btn pw-act-delete" data-member="' + m.id + '" data-label="' + t.label + '">Decline</button>' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -9838,30 +9843,36 @@ function pwRender() {
       var actionsHtml = actBtns ? '<div class="pw-mc-act-actions">' + actBtns + '</div>' : '';
       if (isInactive) {
         rowContent =
-          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
-            pwCol('Program', m.program || '—') +
-            pwCol('Inactive', t.dayCount || '—') +
-            pwCol('Last Contact', t.lastContact || '—') +
-            pwCol('Username', t.wfUsername || '—') +
-          '</div>' +
-          actionsHtml;
+          '<div style="display:flex;flex-direction:column;">' +
+            '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' +
+              pwCol('Program', m.program || '—') +
+              pwCol('Inactive', t.dayCount || '—') +
+              pwCol('Last Contact', t.lastContact || '—') +
+              pwCol('Username', t.wfUsername || '—') +
+            '</div>' +
+            actionsHtml +
+          '</div>';
       } else if (isPendingSignup) {
         rowContent =
-          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
-            pwCol('Program', m.program || '—') +
-            pwCol('Status', t.inviteStatus || 'Invited') +
-            pwCol('Days Since Invite', t.dayCount || '—') +
-            pwCol('Last Contact', t.lastContact || '—') +
-            pwCol('Access Code', t.accessCode || '—') +
-          '</div>' +
-          actionsHtml;
+          '<div style="display:flex;flex-direction:column;">' +
+            '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' +
+              pwCol('Program', m.program || '—') +
+              pwCol('Status', t.inviteStatus || 'Invited') +
+              pwCol('Days Since Invite', t.dayCount || '—') +
+              pwCol('Last Contact', t.lastContact || '—') +
+              pwCol('Access Code', t.accessCode || '—') +
+            '</div>' +
+            actionsHtml +
+          '</div>';
       } else if (pwCurrentBucket === 'wf-no-invite') {
         rowContent =
-          '<div style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">' +
-            pwCol('Program', m.program || '—') +
-            pwCol('Status', 'No invite sent') +
-          '</div>' +
-          actionsHtml;
+          '<div style="display:flex;flex-direction:column;">' +
+            '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' +
+              pwCol('Program', m.program || '—') +
+              pwCol('Status', 'No invite sent') +
+            '</div>' +
+            actionsHtml +
+          '</div>';
       } else {
         var isGcAlert = pwCurrentBucket === 'new-alerts' && t.source === 'gc';
         var isAckedRow = isGcAlert && pwAckedAlerts.has(rowId);
