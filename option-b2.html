@@ -4028,7 +4028,7 @@ function openScriptResponseModal() {
     var hraPage = document.getElementById('hraReviewPage');
     if (hraPage) hraPage.style.display = 'none';
     var cwn = document.getElementById('chatWidgetMemberName');
-    if (cwn) cwn.textContent = 'Messages';
+    if (cwn) cwn.textContent = 'Chats';
     flushPendingOutstanding();
     window.parent.postMessage({ type: 'VIEW_HOME' }, '*');
   }
@@ -6804,9 +6804,9 @@ function openViewProgramModal() {
   <div onclick="cwHandleNameClick()" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background=''" style="display:flex;align-items:center;gap:10px;cursor:pointer;border-radius:4px;padding:4px 6px;margin:-4px -6px;">
     <div style="position:relative;flex-shrink:0;margin-top:6px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3D5A8A" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span style="position:absolute;top:-7px;right:-7px;background:#E53935;color:#fff;border-radius:50%;width:17px;height:17px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Open Sans',sans-serif;line-height:1;">1</span>
+      <span class="cw-badge" style="position:absolute;top:-7px;right:-7px;background:#E53935;color:#fff;border-radius:50%;width:17px;height:17px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Open Sans',sans-serif;line-height:1;">1</span>
     </div>
-    <span id="chatWidgetMemberName" style="font-size:15px;font-weight:600;color:#1a1a1a;white-space:nowrap;font-family:'Open Sans',sans-serif;margin-top:-4px;">Messages</span>
+    <span id="chatWidgetMemberName" style="font-size:15px;font-weight:600;color:#1a1a1a;white-space:nowrap;font-family:'Open Sans',sans-serif;margin-top:-4px;">Chats</span>
   </div>
   <!-- Divider -->
   <div style="width:1px;height:36px;background:#e0e0e0;margin:0 2px;flex-shrink:0;"></div>
@@ -6824,7 +6824,7 @@ function openViewProgramModal() {
   <div id="cw-popup-header" style="display:flex;align-items:center;gap:8px;padding:12px 14px 10px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
     <!-- list-mode header -->
     <div id="cwh-list" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
-      <span style="font-size:14px;font-weight:700;color:#1a1a1a;">Messages</span>
+      <span style="font-size:14px;font-weight:700;color:#1a1a1a;">Chats</span>
       <span onclick="cwClosePopup()" style="cursor:pointer;color:#999;font-size:20px;line-height:1;">&times;</span>
     </div>
     <!-- chat-mode header -->
@@ -6838,8 +6838,11 @@ function openViewProgramModal() {
     </div>
   </div>
 
+  <!-- Different-member banner -->
+  <div id="cw-diff-member-banner" style="display:none;background:#fffbea;border-bottom:1px solid #f0d940;padding:5px 16px;font-size:11px;font-weight:600;color:#7a6200;letter-spacing:0.01em;flex-shrink:0;">Different member profile</div>
+
   <!-- List view -->
-  <div id="cw-msg-list" style="max-height:340px;overflow-y:auto;"></div>
+  <div id="cw-msg-list" style="height:460px;overflow-y:auto;"></div>
 
   <!-- Chat view -->
   <div id="cw-chat-view" style="display:none;flex-direction:column;height:380px;">
@@ -6856,11 +6859,11 @@ function openViewProgramModal() {
 <script>
 (function(){
   var cwMessages = [
-    { member:'Jackson Thomas', key:'jackson-thomas', initials:'JT', color:'#3D5A8A', time:'2m ago', preview:'I took my medication this morning but I\'m still feeling a bit dizzy...', unread:true },
-    { member:'Maria Rivera',   key:'maria-rivera',   initials:'MR', color:'#2e7d32', time:'18m ago', preview:'Can we reschedule Thursday\'s check-in to Friday afternoon?', unread:true },
-    { member:'Robert Chen',    key:'robert-chen',    initials:'RC', color:'#6a1b9a', time:'1h ago',  preview:'My blood pressure readings have been higher this week.', unread:false },
-    { member:'Sarah Williams', key:'sarah-williams', initials:'SW', color:'#c62828', time:'3h ago',  preview:'Thank you for sending over those resources, very helpful!', unread:false },
-    { member:'James O\'Connor',key:'james-oconnor',  initials:'JO', color:'#e65100', time:'Yesterday', preview:'Attached my latest lab results from the clinic visit.', unread:false },
+    { member:'Jackson Thomas', key:'jackson-thomas', initials:'JT', color:'#5B8DD9', time:'2m ago',   preview:'I took my medication this morning but I\'m still feeling a bit dizzy...', unread:true },
+    { member:'Maria Rivera',   key:'maria-rivera',   initials:'MR', color:'#2D4270', time:'18m ago',  preview:'Should I be worried or is that normal during rehab?', unread:true },
+    { member:'Robert Chen',    key:'robert-chen',    initials:'RC', color:'#35B4F0', time:'1h ago',   preview:'My blood pressure readings have been higher this week.', unread:false },
+    { member:'Sarah Williams', key:'sarah-williams', initials:'SW', color:'#5B8DD9', time:'3h ago',   preview:'Thank you for sending over those resources, very helpful!', unread:false },
+    { member:'James O\'Connor',key:'james-oconnor',  initials:'JO', color:'#2D4270', time:'10:32 AM', preview:'Attached my latest lab results from the clinic visit.', unread:false },
   ];
 
   var cwChats = {
@@ -6869,12 +6872,14 @@ function openViewProgramModal() {
       { from:'cm',     text:'Good morning, Jackson! Great to hear from you. How have your blood sugar readings been?', time:'9:05 AM' },
       { from:'member', text:'Mostly in range, but I had a high reading after dinner on Tuesday.', time:'9:07 AM' },
       { from:'cm',     text:'That can happen — did you have anything different for dinner that evening?', time:'9:09 AM' },
-      { from:'member', text:'I took my medication this morning but I\'m still feeling a bit dizzy...', time:'9:14 AM' },
+      { from:'member', text:'I took my medication this morning but I\'m still feeling a bit dizzy...', time:'9:14 AM', newThread:true },
     ],
     'maria-rivera': [
       { from:'member', text:'Hi, I have a question about my cardiac rehab schedule.', time:'Yesterday' },
       { from:'cm',     text:'Of course! What would you like to know?', time:'Yesterday' },
-      { from:'member', text:'Can we reschedule Thursday\'s check-in to Friday afternoon?', time:'10:42 AM' },
+      { from:'member', text:'Can we reschedule Thursday\'s check-in to Friday afternoon?', time:'10:42 AM', newThread:true },
+      { from:'member', text:'Also, I\'ve been experiencing some shortness of breath after the exercises.', time:'10:45 AM' },
+      { from:'member', text:'Should I be worried or is that normal during rehab?', time:'10:46 AM' },
     ],
     'robert-chen': [
       { from:'cm',     text:'Hi Robert, just checking in — how are you feeling this week?', time:'Monday' },
@@ -6888,17 +6893,28 @@ function openViewProgramModal() {
     'james-oconnor': [
       { from:'member', text:'Dr. Park referred me to you for follow-up on my behavioral health plan.', time:'Last week' },
       { from:'cm',     text:'Welcome James! I\'ve reviewed your referral and would love to connect. When works for you?', time:'Last week' },
-      { from:'member', text:'Attached my latest lab results from the clinic visit.', time:'Yesterday' },
+      { from:'member', text:'Attached my latest lab results from the clinic visit.', time:'10:32 AM' },
     ],
   };
 
   var popupOpen = false;
   var currentChatKey = null;
+  var cwManuallyMarkedUnread = false;
 
   window.cwHandleNameClick = function() {
     var cwn = document.getElementById('chatWidgetMemberName');
-    if (!cwn || cwn.textContent.trim() !== 'Messages') return;
-    popupOpen ? cwClosePopup() : cwOpenPopup();
+    if (!cwn) return;
+    var widgetName = cwn.textContent.trim();
+    if (widgetName === 'Chats') {
+      popupOpen ? cwClosePopup() : cwOpenPopup();
+      return;
+    }
+    var match = cwMessages.find(function(x) { return x.member === widgetName; });
+    if (!match) { popupOpen ? cwClosePopup() : cwOpenPopup(); return; }
+    var popup = document.getElementById('cw-msg-popup');
+    popup.style.display = 'flex';
+    popupOpen = true;
+    cwOpenChat(match.key);
   };
 
   window.cwOpenPopup = function() {
@@ -6909,35 +6925,104 @@ function openViewProgramModal() {
   };
 
   function cwShowListView() {
-    var list = document.getElementById('cw-msg-list');
-    list.innerHTML = cwMessages.map(function(m) {
-      return '<div onclick="cwOpenChat(\''+m.key+'\')" style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid #f5f5f5;cursor:pointer;background:'+( m.unread ? '#f7f9fc' : '#fff' )+';" onmouseover="this.style.background=\'#eef2f8\'" onmouseout="this.style.background=\''+( m.unread ? '#f7f9fc' : '#fff' )+'\'">'
+    document.getElementById('cwh-list').style.display = 'flex';
+    document.getElementById('cwh-chat').style.display = 'none';
+    document.getElementById('cw-msg-list').style.display = 'block';
+    document.getElementById('cw-chat-view').style.display = 'none';
+    var banner = document.getElementById('cw-diff-member-banner');
+    if (banner) banner.style.display = 'none';
+    cwRenderList();
+  }
+
+  var cwSectionOpen = { unread: true, recent: true };
+
+  function cwUnreadMsgCount() {
+    var total = 0;
+    cwMessages.forEach(function(m) {
+      if (!m.unread) return;
+      var msgs = cwChats[m.key] || [];
+      var counting = false;
+      msgs.forEach(function(msg) {
+        if (msg.newThread) counting = true;
+        if (counting) total++;
+      });
+    });
+    return total;
+  }
+
+  function cwUpdateBadge() {
+    var count = cwUnreadMsgCount();
+    var badge = document.querySelector('#chat-widget .cw-badge');
+    if (badge) {
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+  }
+
+  function cwSectionHeader(label, key, count) {
+    var open = cwSectionOpen[key];
+    var chevron = open
+      ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>'
+      : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    var countStr = (count != null) ? ' <span style="font-weight:400;color:#999;">('+count+')</span>' : '';
+    return '<div onclick="cwToggleSection(\''+key+'\')" style="display:flex;align-items:center;gap:6px;padding:7px 16px;background:#f8f8f8;border-bottom:1px solid #ececec;cursor:pointer;user-select:none;">'
+      + '<span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;flex:1;">'+label+countStr+'</span>'
+      + '<span style="color:#888;display:flex;align-items:center;">'+chevron+'</span>'
+      + '</div>';
+  }
+
+  window.cwToggleSection = function(key) {
+    cwSectionOpen[key] = !cwSectionOpen[key];
+    cwRenderList();
+  };
+
+  function cwMakeRows(items) {
+    return items.map(function(m) {
+      var bg = m.unread ? '#f7f9fc' : '#fff';
+      return '<div onclick="cwOpenChat(\''+m.key+'\')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;background:'+bg+';" onmouseover="this.style.background=\'#eef2f8\'" onmouseout="this.style.background=\''+bg+'\'">'
         + '<div style="flex-shrink:0;width:36px;height:36px;border-radius:50%;background:'+m.color+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;position:relative;">'
         +   m.initials
         +   ( m.unread ? '<span style="position:absolute;top:0;right:0;width:9px;height:9px;background:#E53935;border-radius:50%;border:2px solid #fff;"></span>' : '' )
         + '</div>'
-        + '<div style="flex:1;min-width:0;">'
-        +   '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">'
-        +     '<span style="font-size:13px;font-weight:'+(m.unread?'700':'600')+';color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px;">'+m.member+'</span>'
-        +     '<span style="font-size:11px;color:#999;white-space:nowrap;flex-shrink:0;">'+m.time+'</span>'
-        +   '</div>'
-        +   '<div style="font-size:12px;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+m.preview+'</div>'
+        + '<div style="flex:0 0 140px;min-width:0;">'
+        +   '<div style="font-size:13px;font-weight:'+(m.unread?'700':'600')+';color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+m.member+'</div>'
+        +   '<div style="font-size:11px;color:#aaa;margin-top:1px;">'+m.time+'</div>'
         + '</div>'
+        + '<div style="flex:1;min-width:0;font-size:12px;color:'+(m.unread?'#333':'#777')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(m.unread?'500':'400')+';">'+m.preview+'</div>'
         + '</div>';
     }).join('');
-    document.getElementById('cwh-list').style.display = 'flex';
-    document.getElementById('cwh-chat').style.display = 'none';
-    list.style.display = 'block';
-    var cv = document.getElementById('cw-chat-view');
-    cv.style.display = 'none';
   }
+
+  window.cwRenderList = function() {
+    var unread = cwMessages.filter(function(m){ return m.unread; });
+    var recent = cwMessages.filter(function(m){ return !m.unread; });
+    var html = '';
+    if (unread.length) {
+      html += cwSectionHeader('Unread', 'unread', cwUnreadMsgCount());
+      if (cwSectionOpen.unread) html += cwMakeRows(unread);
+    }
+    if (recent.length) {
+      html += cwSectionHeader('Recent (Today)', 'recent', null);
+      if (cwSectionOpen.recent) html += cwMakeRows(recent);
+    }
+    if (!html) html = '<div style="padding:24px 16px;text-align:center;color:#999;font-size:13px;">No messages</div>';
+    document.getElementById('cw-msg-list').innerHTML = html;
+  };
 
   window.cwOpenChat = function(key) {
     var m = cwMessages.find(function(x){ return x.key === key; });
     if (!m) return;
     currentChatKey = key;
+    cwManuallyMarkedUnread = false;
 
-    // Switch header to chat mode
+    var cwn = document.getElementById('chatWidgetMemberName');
+    var banner = document.getElementById('cw-diff-member-banner');
+    if (banner && cwn) {
+      var profileName = cwn.textContent.trim();
+      var isDiff = profileName !== 'Chats' && profileName !== m.member;
+      banner.style.display = isDiff ? 'block' : 'none';
+    }
+
     document.getElementById('cwh-list').style.display = 'none';
     var chatHeader = document.getElementById('cwh-chat');
     chatHeader.style.display = 'flex';
@@ -6946,32 +7031,59 @@ function openViewProgramModal() {
     avatar.textContent = m.initials;
     document.getElementById('cwh-name').textContent = m.member;
 
-    // Hide list, show chat
     document.getElementById('cw-msg-list').style.display = 'none';
     var cv = document.getElementById('cw-chat-view');
     cv.style.display = 'flex';
 
-    // Render messages
     var msgs = cwChats[key] || [];
     var chatEl = document.getElementById('cw-chat-messages');
-    chatEl.innerHTML = msgs.map(function(msg) {
+    var newDivider = '<div style="display:flex;align-items:center;gap:10px;margin:6px 0;">'
+      + '<div style="flex:1;height:1px;background:#d0d0d0;"></div>'
+      + '<span style="font-size:11px;color:#888;white-space:nowrap;font-weight:500;">New messages</span>'
+      + '<div style="width:40px;height:1px;background:#d0d0d0;"></div>'
+      + '</div>';
+    var memberName = m.member.split(' ')[0];
+    chatEl.innerHTML = msgs.map(function(msg, idx) {
       var isCM = msg.from === 'cm';
-      return '<div style="display:flex;flex-direction:column;align-items:'+(isCM?'flex-end':'flex-start')+';gap:2px;">'
-        + '<div style="max-width:78%;background:'+(isCM?'#3D5C8C':'#f0f0f0')+';color:'+(isCM?'#fff':'#1a1a1a')+';border-radius:'+(isCM?'12px 12px 2px 12px':'12px 12px 12px 2px')+';padding:8px 11px;font-size:13px;line-height:1.45;">'+msg.text+'</div>'
-        + '<span style="font-size:10px;color:#aaa;padding:0 4px;">'+msg.time+'</span>'
+      var senderLabel = isCM
+        ? '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">You</span><span style="font-size:11px;color:#888;margin-left:5px;">Care Manager</span>'
+        : '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">'+memberName+'</span>';
+      var markUnreadBtn = !isCM
+        ? '<button class="cw-mark-unread-btn" onclick="cwMarkUnread(\''+key+'\','+idx+')" style="display:none;position:absolute;top:-26px;right:-4px;background:#fff;border:1px solid #d0d0d0;border-radius:8px;padding:7px 18px;font-size:13px;color:#777;cursor:pointer;font-family:\'Open Sans\',sans-serif;white-space:nowrap;box-shadow:0 1px 6px rgba(0,0,0,0.10);font-weight:400;" onmouseover="this.style.background=\'#f5f5f5\';this.style.borderColor=\'#bbb\'" onmouseout="this.style.background=\'#fff\';this.style.borderColor=\'#d0d0d0\'">Mark Unread</button>'
+        : '';
+      return (msg.newThread ? newDivider : '')
+        + '<div class="cw-msg-row" style="display:flex;flex-direction:column;align-items:'+(isCM?'flex-end':'flex-start')+';gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;" onmouseover="cwMsgHover(this,true)" onmouseout="cwMsgHover(this,false)">'
+        + '<div style="display:flex;align-items:baseline;gap:0;width:100%;justify-content:'+(isCM?'flex-end':'flex-start')+';padding:0 2px;">'
+        +   '<div style="display:flex;align-items:baseline;gap:4px;flex:1;justify-content:'+(isCM?'flex-end':'flex-start')+'">'
+        +     senderLabel
+        +   '</div>'
+        +   '<span style="font-size:11px;color:#aaa;white-space:nowrap;margin-left:10px;">'+msg.time+'</span>'
+        + '</div>'
+        + '<div style="position:relative;display:inline-block;max-width:85%;">'
+        +   '<div style="background:'+(isCM?'#d6e8f5':'#e8e8e8')+';color:#1a1a1a;border-radius:'+(isCM?'12px 12px 2px 12px':'12px 12px 12px 2px')+';padding:9px 12px;font-size:13px;line-height:1.5;font-weight:500;">'+msg.text+'</div>'
+        +   markUnreadBtn
+        + '</div>'
         + '</div>';
     }).join('');
     chatEl.scrollTop = chatEl.scrollHeight;
 
-    // Clear input
     var inp = document.getElementById('cw-chat-input');
     inp.value = '';
     inp.style.height = 'auto';
+    inp.placeholder = 'Message ' + memberName;
   };
 
   window.cwBackToList = function() {
-    cwShowListView();
+    if (currentChatKey && !cwManuallyMarkedUnread) {
+      var m = cwMessages.find(function(x){ return x.key === currentChatKey; });
+      if (m) { m.unread = false; }
+      var msgs = cwChats[currentChatKey] || [];
+      msgs.forEach(function(msg){ delete msg.newThread; });
+      cwUpdateBadge();
+    }
     currentChatKey = null;
+    cwManuallyMarkedUnread = false;
+    cwShowListView();
   };
 
   window.cwSendMessage = function() {
@@ -6982,15 +7094,38 @@ function openViewProgramModal() {
     cwChats[currentChatKey].push({ from:'cm', text:text, time:'Just now' });
     inp.value = '';
     inp.style.height = 'auto';
-    // Re-render chat
     var msgs = cwChats[currentChatKey];
     var chatEl = document.getElementById('cw-chat-messages');
+    var m = cwMessages.find(function(x){ return x.key === currentChatKey; });
+    var memberName = m ? m.member.split(' ')[0] : 'Member';
     var div = document.createElement('div');
-    div.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:2px;';
-    div.innerHTML = '<div style="max-width:78%;background:#3D5C8C;color:#fff;border-radius:12px 12px 2px 12px;padding:8px 11px;font-size:13px;line-height:1.45;">'+text+'</div>'
-      + '<span style="font-size:10px;color:#aaa;padding:0 4px;">Just now</span>';
+    div.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;';
+    div.innerHTML = '<div style="display:flex;align-items:baseline;width:100%;justify-content:flex-end;padding:0 2px;">'
+      + '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">You</span>'
+      + '<span style="font-size:11px;color:#888;margin-left:5px;">Care Manager</span>'
+      + '<span style="font-size:11px;color:#aaa;margin-left:10px;">Just now</span>'
+      + '</div>'
+      + '<div style="max-width:85%;background:#d6e8f5;color:#1a1a1a;border-radius:12px 12px 2px 12px;padding:9px 12px;font-size:13px;line-height:1.5;font-weight:500;">'+text+'</div>';
     chatEl.appendChild(div);
     chatEl.scrollTop = chatEl.scrollHeight;
+    inp.placeholder = 'Message ' + memberName;
+  };
+
+  window.cwMsgHover = function(row, on) {
+    var btn = row.querySelector('.cw-mark-unread-btn');
+    if (btn) btn.style.display = on ? 'block' : 'none';
+    if (btn) row.style.background = on ? '#F2F8FA' : '';
+  };
+
+  window.cwMarkUnread = function(key, fromIdx) {
+    var m = cwMessages.find(function(x){ return x.key === key; });
+    if (!m) return;
+    var msgs = cwChats[key] || [];
+    msgs.forEach(function(msg, i){ if (i >= fromIdx) msg.newThread = true; });
+    m.unread = true;
+    cwOpenChat(key);
+    cwManuallyMarkedUnread = true;
+    cwUpdateBadge();
   };
 
   window.cwInputResize = function(el) {
@@ -7008,6 +7143,12 @@ function openViewProgramModal() {
     popupOpen = false;
     currentChatKey = null;
   };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', cwUpdateBadge);
+  } else {
+    cwUpdateBadge();
+  }
 })();
 </script>
 </body>
