@@ -223,7 +223,7 @@
   .app-body { display: flex; min-height: calc(100vh - 126px); }
   .main-content { flex: 1; background: #EBEBEB; display: flex; flex-direction: column; min-width: 0; }
   .content-tabs-area { background: var(--white); border-bottom: 1px solid var(--border); }
-  .content-body { flex: 1; padding: 12px 16px; overflow-y: auto; background: var(--white); }
+  .content-body { flex: 1; padding: 12px 16px; overflow-y: auto; background: var(--white); min-height: 100%; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
   .left-panel { display: none; }
@@ -237,7 +237,7 @@
 
   /* ── Split View: persistent Wellframe right panel ── */
   .split-shell { display: flex; flex: 1; min-height: 0; }
-  .split-gc-side { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+  .split-gc-side { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; background: var(--white); }
   .split-wf-side { width: 360px; min-width: 360px; border-left: 1px solid var(--border); background: #fff; display: flex; flex-direction: column; transition: width 0.25s ease, min-width 0.25s ease; }
   .split-wf-side.collapsed { width: 28px; min-width: 28px; overflow: visible; }
   .split-wf-side.collapsed .split-wf-toggle-bar { padding: 0; justify-content: center; width: 28px; overflow: hidden; }
@@ -1519,6 +1519,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -6817,11 +6818,17 @@ function openViewProgramModal() {
   </button>
 </div>
 
+<!-- Prototype trigger -->
+<div onclick="cwTriggerIncoming()" style="position:fixed;bottom:8px;right:28px;z-index:10001;font-size:9px;color:#bbb;cursor:pointer;font-family:'Open Sans',sans-serif;letter-spacing:0.3px;user-select:none;" onmouseover="this.style.color='#999'" onmouseout="this.style.color='#bbb'">trigger msg</div>
+
+<!-- Incoming message toast container -->
+<div id="cw-toast-container" style="position:fixed;bottom:96px;right:24px;z-index:10002;width:300px;height:90px;pointer-events:none;"></div>
+
 <!-- Messages notification popup -->
-<div id="cw-msg-popup" style="display:none;position:fixed;bottom:96px;right:24px;z-index:10000;width:340px;background:#fff;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:1px solid #e4e4e4;font-family:'Open Sans',sans-serif;overflow:hidden;display:none;flex-direction:column;">
+<div id="cw-msg-popup" style="display:none;position:fixed;bottom:96px;right:24px;z-index:10000;width:480px;background:#fff;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:1px solid #e4e4e4;font-family:'Open Sans',sans-serif;overflow:hidden;flex-direction:column;">
 
   <!-- Header (swaps between list and chat mode) -->
-  <div id="cw-popup-header" style="display:flex;align-items:center;gap:8px;padding:12px 14px 10px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
+  <div id="cw-popup-header" style="display:flex;align-items:center;gap:8px;padding:12px 16px 10px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
     <!-- list-mode header -->
     <div id="cwh-list" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
       <span style="font-size:14px;font-weight:700;color:#1a1a1a;">Chats</span>
@@ -6845,9 +6852,36 @@ function openViewProgramModal() {
   <div id="cw-msg-list" style="height:460px;overflow-y:auto;"></div>
 
   <!-- Chat view -->
-  <div id="cw-chat-view" style="display:none;flex-direction:column;height:380px;">
-    <div id="cw-chat-messages" style="flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px;"></div>
-    <div style="padding:10px 12px;border-top:1px solid #f0f0f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;">
+  <div id="cw-chat-view" style="display:none;flex-direction:column;height:460px;">
+    <div id="cw-chat-messages" style="flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="padding:10px 12px;border-top:1px solid #f0f0f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;position:relative;">
+      <!-- Plus button -->
+      <button onclick="cwTogglePlusMenu(event)" style="flex-shrink:0;background:none;border:1px solid #ccc;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#3D5C8C;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <!-- Plus menu -->
+      <div id="cw-plus-menu" style="display:none;position:absolute;bottom:54px;left:12px;background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);border:1px solid #e8e8e8;width:220px;padding:6px 0;z-index:10001;font-family:'Open Sans',sans-serif;">
+        <div onclick="cwPlusAction('template')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+          Add a Template
+        </div>
+        <div onclick="cwPlusAction('recent')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Add a Recent Message
+        </div>
+        <div onclick="cwPlusAction('call')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.59 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.78-1.38a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.22 16z"/></svg>
+          Log a Phone Call
+        </div>
+        <div onclick="cwPlusAction('text')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="#3D5C8C"/></svg>
+          Send a Text
+        </div>
+        <div onclick="cwPlusAction('file')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          Attach a File
+        </div>
+      </div>
       <textarea id="cw-chat-input" placeholder="Type a message…" rows="1" oninput="cwInputResize(this)" onkeydown="cwInputKeydown(event)" style="flex:1;border:1px solid #ddd;border-radius:6px;padding:7px 10px;font-size:13px;font-family:'Open Sans',sans-serif;resize:none;outline:none;line-height:1.4;max-height:80px;overflow-y:auto;"></textarea>
       <button onclick="cwSendMessage()" style="flex-shrink:0;background:#3D5C8C;color:#fff;border:none;border-radius:6px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -6859,11 +6893,11 @@ function openViewProgramModal() {
 <script>
 (function(){
   var cwMessages = [
-    { member:'Jackson Thomas', key:'jackson-thomas', initials:'JT', color:'#5B8DD9', time:'2m ago',   preview:'I took my medication this morning but I\'m still feeling a bit dizzy...', unread:true },
-    { member:'Maria Rivera',   key:'maria-rivera',   initials:'MR', color:'#2D4270', time:'18m ago',  preview:'Should I be worried or is that normal during rehab?', unread:true },
-    { member:'Robert Chen',    key:'robert-chen',    initials:'RC', color:'#35B4F0', time:'1h ago',   preview:'My blood pressure readings have been higher this week.', unread:false },
-    { member:'Sarah Williams', key:'sarah-williams', initials:'SW', color:'#5B8DD9', time:'3h ago',   preview:'Thank you for sending over those resources, very helpful!', unread:false },
-    { member:'James O\'Connor',key:'james-oconnor',  initials:'JO', color:'#2D4270', time:'10:32 AM', preview:'Attached my latest lab results from the clinic visit.', unread:false },
+    { member:'Jackson Thomas', key:'jackson-thomas', initials:'JT', color:'#5B8DD9', preview:'I took my medication this morning but I\'m still feeling a bit dizzy...', unread:true },
+    { member:'Maria Rivera',   key:'maria-rivera',   initials:'MR', color:'#2D4270', preview:'Should I be worried or is that normal during rehab?', unread:true },
+    { member:'Robert Chen',    key:'robert-chen',    initials:'RC', color:'#35B4F0', preview:'My blood pressure readings have been higher this week.', unread:false, readAt: (function(){ var d=new Date(); d.setHours(8,30,0,0); return d.getTime(); })() },
+    { member:'Sarah Williams', key:'sarah-williams', initials:'SW', color:'#5B8DD9', preview:'Thank you for sending over those resources, very helpful!', unread:false, readAt: (function(){ var d=new Date(); d.setHours(6,45,0,0); return d.getTime(); })() },
+    { member:'James O\'Connor',key:'james-oconnor',  initials:'JO', color:'#2D4270', preview:'Attached my latest lab results from the clinic visit.', unread:false, readAt: (function(){ var d=new Date(); d.setHours(10,32,0,0); return d.getTime(); })() },
   ];
 
   var cwChats = {
@@ -6897,6 +6931,31 @@ function openViewProgramModal() {
     ],
   };
 
+  // Parse a time string like '9:14 AM' into a timestamp; returns null for relative strings.
+  // If the parsed time is in the future (prototype opened before that clock time), treat it as yesterday.
+  function cwParseMsgTime(str) {
+    var m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec((str || '').trim());
+    if (!m) return null;
+    var h = parseInt(m[1], 10), min = parseInt(m[2], 10), ampm = m[3].toUpperCase();
+    if (ampm === 'PM' && h !== 12) h += 12;
+    if (ampm === 'AM' && h === 12) h = 0;
+    var d = new Date(); d.setHours(h, min, 0, 0);
+    if (d.getTime() > Date.now()) d.setDate(d.getDate() - 1);
+    return d.getTime();
+  }
+
+  // Derive sentAt from the last member-sent message in each chat
+  cwMessages.forEach(function(entry) {
+    var msgs = cwChats[entry.key] || [];
+    for (var i = msgs.length - 1; i >= 0; i--) {
+      if (msgs[i].from === 'member') {
+        var ts = cwParseMsgTime(msgs[i].time);
+        if (ts) { entry.sentAt = ts; }
+        break;
+      }
+    }
+  });
+
   var popupOpen = false;
   var currentChatKey = null;
   var cwManuallyMarkedUnread = false;
@@ -6909,6 +6968,7 @@ function openViewProgramModal() {
       popupOpen ? cwClosePopup() : cwOpenPopup();
       return;
     }
+    // Member name shown — open popup directly to that member's chat
     var match = cwMessages.find(function(x) { return x.member === widgetName; });
     if (!match) { popupOpen ? cwClosePopup() : cwOpenPopup(); return; }
     var popup = document.getElementById('cw-msg-popup');
@@ -6936,16 +6996,19 @@ function openViewProgramModal() {
 
   var cwSectionOpen = { unread: true, recent: true };
 
+  function cwUnreadCountFor(key) {
+    var msgs = cwChats[key] || [], count = 0, counting = false;
+    msgs.forEach(function(msg) {
+      if (msg.newThread) counting = true;
+      if (counting) count++;
+    });
+    return count;
+  }
+
   function cwUnreadMsgCount() {
     var total = 0;
     cwMessages.forEach(function(m) {
-      if (!m.unread) return;
-      var msgs = cwChats[m.key] || [];
-      var counting = false;
-      msgs.forEach(function(msg) {
-        if (msg.newThread) counting = true;
-        if (counting) total++;
-      });
+      if (m.unread) total += cwUnreadCountFor(m.key);
     });
     return total;
   }
@@ -6957,6 +7020,36 @@ function openViewProgramModal() {
       badge.textContent = count;
       badge.style.display = count > 0 ? 'flex' : 'none';
     }
+  }
+
+  function cwFormatTime(m) {
+    var ts = m.sentAt || null;
+    if (!ts) return '';
+    var diffMin = Math.round((Date.now() - ts) / 60000);
+    if (diffMin < 1) return 'Just now';
+    if (diffMin < 60) return diffMin + 'm ago';
+    var d = new Date(ts);
+    var h = d.getHours(), min = d.getMinutes();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return h + ':' + (min < 10 ? '0' : '') + min + ' ' + ampm;
+  }
+
+  function cwMakeRows(items) {
+    return items.map(function(m) {
+      var bg = m.unread ? '#F5FCFF' : '#fff';
+      return '<div onclick="cwOpenChat(\''+m.key+'\')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;background:'+bg+';" onmouseover="this.style.background=\'#eef2f8\'" onmouseout="this.style.background=\''+bg+'\'">'
+        + '<div style="flex-shrink:0;width:36px;height:36px;border-radius:50%;background:'+m.color+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;position:relative;">'
+        +   m.initials
+        +   ( m.unread ? '<span style="position:absolute;top:0;right:0;width:9px;height:9px;background:#E53935;border-radius:50%;border:2px solid #fff;"></span>' : '' )
+        + '</div>'
+        + '<div style="flex:0 0 140px;min-width:0;">'
+        +   '<div style="font-size:13px;font-weight:'+(m.unread?'700':'600')+';color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+m.member+'</div>'
+        +   '<div style="font-size:11px;color:#aaa;margin-top:1px;">'+cwFormatTime(m)+'</div>'
+        + '</div>'
+        + '<div style="flex:1;min-width:0;font-size:12px;color:'+(m.unread?'#333':'#777')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(m.unread?'500':'400')+';"> '+(m.unread ? '<span style="color:#999;">(' + cwUnreadCountFor(m.key) + ')</span> ' : '')+m.preview+'</div>'
+        + '</div>';
+    }).join('');
   }
 
   function cwSectionHeader(label, key, count) {
@@ -6976,36 +7069,24 @@ function openViewProgramModal() {
     cwRenderList();
   };
 
-  function cwMakeRows(items) {
-    return items.map(function(m) {
-      var bg = m.unread ? '#f7f9fc' : '#fff';
-      return '<div onclick="cwOpenChat(\''+m.key+'\')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;background:'+bg+';" onmouseover="this.style.background=\'#eef2f8\'" onmouseout="this.style.background=\''+bg+'\'">'
-        + '<div style="flex-shrink:0;width:36px;height:36px;border-radius:50%;background:'+m.color+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;position:relative;">'
-        +   m.initials
-        +   ( m.unread ? '<span style="position:absolute;top:0;right:0;width:9px;height:9px;background:#E53935;border-radius:50%;border:2px solid #fff;"></span>' : '' )
-        + '</div>'
-        + '<div style="flex:0 0 140px;min-width:0;">'
-        +   '<div style="font-size:13px;font-weight:'+(m.unread?'700':'600')+';color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+m.member+'</div>'
-        +   '<div style="font-size:11px;color:#aaa;margin-top:1px;">'+m.time+'</div>'
-        + '</div>'
-        + '<div style="flex:1;min-width:0;font-size:12px;color:'+(m.unread?'#333':'#777')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(m.unread?'500':'400')+';">'+m.preview+'</div>'
-        + '</div>';
-    }).join('');
-  }
-
   window.cwRenderList = function() {
+    var midnight = new Date(); midnight.setHours(0,0,0,0);
+    var midnightMs = midnight.getTime();
     var unread = cwMessages.filter(function(m){ return m.unread; });
-    var recent = cwMessages.filter(function(m){ return !m.unread; });
+    var readToday = cwMessages.filter(function(m){ return !m.unread && m.readAt && m.readAt >= midnightMs; })
+      .sort(function(a, b){ return b.readAt - a.readAt; });
     var html = '';
+
     if (unread.length) {
       html += cwSectionHeader('Unread', 'unread', cwUnreadMsgCount());
       if (cwSectionOpen.unread) html += cwMakeRows(unread);
     }
-    if (recent.length) {
-      html += cwSectionHeader('Recent (Today)', 'recent', null);
-      if (cwSectionOpen.recent) html += cwMakeRows(recent);
+    if (readToday.length) {
+      html += cwSectionHeader('Read today', 'recent', readToday.length);
+      if (cwSectionOpen.recent) html += cwMakeRows(readToday);
     }
     if (!html) html = '<div style="padding:24px 16px;text-align:center;color:#999;font-size:13px;">No messages</div>';
+
     document.getElementById('cw-msg-list').innerHTML = html;
   };
 
@@ -7015,6 +7096,7 @@ function openViewProgramModal() {
     currentChatKey = key;
     cwManuallyMarkedUnread = false;
 
+    // Show banner when the open chat is for a different member than the profile in view
     var cwn = document.getElementById('chatWidgetMemberName');
     var banner = document.getElementById('cw-diff-member-banner');
     if (banner && cwn) {
@@ -7023,6 +7105,7 @@ function openViewProgramModal() {
       banner.style.display = isDiff ? 'block' : 'none';
     }
 
+    // Switch header to chat mode
     document.getElementById('cwh-list').style.display = 'none';
     var chatHeader = document.getElementById('cwh-chat');
     chatHeader.style.display = 'flex';
@@ -7031,10 +7114,12 @@ function openViewProgramModal() {
     avatar.textContent = m.initials;
     document.getElementById('cwh-name').textContent = m.member;
 
+    // Hide list, show chat
     document.getElementById('cw-msg-list').style.display = 'none';
     var cv = document.getElementById('cw-chat-view');
     cv.style.display = 'flex';
 
+    // Render messages
     var msgs = cwChats[key] || [];
     var chatEl = document.getElementById('cw-chat-messages');
     var newDivider = '<div style="display:flex;align-items:center;gap:10px;margin:6px 0;">'
@@ -7042,7 +7127,7 @@ function openViewProgramModal() {
       + '<span style="font-size:11px;color:#888;white-space:nowrap;font-weight:500;">New messages</span>'
       + '<div style="width:40px;height:1px;background:#d0d0d0;"></div>'
       + '</div>';
-    var memberName = m.member.split(' ')[0];
+    var memberName = m.member.split(' ')[0]; // first name only
     chatEl.innerHTML = msgs.map(function(msg, idx) {
       var isCM = msg.from === 'cm';
       var senderLabel = isCM
@@ -7051,8 +7136,7 @@ function openViewProgramModal() {
       var markUnreadBtn = !isCM
         ? '<button class="cw-mark-unread-btn" onclick="cwMarkUnread(\''+key+'\','+idx+')" style="display:none;position:absolute;top:-26px;right:-4px;background:#fff;border:1px solid #d0d0d0;border-radius:8px;padding:7px 18px;font-size:13px;color:#777;cursor:pointer;font-family:\'Open Sans\',sans-serif;white-space:nowrap;box-shadow:0 1px 6px rgba(0,0,0,0.10);font-weight:400;" onmouseover="this.style.background=\'#f5f5f5\';this.style.borderColor=\'#bbb\'" onmouseout="this.style.background=\'#fff\';this.style.borderColor=\'#d0d0d0\'">Mark Unread</button>'
         : '';
-      return (msg.newThread ? newDivider : '')
-        + '<div class="cw-msg-row" style="display:flex;flex-direction:column;align-items:'+(isCM?'flex-end':'flex-start')+';gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;" onmouseover="cwMsgHover(this,true)" onmouseout="cwMsgHover(this,false)">'
+      var bubble = '<div class="cw-msg-row" style="display:flex;flex-direction:column;align-items:'+(isCM?'flex-end':'flex-start')+';gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;" onmouseover="cwMsgHover(this,true)" onmouseout="cwMsgHover(this,false)">'
         + '<div style="display:flex;align-items:baseline;gap:0;width:100%;justify-content:'+(isCM?'flex-end':'flex-start')+';padding:0 2px;">'
         +   '<div style="display:flex;align-items:baseline;gap:4px;flex:1;justify-content:'+(isCM?'flex-end':'flex-start')+'">'
         +     senderLabel
@@ -7064,9 +7148,11 @@ function openViewProgramModal() {
         +   markUnreadBtn
         + '</div>'
         + '</div>';
+      return (msg.newThread ? newDivider : '') + bubble;
     }).join('');
     chatEl.scrollTop = chatEl.scrollHeight;
 
+    // Clear input
     var inp = document.getElementById('cw-chat-input');
     inp.value = '';
     inp.style.height = 'auto';
@@ -7076,7 +7162,7 @@ function openViewProgramModal() {
   window.cwBackToList = function() {
     if (currentChatKey && !cwManuallyMarkedUnread) {
       var m = cwMessages.find(function(x){ return x.key === currentChatKey; });
-      if (m) { m.unread = false; }
+      if (m) { m.unread = false; m.readAt = Date.now(); }
       var msgs = cwChats[currentChatKey] || [];
       msgs.forEach(function(msg){ delete msg.newThread; });
       cwUpdateBadge();
@@ -7094,21 +7180,15 @@ function openViewProgramModal() {
     cwChats[currentChatKey].push({ from:'cm', text:text, time:'Just now' });
     inp.value = '';
     inp.style.height = 'auto';
+    // Re-render chat
     var msgs = cwChats[currentChatKey];
     var chatEl = document.getElementById('cw-chat-messages');
-    var m = cwMessages.find(function(x){ return x.key === currentChatKey; });
-    var memberName = m ? m.member.split(' ')[0] : 'Member';
     var div = document.createElement('div');
-    div.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;';
-    div.innerHTML = '<div style="display:flex;align-items:baseline;width:100%;justify-content:flex-end;padding:0 2px;">'
-      + '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">You</span>'
-      + '<span style="font-size:11px;color:#888;margin-left:5px;">Care Manager</span>'
-      + '<span style="font-size:11px;color:#aaa;margin-left:10px;">Just now</span>'
-      + '</div>'
-      + '<div style="max-width:85%;background:#d6e8f5;color:#1a1a1a;border-radius:12px 12px 2px 12px;padding:9px 12px;font-size:13px;line-height:1.5;font-weight:500;">'+text+'</div>';
+    div.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:2px;';
+    div.innerHTML = '<div style="max-width:78%;background:#3D5C8C;color:#fff;border-radius:12px 12px 2px 12px;padding:8px 11px;font-size:13px;line-height:1.45;">'+text+'</div>'
+      + '<span style="font-size:10px;color:#aaa;padding:0 4px;">Just now</span>';
     chatEl.appendChild(div);
     chatEl.scrollTop = chatEl.scrollHeight;
-    inp.placeholder = 'Message ' + memberName;
   };
 
   window.cwMsgHover = function(row, on) {
@@ -7118,14 +7198,39 @@ function openViewProgramModal() {
   };
 
   window.cwMarkUnread = function(key, fromIdx) {
+    var msgs = cwChats[key];
+    if (!msgs) return;
+    msgs.forEach(function(msg) { delete msg.newThread; });
+    msgs[fromIdx].newThread = true;
     var m = cwMessages.find(function(x){ return x.key === key; });
-    if (!m) return;
-    var msgs = cwChats[key] || [];
-    msgs.forEach(function(msg, i){ if (i >= fromIdx) msg.newThread = true; });
-    m.unread = true;
+    if (m) m.unread = true;
     cwOpenChat(key);
-    cwManuallyMarkedUnread = true;
+    cwManuallyMarkedUnread = true; // set after cwOpenChat so it doesn't get reset
     cwUpdateBadge();
+  };
+
+  window.cwTogglePlusMenu = function(e) {
+    e.stopPropagation();
+    var menu = document.getElementById('cw-plus-menu');
+    var open = menu.style.display !== 'none';
+    menu.style.display = open ? 'none' : 'block';
+    if (!open) {
+      setTimeout(function(){ document.addEventListener('click', cwPlusOutside); }, 0);
+    }
+  };
+
+  function cwPlusOutside(e) {
+    var menu = document.getElementById('cw-plus-menu');
+    if (menu && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+      document.removeEventListener('click', cwPlusOutside);
+    }
+  }
+
+  window.cwPlusAction = function(action) {
+    document.getElementById('cw-plus-menu').style.display = 'none';
+    document.removeEventListener('click', cwPlusOutside);
+    // placeholder — actions are no-ops in prototype
   };
 
   window.cwInputResize = function(el) {
@@ -7144,11 +7249,131 @@ function openViewProgramModal() {
     currentChatKey = null;
   };
 
+  // Init badge count
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', cwUpdateBadge);
   } else {
     cwUpdateBadge();
   }
+
+  var cwIncomingPool = [
+    { key:'jackson-thomas', initials:'JT', color:'#5B8DD9', member:'Jackson Thomas', texts:[
+      'Just checked my blood sugar — it\'s at 142, is that okay?',
+      'Do I still need to fast before my appointment tomorrow?',
+      'Feeling a little better today, thanks for checking in.',
+    ]},
+    { key:'maria-rivera',   initials:'MR', color:'#2D4270', member:'Maria Rivera', texts:[
+      'Can you send me the number for the cardiology office again?',
+      'I did my breathing exercises this morning!',
+      'My ankles have been swelling more than usual this week.',
+    ]},
+    { key:'robert-chen',    initials:'RC', color:'#35B4F0', member:'Robert Chen', texts:[
+      'BP was 148/92 this morning, higher than yesterday.',
+      'Got a refill on my lisinopril, just wanted to let you know.',
+      'Is it normal to feel tired after starting the new medication?',
+    ]},
+    { key:'sarah-williams', initials:'SW', color:'#5B8DD9', member:'Sarah Williams', texts:[
+      'Baby was very active last night, is that normal at 32 weeks?',
+      'I have a question about the nutrition plan you sent.',
+      'My next OB appointment is confirmed for next Thursday.',
+    ]},
+    { key:'james-oconnor',  initials:'JO', color:'#2D4270', member:'James O\'Connor', texts:[
+      'Had a rough night, anxiety was pretty bad.',
+      'My inhaler ran out — how do I get a refill?',
+      'I made it to my appointment today, went pretty well.',
+    ]},
+  ];
+
+  var cwToastStack = []; // [{el, key, count, timer}] — index 0 = frontmost
+
+  function cwUpdateToastPositions(animated) {
+    cwToastStack.forEach(function(t, i) {
+      var scale = 1 - i * 0.05;
+      var ty = -(i * 10);
+      t.el.style.transition = animated ? 'transform 0.25s ease, opacity 0.25s ease' : 'none';
+      t.el.style.transform = 'scale(' + scale + ') translateY(' + ty + 'px)';
+      t.el.style.zIndex = (cwToastStack.length - i) + 10002;
+      t.el.style.opacity = i < 3 ? '1' : '0';
+      t.el.style.pointerEvents = i === 0 ? 'auto' : 'none';
+    });
+  }
+
+  function cwDismissToast(toastObj) {
+    var idx = cwToastStack.indexOf(toastObj);
+    if (idx === -1) return;
+    clearTimeout(toastObj.timer);
+    cwToastStack.splice(idx, 1);
+    toastObj.el.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+    toastObj.el.style.opacity = '0';
+    toastObj.el.style.transform = 'scale(1) translateX(20px)';
+    setTimeout(function(){ if (toastObj.el.parentNode) toastObj.el.parentNode.removeChild(toastObj.el); }, 220);
+    cwUpdateToastPositions(true);
+  }
+
+  function cwArmTimer(toastObj) {
+    clearTimeout(toastObj.timer);
+    toastObj.timer = setTimeout(function(){ cwDismissToast(toastObj); }, 4000);
+  }
+
+  window.cwTriggerIncoming = function() {
+    var sender = cwIncomingPool[Math.floor(Math.random() * cwIncomingPool.length)];
+    var text = sender.texts[Math.floor(Math.random() * sender.texts.length)];
+
+    // Update data
+    var entry = cwMessages.find(function(x){ return x.key === sender.key; });
+    if (entry) { entry.unread = true; entry.sentAt = Date.now(); entry.preview = text; }
+    if (!cwChats[sender.key]) cwChats[sender.key] = [];
+    cwChats[sender.key].push({ from:'member', text:text, time:'Just now', newThread:true });
+    cwUpdateBadge();
+
+    var container = document.getElementById('cw-toast-container');
+
+    // Same sender as front toast → update in place
+    if (cwToastStack.length > 0 && cwToastStack[0].key === sender.key) {
+      var front = cwToastStack[0];
+      front.count++;
+      var nameEl = front.el.querySelector('.cw-tn');
+      var prevEl = front.el.querySelector('.cw-tp');
+      if (nameEl) nameEl.textContent = sender.member + ' (' + front.count + ')';
+      if (prevEl) prevEl.textContent = text;
+      // pulse highlight
+      front.el.style.transition = 'box-shadow 0.1s ease';
+      front.el.style.boxShadow = '0 4px 20px rgba(61,92,140,0.4)';
+      setTimeout(function(){ front.el.style.transition = 'box-shadow 0.4s ease'; front.el.style.boxShadow = '0 4px 18px rgba(0,0,0,0.15)'; }, 150);
+      cwArmTimer(front);
+      return;
+    }
+
+    // New toast
+    var toast = document.createElement('div');
+    toast.style.cssText = 'position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,0.15);border:1px solid #e4e4e4;padding:10px 14px;cursor:pointer;opacity:0;transform:scale(1) translateX(20px);transform-origin:bottom center;font-family:\'Open Sans\',sans-serif;box-sizing:border-box;';
+    toast.innerHTML = '<div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:'+sender.color+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">'+sender.initials+'</div>'
+      + '<div style="min-width:0;flex:1;">'
+      +   '<div class="cw-tn" style="font-size:12px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+sender.member+'</div>'
+      +   '<div class="cw-tp" style="font-size:11px;color:#555;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+text+'</div>'
+      + '</div>';
+
+    var toastObj = { el: toast, key: sender.key, count: 1, timer: null };
+    toast.onclick = function(){ cwDismissToast(toastObj); cwOpenPopup(); cwOpenChat(sender.key); };
+    toast.onmouseenter = function(){ clearTimeout(toastObj.timer); };
+    toast.onmouseleave = function(){ cwArmTimer(toastObj); };
+
+    container.appendChild(toast);
+    cwToastStack.unshift(toastObj);
+
+    // Push back existing toasts immediately (no transition), then animate new one in
+    cwUpdateToastPositions(false);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      toast.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      toast.style.opacity = '1';
+      toast.style.transform = 'scale(1) translateY(0)';
+      // animate the ones behind with a transition after the new one lands
+      setTimeout(function(){ cwUpdateToastPositions(true); }, 50);
+    }); });
+
+    cwArmTimer(toastObj);
+  };
+
 })();
 </script>
 </body>
