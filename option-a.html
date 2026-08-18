@@ -587,6 +587,55 @@
   .wfm-add-row { display:flex; align-items:center; gap:8px; background:#fff; border-radius:10px; padding:10px 12px; margin-bottom:8px; box-shadow:0 1px 4px rgba(0,0,0,.15); }
   .wfm-add-row .material-icons { font-size:18px; color:#0E98BE; }
   .wfm-add-row-lbl { font-size:13px; color:#0E98BE; font-weight:600; font-family:system-ui,-apple-system,sans-serif; }
+
+  /* ── Invite to Wellframe form ── */
+  .itw-wrap { background:#fff; padding:20px; min-height:300px; display:flex; justify-content:center; }
+  .itw-form { background:#fff; border:1px solid #DDE3E8; border-radius:4px; padding:24px 28px; display:flex; flex-direction:column; gap:18px; width:50%; }
+  .itw-row { display:flex; gap:16px; }
+  .itw-field { display:flex; flex-direction:column; gap:5px; flex:1; min-width:0; }
+  .itw-field label { font-size:12px; font-weight:600; color:#444; }
+  .itw-field label .req { color:#C62828; }
+  .itw-input { height:34px; border:1px solid #BBBFC4; border-radius:3px; padding:0 10px; font-size:13px; font-family:var(--font); background:#fff; outline:none; width:100%; box-sizing:border-box; color:var(--text-primary); }
+  .itw-input:focus { border-color:var(--teal); }
+  .itw-input.disabled { background:#F5F5F5; color:#999; }
+  .itw-select { height:34px; border:1px solid #BBBFC4; border-radius:3px; padding:0 8px; font-size:13px; font-family:var(--font); background:#fff; outline:none; width:100%; box-sizing:border-box; color:var(--text-primary); }
+  .itw-select:focus { border-color:var(--teal); }
+  .itw-input-icon-wrap { position:relative; }
+  .itw-input-icon-wrap .itw-input { padding-right:32px; }
+  .itw-input-icon-wrap .itw-icon { position:absolute; right:8px; top:50%; transform:translateY(-50%); font-size:18px; color:#999; pointer-events:none; }
+  .itw-phone-row { display:flex; gap:0; }
+  .itw-phone-cc { height:34px; border:1px solid #BBBFC4; border-radius:3px 0 0 3px; padding:0 8px; font-size:13px; font-family:var(--font); background:#fff; outline:none; min-width:90px; border-right:none; color:var(--text-primary); }
+  .itw-phone-num { height:34px; border:1px solid #BBBFC4; border-radius:0 3px 3px 0; padding:0 10px; font-size:13px; font-family:var(--font); background:#fff; outline:none; flex:1; width:0; box-sizing:border-box; }
+  .itw-phone-num:focus, .itw-phone-cc:focus { border-color:var(--teal); z-index:1; }
+  .itw-caregiver-toggle { font-size:12px; font-weight:700; color:var(--teal); cursor:pointer; user-select:none; text-decoration:underline; display:inline-block; margin-bottom:10px; }
+  .itw-caregiver-section { display:none; background:#EAEFF3; border-radius:3px; padding:16px; }
+  .itw-caregiver-section.open { display:block; }
+  .itw-footer { display:flex; align-items:center; justify-content:flex-end; gap:12px; padding-top:4px; flex-wrap:wrap; }
+  .itw-btn-cancel { height:34px; padding:0 20px; border:none; background:transparent; font-size:13px; font-weight:600; color:#555; cursor:pointer; letter-spacing:0.5px; }
+  .itw-btn-cancel:hover { color:#222; }
+  .itw-btn-invite { height:34px; padding:0 22px; border:none; border-radius:3px; background:var(--teal); color:#fff; font-size:13px; font-weight:700; cursor:pointer; letter-spacing:0.5px; }
+  .itw-btn-invite:hover { background:var(--teal-dark); }
+  .itw-success { display:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:40px 20px; text-align:center; }
+  .itw-success-icon { font-size:40px; color:var(--teal); }
+  .itw-success-label { font-size:14px; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:8px; }
+  .itw-success-label .material-icons { font-size:20px; color:var(--teal); }
+  .itw-btn-sms { height:34px; padding:0 20px; border:1px solid var(--teal); border-radius:3px; background:#fff; color:var(--teal); font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .itw-btn-sms:hover { background:var(--teal-light); }
+  .itw-program-picker { width:340px; border:1px solid #DDE3E8; border-radius:4px; padding:14px 16px; background:#F8FBFD; display:flex; flex-direction:column; gap:10px; }
+  .itw-program-picker-title { font-size:12px; font-weight:700; color:#333; display:flex; align-items:center; gap:6px; }
+  .itw-program-picker-title .material-icons { font-size:16px; color:var(--teal); }
+  .itw-program-search-wrap { position:relative; }
+  .itw-program-search { width:100%; box-sizing:border-box; height:32px; border:1px solid #BBBFC4; border-radius:3px; padding:0 30px 0 10px; font-size:12px; font-family:var(--font); outline:none; }
+  .itw-program-search:focus { border-color:var(--teal); }
+  .itw-program-search-wrap .material-icons { position:absolute; right:7px; top:50%; transform:translateY(-50%); font-size:16px; color:#999; pointer-events:none; }
+  .itw-program-dropdown { position:fixed; z-index:9999; background:#fff; border:1px solid #BBBFC4; border-top:none; border-radius:0 0 3px 3px; max-height:220px; overflow-y:auto; box-shadow:0 4px 10px rgba(0,0,0,.10); display:none; }
+  .itw-program-dropdown.open { display:block; }
+  .itw-program-cat { padding:5px 10px 3px; font-size:10px; font-weight:700; color:#888; letter-spacing:0.6px; text-transform:uppercase; background:#F5F5F5; border-bottom:1px solid #eee; }
+  .itw-program-option { padding:7px 12px; font-size:12px; color:var(--text-primary); cursor:pointer; }
+  .itw-program-option:hover { background:var(--teal-light); color:var(--teal-dark); }
+  .itw-program-selected { display:none; align-items:center; gap:8px; background:#E8F4FB; border:1px solid #B2D8EE; border-radius:3px; padding:7px 10px; font-size:12px; font-weight:600; color:var(--teal-dark); }
+  .itw-program-selected .material-icons { font-size:16px; color:var(--teal); }
+  .itw-program-change { font-size:11px; font-weight:600; color:var(--teal); cursor:pointer; text-decoration:underline; margin-left:auto; white-space:nowrap; }
 </style>
 </head>
 <style>
@@ -1228,6 +1277,7 @@ Diabetes Management</textarea>
           <div class="gc-tab" data-tab="eligibility">Eligibility</div>
           <div class="gc-tab" data-tab="benefits">Benefits</div>
           <div class="gc-tab" data-tab="udt">UDT</div>
+          <div class="gc-tab" data-tab="invite-to-wellframe" style="display:flex;align-items:center;gap:5px;"><img src="assets/Group 1657.png" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Invite to Wellframe</div>
         </div>
       </div>
 
@@ -2270,6 +2320,209 @@ Diabetes Management</textarea>
             </div>
           </div>
         </div>
+
+        <!-- TAB: Invite to Wellframe -->
+        <div class="tab-panel" id="tab-invite-to-wellframe">
+          <div class="itw-wrap">
+            <div class="itw-form">
+
+              <div class="itw-field">
+                <label>Member Facing ID</label>
+                <div class="itw-input-icon-wrap">
+                  <input id="itw-member-id" class="itw-input disabled" type="text" readonly>
+                  <span class="material-icons itw-icon">search</span>
+                </div>
+              </div>
+
+              <div class="itw-field">
+                <label>Access Code <span class="req">*</span></label>
+                <select id="itw-access-code" class="itw-select">
+                  <option value="">Select...</option>
+                  <option>Standard</option>
+                  <option>Premium</option>
+                  <option>Medicaid</option>
+                  <option>Medicare Advantage</option>
+                </select>
+              </div>
+
+              <div class="itw-row">
+                <div class="itw-field">
+                  <label>Member First Name <span class="req">*</span></label>
+                  <input id="itw-first-name" class="itw-input" type="text">
+                </div>
+                <div class="itw-field">
+                  <label>Member Last Name <span class="req">*</span></label>
+                  <input id="itw-last-name" class="itw-input" type="text">
+                </div>
+                <div class="itw-field">
+                  <label>Date of Birth <span class="req">*</span></label>
+                  <input id="itw-dob" class="itw-input" type="text" placeholder="MM/DD/YYYY">
+                </div>
+                <div class="itw-field">
+                  <label>Gender <span class="req">*</span></label>
+                  <select id="itw-gender" class="itw-select">
+                    <option value="">Select gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Non-binary</option>
+                    <option>Prefer not to say</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <span class="itw-caregiver-toggle" id="itw-caregiver-toggle" onclick="var s=document.getElementById('itw-caregiver-section');s.classList.toggle('open');this.textContent=s.classList.contains('open')?'[-] REMOVE CAREGIVER':'[+] ADD CAREGIVER';">[+] ADD CAREGIVER</span>
+                <div id="itw-caregiver-section" class="itw-caregiver-section">
+                  <div class="itw-row" style="margin-bottom:14px;">
+                    <div class="itw-field">
+                      <label>Caregiver First Name <span class="req">*</span></label>
+                      <input id="itw-cg-first" class="itw-input" type="text">
+                    </div>
+                    <div class="itw-field">
+                      <label>Caregiver Last Name <span class="req">*</span></label>
+                      <input id="itw-cg-last" class="itw-input" type="text">
+                    </div>
+                    <div class="itw-field">
+                      <label>Caregiver Relationship</label>
+                      <select id="itw-cg-relation" class="itw-select">
+                        <option value="">Select</option>
+                        <option>Spouse</option>
+                        <option>Child</option>
+                        <option>Parent</option>
+                        <option>Sibling</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="itw-row">
+                    <div class="itw-field">
+                      <label>Caregiver Phone Number <span class="req">*</span></label>
+                      <div class="itw-phone-row">
+                        <select class="itw-phone-cc"><option>US +1</option><option>CA +1</option><option>MX +52</option></select>
+                        <input id="itw-cg-phone" class="itw-phone-num" type="tel">
+                      </div>
+                    </div>
+                    <div class="itw-field">
+                      <label>Caregiver Email Address</label>
+                      <input id="itw-cg-email" class="itw-input" type="email">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="itw-row">
+                <div class="itw-field">
+                  <label>Phone Number <span class="req">*</span></label>
+                  <div class="itw-phone-row">
+                    <select class="itw-phone-cc">
+                      <option>US +1</option>
+                      <option>CA +1</option>
+                      <option>MX +52</option>
+                    </select>
+                    <input id="itw-phone" class="itw-phone-num" type="tel">
+                  </div>
+                  <select id="itw-phone-picker" style="margin-top:5px;font-size:11px;color:var(--teal);border:none;background:transparent;cursor:pointer;padding:0;outline:none;width:100%;" onchange="if(this.value){document.getElementById('itw-phone').value=this.value;this.selectedIndex=0;}">
+                    <option value="">Use a saved number...</option>
+                  </select>
+                </div>
+                <div class="itw-field">
+                  <label>Email Address</label>
+                  <input id="itw-email" class="itw-input" type="email">
+                </div>
+              </div>
+
+              <div class="itw-row">
+                <div class="itw-field">
+                  <label>Language <span class="req">*</span></label>
+                  <select id="itw-language" class="itw-select">
+                    <option>English</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                    <option>Mandarin</option>
+                    <option>Vietnamese</option>
+                    <option>Arabic</option>
+                  </select>
+                </div>
+                <div class="itw-field">
+                  <label>Timezone <span class="req">*</span></label>
+                  <select id="itw-timezone" class="itw-select">
+                    <option>America/New_York</option>
+                    <option>America/Chicago</option>
+                    <option>America/Denver</option>
+                    <option>America/Los_Angeles</option>
+                    <option>America/Anchorage</option>
+                    <option>Pacific/Honolulu</option>
+                  </select>
+                </div>
+                <div class="itw-field" style="max-width:140px;">
+                  <label>Zip Code</label>
+                  <input id="itw-zip" class="itw-input" type="text" maxlength="10">
+                </div>
+              </div>
+
+              <div class="itw-row">
+                <div class="itw-field" style="max-width:280px;">
+                  <label>City</label>
+                  <input id="itw-city" class="itw-input" type="text">
+                </div>
+                <div class="itw-field" style="max-width:140px;">
+                  <label>State</label>
+                  <input id="itw-state" class="itw-input" type="text">
+                </div>
+                <div class="itw-field"></div>
+              </div>
+
+              <div class="itw-footer" id="itw-footer">
+                <label style="font-size:12px;display:flex;align-items:center;gap:7px;margin-right:auto;cursor:pointer;">
+                  <input id="itw-text-consent" type="checkbox" style="width:14px;height:14px;accent-color:var(--teal);cursor:pointer;">
+                  Member has agreed to text-based communication <span class="req">*</span>
+                </label>
+                <span style="font-size:11px;color:#555;white-space:nowrap;">* Required fields</span>
+                <button class="itw-btn-cancel" onclick="document.querySelector('#memberInfoTabs .gc-tab.active').click();">CANCEL</button>
+                <button class="itw-btn-invite" onclick="itwSendInvite();">INVITE MEMBER</button>
+              </div>
+
+            </div>
+
+            <!-- Success state -->
+            <div class="itw-success" id="itw-success">
+              <span class="material-icons itw-success-icon">forward_to_inbox</span>
+              <div class="itw-success-label">
+                <span class="material-icons">check_circle</span>
+                <span id="itw-success-label-text">Invite sent on —</span>
+              </div>
+              <div style="display:flex;gap:10px;">
+                <button class="itw-btn-sms" onclick="alert('Opening text message for ' + document.getElementById('itw-first-name').value + '...');">
+                  <span class="material-icons" style="font-size:16px;">sms</span> Send a text message
+                </button>
+                <button class="itw-btn-sms" onclick="alert('Opening email for ' + document.getElementById('itw-first-name').value + '...');">
+                  <span class="material-icons" style="font-size:16px;">email</span> Send an email
+                </button>
+              </div>
+              <div class="itw-program-picker">
+                <div class="itw-program-picker-title">
+                  <span class="material-icons">add_circle_outline</span>
+                  Add Onboarding Program
+                </div>
+                <div id="itw-program-search-block">
+                  <div class="itw-program-search-wrap">
+                    <input id="itw-program-search" class="itw-program-search" type="text" placeholder="Search programs…" autocomplete="off"
+                      oninput="itwFilterPrograms(this.value)"
+                      onfocus="itwFilterPrograms(this.value)">
+                    <span class="material-icons">search</span>
+                    <div class="itw-program-dropdown" id="itw-program-dropdown"></div>
+                  </div>
+                </div>
+                <div class="itw-program-selected" id="itw-program-selected">
+                  <span class="material-icons">check_circle</span>
+                  <span id="itw-program-selected-name"></span>
+                  <span class="itw-program-change" onclick="itwClearProgram()">Change</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -13214,6 +13467,168 @@ function filterTimeline(source) {
 </div>
 
 
+<script>
+(function(){
+  // Populate Invite to Wellframe form from member data
+  function populateInviteForm(key) {
+    var m = memberData[key];
+    if (!m) return;
+    var nameParts = m.name.split(' ');
+    var el = function(id) { return document.getElementById(id); };
+    if (el('itw-member-id')) el('itw-member-id').value = m.id || '';
+    if (el('itw-first-name')) el('itw-first-name').value = nameParts[0] || '';
+    if (el('itw-last-name')) el('itw-last-name').value = nameParts.slice(1).join(' ') || '';
+    if (el('itw-dob')) el('itw-dob').value = m.dob || '';
+    var genderSel = el('itw-gender');
+    if (genderSel) {
+      for (var i = 0; i < genderSel.options.length; i++) {
+        if (genderSel.options[i].text === m.gender) { genderSel.selectedIndex = i; break; }
+      }
+    }
+    if (el('itw-phone')) el('itw-phone').value = (m.phone || '').replace(/^\+1\s*/, '');
+    if (el('itw-email')) el('itw-email').value = m.email || '';
+    var picker = el('itw-phone-picker');
+    if (picker) {
+      picker.innerHTML = '<option value="">Use a saved number...</option>';
+      [{ label:'Primary', val:m.phone }, { label:'Cell', val:m.cell }, { label:'Alternate', val:m.altPhone }].forEach(function(n) {
+        if (n.val && n.val !== 'Not Available') {
+          var opt = document.createElement('option');
+          opt.value = n.val.replace(/^\+1\s*/, '');
+          opt.textContent = n.label + ': ' + n.val;
+          picker.appendChild(opt);
+        }
+      });
+    }
+    if (el('itw-zip')) el('itw-zip').value = m.zip || '';
+    if (el('itw-city')) el('itw-city').value = m.city || '';
+    if (el('itw-state')) el('itw-state').value = m.state || '';
+    var tzSel = el('itw-timezone');
+    if (tzSel) {
+      var tzMap = { 'AK':'America/Anchorage','HI':'Pacific/Honolulu','CA':'America/Los_Angeles','OR':'America/Los_Angeles','WA':'America/Los_Angeles','NV':'America/Los_Angeles','MT':'America/Denver','ID':'America/Denver','WY':'America/Denver','CO':'America/Denver','NM':'America/Denver','UT':'America/Denver','AZ':'America/Denver' };
+      var tz = tzMap[m.state] || 'America/New_York';
+      for (var j = 0; j < tzSel.options.length; j++) {
+        if (tzSel.options[j].value === tz || tzSel.options[j].text === tz) { tzSel.selectedIndex = j; break; }
+      }
+    }
+    var cgFirst = el('itw-cg-first'), cgLast = el('itw-cg-last'), cgRel = el('itw-cg-relation');
+    if (m.caregiver && cgFirst) {
+      cgFirst.value = m.caregiver.first || '';
+      if (cgLast) cgLast.value = m.caregiver.last || '';
+      if (cgRel) {
+        for (var k = 0; k < cgRel.options.length; k++) {
+          if (cgRel.options[k].text === (m.caregiver.relation || '')) { cgRel.selectedIndex = k; break; }
+        }
+      }
+    }
+    if (el('itw-text-consent')) el('itw-text-consent').checked = false;
+  }
+
+  // Patch populateProfile to also refresh invite form and reset success state
+  var _origPopulate = window.populateProfile;
+  window.populateProfile = function(key) {
+    _origPopulate(key);
+    populateInviteForm(key);
+    var form = document.querySelector('#tab-invite-to-wellframe .itw-form');
+    var success = document.getElementById('itw-success');
+    if (form) form.style.display = '';
+    if (success) success.style.display = 'none';
+    var sel = document.getElementById('itw-program-selected');
+    var sb = document.getElementById('itw-program-search-block');
+    var si = document.getElementById('itw-program-search');
+    var dd = document.getElementById('itw-program-dropdown');
+    if (sel) sel.style.display = 'none';
+    if (sb) sb.style.display = '';
+    if (si) si.value = '';
+    if (dd) dd.classList.remove('open');
+  };
+
+  // Onboarding programs list
+  var ITW_PROGRAMS = [
+    { cat:'Diabetes',        name:'Diabetes Management (English)' },
+    { cat:'Diabetes',        name:'Diabetes Management (Spanish)' },
+    { cat:'Diabetes',        name:'Diabetes Management: Type 1 (English)' },
+    { cat:'Cardiac',         name:'Cardiac Health (English)' },
+    { cat:'Cardiac',         name:'Cardiac Health (Spanish)' },
+    { cat:'Cardiac',         name:'Heart Failure (English)' },
+    { cat:'Cardiac',         name:'Heart Failure (Spanish)' },
+    { cat:'Respiratory',     name:'Asthma (English)' },
+    { cat:'Respiratory',     name:'Asthma (Spanish)' },
+    { cat:'Respiratory',     name:'COPD (English)' },
+    { cat:'Respiratory',     name:'COPD (Spanish)' },
+    { cat:'Maternal Health', name:'Maternal Health: Multiple Pregnancy (English)' },
+    { cat:'Maternal Health', name:'Maternal Health: Multiple Pregnancy (Spanish)' },
+    { cat:'Maternal Health', name:'Maternal Health: Prenatal Substance Use (English)' },
+    { cat:'Behavioral Health',name:'Behavioral Health' },
+    { cat:'Prevention',      name:'Fall Prevention' },
+    { cat:'Pain Management', name:'Pain Management: Migraines (English)' },
+    { cat:'Pain Management', name:'Pain Management: Migraines (Spanish)' },
+    { cat:'Supplements',     name:'Program Supplement: Physical Activity (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Smoking Cessation (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Stress Management (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Weight Loss (English)' },
+    { cat:'Pediatric',       name:'Pediatric Caregiver: Newborn Wellness (1 Year) (English)' },
+    { cat:'Pediatric',       name:'Pediatric Caregiver: Newborn Wellness (1 Year) (Spanish)' }
+  ];
+
+  window.itwFilterPrograms = function(q) {
+    var dd = document.getElementById('itw-program-dropdown');
+    var inp = document.getElementById('itw-program-search');
+    var rect = inp.getBoundingClientRect();
+    dd.style.left = rect.left + 'px';
+    dd.style.top = rect.bottom + 'px';
+    dd.style.width = rect.width + 'px';
+    var term = q.trim().toLowerCase();
+    var filtered = term ? ITW_PROGRAMS.filter(function(p) {
+      return p.name.toLowerCase().indexOf(term) > -1 || p.cat.toLowerCase().indexOf(term) > -1;
+    }) : ITW_PROGRAMS;
+    if (!filtered.length) {
+      dd.innerHTML = '<div style="padding:10px 12px;font-size:12px;color:#888;">No programs found</div>';
+    } else {
+      var html = '', lastCat = '';
+      filtered.forEach(function(p) {
+        if (p.cat !== lastCat) { html += '<div class="itw-program-cat">' + p.cat + '</div>'; lastCat = p.cat; }
+        html += '<div class="itw-program-option" onclick="itwSelectProgram(' + JSON.stringify(p.name) + ')">' + p.name + '</div>';
+      });
+      dd.innerHTML = html;
+    }
+    dd.classList.add('open');
+  };
+
+  window.itwSelectProgram = function(name) {
+    document.getElementById('itw-program-search-block').style.display = 'none';
+    document.getElementById('itw-program-dropdown').classList.remove('open');
+    document.getElementById('itw-program-selected-name').textContent = name;
+    document.getElementById('itw-program-selected').style.display = 'flex';
+  };
+
+  window.itwClearProgram = function() {
+    document.getElementById('itw-program-selected').style.display = 'none';
+    document.getElementById('itw-program-search-block').style.display = '';
+    var inp = document.getElementById('itw-program-search');
+    inp.value = '';
+    document.getElementById('itw-program-dropdown').classList.remove('open');
+    inp.focus();
+  };
+
+  window.itwSendInvite = function() {
+    var form = document.querySelector('#tab-invite-to-wellframe .itw-form');
+    var success = document.getElementById('itw-success');
+    var label = document.getElementById('itw-success-label-text');
+    var now = new Date();
+    label.textContent = 'Invite sent on ' + (now.getMonth()+1) + '/' + now.getDate() + '/' + now.getFullYear();
+    form.style.display = 'none';
+    success.style.display = 'flex';
+  };
+
+  document.addEventListener('click', function(e) {
+    var wrap = document.querySelector('.itw-program-search-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      var dd = document.getElementById('itw-program-dropdown');
+      if (dd) dd.classList.remove('open');
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
