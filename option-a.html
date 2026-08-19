@@ -3911,6 +3911,7 @@ Diabetes Management</textarea>
             <div class="cp-subtab" data-tab="strengths" onclick="cpSubTab('strengths')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Care Plan Strengths</div>
             <div class="cp-subtab" data-tab="review" onclick="cpSubTab('review')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Care Plan Review</div>
             <div class="cp-subtab" data-tab="member-instructions" onclick="cpSubTab('member-instructions')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Member Instructions</div>
+            <div class="cp-subtab" data-tab="member-checklist" onclick="cpSubTab('member-checklist');mcRender()" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Member Checklist</div>
           </div>
           <span class="material-icons" style="font-size:22px;color:var(--teal);cursor:pointer;margin-left:auto;padding-bottom:6px;">info</span>
         </div>
@@ -4230,6 +4231,42 @@ Diabetes Management</textarea>
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <!-- SUB-PANEL: Member Checklist -->
+        <div id="cp-panel-member-checklist" class="cp-subpanel" style="display:none;padding:0;">
+          <div style="display:flex;flex-direction:column;min-height:500px;">
+            <!-- Date navigation bar -->
+            <div style="background:#fff;border-bottom:2px solid #e5eaee;padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+              <button onclick="mcGoToday()" style="display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:var(--font);padding:4px 0;">
+                TODAY <span class="material-icons" style="font-size:16px;color:#555;">calendar_today</span>
+              </button>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <button onclick="mcPrevDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                  <span class="material-icons" style="font-size:22px;">chevron_left</span>
+                </button>
+                <span id="mc-date-label" style="font-size:18px;font-weight:800;color:#1A2F3D;min-width:210px;text-align:center;letter-spacing:-0.2px;"></span>
+                <button onclick="mcNextDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                  <span class="material-icons" style="font-size:22px;">chevron_right</span>
+                </button>
+              </div>
+              <div style="position:relative;">
+                <button onclick="mcToggleViewByMenu()" style="display:inline-flex;align-items:center;gap:3px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:var(--font);padding:4px 0;">
+                  VIEW BY <span class="material-icons" style="font-size:18px;">arrow_drop_down</span>
+                </button>
+                <div id="mc-viewby-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #dde2e6;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,0.12);z-index:200;min-width:150px;">
+                  <div onclick="mcSetViewBy('date')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">
+                    Date <span class="material-icons" id="mc-vb-check-date" style="font-size:14px;color:#0080A3;">check</span>
+                  </div>
+                  <div onclick="mcSetViewBy('type')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">
+                    Content Type <span class="material-icons" id="mc-vb-check-type" style="font-size:14px;color:#0080A3;visibility:hidden;">check</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Content area -->
+            <div id="mc-content" style="background:#f5f6f7;padding:4px 20px 20px;flex:1;"></div>
           </div>
         </div>
 
@@ -7126,6 +7163,7 @@ function openScriptResponseModal() {
         t.setAttribute('tabindex', '0');
       }
     });
+    if (name === 'member-checklist') { setTimeout(function() { mcWfRender(); }, 0); }
   };
 
   window.showActivitySuccess = function(closeModal) {
@@ -8170,31 +8208,35 @@ function openScriptResponseModal() {
 
         // ── Member Checklist ──
         var staffChecklistHtml = isEnrolled
-          ? '<div class="wf-tasks-wrap">' +
-              '<div class="wf-tasks-section-title">Today — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + '</div>' +
-              d.checklist.map(function(item) {
-                return wfCard({
-                  icon: item.done ? 'check_circle' : item.icon,
-                  iconColor: item.done ? '#73BE5E' : '#0080A3',
-                  typeLabel: item.type,
-                  title: item.title,
-                  desc: item.done ? 'Completed by member.' : 'Pending — not yet completed.',
-                  time: item.done ? 'Done' : 'Pending',
-                });
-              }).join('') +
-              '<div class="wf-tasks-section-title" style="margin-top:4px;">Check-Ins</div>' +
-              d.checkins.map(function(ci) {
-                return wfCard({
-                  icon: 'assignment_turned_in',
-                  iconColor: '#0080A3',
-                  typeLabel: 'CHECK-IN',
-                  title: ci.name,
-                  desc: ci.sub,
-                  time: ci.pct + '% complete',
-                  action: true,
-                  actionLabel: 'VIEW DETAIL'
-                });
-              }).join('') +
+          ? '<div style="display:flex;flex-direction:column;min-height:100%;">' +
+              '<div style="background:#fff;border-bottom:2px solid #e5eaee;padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:10;">' +
+                '<button onclick="mcWfGoToday()" style="display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:inherit;padding:4px 0;">' +
+                  'TODAY <span class="material-icons" style="font-size:16px;color:#555;">calendar_today</span>' +
+                '</button>' +
+                '<div style="display:flex;align-items:center;gap:6px;">' +
+                  '<button onclick="mcWfPrevDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background=\'#f0f0f0\'" onmouseout="this.style.background=\'none\'">' +
+                    '<span class="material-icons" style="font-size:22px;">chevron_left</span>' +
+                  '</button>' +
+                  '<span id="mc-wf-date-label" style="font-size:18px;font-weight:800;color:#1A2F3D;min-width:210px;text-align:center;letter-spacing:-0.2px;"></span>' +
+                  '<button onclick="mcWfNextDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background=\'#f0f0f0\'" onmouseout="this.style.background=\'none\'">' +
+                    '<span class="material-icons" style="font-size:22px;">chevron_right</span>' +
+                  '</button>' +
+                '</div>' +
+                '<div style="position:relative;">' +
+                  '<button onclick="mcWfToggleViewByMenu()" style="display:inline-flex;align-items:center;gap:3px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:inherit;padding:4px 0;">' +
+                    'VIEW BY <span class="material-icons" style="font-size:18px;">arrow_drop_down</span>' +
+                  '</button>' +
+                  '<div id="mc-wf-viewby-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #dde2e6;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,0.12);z-index:200;min-width:150px;">' +
+                    '<div onclick="mcWfSetViewBy(\'date\')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background=\'#f5f6f7\'" onmouseout="this.style.background=\'\'">' +
+                      'Date <span class="material-icons" id="mc-wf-vb-check-date" style="font-size:14px;color:#0080A3;">check</span>' +
+                    '</div>' +
+                    '<div onclick="mcWfSetViewBy(\'type\')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background=\'#f5f6f7\'" onmouseout="this.style.background=\'\'">' +
+                      'Content Type <span class="material-icons" id="mc-wf-vb-check-type" style="font-size:14px;color:#0080A3;visibility:hidden;">check</span>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div id="mc-wf-content" style="background:#f5f6f7;padding:4px 20px 20px;flex:1;"></div>' +
             '</div>'
           : '';
 
@@ -8336,7 +8378,7 @@ function openScriptResponseModal() {
                 '</div>' +
               '</div>' +
               '<div style="width:1px;background:var(--border-light);flex-shrink:0;"></div>' +
-              '<div id="wf-checklist-col" style="flex:1;overflow-y:auto;padding:16px;background:#F2F8FA;">' + staffChecklistHtml + '</div>' +
+              '<div id="wf-checklist-col" style="flex:1;overflow-y:auto;padding:0;background:#f5f6f7;">' + staffChecklistHtml + '</div>' +
             '</div>' +
           '</div>' +
           '<div id="wf-staff-panel-member-activity"  class="wf-staff-panel">'      + staffActivityHtml + '</div>';
@@ -13124,6 +13166,151 @@ function filterTimeline(source) {
     el.style.display = show ? 'flex' : 'none';
   });
 }
+</script>
+
+<script>
+// ── Member Checklist — shared data & renderer used by both panels ──
+var MC_MONTHS = [‘January’,’February’,’March’,’April’,’May’,’June’,’July’,’August’,’September’,’October’,’November’,’December’];
+
+var MC_ITEMS = [
+  { offset:0,  cat:’PHYSICAL ACTIVITY’,                              type:’Activity Goal’,        icon:’directions_walk’,    title:’Step Count’,                      action:null },
+  { offset:0,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’10:00 AM: Take Claritin’,         action:null },
+  { offset:0,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 AM: Take Metformin’,          action:null },
+  { offset:0,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 PM: Take Atorvastatin’,       action:null },
+  { offset:0,  cat:’REMINDERS’,                                      type:’Patient Reminder’,     icon:’event’,              title:’10:00 AM: Take a walk’,           action:null },
+  { offset:0,  cat:’CHRONIC DISEASE: DIABETES MANAGEMENT (ENGLISH)’, type:’Encouragement’,        icon:’thumb_up’,           title:"It’s a Lot!",                     action:null },
+  { offset:0,  cat:’CHRONIC DISEASE: DIABETES MANAGEMENT (ENGLISH)’, type:’Care Program Article’, icon:’article’,            title:’About Diabetes Medications’,      action:’VIEW ARTICLE’ },
+  { offset:0,  cat:’CHECK-INS’,                                      type:’Check-In’,             icon:’assignment_turned_in’,title:’Health Risk Assessment’,         action:’VIEW DETAIL’ },
+  { offset:0,  cat:’CHECK-INS’,                                      type:’Check-In’,             icon:’assignment_turned_in’,title:’Fall Risk Assessment’,           action:’VIEW DETAIL’ },
+  { offset:-1, cat:’PHYSICAL ACTIVITY’,                              type:’Activity Goal’,        icon:’directions_walk’,    title:’Step Count’,                      action:null },
+  { offset:-1, cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’10:00 AM: Take Claritin’,         action:null },
+  { offset:-1, cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 AM: Take Metformin’,          action:null },
+  { offset:-1, cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 PM: Take Atorvastatin’,       action:null },
+  { offset:-1, cat:’REMINDERS’,                                      type:’Patient Reminder’,     icon:’event’,              title:’10:00 AM: Take a walk’,           action:null },
+  { offset:-1, cat:’BEHAVIORAL HEALTH FOUNDATIONS (ENGLISH)’,        type:’Care Program Article’, icon:’article’,            title:’How to Make the Leap’,            action:’VIEW ARTICLE’ },
+  { offset:-1, cat:’CHECK-INS’,                                      type:’Check-In’,             icon:’assignment_turned_in’,title:’Health Risk Assessment’,         action:’VIEW DETAIL’ },
+  { offset:-2, cat:’PHYSICAL ACTIVITY’,                              type:’Activity Goal’,        icon:’directions_walk’,    title:’Step Count’,                      action:null },
+  { offset:-2, cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’10:00 AM: Take Claritin’,         action:null },
+  { offset:-2, cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 AM: Take Metformin’,          action:null },
+  { offset:-2, cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 PM: Take Atorvastatin’,       action:null },
+  { offset:-2, cat:’REMINDERS’,                                      type:’Patient Reminder’,     icon:’event’,              title:’10:00 AM: Take a walk’,           action:null },
+  { offset:-2, cat:’CHRONIC DISEASE: DIABETES MANAGEMENT (ENGLISH)’, type:’Encouragement’,        icon:’thumb_up’,           title:’You Can Do This!’,                action:null },
+  { offset:-2, cat:’CHRONIC DISEASE: DIABETES MANAGEMENT (ENGLISH)’, type:’Care Program Article’, icon:’article’,            title:’Managing Blood Sugar Levels’,     action:’VIEW ARTICLE’ },
+  { offset:1,  cat:’PHYSICAL ACTIVITY’,                              type:’Activity Goal’,        icon:’directions_walk’,    title:’Step Count’,                      action:null },
+  { offset:1,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’10:00 AM: Take Claritin’,         action:null },
+  { offset:1,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 AM: Take Metformin’,          action:null },
+  { offset:1,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 PM: Take Atorvastatin’,       action:null },
+  { offset:1,  cat:’REMINDERS’,                                      type:’Patient Reminder’,     icon:’event’,              title:’10:00 AM: Take a walk’,           action:null },
+  { offset:1,  cat:’CHRONIC DISEASE: DIABETES MANAGEMENT (ENGLISH)’, type:’Encouragement’,        icon:’thumb_up’,           title:’Keep It Up!’,                     action:null },
+  { offset:1,  cat:’CHRONIC DISEASE: DIABETES MANAGEMENT (ENGLISH)’, type:’Care Program Article’, icon:’article’,            title:’Understanding Insulin Resistance’, action:’VIEW ARTICLE’ },
+  { offset:2,  cat:’PHYSICAL ACTIVITY’,                              type:’Activity Goal’,        icon:’directions_walk’,    title:’Step Count’,                      action:null },
+  { offset:2,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’10:00 AM: Take Claritin’,         action:null },
+  { offset:2,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 AM: Take Metformin’,          action:null },
+  { offset:2,  cat:’MEDICATION REMINDERS’,                           type:’Medication Reminder’,  icon:’medication’,         title:’9:00 PM: Take Atorvastatin’,       action:null },
+  { offset:2,  cat:’REMINDERS’,                                      type:’Patient Reminder’,     icon:’event’,              title:’10:00 AM: Take a walk’,           action:null },
+  { offset:2,  cat:’BEHAVIORAL HEALTH FOUNDATIONS (ENGLISH)’,        type:’Care Program Article’, icon:’article’,            title:’Stress and Your Health’,          action:’VIEW ARTICLE’ }
+];
+
+var MC_TYPE_LABELS = {
+  ‘Activity Goal’:        ‘ACTIVITY GOALS’,
+  ‘Medication Reminder’:  ‘MEDICATION REMINDERS’,
+  ‘Patient Reminder’:     ‘PATIENT REMINDERS’,
+  ‘Encouragement’:        ‘ENCOURAGEMENT’,
+  ‘Care Program Article’: ‘CARE PROGRAM ARTICLES’,
+  ‘Check-In’:             ‘CHECK-INS’
+};
+
+function mcDateStr(offset) {
+  var d = new Date(2026, 7, 19 + offset);
+  return MC_MONTHS[d.getMonth()] + ‘ ‘ + d.getDate() + ‘, ‘ + d.getFullYear();
+}
+function mcScheduleLabel(offset) {
+  return offset === 0 ? ‘Today’ : offset === -1 ? ‘Yesterday’ : offset === 1 ? ‘Tomorrow’ : mcDateStr(offset);
+}
+function mcCard(item, sched) {
+  return ‘<div style="background:#fff;border:1px solid #e5eaee;border-radius:4px;margin-bottom:8px;overflow:hidden;">’ +
+    ‘<div style="display:flex;align-items:flex-start;gap:14px;padding:13px 16px 11px;">’ +
+      ‘<div style="width:42px;height:42px;background:#1C5C7A;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">’ +
+        ‘<span class="material-icons" style="font-size:20px;color:#fff;">’ + item.icon + ‘</span>’ +
+      ‘</div>’ +
+      ‘<div style="flex:1;min-width:0;">’ +
+        ‘<div style="font-size:10px;font-weight:600;color:#78868E;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">’ + item.type + ‘</div>’ +
+        ‘<div style="font-size:13px;font-weight:700;color:#0080A3;margin-bottom:5px;">’ + item.title + ‘</div>’ +
+        ‘<div style="font-size:12px;color:#333;"><strong>On Checklist:</strong> ‘ + sched + ‘</div>’ +
+      ‘</div>’ +
+    ‘</div>’ +
+    (item.action ? ‘<div style="padding:0 16px 11px;text-align:right;"><span style="font-size:11px;font-weight:700;color:#78868E;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;" onmouseover="this.style.color=\’#0080A3\’" onmouseout="this.style.color=\’#78868E\’">’ + item.action + ‘</span></div>’ : ‘’) +
+  ‘</div>’;
+}
+
+// Core renderer — works for any element pair
+function mcRenderInto(labelId, contentId, offset, viewMode) {
+  var labelEl = document.getElementById(labelId);
+  var contentEl = document.getElementById(contentId);
+  if (!labelEl || !contentEl) return;
+  var S = ‘font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.7px;padding:14px 0 6px;’;
+  if (viewMode === ‘date’) {
+    labelEl.textContent = mcDateStr(offset);
+    var items = MC_ITEMS.filter(function(i) { return i.offset === offset; });
+    var sched = mcScheduleLabel(offset);
+    var cats = [], catMap = {};
+    items.forEach(function(item) { if (!catMap[item.cat]) { catMap[item.cat] = []; cats.push(item.cat); } catMap[item.cat].push(item); });
+    contentEl.innerHTML = items.length === 0
+      ? ‘<div style="text-align:center;padding:48px 16px;color:#aaa;font-size:13px;">No checklist items for this date.</div>’
+      : cats.map(function(cat) { return ‘<div style="’+S+’">’+cat+’</div>’+catMap[cat].map(function(i){return mcCard(i,sched);}).join(‘’); }).join(‘’);
+  } else {
+    labelEl.textContent = ‘All Content’;
+    var typeOrder = [‘Activity Goal’,’Medication Reminder’,’Patient Reminder’,’Encouragement’,’Care Program Article’,’Check-In’];
+    var typeMap = {};
+    MC_ITEMS.forEach(function(item) { if (!typeMap[item.type]) typeMap[item.type]=[]; typeMap[item.type].push(item); });
+    contentEl.innerHTML = typeOrder.filter(function(t){return typeMap[t];}).map(function(type) {
+      var seen={}, unique=typeMap[type].filter(function(i){return seen[i.title]?false:(seen[i.title]=true);});
+      return ‘<div style="’+S+’">’+(MC_TYPE_LABELS[type]||type)+’</div>’+unique.map(function(i){return mcCard(i,’Recurring’);}).join(‘’);
+    }).join(‘’);
+  }
+}
+
+// ── Care Plan instance ──
+var mcOffset = 0, mcViewMode = ‘date’;
+function mcRender() { mcRenderInto(‘mc-date-label’,’mc-content’, mcOffset, mcViewMode); }
+function mcGoToday()  { mcOffset = 0; mcRender(); }
+function mcPrevDay()  { if (mcOffset > -2) { mcOffset--; mcRender(); } }
+function mcNextDay()  { if (mcOffset < 2)  { mcOffset++; mcRender(); } }
+function mcToggleViewByMenu() { var m=document.getElementById(‘mc-viewby-menu’); if(m) m.style.display=m.style.display===’block’?’none’:’block’; }
+function mcSetViewBy(mode) {
+  mcViewMode = mode;
+  var cd=document.getElementById(‘mc-vb-check-date’), ct=document.getElementById(‘mc-vb-check-type’);
+  if(cd) cd.style.visibility=mode===’date’?’visible’:’hidden’;
+  if(ct) ct.style.visibility=mode===’type’?’visible’:’hidden’;
+  var m=document.getElementById(‘mc-viewby-menu’); if(m) m.style.display=’none’;
+  mcRender();
+}
+
+// ── Wellframe panel instance ──
+var mcWfOffset = 0, mcWfViewMode = ‘date’;
+function mcWfRender() { mcRenderInto(‘mc-wf-date-label’,’mc-wf-content’, mcWfOffset, mcWfViewMode); }
+function mcWfGoToday()  { mcWfOffset = 0; mcWfRender(); }
+function mcWfPrevDay()  { if (mcWfOffset > -2) { mcWfOffset--; mcWfRender(); } }
+function mcWfNextDay()  { if (mcWfOffset < 2)  { mcWfOffset++; mcWfRender(); } }
+function mcWfToggleViewByMenu() { var m=document.getElementById(‘mc-wf-viewby-menu’); if(m) m.style.display=m.style.display===’block’?’none’:’block’; }
+function mcWfSetViewBy(mode) {
+  mcWfViewMode = mode;
+  var cd=document.getElementById(‘mc-wf-vb-check-date’), ct=document.getElementById(‘mc-wf-vb-check-type’);
+  if(cd) cd.style.visibility=mode===’date’?’visible’:’hidden’;
+  if(ct) ct.style.visibility=mode===’type’?’visible’:’hidden’;
+  var m=document.getElementById(‘mc-wf-viewby-menu’); if(m) m.style.display=’none’;
+  mcWfRender();
+}
+
+// Close any open VIEW BY menus on outside click
+document.addEventListener(‘click’, function(e) {
+  [‘mc-viewby-menu’,’mc-wf-viewby-menu’].forEach(function(id) {
+    var menu = document.getElementById(id);
+    if (!menu || menu.style.display !== ‘block’) return;
+    var btn = menu.previousElementSibling;
+    if (!menu.contains(e.target) && !(btn && btn.contains(e.target))) menu.style.display = ‘none’;
+  });
+});
 </script>
 
 <!-- ── Edit Clinical Programs modal ── -->
