@@ -2357,184 +2357,7 @@ Diabetes Management</textarea>
           </div>
         </div>
 
-        <!-- Modal: Invite to Wellframe -->
-        <div id="itw-modal" onclick="if(event.target===this)itwCloseModal()">
-          <div class="itw-modal-card">
-            <div class="itw-modal-header">
-              <img src="assets/Wellframe/Logomark.png" style="width:20px;height:20px;object-fit:contain;">
-              <span class="itw-modal-header-title">Invite to Wellframe</span>
-              <button class="itw-modal-close" onclick="itwCloseModal()"><span class="material-icons" style="font-size:20px;">close</span></button>
-            </div>
-            <div id="tab-invite-to-wellframe">
-          <div class="itw-wrap">
-            <div class="itw-form">
-
-              <div class="itw-field">
-                <label>Access Code <span class="req">*</span></label>
-                <div class="itw-mui-select" id="itw-access-code-wrap">
-                  <input type="hidden" id="itw-access-code" value="">
-                  <div class="itw-mui-select-trigger" id="itw-access-code-trigger" onclick="itwMuiToggle('itw-access-code')">
-                    <span id="itw-access-code-label" class="itw-mui-placeholder">Select...</span>
-                    <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
-                  </div>
-                  <div class="itw-mui-menu" id="itw-access-code-menu">
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFWELL')">WFWELL</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFBIEN')">WFBIEN</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCHAT')">WFCHAT</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCHARLA')">WFCHARLA</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFTALK')">WFTALK</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFPLATICA')">WFPLATICA</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFMED')">WFMED</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFMEDICOS')">WFMEDICOS</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCARE')">WFCARE</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCUIDADOS')">WFCUIDADOS</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFBEGIN')">WFBEGIN</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFINICIO')">WFINICIO</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFSTART')">WFSTART</div>
-                    <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCOMENZO')">WFCOMENZO</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <span class="itw-caregiver-toggle" id="itw-caregiver-toggle" onclick="itwToggleCaregiver(this)">[+] ADD CAREGIVER</span>
-                <div id="itw-caregiver-section" class="itw-caregiver-section">
-                  <div class="itw-field" style="margin-bottom:14px;">
-                    <label>Pre-fill from existing caregiver</label>
-                    <div class="itw-mui-select" id="itw-cg-prefill-wrap">
-                      <input type="hidden" id="itw-cg-prefill" value="">
-                      <div class="itw-mui-select-trigger" id="itw-cg-prefill-trigger" onclick="itwMuiToggle('itw-cg-prefill')">
-                        <span id="itw-cg-prefill-label" class="itw-mui-placeholder">Select...</span>
-                        <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
-                      </div>
-                      <div class="itw-mui-menu" id="itw-cg-prefill-menu"></div>
-                    </div>
-                  </div>
-                  <div class="itw-row" id="itw-cg-manual-row" style="margin-bottom:14px;display:none;">
-                    <div class="itw-field">
-                      <label>Caregiver First Name <span class="req">*</span></label>
-                      <input id="itw-cg-first" class="itw-input" type="text">
-                    </div>
-                    <div class="itw-field">
-                      <label>Caregiver Last Name <span class="req">*</span></label>
-                      <input id="itw-cg-last" class="itw-input" type="text">
-                    </div>
-                    <div class="itw-field">
-                      <label>Caregiver Relationship</label>
-                      <div class="itw-mui-select" id="itw-cg-relation-wrap">
-                        <input type="hidden" id="itw-cg-relation" value="">
-                        <div class="itw-mui-select-trigger" id="itw-cg-relation-trigger" onclick="itwMuiToggle('itw-cg-relation')">
-                          <span id="itw-cg-relation-label" class="itw-mui-placeholder">Select...</span>
-                          <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
-                        </div>
-                        <div class="itw-mui-menu" id="itw-cg-relation-menu">
-                          <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Spouse')">Spouse</div>
-                          <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Child')">Child</div>
-                          <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Parent')">Parent</div>
-                          <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Sibling')">Sibling</div>
-                          <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Other')">Other</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="itw-row">
-                    <div class="itw-field">
-                      <label>Caregiver Phone Number <span class="req">*</span></label>
-                      <div class="itw-phone-row">
-                        <select class="itw-phone-cc"><option>US +1</option><option>CA +1</option><option>MX +52</option></select>
-                        <input id="itw-cg-phone" class="itw-phone-num" type="tel">
-                      </div>
-                    </div>
-                    <div class="itw-field">
-                      <label>Caregiver Email Address</label>
-                      <input id="itw-cg-email" class="itw-input" type="email">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="itw-row">
-                <div class="itw-field">
-                  <label>Phone Number <span class="req">*</span></label>
-                  <input type="hidden" id="itw-phone" value="">
-                  <div class="itw-mui-select" id="itw-phone-prefill-wrap">
-                    <div class="itw-mui-select-trigger" id="itw-phone-prefill-trigger" onclick="itwMuiToggle('itw-phone-prefill')">
-                      <span id="itw-phone-prefill-label" class="itw-mui-placeholder">Select...</span>
-                      <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
-                    </div>
-                    <div class="itw-mui-menu" id="itw-phone-prefill-menu"></div>
-                  </div>
-                  <div id="itw-phone-manual-row" style="display:none;margin-top:8px;">
-                    <div class="itw-phone-row">
-                      <select class="itw-phone-cc"><option>US +1</option><option>CA +1</option><option>MX +52</option></select>
-                      <input id="itw-phone-manual" class="itw-phone-num" type="tel" oninput="document.getElementById('itw-phone').value=this.value">
-                    </div>
-                  </div>
-                </div>
-                <div class="itw-field">
-                  <label>Email Address</label>
-                  <input id="itw-email" class="itw-input" type="email">
-                </div>
-              </div>
-
-
-              <div class="itw-footer" id="itw-footer">
-                <label style="font-size:12px;display:flex;align-items:center;gap:8px;cursor:pointer;">
-                  <input id="itw-text-consent" type="checkbox" class="itw-mui-checkbox">
-                  <span class="itw-mui-checkbox-box"><svg width="12" height="10" viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8 10.5,1.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                  Member has agreed to text-based communication <span style="color:#C62828;font-size:12px;font-weight:600;">*</span>
-                </label>
-                <span class="itw-footer-spacer"></span>
-                <span style="font-size:11px;color:#555;white-space:nowrap;">* Required fields</span>
-                <button class="itw-btn-cancel" onclick="itwCloseModal()">CANCEL</button>
-                <button class="itw-btn-invite" onclick="itwSendInvite();">INVITE MEMBER</button>
-              </div>
-
-            </div>
-
-            <!-- Success state -->
-            <div class="itw-success" id="itw-success">
-              <span class="material-icons itw-success-icon">forward_to_inbox</span>
-              <div class="itw-success-label">
-                <span class="material-icons">check_circle</span>
-                <span id="itw-success-label-text">Invite sent on —</span>
-              </div>
-              <div style="display:flex;gap:10px;">
-                <button class="itw-btn-sms" onclick="alert('Opening text message for ' + document.getElementById('itw-first-name').value + '...');">
-                  <span class="material-icons" style="font-size:16px;">sms</span> Send a text message
-                </button>
-                <button class="itw-btn-sms" onclick="alert('Opening email for ' + document.getElementById('itw-first-name').value + '...');">
-                  <span class="material-icons" style="font-size:16px;">email</span> Send an email
-                </button>
-              </div>
-              <div class="itw-program-picker">
-                <div class="itw-program-picker-title">
-                  <span class="material-icons">add_circle_outline</span>
-                  Add Onboarding Program
-                </div>
-                <div id="itw-program-search-block">
-                  <div class="itw-program-search-wrap">
-                    <input id="itw-program-search" class="itw-program-search" type="text" placeholder="Search programs…" autocomplete="off"
-                      oninput="itwFilterPrograms(this.value)"
-                      onfocus="itwFilterPrograms(this.value)">
-                    <span class="material-icons">search</span>
-                    <div class="itw-program-dropdown" id="itw-program-dropdown"></div>
-                  </div>
-                </div>
-                <div class="itw-program-selected" id="itw-program-selected">
-                  <span class="material-icons">check_circle</span>
-                  <span id="itw-program-selected-name"></span>
-                  <span class="itw-program-change" onclick="itwClearProgram()">Change</span>
-                </div>
-              </div>
-              <div style="padding:0 0 20px;text-align:center;">
-                <button class="itw-btn-cancel" style="border:1px solid #ccc;border-radius:3px;" onclick="itwCloseModal()">DONE</button>
-              </div>
-            </div>
-          </div>
-            </div><!-- end #tab-invite-to-wellframe -->
-          </div><!-- end .itw-modal-card -->
-        </div><!-- end #itw-modal -->
+        <!-- Modal moved to end of body -->
 
       </div>
     </div>
@@ -14130,13 +13953,13 @@ function filterTimeline(source) {
     if (banner && banner.style.display !== 'none' && window.memberData) {
       var pageData = window.memberData[key];
       var chatName = (document.getElementById('cwh-name') || {}).textContent || '';
-      var belowHdr = document.getElementById(‘cw-below-header’);
+      var belowHdr = document.getElementById('cw-below-header');
       if (pageData && chatName && pageData.name === chatName) {
-        banner.style.display = ‘none’;
-        if (belowHdr) belowHdr.classList.remove(‘cw-diff-active’);
+        banner.style.display = 'none';
+        if (belowHdr) belowHdr.classList.remove('cw-diff-active');
       } else if (pageData && chatName && pageData.name !== chatName) {
-        banner.textContent = ‘Warning: Different member profile open’;
-        if (belowHdr) belowHdr.classList.add(‘cw-diff-active’);
+        banner.textContent = 'Warning: Different member profile open';
+        if (belowHdr) belowHdr.classList.add('cw-diff-active');
       }
     }
     var form = document.querySelector('#tab-invite-to-wellframe .itw-form');
@@ -14388,6 +14211,184 @@ function filterTimeline(source) {
   populateInviteForm(window.currentMemberKey || 'jackson-thomas');
 })();
 </script>
+
+<!-- Modal: Invite to Wellframe (at body level to avoid overflow/display:none containment) -->
+<div id="itw-modal" onclick="if(event.target===this)itwCloseModal()">
+  <div class="itw-modal-card">
+    <div class="itw-modal-header">
+      <img src="assets/Wellframe/Logomark.png" style="width:20px;height:20px;object-fit:contain;">
+      <span class="itw-modal-header-title">Invite to Wellframe</span>
+      <button class="itw-modal-close" onclick="itwCloseModal()"><span class="material-icons" style="font-size:20px;">close</span></button>
+    </div>
+    <div id="tab-invite-to-wellframe">
+      <div class="itw-wrap">
+        <div class="itw-form">
+
+          <div class="itw-field">
+            <label>Access Code <span class="req">*</span></label>
+            <div class="itw-mui-select" id="itw-access-code-wrap">
+              <input type="hidden" id="itw-access-code" value="">
+              <div class="itw-mui-select-trigger" id="itw-access-code-trigger" onclick="itwMuiToggle('itw-access-code')">
+                <span id="itw-access-code-label" class="itw-mui-placeholder">Select...</span>
+                <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+              </div>
+              <div class="itw-mui-menu" id="itw-access-code-menu">
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFWELL')">WFWELL</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFBIEN')">WFBIEN</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCHAT')">WFCHAT</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCHARLA')">WFCHARLA</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFTALK')">WFTALK</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFPLATICA')">WFPLATICA</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFMED')">WFMED</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFMEDICOS')">WFMEDICOS</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCARE')">WFCARE</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCUIDADOS')">WFCUIDADOS</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFBEGIN')">WFBEGIN</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFINICIO')">WFINICIO</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFSTART')">WFSTART</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCOMENZO')">WFCOMENZO</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <span class="itw-caregiver-toggle" id="itw-caregiver-toggle" onclick="itwToggleCaregiver(this)">[+] ADD CAREGIVER</span>
+            <div id="itw-caregiver-section" class="itw-caregiver-section">
+              <div class="itw-field" style="margin-bottom:14px;">
+                <label>Pre-fill from existing caregiver</label>
+                <div class="itw-mui-select" id="itw-cg-prefill-wrap">
+                  <input type="hidden" id="itw-cg-prefill" value="">
+                  <div class="itw-mui-select-trigger" id="itw-cg-prefill-trigger" onclick="itwMuiToggle('itw-cg-prefill')">
+                    <span id="itw-cg-prefill-label" class="itw-mui-placeholder">Select...</span>
+                    <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+                  </div>
+                  <div class="itw-mui-menu" id="itw-cg-prefill-menu"></div>
+                </div>
+              </div>
+              <div class="itw-row" id="itw-cg-manual-row" style="margin-bottom:14px;display:none;">
+                <div class="itw-field">
+                  <label>Caregiver First Name <span class="req">*</span></label>
+                  <input id="itw-cg-first" class="itw-input" type="text">
+                </div>
+                <div class="itw-field">
+                  <label>Caregiver Last Name <span class="req">*</span></label>
+                  <input id="itw-cg-last" class="itw-input" type="text">
+                </div>
+                <div class="itw-field">
+                  <label>Caregiver Relationship</label>
+                  <div class="itw-mui-select" id="itw-cg-relation-wrap">
+                    <input type="hidden" id="itw-cg-relation" value="">
+                    <div class="itw-mui-select-trigger" id="itw-cg-relation-trigger" onclick="itwMuiToggle('itw-cg-relation')">
+                      <span id="itw-cg-relation-label" class="itw-mui-placeholder">Select...</span>
+                      <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+                    </div>
+                    <div class="itw-mui-menu" id="itw-cg-relation-menu">
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Spouse')">Spouse</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Child')">Child</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Parent')">Parent</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Sibling')">Sibling</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Other')">Other</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="itw-row">
+                <div class="itw-field">
+                  <label>Caregiver Phone Number <span class="req">*</span></label>
+                  <div class="itw-phone-row">
+                    <select class="itw-phone-cc"><option>US +1</option><option>CA +1</option><option>MX +52</option></select>
+                    <input id="itw-cg-phone" class="itw-phone-num" type="tel">
+                  </div>
+                </div>
+                <div class="itw-field">
+                  <label>Caregiver Email Address</label>
+                  <input id="itw-cg-email" class="itw-input" type="email">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="itw-row">
+            <div class="itw-field">
+              <label>Phone Number <span class="req">*</span></label>
+              <input type="hidden" id="itw-phone" value="">
+              <div class="itw-mui-select" id="itw-phone-prefill-wrap">
+                <div class="itw-mui-select-trigger" id="itw-phone-prefill-trigger" onclick="itwMuiToggle('itw-phone-prefill')">
+                  <span id="itw-phone-prefill-label" class="itw-mui-placeholder">Select...</span>
+                  <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+                </div>
+                <div class="itw-mui-menu" id="itw-phone-prefill-menu"></div>
+              </div>
+              <div id="itw-phone-manual-row" style="display:none;margin-top:8px;">
+                <div class="itw-phone-row">
+                  <select class="itw-phone-cc"><option>US +1</option><option>CA +1</option><option>MX +52</option></select>
+                  <input id="itw-phone-manual" class="itw-phone-num" type="tel" oninput="document.getElementById('itw-phone').value=this.value">
+                </div>
+              </div>
+            </div>
+            <div class="itw-field">
+              <label>Email Address</label>
+              <input id="itw-email" class="itw-input" type="email">
+            </div>
+          </div>
+
+          <div class="itw-footer" id="itw-footer">
+            <label style="font-size:12px;display:flex;align-items:center;gap:8px;cursor:pointer;">
+              <input id="itw-text-consent" type="checkbox" class="itw-mui-checkbox">
+              <span class="itw-mui-checkbox-box"><svg width="12" height="10" viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8 10.5,1.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              Member has agreed to text-based communication <span style="color:#C62828;font-size:12px;font-weight:600;">*</span>
+            </label>
+            <span class="itw-footer-spacer"></span>
+            <span style="font-size:11px;color:#555;white-space:nowrap;">* Required fields</span>
+            <button class="itw-btn-cancel" onclick="itwCloseModal()">CANCEL</button>
+            <button class="itw-btn-invite" onclick="itwSendInvite();">INVITE MEMBER</button>
+          </div>
+
+        </div>
+
+        <!-- Success state -->
+        <div class="itw-success" id="itw-success">
+          <span class="material-icons itw-success-icon">forward_to_inbox</span>
+          <div class="itw-success-label">
+            <span class="material-icons">check_circle</span>
+            <span id="itw-success-label-text">Invite sent on —</span>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="itw-btn-sms" onclick="alert('Opening text message for ' + document.getElementById('itw-first-name').value + '...');">
+              <span class="material-icons" style="font-size:16px;">sms</span> Send a text message
+            </button>
+            <button class="itw-btn-sms" onclick="alert('Opening email for ' + document.getElementById('itw-first-name').value + '...');">
+              <span class="material-icons" style="font-size:16px;">email</span> Send an email
+            </button>
+          </div>
+          <div class="itw-program-picker">
+            <div class="itw-program-picker-title">
+              <span class="material-icons">add_circle_outline</span>
+              Add Onboarding Program
+            </div>
+            <div id="itw-program-search-block">
+              <div class="itw-program-search-wrap">
+                <input id="itw-program-search" class="itw-program-search" type="text" placeholder="Search programs…" autocomplete="off"
+                  oninput="itwFilterPrograms(this.value)"
+                  onfocus="itwFilterPrograms(this.value)">
+                <span class="material-icons">search</span>
+                <div class="itw-program-dropdown" id="itw-program-dropdown"></div>
+              </div>
+            </div>
+            <div class="itw-program-selected" id="itw-program-selected">
+              <span class="material-icons">check_circle</span>
+              <span id="itw-program-selected-name"></span>
+              <span class="itw-program-change" onclick="itwClearProgram()">Change</span>
+            </div>
+          </div>
+          <div style="padding:0 0 20px;text-align:center;">
+            <button class="itw-btn-cancel" style="border:1px solid #ccc;border-radius:3px;" onclick="itwCloseModal()">DONE</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- end #tab-invite-to-wellframe -->
+  </div><!-- end .itw-modal-card -->
+</div><!-- end #itw-modal -->
 
 </body>
 </html>
