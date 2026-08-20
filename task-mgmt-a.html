@@ -1504,21 +1504,21 @@
       </div>
     </div>
   </div>
-  <!-- Member Notes + Member Goal (two columns) -->
+  <!-- Member Considerations + Member Goal (two columns) -->
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border-light);display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
-    <!-- LEFT: Member Notes -->
+    <!-- LEFT: Member Considerations -->
     <div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-        <span style="font-weight:700;color:var(--text-secondary);font-size:12px;">Member Notes</span>
+        <span style="font-weight:700;color:var(--text-secondary);font-size:12px;">Member Considerations</span>
         <span class="gc-edit-inline" onclick="toggleMemberNotesEdit()" id="memberNotesEditBtn" style="font-size:11px;"><span class="material-icons" style="font-size:11px;">edit</span> Edit</span>
       </div>
       <div id="memberNotesDisplay">
         <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Last updated by S. Rivera &nbsp;·&nbsp; Jun 3, 2025</div>
-        <div id="memberNotesText" style="font-size:12px;color:var(--text-primary);line-height:1.6;white-space:pre-wrap;">Prefers to be called "Jack." Wife's name is Margaret — she goes by Maggie. Has a yellow lab named Biscuit. Son Derek lives in Austin, calls on Sundays. Daughter-in-law expecting first grandchild in September. Retired science teacher. Hard of hearing in right ear — speak clearly. Prefers morning calls before 11am. Under extra stress lately since a close neighbor passed away last month.</div>
+        <div id="memberNotesText" style="font-size:12px;color:var(--text-primary);line-height:1.6;white-space:pre-wrap;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</div>
       </div>
       <div id="memberNotesEdit" style="display:none;">
-        <textarea id="memberNotesTextarea" style="width:100%;box-sizing:border-box;font-size:12px;font-family:inherit;color:var(--text-primary);line-height:1.6;border:1px solid var(--border);border-radius:4px;padding:6px 8px;resize:vertical;min-height:64px;">Prefers to be called "Jack." Wife's name is Margaret — she goes by Maggie. Has a yellow lab named Biscuit. Son Derek lives in Austin, calls on Sundays. Daughter-in-law expecting first grandchild in September. Retired science teacher. Hard of hearing in right ear — speak clearly. Prefers morning calls before 11am. Under extra stress lately since a close neighbor passed away last month.</textarea>
+        <textarea id="memberNotesTextarea" style="width:100%;box-sizing:border-box;font-size:12px;font-family:inherit;color:var(--text-primary);line-height:1.6;border:1px solid var(--border);border-radius:4px;padding:6px 8px;resize:vertical;min-height:64px;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</textarea>
         <div style="display:flex;gap:8px;margin-top:6px;justify-content:flex-end;">
           <button class="gc-btn gc-btn-sm" style="background:white;color:var(--text-secondary);border-color:var(--border);" onclick="cancelMemberNotesEdit()">Cancel</button>
           <button class="gc-btn gc-btn-sm gc-btn-primary" onclick="saveMemberNotes()">Save</button>
@@ -5593,6 +5593,25 @@ Diabetes Management</textarea>
           </div>
           <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px;"><strong>Note:</strong> AI generated notes cannot be exported or printed.</div>
 
+          <!-- Member Consideration -->
+          <div style="border:1px solid var(--border);border-radius:4px;padding:14px 16px;margin-bottom:12px;background:#fff;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-weight:700;color:var(--text-secondary);font-size:12px;display:inline-flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:13px;color:#E65100;">push_pin</span>Member Consideration</span>
+              <span class="gc-edit-inline" onclick="togglePinnedNoteEdit()" id="pinnedNoteEditBtn" style="font-size:11px;"><span class="material-icons" style="font-size:11px;">edit</span> Edit</span>
+            </div>
+            <div id="pinnedNoteDisplay">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Last updated by S. Rivera &nbsp;·&nbsp; Jun 3, 2025</div>
+              <div id="pinnedNoteText" style="font-size:12px;color:var(--text-primary);line-height:1.6;white-space:pre-wrap;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</div>
+            </div>
+            <div id="pinnedNoteEdit" style="display:none;">
+              <textarea id="pinnedNoteTextarea" maxlength="1416" style="width:100%;box-sizing:border-box;font-size:12px;font-family:inherit;color:var(--text-primary);line-height:1.6;border:1px solid var(--border);border-radius:4px;padding:6px 8px;resize:vertical;min-height:80px;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</textarea>
+              <div style="display:flex;gap:8px;margin-top:6px;justify-content:flex-end;">
+                <button class="gc-btn gc-btn-sm" style="background:white;color:var(--text-secondary);border-color:var(--border);" onclick="cancelPinnedNoteEdit()">Cancel</button>
+                <button class="gc-btn gc-btn-sm gc-btn-primary" onclick="savePinnedNote()">Save</button>
+              </div>
+            </div>
+          </div>
+
           <!-- Notes table -->
           <div style="overflow-x:auto;">
             <table class="gc-table" style="width:100%;table-layout:fixed;">
@@ -6545,6 +6564,7 @@ Diabetes Management</textarea>
           </div>
           <div style="height:3px;background:#D94F2C;margin-bottom:12px;"></div>
 
+
           <!-- Filter bar -->
           <div style="background:var(--surface-light);border:1px solid var(--border);padding:12px 14px;margin-bottom:10px;">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
@@ -6721,8 +6741,7 @@ Diabetes Management</textarea>
                   <option value="">— Select —</option>
                   <option>Clinical Task Completion</option>
                   <option>Medication Adherence</option>
-                  <option>Physical Activity — Daily Steps</option>
-                  <option>Blood Pressure</option>
+
                 </select>
               </div>
             </div>
@@ -6746,32 +6765,6 @@ Diabetes Management</textarea>
                   </div>
                 </div>
                 <div style="padding:8px 0 0;" id="artab-ma-med-chart"></div>
-              </div>
-              <div style="background:#fff;border:1px solid #E0E8ED;border-radius:4px;overflow:hidden;">
-                <div style="padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F0F4F7;">
-                  <span style="font-size:11px;font-weight:700;letter-spacing:0.6px;color:#444;text-transform:uppercase;">Physical Activity — Daily Steps</span>
-                  <div style="display:flex;border:1px solid #C8D4DA;border-radius:3px;overflow:hidden;">
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#E0E8ED;color:#444;border:none;cursor:pointer;border-right:1px solid #C8D4DA;">DATE</button>
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#fff;color:#555;border:none;cursor:pointer;">TYPE</button>
-                  </div>
-                </div>
-                <div style="padding:8px 0 0;" id="artab-ma-steps-chart"></div>
-              </div>
-              <div style="background:#fff;border:1px solid #E0E8ED;border-radius:4px;overflow:hidden;">
-                <div style="padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F0F4F7;">
-                  <span style="font-size:11px;font-weight:700;letter-spacing:0.6px;color:#444;text-transform:uppercase;">Blood Pressure</span>
-                  <div style="display:flex;border:1px solid #C8D4DA;border-radius:3px;overflow:hidden;">
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#E0E8ED;color:#444;border:none;cursor:pointer;border-right:1px solid #C8D4DA;">GRAPH</button>
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#fff;color:#555;border:none;cursor:pointer;">LIST</button>
-                  </div>
-                </div>
-                <div style="padding:6px 12px 4px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #F0F4F7;">
-                  <button style="padding:3px 10px;font-size:11px;font-weight:700;background:#0080A3;color:#fff;border:none;border-radius:3px;cursor:pointer;">MOST RECENT</button>
-                  <button style="background:none;border:none;cursor:pointer;color:#555;font-size:18px;line-height:1;padding:0 2px;">&#8249;</button>
-                  <button style="background:none;border:none;cursor:pointer;color:#555;font-size:18px;line-height:1;padding:0 2px;">&#8250;</button>
-                  <span style="font-size:11px;color:#444;">Mar 10 &#8211; Apr 15, 2026</span>
-                </div>
-                <div style="padding:8px 0 0;" id="artab-ma-bp-chart"></div>
               </div>
             </div>
           </div>
@@ -13624,6 +13617,21 @@ function saveMemberNotes() {
   document.getElementById('memberNotesText').textContent = text;
   cancelMemberNotesEdit();
 }
+function togglePinnedNoteEdit() {
+  document.getElementById('pinnedNoteDisplay').style.display = 'none';
+  document.getElementById('pinnedNoteEdit').style.display = 'block';
+  document.getElementById('pinnedNoteEditBtn').style.display = 'none';
+}
+function cancelPinnedNoteEdit() {
+  document.getElementById('pinnedNoteDisplay').style.display = 'block';
+  document.getElementById('pinnedNoteEdit').style.display = 'none';
+  document.getElementById('pinnedNoteEditBtn').style.display = '';
+}
+function savePinnedNote() {
+  var text = document.getElementById('pinnedNoteTextarea').value;
+  document.getElementById('pinnedNoteText').textContent = text;
+  cancelPinnedNoteEdit();
+}
 function toggleMemberGoalsEdit() {
   document.getElementById('memberGoalsDisplay').style.display = 'none';
   document.getElementById('memberGoalsEdit').style.display = 'block';
@@ -13634,6 +13642,8 @@ function cancelMemberGoalsEdit() {
   document.getElementById('memberGoalsEdit').style.display = 'none';
   document.getElementById('memberGoalsEditBtn').style.display = '';
 }
+});
+
 function saveMemberGoals() {
   var text = document.getElementById('memberGoalsTextarea').value;
   var list = document.getElementById('memberGoalsList');

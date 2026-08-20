@@ -1326,6 +1326,7 @@
       <div class="pw-filter-bar" id="pwFilterBarAlerts" style="display:none;">
         <label>Sort by</label>
         <select id="pwAlertSort" style="width:130px;" onchange="pwRender()">
+          <option value="alert-type">Alert Type</option>
           <option value="">Date (newest)</option>
           <option value="name">Member name</option>
           <option value="risk-high">Risk (high first)</option>
@@ -1391,6 +1392,194 @@
         <!-- populated by pwRender() -->
       </div>
 
+      <!-- Alert Type grouped view (shown when Sort by = Alert Type) -->
+      <div id="pwAlertTypeGroupView" style="display:none;flex:1;overflow-y:auto;background:#F4F6F8;padding:24px 20px;">
+        <div id="pwat-groups-wrapper" style="display:grid;grid-template-columns:1fr;gap:22px;align-items:start;max-width:860px;margin:0 auto;width:100%;">
+
+          <!-- ADT -->
+          <div style="background:#fff;border-radius:6px;border:1px solid var(--border-light);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:visible;">
+            <div onclick="maToggleAlertGroup('pwat-1')" style="display:flex;align-items:center;gap:8px;padding:18px 16px;background:#fff;cursor:pointer;user-select:none;border-radius:6px;">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:13.7px;font-weight:700;color:var(--text-primary);">Admissions, Discharges, Transfers (ADT)</span>
+                <span id="pwat-1-badge" style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 8px;border-radius:10px;flex-shrink:0;">2</span>
+              </div>
+              <span class="material-icons" id="pwat-1-chev" style="font-size:19px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;transform:rotate(180deg);">expand_more</span>
+            </div>
+            <div id="pwat-1" style="border-top:1px solid var(--border-light);">
+            <table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">
+              <thead><tr>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:20%;">Member</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;">Alert</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:110px;">Date</th>
+              </tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Jackson Thomas</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-1-1',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-1-1" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ADT: Admitted &mdash; St. Mary's Medical Center</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/10/2026</td>
+                </tr>
+                <tr>
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">James O'Connor</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-1-2',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-1-2" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">ER Visit &mdash; Regional Medical Center</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/08/2026</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+          <!-- Care Management -->
+          <div style="background:#fff;border-radius:6px;border:1px solid var(--border-light);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:visible;">
+            <div onclick="maToggleAlertGroup('pwat-3')" style="display:flex;align-items:center;gap:8px;padding:18px 16px;background:#fff;cursor:pointer;user-select:none;border-radius:6px;">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:13.7px;font-weight:700;color:var(--text-primary);">Care Management</span>
+                <span id="pwat-3-badge" style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 8px;border-radius:10px;flex-shrink:0;">4</span>
+              </div>
+              <span class="material-icons" id="pwat-3-chev" style="font-size:19px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;transform:rotate(180deg);">expand_more</span>
+            </div>
+            <div id="pwat-3" style="border-top:1px solid var(--border-light);">
+            <table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">
+              <thead><tr>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:20%;">Member</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;">Alert</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:110px;">Date</th>
+              </tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Barbara Nguyen</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-3-1',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-3-1" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Care plan review due 04/15/2026 &mdash; 3 open goals</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/09/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Jerome Banks</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-3-2',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-3-2" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Care plan review overdue &mdash; 2 ED visits since last review</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/05/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Thomas Grant</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-3-3',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-3-3" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Blood pressure 168/102 mmHg &mdash; above hypertension threshold</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/07/2026</td>
+                </tr>
+                <tr>
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Helen Cho</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-3-4',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-3-4" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">HbA1c 9.2% &mdash; above target range (&gt;8%)</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/06/2026</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+          <!-- Claims -->
+          <div style="background:#fff;border-radius:6px;border:1px solid var(--border-light);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:visible;">
+            <div onclick="maToggleAlertGroup('pwat-4')" style="display:flex;align-items:center;gap:8px;padding:18px 16px;background:#fff;cursor:pointer;user-select:none;border-radius:6px;">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:13.7px;font-weight:700;color:var(--text-primary);">Claims</span>
+                <span id="pwat-4-badge" style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 8px;border-radius:10px;flex-shrink:0;">1</span>
+              </div>
+              <span class="material-icons" id="pwat-4-chev" style="font-size:19px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;transform:rotate(180deg);">expand_more</span>
+            </div>
+            <div id="pwat-4" style="border-top:1px solid var(--border-light);">
+            <table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">
+              <thead><tr>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:20%;">Member</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;">Alert</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:110px;">Date</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Debra Washington</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-4-1',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-4-1" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">PA-2026-04847 approved &mdash; Home health, 30 visits</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/06/2026</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+          <!-- Wellframe -->
+          <div style="background:#fff;border-radius:6px;border:1px solid var(--border-light);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:visible;">
+            <div onclick="maToggleAlertGroup('pwat-5')" style="display:flex;align-items:center;gap:8px;padding:18px 16px;background:#fff;cursor:pointer;user-select:none;border-radius:6px;">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:13.7px;font-weight:700;color:var(--text-primary);">Wellframe</span>
+                <span id="pwat-5-badge" style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 8px;border-radius:10px;flex-shrink:0;">7</span>
+              </div>
+              <span class="material-icons" id="pwat-5-chev" style="font-size:19px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;transform:rotate(180deg);">expand_more</span>
+            </div>
+            <div id="pwat-5" style="border-top:1px solid var(--border-light);">
+            <table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">
+              <thead><tr>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:20%;">Member</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;">Alert</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:110px;">Date</th>
+              </tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Robert Chen</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-1',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-1" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Unreported OTC medications; intake assessment not completed</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/06/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Sarah Williams</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-2',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-2" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Rh factor uncertainty; gestational diabetes diagnosis reported</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/04/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Maria Rivera</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-3',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-3" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Elevated PROMIS Depression score; questions about discharge summary</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/03/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Linda Park</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-4',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-4" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Increased shortness of breath over past 3 days</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/05/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Omar Hassan</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-5',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-5" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Skipping insulin doses for 4 days</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/04/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Priya Sharma</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-6',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-6" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Significant anxiety reported &mdash; mental health support needed</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/03/2026</td>
+                </tr>
+                <tr>
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">George Butler</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-7',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-7" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Chest tightness occurring several times this week</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/02/2026</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+          <!-- EPSDT -->
+          <div style="background:#fff;border-radius:6px;border:1px solid var(--border-light);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:visible;">
+            <div onclick="maToggleAlertGroup('pwat-6')" style="display:flex;align-items:center;gap:8px;padding:18px 16px;background:#fff;cursor:pointer;user-select:none;border-radius:6px;">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:13.7px;font-weight:700;color:var(--text-primary);">Early and Periodic Screening Compliance (EPSDT)</span>
+              </div>
+              <span class="material-icons" id="pwat-6-chev" style="font-size:19px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;transform:rotate(180deg);">expand_more</span>
+            </div>
+            <div id="pwat-6" style="border-top:1px solid var(--border-light);">
+            <table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">
+              <thead><tr>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:20%;">Member</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;">Alert</th>
+                <th style="text-align:left;padding:13px 16px;font-size:11.6px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border-light);background:#f9fafb;width:110px;">Date</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td colspan="3" style="padding:28px 16px;background:#fff;color:var(--text-muted);font-size:12.6px;text-align:center;">There are no EPSDT Alerts at this time</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
       <!-- Risks panel (alerts sub-panel) -->
       <div id="pwAlertPanelRisks" style="display:none;flex:1;overflow-y:auto;padding:16px 20px;flex-direction:column;gap:10px;">
         <div style="background:#fff;border-radius:6px;border:1px solid var(--border-light);box-shadow:0 1px 2px rgba(0,0,0,.05);">
@@ -1976,21 +2165,21 @@
       </div>
     </div>
   </div>
-  <!-- Member Notes + Member Goal (two columns) -->
+  <!-- Member Considerations + Member Goal (two columns) -->
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border-light);display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
-    <!-- LEFT: Member Notes -->
+    <!-- LEFT: Member Considerations -->
     <div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-        <span style="font-weight:700;color:var(--text-secondary);font-size:12px;">Member Notes</span>
+        <span style="font-weight:700;color:var(--text-secondary);font-size:12px;">Member Considerations</span>
         <span class="gc-edit-inline" onclick="toggleMemberNotesEdit()" id="memberNotesEditBtn" style="font-size:11px;"><span class="material-icons" style="font-size:11px;">edit</span> Edit</span>
       </div>
       <div id="memberNotesDisplay">
         <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Last updated by S. Rivera &nbsp;·&nbsp; Jun 3, 2025</div>
-        <div id="memberNotesText" style="font-size:12px;color:var(--text-primary);line-height:1.6;white-space:pre-wrap;">Prefers to be called "Jack." Wife's name is Margaret — she goes by Maggie. Has a yellow lab named Biscuit. Son Derek lives in Austin, calls on Sundays. Daughter-in-law expecting first grandchild in September. Retired science teacher. Hard of hearing in right ear — speak clearly. Prefers morning calls before 11am. Under extra stress lately since a close neighbor passed away last month.</div>
+        <div id="memberNotesText" style="font-size:12px;color:var(--text-primary);line-height:1.6;white-space:pre-wrap;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</div>
       </div>
       <div id="memberNotesEdit" style="display:none;">
-        <textarea id="memberNotesTextarea" style="width:100%;box-sizing:border-box;font-size:12px;font-family:inherit;color:var(--text-primary);line-height:1.6;border:1px solid var(--border);border-radius:4px;padding:6px 8px;resize:vertical;min-height:64px;">Prefers to be called "Jack." Wife's name is Margaret — she goes by Maggie. Has a yellow lab named Biscuit. Son Derek lives in Austin, calls on Sundays. Daughter-in-law expecting first grandchild in September. Retired science teacher. Hard of hearing in right ear — speak clearly. Prefers morning calls before 11am. Under extra stress lately since a close neighbor passed away last month.</textarea>
+        <textarea id="memberNotesTextarea" style="width:100%;box-sizing:border-box;font-size:12px;font-family:inherit;color:var(--text-primary);line-height:1.6;border:1px solid var(--border);border-radius:4px;padding:6px 8px;resize:vertical;min-height:64px;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</textarea>
         <div style="display:flex;gap:8px;margin-top:6px;justify-content:flex-end;">
           <button class="gc-btn gc-btn-sm" style="background:white;color:var(--text-secondary);border-color:var(--border);" onclick="cancelMemberNotesEdit()">Cancel</button>
           <button class="gc-btn gc-btn-sm gc-btn-primary" onclick="saveMemberNotes()">Save</button>
@@ -4872,202 +5061,127 @@ Diabetes Management</textarea>
 
         <!-- Tab: Member Reminders -->
         <div class="health-tab-panel" id="htab-reminders" style="display:none;">
-          <div style="padding:16px 0 8px;font-size:13px;color:var(--text-secondary);">A holistic view of all reminders set up for this member — medications, appointments, and general health reminders. Members can view and manage these in the Wellframe app.</div>
+          <div style="padding:16px 0 14px;font-size:13px;color:var(--text-secondary);">A holistic view of all reminders set up for this member — medications, appointments, and general health reminders. Members can view and manage these in the Wellframe app.</div>
 
           <!-- Medication Reminders -->
-          <div class="gc-table-wrap" style="margin-bottom:14px;">
-            <div class="gc-table-toolbar">
-              <span style="font-size:12px;font-weight:700;color:var(--text-primary);">Medication Reminders</span>
-              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">5 record(s)</span>
-            </div>
-            <table class="gc-table">
-              <thead>
-                <tr>
-                  <th>Medication</th>
-                  <th>Dosage</th>
-                  <th>Frequency</th>
-                  <th>Reminder Time</th>
-                  <th>Added By</th>
-                  <th>Status</th>
-                  <th>Last Confirmed</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:600;">Metformin 500mg</td>
-                  <td>500 mg</td>
-                  <td>Daily</td>
-                  <td>8:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:var(--teal);">phone_iphone</span>Member</span></td>
-                  <td>Active</td>
-                  <td>07/15/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Lisinopril 10mg</td>
-                  <td>10 mg</td>
-                  <td>Daily</td>
-                  <td>9:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:#6B7280;">person</span>Care Manager</span></td>
-                  <td>Active</td>
-                  <td>07/14/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Atorvastatin 40mg</td>
-                  <td>40 mg</td>
-                  <td>Daily</td>
-                  <td>9:00 PM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:#6B7280;">person</span>Care Manager</span></td>
-                  <td>Active</td>
-                  <td>07/13/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Furosemide 20mg</td>
-                  <td>20 mg</td>
-                  <td>Daily</td>
-                  <td>7:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:var(--teal);">phone_iphone</span>Member</span></td>
-                  <td>Snoozed</td>
-                  <td>07/10/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Insulin Glargine</td>
-                  <td>20 units</td>
-                  <td>Daily</td>
-                  <td>10:00 PM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:#6B7280;">person</span>Care Manager</span></td>
-                  <td>Inactive</td>
-                  <td>06/28/2026</td>
-                </tr>
+          <div style="background:#fff;border-radius:8px;border:1px solid var(--border-light);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;padding:16px 20px;background:#fff;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:14px;font-weight:700;color:var(--text-primary);">Medication Reminders</span>
+      <span style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 9px;border-radius:10px;margin-left:8px;flex-shrink:0;">5</span>
+      <button onclick="rmOpenModal('rm-modal-med')" style="margin-left:auto;display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--teal);color:var(--teal);background:transparent;padding:6px 14px;border-radius:5px;font-size:12.5px;cursor:pointer;font-weight:600;transition:background .15s;" onmouseover="this.style.background='#f0f7fb'" onmouseout="this.style.background='transparent'">
+        <span class="material-icons" style="font-size:15px;">add</span>Add Medication
+      </button>
+    </div>
+            <table style="width:100%;border-collapse:collapse;font-size:12.6px;table-layout:fixed;">
+              <colgroup><col style="width:20%;"><col style="width:10%;"><col style="width:11%;"><col style="width:12%;"><col style="width:17%;"><col style="width:12%;"><col style="width:18%;"></colgroup>
+      <thead><tr style="background:#F8FAFB;"><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Medication</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Dosage</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Frequency</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Reminder Time</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Added By</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Status</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Last Confirmed</th></tr></thead>
+              <tbody id="rm-med-tbody">
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Metformin 500mg</td><td style="padding:14px 20px;color:var(--text-secondary);">500 mg</td><td style="padding:14px 20px;color:var(--text-secondary);">Daily</td><td style="padding:14px 20px;color:var(--text-secondary);">8:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:var(--teal);">phone_iphone</span>Member</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/15/2026</td></tr>
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Lisinopril 10mg</td><td style="padding:14px 20px;color:var(--text-secondary);">10 mg</td><td style="padding:14px 20px;color:var(--text-secondary);">Daily</td><td style="padding:14px 20px;color:var(--text-secondary);">9:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:#6B7280;">person</span>Care Manager</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/14/2026</td></tr>
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Atorvastatin 40mg</td><td style="padding:14px 20px;color:var(--text-secondary);">40 mg</td><td style="padding:14px 20px;color:var(--text-secondary);">Daily</td><td style="padding:14px 20px;color:var(--text-secondary);">9:00 PM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:#6B7280;">person</span>Care Manager</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/13/2026</td></tr>
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Furosemide 20mg</td><td style="padding:14px 20px;color:var(--text-secondary);">20 mg</td><td style="padding:14px 20px;color:var(--text-secondary);">Daily</td><td style="padding:14px 20px;color:var(--text-secondary);">7:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:var(--teal);">phone_iphone</span>Member</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#fef3c7;color:#92400e;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Snoozed</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/10/2026</td></tr>
+        <tr style=""><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Insulin Glargine</td><td style="padding:14px 20px;color:var(--text-secondary);">20 units</td><td style="padding:14px 20px;color:var(--text-secondary);">Daily</td><td style="padding:14px 20px;color:var(--text-secondary);">10:00 PM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:#6B7280;">person</span>Care Manager</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#f3f4f6;color:#6b7280;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Inactive</span></td><td style="padding:14px 20px;color:var(--text-secondary);">06/28/2026</td></tr>
               </tbody>
             </table>
-            <div class="gc-table-footer">
-              <span style="font-size:11px;">1 - 5 of 5 items</span>
-            </div>
           </div>
 
           <!-- Appointment Reminders -->
-          <div class="gc-table-wrap" style="margin-bottom:14px;">
-            <div class="gc-table-toolbar">
-              <span style="font-size:12px;font-weight:700;color:var(--text-primary);">Appointment Reminders</span>
-              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">3 record(s)</span>
-            </div>
-            <table class="gc-table">
-              <thead>
-                <tr>
-                  <th>Appointment Type</th>
-                  <th>Provider</th>
-                  <th>Appointment Date</th>
-                  <th>Reminder Time</th>
-                  <th>Added By</th>
-                  <th>Status</th>
-                  <th>Last Confirmed</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:600;">Cardiothoracic Specialist</td>
-                  <td>AK Project Hope for All</td>
-                  <td>07/31/2026</td>
-                  <td>9:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:#6B7280;">person</span>Care Manager</span></td>
-                  <td>Active</td>
-                  <td>07/20/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Cardiothoracic Specialist</td>
-                  <td>John RI Williams</td>
-                  <td>07/18/2026</td>
-                  <td>8:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:var(--teal);">phone_iphone</span>Member</span></td>
-                  <td>Active</td>
-                  <td>07/15/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Transportation</td>
-                  <td>Division of Adult and Aging Services</td>
-                  <td>07/10/2026</td>
-                  <td>3:30 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:var(--teal);">phone_iphone</span>Member</span></td>
-                  <td>Snoozed</td>
-                  <td>07/08/2026</td>
-                </tr>
+          <div style="background:#fff;border-radius:8px;border:1px solid var(--border-light);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;padding:16px 20px;background:#fff;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:14px;font-weight:700;color:var(--text-primary);">Appointment Reminders</span>
+      <span style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 9px;border-radius:10px;margin-left:8px;flex-shrink:0;">3</span>
+      <button onclick="rmOpenModal('rm-modal-appt')" style="margin-left:auto;display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--teal);color:var(--teal);background:transparent;padding:6px 14px;border-radius:5px;font-size:12.5px;cursor:pointer;font-weight:600;transition:background .15s;" onmouseover="this.style.background='#f0f7fb'" onmouseout="this.style.background='transparent'">
+        <span class="material-icons" style="font-size:15px;">add</span>Add Appointment
+      </button>
+    </div>
+            <table style="width:100%;border-collapse:collapse;font-size:12.6px;table-layout:fixed;">
+              <colgroup><col style="width:20%;"><col style="width:22%;"><col style="width:13%;"><col style="width:11%;"><col style="width:16%;"><col style="width:10%;"><col style="width:8%;"></colgroup>
+      <thead><tr style="background:#F8FAFB;"><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Appointment Type</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Provider</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Appt Date</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Reminder Time</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Added By</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Status</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Last Confirmed</th></tr></thead>
+              <tbody id="rm-appt-tbody">
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Cardiothoracic Specialist</td><td style="padding:14px 20px;color:var(--text-secondary);">AK Project Hope for All</td><td style="padding:14px 20px;color:var(--text-secondary);">07/31/2026</td><td style="padding:14px 20px;color:var(--text-secondary);">9:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:#6B7280;">person</span>Care Manager</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/20/2026</td></tr>
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Cardiothoracic Specialist</td><td style="padding:14px 20px;color:var(--text-secondary);">John RI Williams</td><td style="padding:14px 20px;color:var(--text-secondary);">07/18/2026</td><td style="padding:14px 20px;color:var(--text-secondary);">8:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:var(--teal);">phone_iphone</span>Member</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/15/2026</td></tr>
+        <tr style=""><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Transportation</td><td style="padding:14px 20px;color:var(--text-secondary);">Division of Adult and Aging Services</td><td style="padding:14px 20px;color:var(--text-secondary);">07/10/2026</td><td style="padding:14px 20px;color:var(--text-secondary);">3:30 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:var(--teal);">phone_iphone</span>Member</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#fef3c7;color:#92400e;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Snoozed</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/08/2026</td></tr>
               </tbody>
             </table>
-            <div class="gc-table-footer">
-              <span style="font-size:11px;">1 - 3 of 3 items</span>
-            </div>
           </div>
 
           <!-- General Reminders -->
-          <div class="gc-table-wrap">
-            <div class="gc-table-toolbar">
-              <span style="font-size:12px;font-weight:700;color:var(--text-primary);">General Reminders</span>
-              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">5 record(s)</span>
-            </div>
-            <table class="gc-table">
-              <thead>
-                <tr>
-                  <th>Reminder</th>
-                  <th>Category</th>
-                  <th>Frequency</th>
-                  <th>Reminder Time</th>
-                  <th>Added By</th>
-                  <th>Status</th>
-                  <th>Last Confirmed</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:600;">Check blood sugar</td>
-                  <td>Health Monitoring</td>
-                  <td>Twice daily</td>
-                  <td>7:00 AM &amp; 7:00 PM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:var(--teal);">phone_iphone</span>Member</span></td>
-                  <td>Active</td>
-                  <td>07/16/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">30-minute walk</td>
-                  <td>Physical Activity</td>
-                  <td>Daily</td>
-                  <td>10:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:var(--teal);">phone_iphone</span>Member</span></td>
-                  <td>Active</td>
-                  <td>07/15/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Drink 8 glasses of water</td>
-                  <td>Nutrition</td>
-                  <td>Daily</td>
-                  <td>8:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:#6B7280;">person</span>Care Manager</span></td>
-                  <td>Active</td>
-                  <td>07/15/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Complete weekly mood check-in</td>
-                  <td>Mental Health</td>
-                  <td>Weekly</td>
-                  <td>Mon 9:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:var(--teal);">phone_iphone</span>Member</span></td>
-                  <td>Active</td>
-                  <td>07/14/2026</td>
-                </tr>
-                <tr>
-                  <td style="font-weight:600;">Schedule HbA1c lab appointment</td>
-                  <td>Care Gap</td>
-                  <td>One-time</td>
-                  <td>07/20/2026 9:00 AM</td>
-                  <td><span style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:12px;color:#6B7280;">person</span>Care Manager</span></td>
-                  <td>Pending</td>
-                  <td>—</td>
-                </tr>
+          <div style="background:#fff;border-radius:8px;border:1px solid var(--border-light);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;padding:16px 20px;background:#fff;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:14px;font-weight:700;color:var(--text-primary);">General Reminders</span>
+      <span style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 9px;border-radius:10px;margin-left:8px;flex-shrink:0;">5</span>
+      <button onclick="rmOpenModal('rm-modal-gen')" style="margin-left:auto;display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--teal);color:var(--teal);background:transparent;padding:6px 14px;border-radius:5px;font-size:12.5px;cursor:pointer;font-weight:600;transition:background .15s;" onmouseover="this.style.background='#f0f7fb'" onmouseout="this.style.background='transparent'">
+        <span class="material-icons" style="font-size:15px;">add</span>Add Reminder
+      </button>
+    </div>
+            <table style="width:100%;border-collapse:collapse;font-size:12.6px;table-layout:fixed;">
+              <colgroup><col style="width:22%;"><col style="width:17%;"><col style="width:12%;"><col style="width:16%;"><col style="width:14%;"><col style="width:10%;"><col style="width:9%;"></colgroup>
+      <thead><tr style="background:#F8FAFB;"><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Reminder</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Category</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Frequency</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Reminder Time</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Added By</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Status</th><th style="padding:10px 20px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border-light);white-space:nowrap;">Last Confirmed</th></tr></thead>
+              <tbody id="rm-gen-tbody">
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Check blood sugar</td><td style="padding:14px 20px;color:var(--text-secondary);">Health Monitoring</td><td style="padding:14px 20px;color:var(--text-secondary);">Twice daily</td><td style="padding:14px 20px;color:var(--text-secondary);">7:00 AM &amp; 7:00 PM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:var(--teal);">phone_iphone</span>Member</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/16/2026</td></tr>
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">30-minute walk</td><td style="padding:14px 20px;color:var(--text-secondary);">Physical Activity</td><td style="padding:14px 20px;color:var(--text-secondary);">Daily</td><td style="padding:14px 20px;color:var(--text-secondary);">10:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:var(--teal);">phone_iphone</span>Member</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/15/2026</td></tr>
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Drink 8 glasses of water</td><td style="padding:14px 20px;color:var(--text-secondary);">Nutrition</td><td style="padding:14px 20px;color:var(--text-secondary);">Daily</td><td style="padding:14px 20px;color:var(--text-secondary);">8:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:#6B7280;">person</span>Care Manager</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/15/2026</td></tr>
+        <tr style="border-bottom:1px solid #F3F4F6;"><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Complete weekly mood check-in</td><td style="padding:14px 20px;color:var(--text-secondary);">Mental Health</td><td style="padding:14px 20px;color:var(--text-secondary);">Weekly</td><td style="padding:14px 20px;color:var(--text-secondary);">Mon 9:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:var(--teal);">phone_iphone</span>Member</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dcfce7;color:#16a34a;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Active</span></td><td style="padding:14px 20px;color:var(--text-secondary);">07/14/2026</td></tr>
+        <tr style=""><td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">Schedule HbA1c lab appointment</td><td style="padding:14px 20px;color:var(--text-secondary);">Care Gap</td><td style="padding:14px 20px;color:var(--text-secondary);">One-time</td><td style="padding:14px 20px;color:var(--text-secondary);">07/20/2026 9:00 AM</td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);"><span class="material-icons" style="font-size:13px;color:#6B7280;">person</span>Care Manager</span></td><td style="padding:14px 20px;color:var(--text-secondary);"><span style="background:#dbeafe;color:#1d4ed8;font-size:11.5px;padding:3px 10px;border-radius:10px;font-weight:500;">Pending</span></td><td style="padding:14px 20px;color:var(--text-secondary);">—</td></tr>
               </tbody>
             </table>
-            <div class="gc-table-footer">
-              <span style="font-size:11px;">1 - 5 of 5 items</span>
-            </div>
           </div>
+
+  <!-- Add Medication Reminder Modal -->
+  <div id="rm-modal-med" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2000;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.18);width:480px;max-width:95vw;padding:0;overflow:hidden;">
+      <div style="display:flex;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border-light);">
+        <span style="font-size:15px;font-weight:700;color:var(--text-primary);">Add Medication Reminder</span>
+        <button onclick="rmCloseModal('rm-modal-med')" style="margin-left:auto;border:none;background:none;cursor:pointer;color:var(--text-muted);padding:2px;" title="Close"><span class="material-icons" style="font-size:20px;">close</span></button>
+      </div>
+      <div style="padding:24px;">
+        <form onsubmit="rmSubmitModal(event,'rm-modal-med')">
+          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Medication Name</label><input type="text" name="med_name" placeholder="e.g. Metformin 500mg" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div></div>          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Dosage</label><input type="text" name="dosage" placeholder="e.g. 500 mg" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Frequency</label><select name="freq" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);background:#fff;outline:none;box-sizing:border-box;"><option>Daily</option><option>Twice daily</option><option>Three times daily</option><option>Weekly</option><option>As needed</option><option>One-time</option></select></div></div>          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Reminder Time</label><input type="text" name="time" placeholder="e.g. 8:00 AM" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Added By</label><select name="added_by" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);background:#fff;outline:none;box-sizing:border-box;"><option>Care Manager</option><option>Member</option></select></div></div>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+            <button type="button" onclick="rmCloseModal('rm-modal-med')" style="padding:8px 20px;border:1.5px solid #d1d5db;background:#fff;border-radius:5px;font-size:13px;color:var(--text-secondary);cursor:pointer;">Cancel</button>
+            <button type="submit" style="padding:8px 22px;border:none;background:var(--teal);color:#fff;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;">Save Reminder</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Add Appointment Reminder Modal -->
+  <div id="rm-modal-appt" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2000;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.18);width:480px;max-width:95vw;padding:0;overflow:hidden;">
+      <div style="display:flex;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border-light);">
+        <span style="font-size:15px;font-weight:700;color:var(--text-primary);">Add Appointment Reminder</span>
+        <button onclick="rmCloseModal('rm-modal-appt')" style="margin-left:auto;border:none;background:none;cursor:pointer;color:var(--text-muted);padding:2px;" title="Close"><span class="material-icons" style="font-size:20px;">close</span></button>
+      </div>
+      <div style="padding:24px;">
+        <form onsubmit="rmSubmitModal(event,'rm-modal-appt')">
+          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Appointment Type</label><input type="text" name="appt_type" placeholder="e.g. Cardiology" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div></div>          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Provider / Facility</label><input type="text" name="provider" placeholder="e.g. St. Mary's Hospital" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div></div>          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Appointment Date</label><input type="text" name="appt_date" placeholder="MM/DD/YYYY" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Reminder Time</label><input type="text" name="reminder_time" placeholder="e.g. 9:00 AM" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div></div>          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Added By</label><select name="added_by_appt" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);background:#fff;outline:none;box-sizing:border-box;"><option>Care Manager</option><option>Member</option></select></div></div>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+            <button type="button" onclick="rmCloseModal('rm-modal-appt')" style="padding:8px 20px;border:1.5px solid #d1d5db;background:#fff;border-radius:5px;font-size:13px;color:var(--text-secondary);cursor:pointer;">Cancel</button>
+            <button type="submit" style="padding:8px 22px;border:none;background:var(--teal);color:#fff;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;">Save Reminder</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Add General Reminder Modal -->
+  <div id="rm-modal-gen" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2000;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.18);width:480px;max-width:95vw;padding:0;overflow:hidden;">
+      <div style="display:flex;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border-light);">
+        <span style="font-size:15px;font-weight:700;color:var(--text-primary);">Add General Reminder</span>
+        <button onclick="rmCloseModal('rm-modal-gen')" style="margin-left:auto;border:none;background:none;cursor:pointer;color:var(--text-muted);padding:2px;" title="Close"><span class="material-icons" style="font-size:20px;">close</span></button>
+      </div>
+      <div style="padding:24px;">
+        <form onsubmit="rmSubmitModal(event,'rm-modal-gen')">
+          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Reminder</label><input type="text" name="reminder" placeholder="e.g. Check blood sugar" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div></div>          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Category</label><select name="category" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);background:#fff;outline:none;box-sizing:border-box;"><option>Health Monitoring</option><option>Physical Activity</option><option>Nutrition</option><option>Mental Health</option><option>Care Gap</option><option>Other</option></select></div><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Frequency</label><select name="gen_freq" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);background:#fff;outline:none;box-sizing:border-box;"><option>Daily</option><option>Twice daily</option><option>Weekly</option><option>Monthly</option><option>One-time</option><option>As needed</option></select></div></div>          <div style="display:flex;gap:14px;margin-bottom:16px;"><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Reminder Time</label><input type="text" name="gen_time" placeholder="e.g. 10:00 AM" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);outline:none;box-sizing:border-box;"></div><div style="flex:1;min-width:0;"><label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:5px;">Added By</label><select name="gen_added_by" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;color:var(--text-primary);background:#fff;outline:none;box-sizing:border-box;"><option>Care Manager</option><option>Member</option></select></div></div>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+            <button type="button" onclick="rmCloseModal('rm-modal-gen')" style="padding:8px 20px;border:1.5px solid #d1d5db;background:#fff;border-radius:5px;font-size:13px;color:var(--text-secondary);cursor:pointer;">Cancel</button>
+            <button type="submit" style="padding:8px 22px;border:none;background:var(--teal);color:#fff;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;">Save Reminder</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
         </div>
 
       </div>
@@ -6101,6 +6215,25 @@ Diabetes Management</textarea>
           </div>
           <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px;"><strong>Note:</strong> AI generated notes cannot be exported or printed.</div>
 
+          <!-- Member Consideration -->
+          <div style="border:1px solid var(--border);border-radius:4px;padding:14px 16px;margin-bottom:12px;background:#fff;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-weight:700;color:var(--text-secondary);font-size:12px;display:inline-flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:13px;color:#E65100;">push_pin</span>Member Consideration</span>
+              <span class="gc-edit-inline" onclick="togglePinnedNoteEdit()" id="pinnedNoteEditBtn" style="font-size:11px;"><span class="material-icons" style="font-size:11px;">edit</span> Edit</span>
+            </div>
+            <div id="pinnedNoteDisplay">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Last updated by S. Rivera &nbsp;·&nbsp; Jun 3, 2025</div>
+              <div id="pinnedNoteText" style="font-size:12px;color:var(--text-primary);line-height:1.6;white-space:pre-wrap;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</div>
+            </div>
+            <div id="pinnedNoteEdit" style="display:none;">
+              <textarea id="pinnedNoteTextarea" maxlength="1416" style="width:100%;box-sizing:border-box;font-size:12px;font-family:inherit;color:var(--text-primary);line-height:1.6;border:1px solid var(--border);border-radius:4px;padding:6px 8px;resize:vertical;min-height:80px;">Goes by Jack. Wife is Lisa. They have a yellow lab named Biscuit. Son Derek lives in Austin and calls most Sundays. Daughter-in-law is expecting their first grandchild in September, big news for the family. Retired science teacher. Hearing is not great in his right ear so speak up clearly. Prefers calls in the morning before 11. Has been a bit low lately since a close neighbor passed away last month.</textarea>
+              <div style="display:flex;gap:8px;margin-top:6px;justify-content:flex-end;">
+                <button class="gc-btn gc-btn-sm" style="background:white;color:var(--text-secondary);border-color:var(--border);" onclick="cancelPinnedNoteEdit()">Cancel</button>
+                <button class="gc-btn gc-btn-sm gc-btn-primary" onclick="savePinnedNote()">Save</button>
+              </div>
+            </div>
+          </div>
+
           <!-- Notes table -->
           <div style="overflow-x:auto;">
             <table class="gc-table" style="width:100%;table-layout:fixed;">
@@ -7053,6 +7186,15 @@ Diabetes Management</textarea>
           </div>
           <div style="height:3px;background:#D94F2C;margin-bottom:12px;"></div>
 
+          <!-- View toggle -->
+          <div style="display:inline-flex;gap:0;margin-bottom:14px;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;">
+            <button id="ma-view-btn-type" onclick="maAlertView('type')" style="padding:6px 18px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:var(--font);background:#1C5C7A;color:#fff;">By Alert Type</button>
+            <button id="ma-view-btn-member" onclick="maAlertView('member')" style="padding:6px 18px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:var(--font);background:#fff;color:var(--text-secondary);border-left:1px solid var(--border);">By Member</button>
+          </div>
+
+          <!-- By Member view -->
+          <div id="ma-alerts-by-member" style="display:none;">
+
           <!-- Filter bar -->
           <div style="background:var(--surface-light);border:1px solid var(--border);padding:12px 14px;margin-bottom:10px;">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
@@ -7126,6 +7268,334 @@ Diabetes Management</textarea>
               <span style="margin-left:auto;font-size:11px;">1 - 5 of 5 items &nbsp;<span class="material-icons" style="font-size:13px;color:var(--text-muted);cursor:pointer;">refresh</span></span>
             </div>
           </div>
+
+          </div><!-- /ma-alerts-by-member -->
+
+          <!-- By Alert Type view -->
+          <div id="ma-alerts-by-type">
+            <div style="margin-bottom:10px;font-size:11px;color:var(--text-muted);">Showing 5 alert types &bull; 10 member instances</div>
+
+            <!-- ── Group: ADT: Discharged ── -->
+            <div style="border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;overflow:visible;">
+              <div onclick="maToggleAlertGroup('mat-1')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;cursor:pointer;user-select:none;border-radius:var(--r-sm);">
+                <span class="material-icons" id="mat-1-chev" style="font-size:18px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;">chevron_right</span>
+                <div style="flex:1;min-width:0;">
+                  <span style="font-size:13px;font-weight:700;color:var(--text-primary);">ADT: Discharged</span>
+                  <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">Hospital discharge notification</span>
+                </div>
+                <span style="background:#D94F2C;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;flex-shrink:0;">3 members</span>
+                <span style="font-size:11px;color:var(--text-muted);flex-shrink:0;margin-left:10px;">Latest: 04/15/2026</span>
+              </div>
+              <div id="mat-1" style="display:none;border-top:1px solid var(--border);">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                  <thead><tr>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Member</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">DOB</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Status</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Alert Date</th>
+                    <th style="padding:7px 12px;border-bottom:1px solid var(--border);background:#f9fafb;width:40px;"></th>
+                  </tr></thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Maria Santos</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">03/15/1968</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-danger">New</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">04/15/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-1-1',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-1-1" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">James Kowalski</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">07/22/1952</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-danger">New</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">04/08/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-1-2',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-1-2" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Patricia Chen</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">11/04/1975</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-warn">Active</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">03/29/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-1-3',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-1-3" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ── Group: Gap in Care: HbA1c Overdue ── -->
+            <div style="border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;overflow:visible;">
+              <div onclick="maToggleAlertGroup('mat-2')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;cursor:pointer;user-select:none;border-radius:var(--r-sm);">
+                <span class="material-icons" id="mat-2-chev" style="font-size:18px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;">chevron_right</span>
+                <div style="flex:1;min-width:0;">
+                  <span style="font-size:13px;font-weight:700;color:var(--text-primary);">Gap in Care: HbA1c Overdue</span>
+                  <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">HEDIS measure CDC — lab overdue</span>
+                </div>
+                <span style="background:#D94F2C;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;flex-shrink:0;">2 members</span>
+                <span style="font-size:11px;color:var(--text-muted);flex-shrink:0;margin-left:10px;">Latest: 03/22/2026</span>
+              </div>
+              <div id="mat-2" style="display:none;border-top:1px solid var(--border);">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                  <thead><tr>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Member</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">DOB</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Status</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Alert Date</th>
+                    <th style="padding:7px 12px;border-bottom:1px solid var(--border);background:#f9fafb;width:40px;"></th>
+                  </tr></thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Robert Nguyen</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">09/12/1961</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-danger">New</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">03/22/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-2-1',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-2-1" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Linda Okafor</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">05/30/1948</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-warn">Active</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">03/10/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-2-2',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-2-2" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ── Group: Readmission Risk ── -->
+            <div style="border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;overflow:visible;">
+              <div onclick="maToggleAlertGroup('mat-3')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;cursor:pointer;user-select:none;border-radius:var(--r-sm);">
+                <span class="material-icons" id="mat-3-chev" style="font-size:18px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;">chevron_right</span>
+                <div style="flex:1;min-width:0;">
+                  <span style="font-size:13px;font-weight:700;color:var(--text-primary);">Readmission Risk</span>
+                  <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">ED visit within 30 days of discharge</span>
+                </div>
+                <span style="background:#E07A1A;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;flex-shrink:0;">2 members</span>
+                <span style="font-size:11px;color:var(--text-muted);flex-shrink:0;margin-left:10px;">Latest: 03/06/2026</span>
+              </div>
+              <div id="mat-3" style="display:none;border-top:1px solid var(--border);">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                  <thead><tr>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Member</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">DOB</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Status</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Alert Date</th>
+                    <th style="padding:7px 12px;border-bottom:1px solid var(--border);background:#f9fafb;width:40px;"></th>
+                  </tr></thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Maria Santos</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">03/15/1968</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-warn">Active</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">03/06/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-3-1',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-3-1" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">James Kowalski</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">07/22/1952</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-warn">Active</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">02/28/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-3-2',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-3-2" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ── Group: Medication Flag ── -->
+            <div style="border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;overflow:visible;">
+              <div onclick="maToggleAlertGroup('mat-4')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;cursor:pointer;user-select:none;border-radius:var(--r-sm);">
+                <span class="material-icons" id="mat-4-chev" style="font-size:18px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;">chevron_right</span>
+                <div style="flex:1;min-width:0;">
+                  <span style="font-size:13px;font-weight:700;color:var(--text-primary);">Medication Flag</span>
+                  <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">Drug interaction or adherence concern</span>
+                </div>
+                <span style="background:#E07A1A;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;flex-shrink:0;">1 member</span>
+                <span style="font-size:11px;color:var(--text-muted);flex-shrink:0;margin-left:10px;">Latest: 02/05/2026</span>
+              </div>
+              <div id="mat-4" style="display:none;border-top:1px solid var(--border);">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                  <thead><tr>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Member</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">DOB</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Status</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Alert Date</th>
+                    <th style="padding:7px 12px;border-bottom:1px solid var(--border);background:#f9fafb;width:40px;"></th>
+                  </tr></thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Patricia Chen</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">11/04/1975</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-warn">Active</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">02/05/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-4-1',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-4-1" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ── Group: Social Risk: Food Insecurity ── -->
+            <div style="border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;overflow:visible;">
+              <div onclick="maToggleAlertGroup('mat-5')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;cursor:pointer;user-select:none;border-radius:var(--r-sm);">
+                <span class="material-icons" id="mat-5-chev" style="font-size:18px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;">chevron_right</span>
+                <div style="flex:1;min-width:0;">
+                  <span style="font-size:13px;font-weight:700;color:var(--text-primary);">Social Risk: Food Insecurity</span>
+                  <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">SDOH screening — food access concern</span>
+                </div>
+                <span style="background:#E07A1A;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;flex-shrink:0;">2 members</span>
+                <span style="font-size:11px;color:var(--text-muted);flex-shrink:0;margin-left:10px;">Latest: 02/18/2026</span>
+              </div>
+              <div id="mat-5" style="display:none;border-top:1px solid var(--border);">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                  <thead><tr>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Member</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">DOB</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Status</th>
+                    <th style="text-align:left;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:1px solid var(--border);background:#f9fafb;">Alert Date</th>
+                    <th style="padding:7px 12px;border-bottom:1px solid var(--border);background:#f9fafb;width:40px;"></th>
+                  </tr></thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Robert Nguyen</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">09/12/1961</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-warn">Active</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">02/18/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-5-1',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-5-1" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 12px;background:#fff;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;">Linda Okafor</a></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">05/30/1948</td>
+                      <td style="padding:8px 12px;background:#fff;"><span class="gc-badge gc-badge-danger">New</span></td>
+                      <td style="padding:8px 12px;background:#fff;color:var(--text-secondary);">01/30/2026</td>
+                      <td style="padding:8px 12px;background:#fff;text-align:right;">
+                        <div style="position:relative;display:inline-block;">
+                          <button onclick="maToggleMenu('menu-5-2',event)" style="border:none;background:none;cursor:pointer;padding:2px 4px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:20px;vertical-align:middle;">more_vert</span></button>
+                          <div id="menu-5-2" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:3px;box-shadow:0 3px 10px rgba(0,0,0,.14);z-index:300;min-width:178px;padding:4px 0;">
+                            <div onclick="maMenuAction('Add Activity')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div>
+                            <div onclick="maMenuAction('View Calendar')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div>
+                            <div onclick="maMenuAction('View Summary')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div>
+                            <div onclick="maMenuAction('Required Activities')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div>
+                            <div onclick="maMenuAction('Create Message')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div>
+                            <div onclick="maMenuAction('View Member Alerts')" style="padding:8px 14px;font-size:12px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div><!-- /ma-alerts-by-type -->
 
         </div>
 
@@ -7229,8 +7699,7 @@ Diabetes Management</textarea>
                   <option value="">— Select —</option>
                   <option>Clinical Task Completion</option>
                   <option>Medication Adherence</option>
-                  <option>Physical Activity — Daily Steps</option>
-                  <option>Blood Pressure</option>
+
                 </select>
               </div>
             </div>
@@ -7254,32 +7723,6 @@ Diabetes Management</textarea>
                   </div>
                 </div>
                 <div style="padding:8px 0 0;" id="artab-ma-med-chart"></div>
-              </div>
-              <div style="background:#fff;border:1px solid #E0E8ED;border-radius:4px;overflow:hidden;">
-                <div style="padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F0F4F7;">
-                  <span style="font-size:11px;font-weight:700;letter-spacing:0.6px;color:#444;text-transform:uppercase;">Physical Activity — Daily Steps</span>
-                  <div style="display:flex;border:1px solid #C8D4DA;border-radius:3px;overflow:hidden;">
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#E0E8ED;color:#444;border:none;cursor:pointer;border-right:1px solid #C8D4DA;">DATE</button>
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#fff;color:#555;border:none;cursor:pointer;">TYPE</button>
-                  </div>
-                </div>
-                <div style="padding:8px 0 0;" id="artab-ma-steps-chart"></div>
-              </div>
-              <div style="background:#fff;border:1px solid #E0E8ED;border-radius:4px;overflow:hidden;">
-                <div style="padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F0F4F7;">
-                  <span style="font-size:11px;font-weight:700;letter-spacing:0.6px;color:#444;text-transform:uppercase;">Blood Pressure</span>
-                  <div style="display:flex;border:1px solid #C8D4DA;border-radius:3px;overflow:hidden;">
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#E0E8ED;color:#444;border:none;cursor:pointer;border-right:1px solid #C8D4DA;">GRAPH</button>
-                    <button style="padding:3px 8px;font-size:11px;font-weight:700;background:#fff;color:#555;border:none;cursor:pointer;">LIST</button>
-                  </div>
-                </div>
-                <div style="padding:6px 12px 4px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #F0F4F7;">
-                  <button style="padding:3px 10px;font-size:11px;font-weight:700;background:#0080A3;color:#fff;border:none;border-radius:3px;cursor:pointer;">MOST RECENT</button>
-                  <button style="background:none;border:none;cursor:pointer;color:#555;font-size:18px;line-height:1;padding:0 2px;">&#8249;</button>
-                  <button style="background:none;border:none;cursor:pointer;color:#555;font-size:18px;line-height:1;padding:0 2px;">&#8250;</button>
-                  <span style="font-size:11px;color:#444;">Mar 10 &#8211; Apr 15, 2026</span>
-                </div>
-                <div style="padding:8px 0 0;" id="artab-ma-bp-chart"></div>
               </div>
             </div>
           </div>
@@ -9625,6 +10068,19 @@ function pwRender() {
     if (adEl) alertDiseaseVal = adEl.value;
     if (aiEl) alertIndicatorVal = aiEl.value;
     if (asEl) alertSortVal = asEl.value;
+  }
+
+  // Show grouped-by-type view when "Alert Type" sort is selected
+  var alertTypeGroupView = document.getElementById('pwAlertTypeGroupView');
+  if (pwCurrentBucket === 'new-alerts' && alertSortVal === 'alert-type') {
+    if (memberList) memberList.style.display = 'none';
+    if (alertTypeGroupView) alertTypeGroupView.style.display = '';
+    var wrapper = document.getElementById('pwat-groups-wrapper');
+    if (wrapper) wrapper.style.cssText = 'display:grid;grid-template-columns:1fr;gap:22px;align-items:start;max-width:860px;margin:0 auto;width:100%;';
+    pwUpdateToolbar();
+    return;
+  } else {
+    if (alertTypeGroupView) alertTypeGroupView.style.display = 'none';
   }
 
   function alertTypeMatch(m) {
@@ -17054,6 +17510,21 @@ function saveMemberNotes() {
   document.getElementById('memberNotesText').textContent = text;
   cancelMemberNotesEdit();
 }
+function togglePinnedNoteEdit() {
+  document.getElementById('pinnedNoteDisplay').style.display = 'none';
+  document.getElementById('pinnedNoteEdit').style.display = 'block';
+  document.getElementById('pinnedNoteEditBtn').style.display = 'none';
+}
+function cancelPinnedNoteEdit() {
+  document.getElementById('pinnedNoteDisplay').style.display = 'block';
+  document.getElementById('pinnedNoteEdit').style.display = 'none';
+  document.getElementById('pinnedNoteEditBtn').style.display = '';
+}
+function savePinnedNote() {
+  var text = document.getElementById('pinnedNoteTextarea').value;
+  document.getElementById('pinnedNoteText').textContent = text;
+  cancelPinnedNoteEdit();
+}
 function toggleMemberGoalsEdit() {
   document.getElementById('memberGoalsDisplay').style.display = 'none';
   document.getElementById('memberGoalsEdit').style.display = 'block';
@@ -17629,6 +18100,71 @@ function pwDismissModalCancel() {
   document.getElementById('pwDismissModal').style.display = 'none';
   _pwDismissPendingFn = null;
 }
+
+// ── Member Alerts: By Member / By Alert Type toggle ──
+function maAlertView(mode) {
+  var byMember = document.getElementById('ma-alerts-by-member');
+  var byType   = document.getElementById('ma-alerts-by-type');
+  var btnM     = document.getElementById('ma-view-btn-member');
+  var btnT     = document.getElementById('ma-view-btn-type');
+  if (!byMember || !byType) return;
+  var isType = (mode === 'type');
+  byMember.style.display = isType ? 'none' : '';
+  byType.style.display   = isType ? ''     : 'none';
+  if (btnM) { btnM.style.background = isType ? '#fff' : '#1C5C7A'; btnM.style.color = isType ? 'var(--text-secondary)' : '#fff'; }
+  if (btnT) { btnT.style.background = isType ? '#1C5C7A' : '#fff'; btnT.style.color = isType ? '#fff' : 'var(--text-secondary)'; }
+}
+function rmOpenModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'flex'; }
+  document.addEventListener('keydown', rmEscHandler);
+}
+function rmCloseModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'none'; }
+  document.removeEventListener('keydown', rmEscHandler);
+}
+function rmEscHandler(e) { if (e.key === 'Escape') { ['rm-modal-med','rm-modal-appt','rm-modal-gen'].forEach(rmCloseModal); } }
+function rmSubmitModal(e, id) {
+  e.preventDefault();
+  alert('Reminder saved successfully.');
+  rmCloseModal(id);
+}
+function maToggleAlertGroup(id) {
+  var detail = document.getElementById(id);
+  var chev   = document.getElementById(id + '-chev');
+  var badge  = document.getElementById(id + '-badge');
+  if (!detail) return;
+  var isNowHidden = (detail.style.display === 'none');
+  detail.style.display = isNowHidden ? '' : 'none';
+  if (chev) {
+    var isExpandMore = chev.textContent.trim() === 'expand_more';
+    chev.style.transform = isNowHidden ? (isExpandMore ? 'rotate(180deg)' : 'rotate(90deg)') : '';
+  }
+  if (badge) { badge.style.background = isNowHidden ? '#1378A3' : '#EAECEF'; badge.style.color = isNowHidden ? '#fff' : '#666'; }
+}
+var _maOpenMenu = null;
+function maToggleMenu(id, e) {
+  if (e) e.stopPropagation();
+  if (_maOpenMenu && _maOpenMenu !== id) {
+    var prev = document.getElementById(_maOpenMenu);
+    if (prev) prev.style.display = 'none';
+  }
+  var menu = document.getElementById(id);
+  if (!menu) return;
+  var nowOpen = menu.style.display !== 'block';
+  menu.style.display = nowOpen ? 'block' : 'none';
+  _maOpenMenu = nowOpen ? id : null;
+}
+function maMenuAction(action) {
+  document.querySelectorAll('[id^="menu-"]').forEach(function(m) { m.style.display = 'none'; });
+  _maOpenMenu = null;
+}
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('[id^="menu-"]').forEach(function(m) {
+    if (!m.contains(e.target) && m.style.display === 'block') m.style.display = 'none';
+  });
+});
 </script>
 </body>
 </html>
