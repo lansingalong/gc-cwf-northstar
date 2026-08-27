@@ -588,6 +588,54 @@
   .wfm-add-row .material-icons { font-size:18px; color:#0E98BE; }
   .wfm-add-row-lbl { font-size:13px; color:#0E98BE; font-weight:600; font-family:system-ui,-apple-system,sans-serif; }
 
+  /* ── Invite to Wellframe form ── */
+  .itw-wrap { background:#fff; padding:20px; min-height:300px; display:flex; justify-content:center; }
+  .itw-form { background:#fff; border:1px solid #DDE3E8; border-radius:4px; padding:24px 28px; display:flex; flex-direction:column; gap:18px; width:50%; }
+  .itw-row { display:flex; gap:16px; }
+  .itw-field { display:flex; flex-direction:column; gap:5px; flex:1; min-width:0; }
+  .itw-field label { font-size:12px; font-weight:600; color:#444; }
+  .itw-field label .req { color:#C62828; }
+  .itw-input { height:34px; border:1px solid #BBBFC4; border-radius:3px; padding:0 10px; font-size:13px; font-family:var(--font); background:#fff; outline:none; width:100%; box-sizing:border-box; color:var(--text-primary); }
+  .itw-input:focus { border-color:var(--teal); }
+  .itw-input.disabled { background:#F5F5F5; color:#999; }
+  .itw-select { height:34px; border:1px solid #BBBFC4; border-radius:3px; padding:0 8px; font-size:13px; font-family:var(--font); background:#fff; outline:none; width:100%; box-sizing:border-box; color:var(--text-primary); }
+  .itw-select:focus { border-color:var(--teal); }
+  .itw-input-icon-wrap { position:relative; }
+  .itw-input-icon-wrap .itw-input { padding-right:32px; }
+  .itw-input-icon-wrap .itw-icon { position:absolute; right:8px; top:50%; transform:translateY(-50%); font-size:18px; color:#999; pointer-events:none; }
+  .itw-phone-row { display:flex; gap:0; }
+  .itw-phone-cc { height:34px; border:1px solid #BBBFC4; border-radius:3px 0 0 3px; padding:0 8px; font-size:13px; font-family:var(--font); background:#fff; outline:none; min-width:90px; border-right:none; color:var(--text-primary); }
+  .itw-phone-num { height:34px; border:1px solid #BBBFC4; border-radius:0 3px 3px 0; padding:0 10px; font-size:13px; font-family:var(--font); background:#fff; outline:none; flex:1; width:0; box-sizing:border-box; }
+  .itw-phone-num:focus, .itw-phone-cc:focus { border-color:var(--teal); z-index:1; }
+  .itw-caregiver-toggle { font-size:12px; font-weight:700; color:var(--teal); cursor:pointer; user-select:none; text-decoration:underline; display:inline-block; margin-bottom:10px; }
+  .itw-caregiver-section { display:none; background:#EAEFF3; border-radius:3px; padding:16px; }
+  .itw-caregiver-section.open { display:block; }
+  .itw-footer { display:flex; align-items:center; justify-content:flex-end; gap:12px; padding-top:4px; flex-wrap:wrap; }
+  .itw-btn-cancel { height:34px; padding:0 20px; border:none; background:transparent; font-size:13px; font-weight:600; color:#555; cursor:pointer; letter-spacing:0.5px; }
+  .itw-btn-cancel:hover { color:#222; }
+  .itw-btn-invite { height:34px; padding:0 22px; border:none; border-radius:3px; background:var(--teal); color:#fff; font-size:13px; font-weight:700; cursor:pointer; letter-spacing:0.5px; }
+  .itw-btn-invite:hover { background:var(--teal-dark); }
+  .itw-success { display:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:40px 20px; text-align:center; }
+  .itw-success-icon { font-size:40px; color:var(--teal); }
+  .itw-success-label { font-size:14px; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:8px; }
+  .itw-success-label .material-icons { font-size:20px; color:var(--teal); }
+  .itw-btn-sms { height:34px; padding:0 20px; border:1px solid var(--teal); border-radius:3px; background:#fff; color:var(--teal); font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .itw-btn-sms:hover { background:var(--teal-light); }
+  .itw-program-picker { width:340px; border:1px solid #DDE3E8; border-radius:4px; padding:14px 16px; background:#F8FBFD; display:flex; flex-direction:column; gap:10px; }
+  .itw-program-picker-title { font-size:12px; font-weight:700; color:#333; display:flex; align-items:center; gap:6px; }
+  .itw-program-picker-title .material-icons { font-size:16px; color:var(--teal); }
+  .itw-program-search-wrap { position:relative; }
+  .itw-program-search { width:100%; box-sizing:border-box; height:32px; border:1px solid #BBBFC4; border-radius:3px; padding:0 30px 0 10px; font-size:12px; font-family:var(--font); outline:none; }
+  .itw-program-search:focus { border-color:var(--teal); }
+  .itw-program-search-wrap .material-icons { position:absolute; right:7px; top:50%; transform:translateY(-50%); font-size:16px; color:#999; pointer-events:none; }
+  .itw-program-dropdown { position:fixed; z-index:9999; background:#fff; border:1px solid #BBBFC4; border-top:none; border-radius:0 0 3px 3px; max-height:220px; overflow-y:auto; box-shadow:0 4px 10px rgba(0,0,0,.10); display:none; }
+  .itw-program-dropdown.open { display:block; }
+  .itw-program-cat { padding:5px 10px 3px; font-size:10px; font-weight:700; color:#888; letter-spacing:0.6px; text-transform:uppercase; background:#F5F5F5; border-bottom:1px solid #eee; }
+  .itw-program-option { padding:7px 12px; font-size:12px; color:var(--text-primary); cursor:pointer; }
+  .itw-program-option:hover { background:var(--teal-light); color:var(--teal-dark); }
+  .itw-program-selected { display:none; align-items:center; gap:8px; background:#E8F4FB; border:1px solid #B2D8EE; border-radius:3px; padding:7px 10px; font-size:12px; font-weight:600; color:var(--teal-dark); }
+  .itw-program-selected .material-icons { font-size:16px; color:var(--teal); }
+  .itw-program-change { font-size:11px; font-weight:600; color:var(--teal); cursor:pointer; text-decoration:underline; margin-left:auto; white-space:nowrap; }
   /* Health Indicators — uniform card heights */
   #htab-health-indicators .hi-card {
     height: 340px;
@@ -599,6 +647,90 @@
     min-height: 0 !important;
     overflow: hidden;
   }
+  /* ── Invite to Wellframe form ── */
+  .itw-wrap { background:#fff; padding:24px 32px 8px; }
+  .itw-form { background:#fff; display:flex; flex-direction:column; gap:18px; width:100%; }
+  .itw-row { display:flex; gap:16px; }
+  .itw-field { display:flex; flex-direction:column; gap:5px; flex:1; min-width:0; }
+  .itw-field label { font-size:12px; font-weight:600; color:#444; }
+  .itw-field label .req { color:#C62828; }
+  .itw-input { height:40px; border:1px solid rgba(0,0,0,0.23); border-radius:4px; padding:0 14px; font-size:14px; font-family:var(--font); background:#fff; outline:none; width:100%; box-sizing:border-box; color:var(--text-primary); transition:border-color 0.15s; }
+  .itw-input:hover { border-color:rgba(0,0,0,0.87); }
+  .itw-input:focus { border-color:#1976d2; border-width:2px; padding:0 13px; }
+  .itw-input.disabled { background:#F5F5F5; color:#999; border-color:rgba(0,0,0,0.12); }
+  .itw-select { height:40px; border:1px solid rgba(0,0,0,0.23); border-radius:4px; padding:0 32px 0 14px; font-size:14px; font-family:var(--font); background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0,0,0,0.54)' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 6px center; outline:none; width:100%; box-sizing:border-box; color:var(--text-primary); appearance:none; -webkit-appearance:none; cursor:pointer; transition:border-color 0.15s; }
+  .itw-select:hover { border-color:rgba(0,0,0,0.87); }
+  .itw-select:focus { border-color:#1976d2; border-width:2px; padding:0 31px 0 13px; }
+  .itw-mui-select { position:relative; width:100%; }
+  .itw-mui-select-trigger { height:40px; border:1px solid rgba(0,0,0,0.23); border-radius:4px; padding:0 32px 0 14px; font-size:14px; font-family:var(--font); background:#fff; box-sizing:border-box; color:var(--text-primary); cursor:pointer; display:flex; align-items:center; transition:border-color 0.15s; user-select:none; overflow:hidden; }
+  .itw-mui-select-trigger span:not(.itw-mui-chevron) { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .itw-mui-select-trigger:hover { border-color:rgba(0,0,0,0.87); }
+  .itw-mui-select-trigger.open { border-color:#1976d2; border-width:2px; padding:0 31px 0 13px; }
+  .itw-mui-select-trigger .itw-mui-chevron { position:absolute; right:7px; top:50%; transform:translateY(-50%); pointer-events:none; color:rgba(0,0,0,0.54); transition:transform 0.2s; }
+  .itw-mui-select-trigger.open .itw-mui-chevron { transform:translateY(-50%) rotate(180deg); }
+  .itw-mui-select-trigger .itw-mui-placeholder { color:rgba(0,0,0,0.42); }
+  .itw-mui-menu { position:fixed; background:#fff; border-radius:4px; box-shadow:0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12); z-index:9999; max-height:300px; overflow-y:auto; padding:8px 0; display:none; }
+  .itw-mui-menu.open { display:block; }
+  .itw-mui-option { padding:6px 16px; font-size:14px; font-family:var(--font); color:var(--text-primary); cursor:pointer; min-height:36px; display:flex; align-items:center; transition:background 0.1s; }
+  .itw-mui-option:hover { background:rgba(0,0,0,0.04); }
+  .itw-mui-option.selected { background:rgba(25,118,210,0.08); font-weight:600; color:#1976d2; }
+  .itw-mui-option.add-other { color:#1976d2; background:rgba(25,118,210,0.06); }
+  .itw-mui-option.add-other:hover { background:rgba(25,118,210,0.12); }
+  .itw-input-icon-wrap { position:relative; }
+  .itw-input-icon-wrap .itw-input { padding-right:32px; }
+  .itw-input-icon-wrap .itw-icon { position:absolute; right:8px; top:50%; transform:translateY(-50%); font-size:18px; color:#999; pointer-events:none; }
+  .itw-phone-row { display:flex; gap:0; }
+  .itw-phone-cc { height:40px; border:1px solid rgba(0,0,0,0.23); border-radius:4px 0 0 4px; padding:0 8px; font-size:14px; font-family:var(--font); background:#fff; outline:none; min-width:90px; border-right:none; color:var(--text-primary); }
+  .itw-phone-num { height:40px; border:1px solid rgba(0,0,0,0.23); border-radius:0 4px 4px 0; padding:0 10px; font-size:14px; font-family:var(--font); background:#fff; outline:none; flex:1; width:0; box-sizing:border-box; }
+  .itw-phone-num:focus, .itw-phone-cc:focus { border-color:var(--teal); z-index:1; }
+  .itw-caregiver-toggle { font-size:12px; font-weight:700; color:var(--teal); cursor:pointer; user-select:none; text-decoration:underline; display:inline-block; margin-bottom:10px; }
+  .itw-caregiver-section { display:none; background:#EAEFF3; border-radius:3px; padding:16px; }
+  .itw-caregiver-section.open { display:block; }
+  .itw-footer { display:flex; align-items:center; gap:12px; padding:16px 0 4px; border-top:1px solid #e0e0e0; margin-top:8px; }
+  .itw-footer .itw-footer-spacer { flex:1; }
+  .itw-mui-select-trigger { white-space:nowrap; overflow:hidden; }
+  .itw-mui-checkbox { display:none; }
+  .itw-mui-checkbox-box { width:18px; height:18px; min-width:18px; border:2px solid rgba(0,0,0,0.38); border-radius:2px; display:flex; align-items:center; justify-content:center; transition:background 0.15s,border-color 0.15s; cursor:pointer; }
+  .itw-mui-checkbox:checked + .itw-mui-checkbox-box { background:#161D3F; border-color:#161D3F; }
+  .itw-mui-checkbox:checked + .itw-mui-checkbox-box svg { display:block; }
+  .itw-mui-checkbox-box svg { display:none; }
+  label:hover .itw-mui-checkbox-box { border-color:rgba(0,0,0,0.87); }
+  label:hover .itw-mui-checkbox:checked + .itw-mui-checkbox-box { background:#0e1429; border-color:#0e1429; }
+  .itw-btn-cancel { height:40px; padding:0 20px; border:none; background:transparent; font-size:13px; font-weight:600; color:#555; cursor:pointer; letter-spacing:0.5px; white-space:nowrap; }
+  .itw-btn-cancel:hover { color:#222; }
+  .itw-btn-invite { height:40px; padding:0 28px; border:none; border-radius:3px; background:var(--teal); color:#fff; font-size:13px; font-weight:700; cursor:pointer; letter-spacing:0.5px; white-space:nowrap; }
+  .itw-btn-invite:hover { background:var(--teal-dark); }
+  #itw-modal { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; overflow-y:auto; padding:24px; box-sizing:border-box; }
+  #itw-modal.open { display:flex; }
+  .itw-modal-card { background:#fff; border-radius:8px; width:860px; max-width:calc(100vw - 48px); max-height:calc(100vh - 48px); overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,0.22); flex-shrink:0; }
+  .itw-modal-header { display:flex; align-items:center; gap:10px; padding:16px 20px; border-bottom:1px solid #e0e0e0; }
+  .itw-modal-header-title { font-weight:700; font-size:15px; color:var(--text-primary); }
+  .itw-modal-close { margin-left:auto; background:none; border:none; cursor:pointer; padding:4px; display:flex; color:#666; }
+  .itw-modal-close:hover { color:#222; }
+  #banner-itw-btn { display:none; align-items:center; background:none; border:none; padding:0; cursor:pointer; flex-shrink:0; opacity:0.72; }
+  #banner-itw-btn:hover { opacity:1; }
+  .itw-success { display:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:40px 20px; text-align:center; }
+  .itw-success-icon { font-size:40px; color:var(--teal); }
+  .itw-success-label { font-size:14px; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:8px; }
+  .itw-success-label .material-icons { font-size:20px; color:var(--teal); }
+  .itw-btn-sms { height:34px; padding:0 20px; border:1px solid var(--teal); border-radius:3px; background:#fff; color:var(--teal); font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .itw-btn-sms:hover { background:var(--teal-light); }
+  .itw-program-picker { width:340px; border:1px solid #DDE3E8; border-radius:4px; padding:14px 16px; background:#F8FBFD; display:flex; flex-direction:column; gap:10px; }
+  .itw-program-picker-title { font-size:12px; font-weight:700; color:#333; display:flex; align-items:center; gap:6px; }
+  .itw-program-picker-title .material-icons { font-size:16px; color:var(--teal); }
+  .itw-program-search-wrap { position:relative; }
+  .itw-program-search { width:100%; box-sizing:border-box; height:32px; border:1px solid #BBBFC4; border-radius:3px; padding:0 30px 0 10px; font-size:12px; font-family:var(--font); outline:none; }
+  .itw-program-search:focus { border-color:var(--teal); }
+  .itw-program-search-wrap .material-icons { position:absolute; right:7px; top:50%; transform:translateY(-50%); font-size:16px; color:#999; pointer-events:none; }
+  .itw-program-dropdown { position:fixed; z-index:9999; background:#fff; border:1px solid #BBBFC4; border-top:none; border-radius:0 0 3px 3px; max-height:220px; overflow-y:auto; box-shadow:0 4px 10px rgba(0,0,0,.10); display:none; }
+  .itw-program-dropdown.open { display:block; }
+  .itw-program-cat { padding:5px 10px 3px; font-size:10px; font-weight:700; color:#888; letter-spacing:0.6px; text-transform:uppercase; background:#F5F5F5; border-bottom:1px solid #eee; }
+  .itw-program-option { padding:7px 12px; font-size:12px; color:var(--text-primary); cursor:pointer; }
+  .itw-program-option:hover { background:var(--teal-light); color:var(--teal-dark); }
+  .itw-program-selected { display:none; align-items:center; gap:8px; background:#E8F4FB; border:1px solid #B2D8EE; border-radius:3px; padding:7px 10px; font-size:12px; font-weight:600; color:var(--teal-dark); }
+  .itw-program-selected .material-icons { font-size:16px; color:var(--teal); }
+  .itw-program-change { font-size:11px; font-weight:600; color:var(--teal); cursor:pointer; text-decoration:underline; margin-left:auto; white-space:nowrap; }
+
 </style>
 </head>
 <style>
@@ -620,6 +752,7 @@
   <span class="proto-bar-label">Care-Wellframe Northstar Prototype</span>
   <div class="proto-nav-pills">
     <a class="proto-pill task-pill" href="task-mgmt-c.html">Task Management</a>
+
   </div>
 </div>
 
@@ -1068,6 +1201,7 @@
     <span class="gc-banner-check" style="flex-shrink:0;"><span class="material-icons" style="font-size:22px;color:#2E7D32;">check_circle</span></span>
     <img src="assets/Group 1657.png" id="banner-wf-icon" alt="Wellframe" style="width:24px;height:24px;flex-shrink:0;display:inline-block;" title="Wellframe">
     <span id="banner-wf-invited" style="display:none;font-size:10px;font-weight:700;color:#0080A3;background:#E0F4F9;border:1px solid #9AD4E8;border-radius:10px;padding:2px 8px;flex-shrink:0;letter-spacing:0.3px;">Invited</span>
+    <button id="banner-itw-btn" onclick="itwOpenModal()" title="Invite to Wellframe"><img src="assets/Group 1657.png" style="width:24px;height:24px;object-fit:contain;filter:grayscale(1);display:block;"></button>
     <span class="gc-banner-name">John Everhart-AH00000121</span>
     <span class="gc-banner-dob"><strong style="font-size:12px;letter-spacing:0.3px;">DOB</strong> 05/14/1942 83 yr(s)</span>
     <span class="gc-banner-expand" onclick="toggleMemberBannerExpand()" style="margin-left:auto;flex-shrink:0;cursor:pointer;"><span class="material-icons" style="font-size:18px;color:var(--teal);">open_in_full</span></span>
@@ -1239,6 +1373,7 @@ Diabetes Management</textarea>
           <div class="gc-tab" data-tab="eligibility">Eligibility</div>
           <div class="gc-tab" data-tab="benefits">Benefits</div>
           <div class="gc-tab" data-tab="udt">UDT</div>
+          <div class="gc-tab" data-tab="invite-to-wellframe" style="display:flex;align-items:center;gap:5px;"><img src="assets/Group 1657.png" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Invite to Wellframe</div>
         </div>
       </div>
 
@@ -1444,8 +1579,9 @@ Diabetes Management</textarea>
           <div class="gc-table-wrap">
             <div class="gc-table-toolbar">
               <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">add</span> Add Caregiver</span>
+              <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">edit</span> Edit</span>
               <span class="gc-table-action"><span class="material-icons" style="font-size:14px;">delete</span> Delete</span>
-              <span style="margin-left:auto;font-size:11px;color:var(--text-muted);">1 record(s)</span>
+              <span id="cg-record-count" style="margin-left:auto;font-size:11px;color:var(--text-muted);">2 record(s)</span>
             </div>
             <table class="gc-table">
               <thead>
@@ -1480,7 +1616,7 @@ Diabetes Management</textarea>
               </tbody>
             </table>
             <div class="gc-table-footer">
-              <span>Showing 1 of 1</span>
+              <span id="cg-showing-count">Showing 2 of 2</span>
               <span style="margin-left:auto;display:flex;gap:4px;">
                 <button class="gc-pager-btn"><span class="material-icons" style="font-size:12px;">first_page</span></button>
                 <button class="gc-pager-btn"><span class="material-icons" style="font-size:12px;">chevron_left</span></button>
@@ -2281,6 +2417,10 @@ Diabetes Management</textarea>
             </div>
           </div>
         </div>
+
+        <!-- Modal moved to end of body -->
+
+
       </div>
     </div>
 
@@ -7628,11 +7768,11 @@ function openScriptResponseModal() {
 
   // Member data for switching
   var memberData = window.memberData = {
-    'jackson-thomas': { name:'Jackson Thomas', preferred:'Jack', dob:'03/15/1958', dobLong:'March 15, 1958', age:'67', id:'MBR-2024-0847', wfPhone:'(907) 555-0192', wfEmail:'j.thomas@wellframe.member', ssn:'XXX-XX-4523', gender:'Male', genderIdentity:'Cisgender Male', sexualOrientation:'Heterosexual', pronouns:'He/Him', contactFormat:'Phone', serviceInterruption:'None', address:'1247 Glacier View Drive', city:'Anchorage', state:'AK', zip:'99501', county:'Anchorage County', country:'United States', phone:'(907) 555-0142', cell:'(907) 555-0198', altPhone:'(907) 555-0203', fax:'Not Available', prefCallTime:'Mornings (8am–12pm)', email:'jackson.thomas@email.com', altEmail:'Not Available', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Sarah Chen', plan:'Alaska Premier Health', lob:'Medicare Advantage', primaryInsPolicy:'APH-847-2024-JT', secondaryIns:'Medicare Part B', secondaryInsPolicy:'1EG4-TE5-MK72', primaryCondition:'Type 2 Diabetes Mellitus', behavioralCondition:'Major Depressive Disorder', expectedRisk:'High (2.4)', sensitiveDx:'No', doctorAppt:'04/15/2026', doctorApptReason:'Quarterly Diabetes Check', epsdt:'No', portalAccess:'Active', race:'White', preferredRace:'White', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Independent', incomeStatus:'Middle Income', maritalStatus:'Married', veteranStatus:'Non-Veteran', evacuationZone:'Zone B', careManager:'Beatrice Kanya', risk:'2.4', program:'Diabetes Management', digital:'Wellframe', caregiver:{first:'Maria',last:'Thomas',relation:'Wife',type:'Primary Caregiver',start:'01/15/2020'}, careTeam:[{name:'Dr. Sarah Chen',role:'PCP',phone:'(907) 555-1001'},{name:'Jennifer Reyes, RN',role:'Care Manager',phone:'(907) 555-1002'},{name:'Dr. Michael Park',role:'Cardiologist',phone:'(907) 555-1003'}] },
-    'maria-rivera': { name:'Maria Rivera', preferred:'Maria', dob:'08/22/1975', dobLong:'August 22, 1975', age:'50', id:'MBR-2024-1203', ssn:'XXX-XX-7891', gender:'Female', genderIdentity:'Cisgender Female', sexualOrientation:'Heterosexual', pronouns:'She/Her', contactFormat:'Phone – Spanish Preferred', serviceInterruption:'None', address:'842 Cordova Street', city:'Anchorage', state:'AK', zip:'99501', county:'Anchorage County', country:'United States', phone:'(907) 555-0287', cell:'(907) 555-0344', altPhone:'(907) 555-0391', fax:'Not Available', prefCallTime:'Afternoons (12pm–5pm)', email:'maria.rivera@email.com', altEmail:'Not Available', lang:'Spanish', writtenLang:'Spanish', spokenLang:'Spanish', commImpairment:'None', pcp:'Dr. James Park', plan:'Alaska Premier Health', lob:'Medicaid', primaryInsPolicy:'APH-1203-2024-MR', secondaryIns:'Alaska Medicaid', secondaryInsPolicy:'MCD-AK-445821', primaryCondition:'Congestive Heart Failure (CHF)', behavioralCondition:'Generalized Anxiety Disorder', expectedRisk:'High (1.8)', sensitiveDx:'No', doctorAppt:'04/22/2026', doctorApptReason:'Cardiology Follow-Up', epsdt:'No', portalAccess:'Active', race:'Hispanic or Latino', preferredRace:'Hispanic or Latino', ethnicity:'Hispanic', preferredEthnicity:'Hispanic', residenceStatus:'Independent', incomeStatus:'Low Income', maritalStatus:'Married', veteranStatus:'Non-Veteran', evacuationZone:'Zone A', careManager:'Beatrice Kanya', risk:'1.8', program:'Cardiac Rehab', digital:'', caregiver:{first:'Carlos',last:'Rivera',relation:'Husband',type:'Primary Caregiver',start:'03/10/2022'}, careTeam:[{name:'Dr. James Park',role:'PCP',phone:'(907) 555-2001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-2002'},{name:'Dr. Amy Tran',role:'Cardiologist',phone:'(907) 555-2003'}] },
-    'robert-chen': { name:'Robert Chen', preferred:'Rob', dob:'11/03/1982', dobLong:'November 3, 1982', age:'43', id:'MBR-2024-0591', ssn:'XXX-XX-3345', gender:'Male', genderIdentity:'Cisgender Male', sexualOrientation:'Heterosexual', pronouns:'He/Him', contactFormat:'Email', serviceInterruption:'None', address:'315 Northern Lights Blvd', city:'Anchorage', state:'AK', zip:'99503', county:'Anchorage County', country:'United States', phone:'(907) 555-0463', cell:'(907) 555-0512', altPhone:'Not Available', fax:'Not Available', prefCallTime:'Evenings (5pm–8pm)', email:'robert.chen@email.com', altEmail:'rchen.work@gmail.com', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Lisa Nguyen', plan:'Alaska Care Plus', lob:'Commercial', primaryInsPolicy:'ACP-0591-2024-RC', secondaryIns:'Not Available', secondaryInsPolicy:'Not Available', primaryCondition:'Osteoporosis with History of Falls', behavioralCondition:'Not Available', expectedRisk:'Medium (0.9)', sensitiveDx:'No', doctorAppt:'05/03/2026', doctorApptReason:'Annual Physical Exam', epsdt:'No', portalAccess:'Active', race:'Asian', preferredRace:'Asian', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Independent', incomeStatus:'Upper-Middle Income', maritalStatus:'Single', veteranStatus:'Non-Veteran', evacuationZone:'Zone C', careManager:'Beatrice Kanya', risk:'0.9', program:'Fall Prevention', digital:'', caregiver:{first:'Linda',last:'Chen',relation:'Mother',type:'Secondary Caregiver',start:'06/01/2024'}, careTeam:[{name:'Dr. Lisa Nguyen',role:'PCP',phone:'(907) 555-3001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-3002'}] },
-    'sarah-williams': { name:'Sarah Williams', preferred:'Sarah', dob:'06/17/1990', dobLong:'June 17, 1990', age:'35', id:'MBR-2024-2108', wfPhone:'(907) 555-0284', wfEmail:'s.williams@wellframe.member', ssn:'XXX-XX-6612', gender:'Female', genderIdentity:'Cisgender Female', sexualOrientation:'Heterosexual', pronouns:'She/Her', contactFormat:'Text Message', serviceInterruption:'None', address:'1520 E 5th Avenue', city:'Anchorage', state:'AK', zip:'99501', county:'Anchorage County', country:'United States', phone:'(907) 555-0891', cell:'(907) 555-0923', altPhone:'(907) 555-0944', fax:'Not Available', prefCallTime:'Mornings (9am–11am)', email:'sarah.williams@email.com', altEmail:'Not Available', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Sarah Chen', plan:'Alaska Premier Health', lob:'Medicaid', primaryInsPolicy:'APH-2108-2024-SW', secondaryIns:'Alaska Medicaid', secondaryInsPolicy:'MCD-AK-773319', primaryCondition:'Gestational Diabetes Mellitus', behavioralCondition:'Perinatal Anxiety Disorder', expectedRisk:'Medium (1.5)', sensitiveDx:'No', doctorAppt:'04/10/2026', doctorApptReason:'OB Follow-Up – 32 Week Check', epsdt:'No', portalAccess:'Active', race:'White', preferredRace:'White', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Independent', incomeStatus:'Low Income', maritalStatus:'Married', veteranStatus:'Non-Veteran', evacuationZone:'Zone A', careManager:'Beatrice Kanya', risk:'1.5', program:'Maternal Health', digital:'Wellframe', caregiver:{first:'David',last:'Williams',relation:'Husband',type:'Primary Caregiver',start:'09/15/2024'}, careTeam:[{name:'Dr. Sarah Chen',role:'OB/GYN',phone:'(907) 555-4001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-4002'},{name:'Dr. Rachel Kim',role:'Pediatrician',phone:'(907) 555-4003'}] },
-    'james-oconnor': { name:'James O\'Connor', preferred:'Jim', dob:'02/28/1968', dobLong:'February 28, 1968', age:'58', id:'MBR-2024-0334', ssn:'XXX-XX-9087', gender:'Male', genderIdentity:'Cisgender Male', sexualOrientation:'Heterosexual', pronouns:'He/Him', contactFormat:'Phone', serviceInterruption:'None', address:'2200 Lake Otis Pkwy', city:'Anchorage', state:'AK', zip:'99508', county:'Anchorage County', country:'United States', phone:'(907) 555-0156', cell:'(907) 555-0178', altPhone:'(907) 555-0192', fax:'Not Available', prefCallTime:'Late Morning (10am–2pm)', email:'james.oconnor@email.com', altEmail:'Not Available', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Michael Torres', plan:'Alaska Care Plus', lob:'Medicare Advantage', primaryInsPolicy:'ACP-0334-2024-JO', secondaryIns:'Medicare Part B', secondaryInsPolicy:'4H52-WR8-LP19', primaryCondition:'COPD with Chronic Bronchitis', behavioralCondition:'Bipolar I Disorder', expectedRisk:'Very High (3.1)', sensitiveDx:'Yes', doctorAppt:'04/08/2026', doctorApptReason:'Behavioral Health Check-In', epsdt:'No', portalAccess:'Not Available', race:'White', preferredRace:'White', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Assisted Living', incomeStatus:'Middle Income', maritalStatus:'Divorced', veteranStatus:'Veteran – U.S. Army', evacuationZone:'Zone B', careManager:'Beatrice Kanya', risk:'3.1', program:'Behavioral Health', digital:'', caregiver:{first:'Patricia',last:'O\'Connor',relation:'Ex-Wife',type:'Emergency Contact',start:'04/20/2023'}, careTeam:[{name:'Dr. Michael Torres',role:'PCP',phone:'(907) 555-5001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-5002'},{name:'Dr. Karen Lee',role:'Psychiatrist',phone:'(907) 555-5003'}] }
+    'jackson-thomas': { name:'Jackson Thomas', preferred:'Jack', dob:'03/15/1958', dobLong:'March 15, 1958', age:'67', id:'MBR-2024-0847', wfPhone:'(907) 555-0192', wfEmail:'j.thomas@wellframe.member', ssn:'XXX-XX-4523', gender:'Male', genderIdentity:'Cisgender Male', sexualOrientation:'Heterosexual', pronouns:'He/Him', contactFormat:'Phone', serviceInterruption:'None', address:'1247 Glacier View Drive', city:'Anchorage', state:'AK', zip:'99501', county:'Anchorage County', country:'United States', phone:'(907) 555-0142', cell:'(907) 555-0198', altPhone:'(907) 555-0203', fax:'Not Available', prefCallTime:'Mornings (8am–12pm)', email:'jackson.thomas@email.com', altEmail:'Not Available', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Sarah Chen', plan:'Alaska Premier Health', lob:'Medicare Advantage', primaryInsPolicy:'APH-847-2024-JT', secondaryIns:'Medicare Part B', secondaryInsPolicy:'1EG4-TE5-MK72', primaryCondition:'Type 2 Diabetes Mellitus', behavioralCondition:'Major Depressive Disorder', expectedRisk:'High (2.4)', sensitiveDx:'No', doctorAppt:'04/15/2026', doctorApptReason:'Quarterly Diabetes Check', epsdt:'No', portalAccess:'Active', race:'White', preferredRace:'White', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Independent', incomeStatus:'Middle Income', maritalStatus:'Married', veteranStatus:'Non-Veteran', evacuationZone:'Zone B', careManager:'Beatrice Kanya', risk:'2.4', program:'Diabetes Management', digital:'Wellframe', caregivers:[{first:'Maria',last:'Thomas',phone:'(907) 555-0142',dob:'06/22/1960',gender:'Female',relation:'Wife',type:'Primary Caregiver',isPrimary:true,start:'01/15/2020'},{first:'Tom',last:'Thomas',phone:'(907) 555-0215',dob:'03/08/1985',gender:'Male',relation:'Son',type:'Secondary Caregiver',isPrimary:false,start:'06/10/2022'}], careTeam:[{name:'Dr. Sarah Chen',role:'PCP',phone:'(907) 555-1001'},{name:'Jennifer Reyes, RN',role:'Care Manager',phone:'(907) 555-1002'},{name:'Dr. Michael Park',role:'Cardiologist',phone:'(907) 555-1003'}] },
+    'maria-rivera': { name:'Maria Rivera', preferred:'Maria', dob:'08/22/1975', dobLong:'August 22, 1975', age:'50', id:'MBR-2024-1203', ssn:'XXX-XX-7891', gender:'Female', genderIdentity:'Cisgender Female', sexualOrientation:'Heterosexual', pronouns:'She/Her', contactFormat:'Phone – Spanish Preferred', serviceInterruption:'None', address:'842 Cordova Street', city:'Anchorage', state:'AK', zip:'99501', county:'Anchorage County', country:'United States', phone:'(907) 555-0287', cell:'(907) 555-0344', altPhone:'(907) 555-0391', fax:'Not Available', prefCallTime:'Afternoons (12pm–5pm)', email:'maria.rivera@email.com', altEmail:'Not Available', lang:'Spanish', writtenLang:'Spanish', spokenLang:'Spanish', commImpairment:'None', pcp:'Dr. James Park', plan:'Alaska Premier Health', lob:'Medicaid', primaryInsPolicy:'APH-1203-2024-MR', secondaryIns:'Alaska Medicaid', secondaryInsPolicy:'MCD-AK-445821', primaryCondition:'Congestive Heart Failure (CHF)', behavioralCondition:'Generalized Anxiety Disorder', expectedRisk:'High (1.8)', sensitiveDx:'No', doctorAppt:'04/22/2026', doctorApptReason:'Cardiology Follow-Up', epsdt:'No', portalAccess:'Active', race:'Hispanic or Latino', preferredRace:'Hispanic or Latino', ethnicity:'Hispanic', preferredEthnicity:'Hispanic', residenceStatus:'Independent', incomeStatus:'Low Income', maritalStatus:'Married', veteranStatus:'Non-Veteran', evacuationZone:'Zone A', careManager:'Beatrice Kanya', risk:'1.8', program:'Cardiac Rehab', digital:'', caregivers:[{first:'Carlos',last:'Rivera',phone:'(907) 555-0301',dob:'05/14/1973',gender:'Male',relation:'Husband',type:'Primary Caregiver',isPrimary:true,start:'03/10/2022'},{first:'Luz',last:'Martinez',phone:'(907) 555-0388',dob:'11/30/1978',gender:'Female',relation:'Sister',type:'Secondary Caregiver',isPrimary:false,start:'08/15/2023'}], careTeam:[{name:'Dr. James Park',role:'PCP',phone:'(907) 555-2001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-2002'},{name:'Dr. Amy Tran',role:'Cardiologist',phone:'(907) 555-2003'}] },
+    'robert-chen': { name:'Robert Chen', preferred:'Rob', dob:'11/03/1982', dobLong:'November 3, 1982', age:'43', id:'MBR-2024-0591', ssn:'XXX-XX-3345', gender:'Male', genderIdentity:'Cisgender Male', sexualOrientation:'Heterosexual', pronouns:'He/Him', contactFormat:'Email', serviceInterruption:'None', address:'315 Northern Lights Blvd', city:'Anchorage', state:'AK', zip:'99503', county:'Anchorage County', country:'United States', phone:'(907) 555-0463', cell:'(907) 555-0512', altPhone:'Not Available', fax:'Not Available', prefCallTime:'Evenings (5pm–8pm)', email:'robert.chen@email.com', altEmail:'rchen.work@gmail.com', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Lisa Nguyen', plan:'Alaska Care Plus', lob:'Commercial', primaryInsPolicy:'ACP-0591-2024-RC', secondaryIns:'Not Available', secondaryInsPolicy:'Not Available', primaryCondition:'Osteoporosis with History of Falls', behavioralCondition:'Not Available', expectedRisk:'Medium (0.9)', sensitiveDx:'No', doctorAppt:'05/03/2026', doctorApptReason:'Annual Physical Exam', epsdt:'No', portalAccess:'Active', race:'Asian', preferredRace:'Asian', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Independent', incomeStatus:'Upper-Middle Income', maritalStatus:'Single', veteranStatus:'Non-Veteran', evacuationZone:'Zone C', careManager:'Beatrice Kanya', risk:'0.9', program:'Fall Prevention', digital:'', caregivers:[{first:'Linda',last:'Chen',phone:'(907) 555-0478',dob:'09/12/1955',gender:'Female',relation:'Mother',type:'Secondary Caregiver',isPrimary:false,start:'06/01/2024'},{first:'James',last:'Chen',phone:'(907) 555-0492',dob:'04/27/1953',gender:'Male',relation:'Father',type:'Emergency Contact',isPrimary:false,start:'06/01/2024'}], careTeam:[{name:'Dr. Lisa Nguyen',role:'PCP',phone:'(907) 555-3001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-3002'}] },
+    'sarah-williams': { name:'Sarah Williams', preferred:'Sarah', dob:'06/17/1990', dobLong:'June 17, 1990', age:'35', id:'MBR-2024-2108', wfPhone:'(907) 555-0284', wfEmail:'s.williams@wellframe.member', ssn:'XXX-XX-6612', gender:'Female', genderIdentity:'Cisgender Female', sexualOrientation:'Heterosexual', pronouns:'She/Her', contactFormat:'Text Message', serviceInterruption:'None', address:'1520 E 5th Avenue', city:'Anchorage', state:'AK', zip:'99501', county:'Anchorage County', country:'United States', phone:'(907) 555-0891', cell:'(907) 555-0923', altPhone:'(907) 555-0944', fax:'Not Available', prefCallTime:'Mornings (9am–11am)', email:'sarah.williams@email.com', altEmail:'Not Available', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Sarah Chen', plan:'Alaska Premier Health', lob:'Medicaid', primaryInsPolicy:'APH-2108-2024-SW', secondaryIns:'Alaska Medicaid', secondaryInsPolicy:'MCD-AK-773319', primaryCondition:'Gestational Diabetes Mellitus', behavioralCondition:'Perinatal Anxiety Disorder', expectedRisk:'Medium (1.5)', sensitiveDx:'No', doctorAppt:'04/10/2026', doctorApptReason:'OB Follow-Up – 32 Week Check', epsdt:'No', portalAccess:'Active', race:'White', preferredRace:'White', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Independent', incomeStatus:'Low Income', maritalStatus:'Married', veteranStatus:'Non-Veteran', evacuationZone:'Zone A', careManager:'Beatrice Kanya', risk:'1.5', program:'Maternal Health', digital:'Wellframe', caregivers:[{first:'David',last:'Williams',phone:'(907) 555-0867',dob:'02/11/1988',gender:'Male',relation:'Husband',type:'Primary Caregiver',isPrimary:true,start:'09/15/2024'},{first:'Carol',last:'Smith',phone:'(907) 555-0912',dob:'07/03/1965',gender:'Female',relation:'Mother',type:'Secondary Caregiver',isPrimary:false,start:'11/01/2024'}], careTeam:[{name:'Dr. Sarah Chen',role:'OB/GYN',phone:'(907) 555-4001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-4002'},{name:'Dr. Rachel Kim',role:'Pediatrician',phone:'(907) 555-4003'}] },
+    'james-oconnor': { name:'James O\'Connor', preferred:'Jim', dob:'02/28/1968', dobLong:'February 28, 1968', age:'58', id:'MBR-2024-0334', ssn:'XXX-XX-9087', gender:'Male', genderIdentity:'Cisgender Male', sexualOrientation:'Heterosexual', pronouns:'He/Him', contactFormat:'Phone', serviceInterruption:'None', address:'2200 Lake Otis Pkwy', city:'Anchorage', state:'AK', zip:'99508', county:'Anchorage County', country:'United States', phone:'(907) 555-0156', cell:'(907) 555-0178', altPhone:'(907) 555-0192', fax:'Not Available', prefCallTime:'Late Morning (10am–2pm)', email:'james.oconnor@email.com', altEmail:'Not Available', lang:'English', writtenLang:'English', spokenLang:'English', commImpairment:'None', pcp:'Dr. Michael Torres', plan:'Alaska Care Plus', lob:'Medicare Advantage', primaryInsPolicy:'ACP-0334-2024-JO', secondaryIns:'Medicare Part B', secondaryInsPolicy:'4H52-WR8-LP19', primaryCondition:'COPD with Chronic Bronchitis', behavioralCondition:'Bipolar I Disorder', expectedRisk:'Very High (3.1)', sensitiveDx:'Yes', doctorAppt:'04/08/2026', doctorApptReason:'Behavioral Health Check-In', epsdt:'No', portalAccess:'Not Available', race:'White', preferredRace:'White', ethnicity:'Non-Hispanic', preferredEthnicity:'Non-Hispanic', residenceStatus:'Assisted Living', incomeStatus:'Middle Income', maritalStatus:'Divorced', veteranStatus:'Veteran – U.S. Army', evacuationZone:'Zone B', careManager:'Beatrice Kanya', risk:'3.1', program:'Behavioral Health', digital:'', caregivers:[{first:'Patricia',last:'O\'Connor',phone:'(907) 555-0167',dob:'08/19/1970',gender:'Female',relation:'Ex-Wife',type:'Emergency Contact',isPrimary:false,start:'04/20/2023'},{first:'Kevin',last:'O\'Connor',phone:'(907) 555-0184',dob:'05/06/1995',gender:'Male',relation:'Son',type:'Secondary Caregiver',isPrimary:false,start:'01/12/2024'}], careTeam:[{name:'Dr. Michael Torres',role:'PCP',phone:'(907) 555-5001'},{name:'Beatrice Kanya',role:'Care Manager',phone:'(907) 555-5002'},{name:'Dr. Karen Lee',role:'Psychiatrist',phone:'(907) 555-5003'}] }
   };
 
   // ── Per-member tab data ──
@@ -7890,6 +8030,8 @@ function openScriptResponseModal() {
     if (bannerWfIcon) bannerWfIcon.style.display = wfEnrolled ? 'inline-block' : 'none';
     var bannerWfInvited = document.getElementById('banner-wf-invited');
     if (bannerWfInvited) bannerWfInvited.style.display = wfInvited ? 'inline-flex' : 'none';
+    var bannerItwBtn = document.getElementById('banner-itw-btn');
+    if (bannerItwBtn) bannerItwBtn.style.display = (!wfEnrolled && !wfInvited) ? 'inline-flex' : 'none';
 
     // Hide chat FAB for non-enrolled members
     var chatFab = document.getElementById('wf-chat-fab');
@@ -8000,9 +8142,17 @@ function openScriptResponseModal() {
 
     // Caregivers tab
     var cgBody = document.querySelector('#tab-caregivers tbody');
-    if (cgBody && m.caregiver) {
-      var c = m.caregiver;
-      cgBody.innerHTML = '<tr><td><input type="checkbox"/></td><td>'+c.first+'</td><td>'+c.last+'</td><td></td><td></td><td></td><td>'+c.relation+'</td><td>'+c.type+'</td><td>Yes</td><td>'+c.start+'</td><td></td></tr>';
+    var caregivers = m.caregivers || (m.caregiver ? [m.caregiver] : []);
+    if (cgBody) {
+      cgBody.innerHTML = caregivers.map(function(c) {
+        var isPrimaryIcon = c.isPrimary ? '<span class="material-icons" style="font-size:14px;color:var(--teal);">check_circle</span>' : '';
+        return '<tr><td><input type="checkbox"/></td><td>'+c.first+'</td><td>'+c.last+'</td><td>'+(c.phone||'')+'</td><td>'+(c.dob||'')+'</td><td>'+(c.gender||'')+'</td><td>'+c.relation+'</td><td>'+c.type+'</td><td>'+isPrimaryIcon+'</td><td>'+c.start+'</td><td></td></tr>';
+      }).join('');
+      var n = caregivers.length;
+      var rc = document.getElementById('cg-record-count');
+      var sc = document.getElementById('cg-showing-count');
+      if (rc) rc.textContent = n + ' record(s)';
+      if (sc) sc.textContent = 'Showing ' + n + ' of ' + n;
     }
 
     // Care Team tab
@@ -14125,6 +14275,1580 @@ function wfAddTime(e) {
 </div>
 
 
+<script>
+(function(){
+  // Populate Invite to Wellframe form from member data
+  function populateInviteForm(key) {
+    var m = memberData[key];
+    if (!m) return;
+    var nameParts = m.name.split(' ');
+    var el = function(id) { return document.getElementById(id); };
+    if (el('itw-member-id')) el('itw-member-id').value = m.id || '';
+    if (el('itw-first-name')) el('itw-first-name').value = nameParts[0] || '';
+    if (el('itw-last-name')) el('itw-last-name').value = nameParts.slice(1).join(' ') || '';
+    if (el('itw-dob')) el('itw-dob').value = m.dob || '';
+    var genderSel = el('itw-gender');
+    if (genderSel) {
+      for (var i = 0; i < genderSel.options.length; i++) {
+        if (genderSel.options[i].text === m.gender) { genderSel.selectedIndex = i; break; }
+      }
+    }
+    if (el('itw-phone')) el('itw-phone').value = (m.phone || '').replace(/^\+1\s*/, '');
+    if (el('itw-email')) el('itw-email').value = m.email || '';
+    var picker = el('itw-phone-picker');
+    if (picker) {
+      picker.innerHTML = '<option value="">Use a saved number...</option>';
+      [{ label:'Primary', val:m.phone }, { label:'Cell', val:m.cell }, { label:'Alternate', val:m.altPhone }].forEach(function(n) {
+        if (n.val && n.val !== 'Not Available') {
+          var opt = document.createElement('option');
+          opt.value = n.val.replace(/^\+1\s*/, '');
+          opt.textContent = n.label + ': ' + n.val;
+          picker.appendChild(opt);
+        }
+      });
+    }
+    if (el('itw-zip')) el('itw-zip').value = m.zip || '';
+    if (el('itw-city')) el('itw-city').value = m.city || '';
+    if (el('itw-state')) el('itw-state').value = m.state || '';
+    var tzSel = el('itw-timezone');
+    if (tzSel) {
+      var tzMap = { 'AK':'America/Anchorage','HI':'Pacific/Honolulu','CA':'America/Los_Angeles','OR':'America/Los_Angeles','WA':'America/Los_Angeles','NV':'America/Los_Angeles','MT':'America/Denver','ID':'America/Denver','WY':'America/Denver','CO':'America/Denver','NM':'America/Denver','UT':'America/Denver','AZ':'America/Denver' };
+      var tz = tzMap[m.state] || 'America/New_York';
+      for (var j = 0; j < tzSel.options.length; j++) {
+        if (tzSel.options[j].value === tz || tzSel.options[j].text === tz) { tzSel.selectedIndex = j; break; }
+      }
+    }
+    var cgFirst = el('itw-cg-first'), cgLast = el('itw-cg-last'), cgRel = el('itw-cg-relation');
+    if (m.caregiver && cgFirst) {
+      cgFirst.value = m.caregiver.first || '';
+      if (cgLast) cgLast.value = m.caregiver.last || '';
+      if (cgRel) {
+        for (var k = 0; k < cgRel.options.length; k++) {
+          if (cgRel.options[k].text === (m.caregiver.relation || '')) { cgRel.selectedIndex = k; break; }
+        }
+      }
+    }
+    if (el('itw-text-consent')) el('itw-text-consent').checked = false;
+  }
+
+  // Patch populateProfile to also refresh invite form and reset success state
+  var _origPopulate = window.populateProfile;
+  window.populateProfile = function(key) {
+    _origPopulate(key);
+    populateInviteForm(key);
+    var form = document.querySelector('#tab-invite-to-wellframe .itw-form');
+    var success = document.getElementById('itw-success');
+    if (form) form.style.display = '';
+    if (success) success.style.display = 'none';
+    var sel = document.getElementById('itw-program-selected');
+    var sb = document.getElementById('itw-program-search-block');
+    var si = document.getElementById('itw-program-search');
+    var dd = document.getElementById('itw-program-dropdown');
+    if (sel) sel.style.display = 'none';
+    if (sb) sb.style.display = '';
+    if (si) si.value = '';
+    if (dd) dd.classList.remove('open');
+  };
+
+  // Onboarding programs list
+  var ITW_PROGRAMS = [
+    { cat:'Diabetes',        name:'Diabetes Management (English)' },
+    { cat:'Diabetes',        name:'Diabetes Management (Spanish)' },
+    { cat:'Diabetes',        name:'Diabetes Management: Type 1 (English)' },
+    { cat:'Cardiac',         name:'Cardiac Health (English)' },
+    { cat:'Cardiac',         name:'Cardiac Health (Spanish)' },
+    { cat:'Cardiac',         name:'Heart Failure (English)' },
+    { cat:'Cardiac',         name:'Heart Failure (Spanish)' },
+    { cat:'Respiratory',     name:'Asthma (English)' },
+    { cat:'Respiratory',     name:'Asthma (Spanish)' },
+    { cat:'Respiratory',     name:'COPD (English)' },
+    { cat:'Respiratory',     name:'COPD (Spanish)' },
+    { cat:'Maternal Health', name:'Maternal Health: Multiple Pregnancy (English)' },
+    { cat:'Maternal Health', name:'Maternal Health: Multiple Pregnancy (Spanish)' },
+    { cat:'Maternal Health', name:'Maternal Health: Prenatal Substance Use (English)' },
+    { cat:'Behavioral Health',name:'Behavioral Health' },
+    { cat:'Prevention',      name:'Fall Prevention' },
+    { cat:'Pain Management', name:'Pain Management: Migraines (English)' },
+    { cat:'Pain Management', name:'Pain Management: Migraines (Spanish)' },
+    { cat:'Supplements',     name:'Program Supplement: Physical Activity (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Smoking Cessation (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Stress Management (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Weight Loss (English)' },
+    { cat:'Pediatric',       name:'Pediatric Caregiver: Newborn Wellness (1 Year) (English)' },
+    { cat:'Pediatric',       name:'Pediatric Caregiver: Newborn Wellness (1 Year) (Spanish)' }
+  ];
+
+  window.itwFilterPrograms = function(q) {
+    var dd = document.getElementById('itw-program-dropdown');
+    var inp = document.getElementById('itw-program-search');
+    var rect = inp.getBoundingClientRect();
+    dd.style.left = rect.left + 'px';
+    dd.style.top = rect.bottom + 'px';
+    dd.style.width = rect.width + 'px';
+    var term = q.trim().toLowerCase();
+    var filtered = term ? ITW_PROGRAMS.filter(function(p) {
+      return p.name.toLowerCase().indexOf(term) > -1 || p.cat.toLowerCase().indexOf(term) > -1;
+    }) : ITW_PROGRAMS;
+    if (!filtered.length) {
+      dd.innerHTML = '<div style="padding:10px 12px;font-size:12px;color:#888;">No programs found</div>';
+    } else {
+      var html = '', lastCat = '';
+      filtered.forEach(function(p) {
+        if (p.cat !== lastCat) { html += '<div class="itw-program-cat">' + p.cat + '</div>'; lastCat = p.cat; }
+        html += '<div class="itw-program-option" onclick="itwSelectProgram(' + JSON.stringify(p.name) + ')">' + p.name + '</div>';
+      });
+      dd.innerHTML = html;
+    }
+    dd.classList.add('open');
+  };
+
+  window.itwSelectProgram = function(name) {
+    document.getElementById('itw-program-search-block').style.display = 'none';
+    document.getElementById('itw-program-dropdown').classList.remove('open');
+    document.getElementById('itw-program-selected-name').textContent = name;
+    document.getElementById('itw-program-selected').style.display = 'flex';
+  };
+
+  window.itwClearProgram = function() {
+    document.getElementById('itw-program-selected').style.display = 'none';
+    document.getElementById('itw-program-search-block').style.display = '';
+    var inp = document.getElementById('itw-program-search');
+    inp.value = '';
+    document.getElementById('itw-program-dropdown').classList.remove('open');
+    inp.focus();
+  };
+
+  window.itwSendInvite = function() {
+    var form = document.querySelector('#tab-invite-to-wellframe .itw-form');
+    var success = document.getElementById('itw-success');
+    var label = document.getElementById('itw-success-label-text');
+    var now = new Date();
+    label.textContent = 'Invite sent on ' + (now.getMonth()+1) + '/' + now.getDate() + '/' + now.getFullYear();
+    form.style.display = 'none';
+    success.style.display = 'flex';
+  };
+
+  document.addEventListener('click', function(e) {
+    var wrap = document.querySelector('.itw-program-search-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      var dd = document.getElementById('itw-program-dropdown');
+      if (dd) dd.classList.remove('open');
+    }
+  });
+})();
+</script>
+<!-- Persistent chat widget -->
+<div id="chat-widget" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;background:#fff;border-radius:6px;box-shadow:0 4px 20px rgba(0,0,0,0.13);border:1px solid #e4e4e4;padding:10px 10px 10px 10px;gap:10px;height:60px;box-sizing:border-box;">
+  <!-- Collapse chevron -->
+  <span class="material-icons" style="color:#666;font-size:26px;cursor:pointer;line-height:1;">chevron_right</span>
+  <div style="width:1px;height:36px;background:#e0e0e0;flex-shrink:0;"></div>
+  <!-- Chat icon + name: grouped hover area -->
+  <div onclick="cwHandleNameClick()" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background=''" style="display:flex;align-items:center;gap:10px;cursor:pointer;border-radius:4px;padding:4px 6px;margin:-4px -6px;">
+    <div style="position:relative;flex-shrink:0;margin-top:6px;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3D5A8A" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="cw-badge" style="position:absolute;top:-7px;right:-7px;background:#E53935;color:#fff;border-radius:50%;width:17px;height:17px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Open Sans',sans-serif;line-height:1;">1</span>
+    </div>
+    <span id="chatWidgetMemberName" style="font-size:15px;font-weight:600;color:#1a1a1a;white-space:nowrap;font-family:'Open Sans',sans-serif;margin-top:-4px;">Chats</span>
+  </div>
+  <!-- Divider -->
+  <div style="width:1px;height:36px;background:#e0e0e0;margin:0 2px;flex-shrink:0;"></div>
+  <!-- Haven button -->
+  <button style="display:flex;align-items:center;gap:6px;background:#3D5C8C;color:#fff;border:none;border-radius:4px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Open Sans',sans-serif;white-space:nowrap;height:34px;box-sizing:border-box;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L10.2 9.2 L3 12 L10.2 14.8 L12 22 L13.8 14.8 L21 12 L13.8 9.2 Z"/></svg>
+    Haven
+  </button>
+</div>
+
+<!-- Prototype trigger -->
+<div onclick="cwTriggerIncoming()" style="position:fixed;bottom:8px;right:28px;z-index:10001;font-size:9px;color:#bbb;cursor:pointer;font-family:'Open Sans',sans-serif;letter-spacing:0.3px;user-select:none;" onmouseover="this.style.color='#999'" onmouseout="this.style.color='#bbb'">trigger msg</div>
+
+<!-- Incoming message toast container -->
+<div id="cw-toast-container" style="position:fixed;bottom:96px;right:24px;z-index:10002;width:300px;height:90px;pointer-events:none;"></div>
+
+<!-- Messages notification popup -->
+<div id="cw-msg-popup" style="display:none;position:fixed;bottom:96px;right:24px;z-index:10000;width:480px;background:#fff;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:1px solid #e4e4e4;font-family:'Open Sans',sans-serif;overflow:hidden;flex-direction:column;">
+
+  <!-- Header (swaps between list and chat mode) -->
+  <div id="cw-popup-header" style="display:flex;align-items:center;gap:8px;padding:12px 16px 10px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
+    <!-- list-mode header -->
+    <div id="cwh-list" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+      <span style="font-size:14px;font-weight:700;color:#1a1a1a;">Chats</span>
+      <span onclick="cwClosePopup()" style="cursor:pointer;color:#999;font-size:20px;line-height:1;">&times;</span>
+    </div>
+    <!-- chat-mode header -->
+    <div id="cwh-chat" style="display:none;align-items:center;width:100%;gap:8px;">
+      <span onclick="cwBackToList()" style="cursor:pointer;display:flex;align-items:center;color:#555;flex-shrink:0;" title="Back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </span>
+      <div id="cwh-avatar" style="flex-shrink:0;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;"></div>
+      <span id="cwh-name" style="font-size:13px;font-weight:700;color:#1a1a1a;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
+      <span onclick="cwClosePopup()" style="cursor:pointer;color:#999;font-size:20px;line-height:1;flex-shrink:0;">&times;</span>
+    </div>
+  </div>
+
+  <style>#cw-below-header.cw-diff-active { border-left:2px solid #f0d940; border-right:2px solid #f0d940; border-bottom:2px solid #f0d940; }</style>
+  <div id="cw-below-header" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+
+  <!-- Different-member banner -->
+  <div id="cw-diff-member-banner" style="display:none;background:#fffbea;border-bottom:1px solid #f0d940;padding:5px 16px;font-size:11px;font-weight:600;color:#7a6200;letter-spacing:0.01em;flex-shrink:0;">Different member profile</div>
+
+  <!-- List view -->
+  <div id="cw-msg-list" style="height:460px;overflow-y:auto;"></div>
+
+  <!-- Chat view -->
+  <div id="cw-chat-view" style="display:none;flex-direction:column;height:460px;">
+    <div id="cw-chat-messages" style="flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="padding:10px 12px;border-top:1px solid #f0f0f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;position:relative;">
+      <!-- Plus button -->
+      <button onclick="cwTogglePlusMenu(event)" style="flex-shrink:0;background:none;border:1px solid #ccc;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#3D5C8C;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <!-- Plus menu -->
+      <div id="cw-plus-menu" style="display:none;position:absolute;bottom:54px;left:12px;background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);border:1px solid #e8e8e8;width:220px;padding:6px 0;z-index:10001;font-family:'Open Sans',sans-serif;">
+        <div onclick="cwPlusAction('template')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+          Add a Template
+        </div>
+        <div onclick="cwPlusAction('recent')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Add a Recent Message
+        </div>
+        <div onclick="cwPlusAction('call')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.59 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.78-1.38a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.22 16z"/></svg>
+          Log a Phone Call
+        </div>
+        <div onclick="cwPlusAction('text')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="#3D5C8C"/></svg>
+          Send a Text
+        </div>
+        <div onclick="cwPlusAction('file')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:13px;color:#1a1a1a;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background=''">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5C8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          Attach a File
+        </div>
+      </div>
+      <textarea id="cw-chat-input" placeholder="Type a message…" rows="1" oninput="cwInputResize(this)" onkeydown="cwInputKeydown(event)" style="flex:1;border:1px solid #ddd;border-radius:6px;padding:7px 10px;font-size:13px;font-family:'Open Sans',sans-serif;resize:none;outline:none;line-height:1.4;max-height:80px;overflow-y:auto;"></textarea>
+      <button onclick="cwSendMessage()" style="flex-shrink:0;background:#3D5C8C;color:#fff;border:none;border-radius:6px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+  </div><!-- /cw-below-header -->
+</div>
+
+<script>
+(function(){
+  var cwMessages = [
+    { member:'Jackson Thomas', key:'jackson-thomas', initials:'JT', color:'#5B8DD9', preview:'I took my medication this morning but I\'m still feeling a bit dizzy...', unread:true },
+    { member:'Maria Rivera',   key:'maria-rivera',   initials:'MR', color:'#2D4270', preview:'Should I be worried or is that normal during rehab?', unread:true },
+    { member:'Robert Chen',    key:'robert-chen',    initials:'RC', color:'#35B4F0', preview:'My blood pressure readings have been higher this week.', unread:false, readAt: (function(){ var d=new Date(); d.setHours(8,30,0,0); return d.getTime(); })() },
+    { member:'Sarah Williams', key:'sarah-williams', initials:'SW', color:'#5B8DD9', preview:'Thank you for sending over those resources, very helpful!', unread:false, readAt: (function(){ var d=new Date(); d.setHours(6,45,0,0); return d.getTime(); })() },
+    { member:'James O\'Connor',key:'james-oconnor',  initials:'JO', color:'#2D4270', preview:'Attached my latest lab results from the clinic visit.', unread:false, readAt: (function(){ var d=new Date(); d.setHours(10,32,0,0); return d.getTime(); })() },
+  ];
+
+  var cwChats = {
+    'jackson-thomas': [
+      { from:'member', text:'Good morning! I just wanted to check in about my diabetes management plan.', time:'9:02 AM' },
+      { from:'cm',     text:'Good morning, Jackson! Great to hear from you. How have your blood sugar readings been?', time:'9:05 AM' },
+      { from:'member', text:'Mostly in range, but I had a high reading after dinner on Tuesday.', time:'9:07 AM' },
+      { from:'cm',     text:'That can happen — did you have anything different for dinner that evening?', time:'9:09 AM' },
+      { from:'member', text:'I took my medication this morning but I\'m still feeling a bit dizzy...', time:'9:14 AM', newThread:true },
+    ],
+    'maria-rivera': [
+      { from:'member', text:'Hi, I have a question about my cardiac rehab schedule.', time:'Yesterday' },
+      { from:'cm',     text:'Of course! What would you like to know?', time:'Yesterday' },
+      { from:'member', text:'Can we reschedule Thursday\'s check-in to Friday afternoon?', time:'10:42 AM', newThread:true },
+      { from:'member', text:'Also, I\'ve been experiencing some shortness of breath after the exercises.', time:'10:45 AM' },
+      { from:'member', text:'Should I be worried or is that normal during rehab?', time:'10:46 AM' },
+    ],
+    'robert-chen': [
+      { from:'cm',     text:'Hi Robert, just checking in — how are you feeling this week?', time:'Monday' },
+      { from:'member', text:'Not bad overall, but I\'ve been a bit worried.', time:'Monday' },
+      { from:'member', text:'My blood pressure readings have been higher this week.', time:'11:20 AM' },
+    ],
+    'sarah-williams': [
+      { from:'cm',     text:'Hi Sarah, I\'ve sent over some resources on maternal nutrition. Let me know if you have questions!', time:'Yesterday' },
+      { from:'member', text:'Thank you for sending over those resources, very helpful!', time:'9:05 AM' },
+    ],
+    'james-oconnor': [
+      { from:'member', text:'Dr. Park referred me to you for follow-up on my behavioral health plan.', time:'Last week' },
+      { from:'cm',     text:'Welcome James! I\'ve reviewed your referral and would love to connect. When works for you?', time:'Last week' },
+      { from:'member', text:'Attached my latest lab results from the clinic visit.', time:'10:32 AM' },
+    ],
+  };
+
+  function cwParseMsgTime(str) {
+    var m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec((str || '').trim());
+    if (!m) return null;
+    var h = parseInt(m[1], 10), min = parseInt(m[2], 10), ampm = m[3].toUpperCase();
+    if (ampm === 'PM' && h !== 12) h += 12;
+    if (ampm === 'AM' && h === 12) h = 0;
+    var d = new Date(); d.setHours(h, min, 0, 0);
+    if (d.getTime() > Date.now()) d.setDate(d.getDate() - 1);
+    return d.getTime();
+  }
+
+  cwMessages.forEach(function(entry) {
+    var msgs = cwChats[entry.key] || [];
+    for (var i = msgs.length - 1; i >= 0; i--) {
+      if (msgs[i].from === 'member') {
+        var ts = cwParseMsgTime(msgs[i].time);
+        if (ts) { entry.sentAt = ts; }
+        break;
+      }
+    }
+  });
+
+  var popupOpen = false;
+  var currentChatKey = null;
+  var cwManuallyMarkedUnread = false;
+
+  window.cwHandleNameClick = function() {
+    var cwn = document.getElementById('chatWidgetMemberName');
+    if (!cwn) return;
+    var widgetName = cwn.textContent.trim();
+    if (widgetName === 'Chats') {
+      popupOpen ? cwClosePopup() : cwOpenPopup();
+      return;
+    }
+    var match = cwMessages.find(function(x) { return x.member === widgetName; });
+    if (!match) { popupOpen ? cwClosePopup() : cwOpenPopup(); return; }
+    var popup = document.getElementById('cw-msg-popup');
+    popup.style.display = 'flex';
+    popupOpen = true;
+    cwOpenChat(match.key);
+  };
+
+  window.cwOpenPopup = function() {
+    cwShowListView();
+    var popup = document.getElementById('cw-msg-popup');
+    popup.style.display = 'flex';
+    popupOpen = true;
+  };
+
+  function cwShowListView() {
+    document.getElementById('cwh-list').style.display = 'flex';
+    document.getElementById('cwh-chat').style.display = 'none';
+    document.getElementById('cw-msg-list').style.display = 'block';
+    document.getElementById('cw-chat-view').style.display = 'none';
+    var banner = document.getElementById('cw-diff-member-banner');
+    if (banner) banner.style.display = 'none';
+    var popupList = document.getElementById('cw-below-header');
+    if (popupList) popupList.classList.remove('cw-diff-active');
+    cwRenderList();
+  }
+
+  var cwSectionOpen = { unread: true, recent: true };
+
+  function cwUnreadCountFor(key) {
+    var msgs = cwChats[key] || [], count = 0, counting = false;
+    msgs.forEach(function(msg) {
+      if (msg.newThread) counting = true;
+      if (counting) count++;
+    });
+    return count;
+  }
+
+  function cwUnreadMsgCount() {
+    var total = 0;
+    cwMessages.forEach(function(m) {
+      if (m.unread) total += cwUnreadCountFor(m.key);
+    });
+    return total;
+  }
+
+  function cwUpdateBadge() {
+    var count = cwUnreadMsgCount();
+    var badge = document.querySelector('#chat-widget .cw-badge');
+    if (badge) {
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+  }
+
+  function cwFormatTime(m) {
+    var ts = m.sentAt || null;
+    if (!ts) return '';
+    var diffMin = Math.round((Date.now() - ts) / 60000);
+    if (diffMin < 1) return 'Just now';
+    if (diffMin < 60) return diffMin + 'm ago';
+    var d = new Date(ts);
+    var h = d.getHours(), min = d.getMinutes();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return h + ':' + (min < 10 ? '0' : '') + min + ' ' + ampm;
+  }
+
+  function cwMakeRows(items) {
+    return items.map(function(m) {
+      var bg = m.unread ? '#F5FCFF' : '#fff';
+      return '<div onclick="cwOpenChat(\''+m.key+'\')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;background:'+bg+';" onmouseover="this.style.background=\'#eef2f8\'" onmouseout="this.style.background=\''+bg+'\'">'
+        + '<div style="flex-shrink:0;width:36px;height:36px;border-radius:50%;background:'+m.color+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;position:relative;">'
+        +   m.initials
+        +   ( m.unread ? '<span style="position:absolute;top:0;right:0;width:9px;height:9px;background:#E53935;border-radius:50%;border:2px solid #fff;"></span>' : '' )
+        + '</div>'
+        + '<div style="flex:0 0 140px;min-width:0;">'
+        +   '<div style="font-size:13px;font-weight:'+(m.unread?'700':'600')+';color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+m.member+'</div>'
+        +   '<div style="font-size:11px;color:#aaa;margin-top:1px;">'+cwFormatTime(m)+'</div>'
+        + '</div>'
+        + '<div style="flex:1;min-width:0;font-size:12px;color:'+(m.unread?'#333':'#777')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(m.unread?'500':'400')+';"> '+(m.unread ? '<span style="color:#999;">(' + cwUnreadCountFor(m.key) + ')</span> ' : '')+m.preview+'</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  function cwSectionHeader(label, key, count) {
+    var open = cwSectionOpen[key];
+    var chevron = open
+      ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>'
+      : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    var countStr = (count != null) ? ' <span style="font-weight:400;color:#999;">('+count+')</span>' : '';
+    return '<div onclick="cwToggleSection(\''+key+'\')" style="display:flex;align-items:center;gap:6px;padding:7px 16px;background:#f8f8f8;border-bottom:1px solid #ececec;cursor:pointer;user-select:none;">'
+      + '<span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;flex:1;">'+label+countStr+'</span>'
+      + '<span style="color:#888;display:flex;align-items:center;">'+chevron+'</span>'
+      + '</div>';
+  }
+
+  window.cwToggleSection = function(key) {
+    cwSectionOpen[key] = !cwSectionOpen[key];
+    cwRenderList();
+  };
+
+  window.cwRenderList = function() {
+    var midnight = new Date(); midnight.setHours(0,0,0,0);
+    var midnightMs = midnight.getTime();
+    var unread = cwMessages.filter(function(m){ return m.unread; });
+    var readToday = cwMessages.filter(function(m){ return !m.unread && m.readAt && m.readAt >= midnightMs; })
+      .sort(function(a, b){ return b.readAt - a.readAt; });
+    var html = '';
+    if (unread.length) {
+      html += cwSectionHeader('Unread', 'unread', cwUnreadMsgCount());
+      if (cwSectionOpen.unread) html += cwMakeRows(unread);
+    }
+    if (readToday.length) {
+      html += cwSectionHeader('Read today', 'recent', readToday.length);
+      if (cwSectionOpen.recent) html += cwMakeRows(readToday);
+    }
+    if (!html) html = '<div style="padding:24px 16px;text-align:center;color:#999;font-size:13px;">No messages</div>';
+    document.getElementById('cw-msg-list').innerHTML = html;
+  };
+
+  window.cwOpenChat = function(key) {
+    var m = cwMessages.find(function(x){ return x.key === key; });
+    if (!m) return;
+    currentChatKey = key;
+    cwManuallyMarkedUnread = false;
+
+    var banner = document.getElementById('cw-diff-member-banner');
+    var belowHeader = document.getElementById('cw-below-header');
+    if (banner) {
+      var pageKey = window.currentMemberKey;
+      var pageData = window.memberData && pageKey ? window.memberData[pageKey] : null;
+      var isDiff = pageData && pageData.name !== m.member;
+      banner.style.display = isDiff ? 'block' : 'none';
+      if (isDiff) banner.textContent = 'Warning: Different member profile open';
+      if (belowHeader) belowHeader.classList.toggle('cw-diff-active', isDiff);
+    }
+
+    document.getElementById('cwh-list').style.display = 'none';
+    var chatHeader = document.getElementById('cwh-chat');
+    chatHeader.style.display = 'flex';
+    var avatar = document.getElementById('cwh-avatar');
+    avatar.style.background = m.color;
+    avatar.textContent = m.initials;
+    document.getElementById('cwh-name').textContent = m.member;
+
+    document.getElementById('cw-msg-list').style.display = 'none';
+    var cv = document.getElementById('cw-chat-view');
+    cv.style.display = 'flex';
+
+    var msgs = cwChats[key] || [];
+    var chatEl = document.getElementById('cw-chat-messages');
+    var newDivider = '<div style="display:flex;align-items:center;gap:10px;margin:6px 0;">'
+      + '<div style="flex:1;height:1px;background:#d0d0d0;"></div>'
+      + '<span style="font-size:11px;color:#888;white-space:nowrap;font-weight:500;">New messages</span>'
+      + '<div style="width:40px;height:1px;background:#d0d0d0;"></div>'
+      + '</div>';
+    var memberName = m.member.split(' ')[0];
+    chatEl.innerHTML = msgs.map(function(msg, idx) {
+      var isCM = msg.from === 'cm';
+      var senderLabel = isCM
+        ? '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">You</span><span style="font-size:11px;color:#888;margin-left:5px;">Care Manager</span>'
+        : '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">'+memberName+'</span>';
+      var markUnreadBtn = !isCM
+        ? '<button class="cw-mark-unread-btn" onclick="cwMarkUnread(\''+key+'\','+idx+')" style="display:none;position:absolute;top:-26px;right:-4px;background:#fff;border:1px solid #d0d0d0;border-radius:8px;padding:7px 18px;font-size:13px;color:#777;cursor:pointer;font-family:\'Open Sans\',sans-serif;white-space:nowrap;box-shadow:0 1px 6px rgba(0,0,0,0.10);font-weight:400;" onmouseover="this.style.background=\'#f5f5f5\';this.style.borderColor=\'#bbb\'" onmouseout="this.style.background=\'#fff\';this.style.borderColor=\'#d0d0d0\'">Mark Unread</button>'
+        : '';
+      var bubble = '<div class="cw-msg-row" style="display:flex;flex-direction:column;align-items:'+(isCM?'flex-end':'flex-start')+';gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;" onmouseover="cwMsgHover(this,true)" onmouseout="cwMsgHover(this,false)">'
+        + '<div style="display:flex;align-items:baseline;gap:0;width:100%;justify-content:'+(isCM?'flex-end':'flex-start')+';padding:0 2px;">'
+        +   '<div style="display:flex;align-items:baseline;gap:4px;flex:1;justify-content:'+(isCM?'flex-end':'flex-start')+'">'
+        +     senderLabel
+        +   '</div>'
+        +   '<span style="font-size:11px;color:#aaa;white-space:nowrap;margin-left:10px;">'+msg.time+'</span>'
+        + '</div>'
+        + '<div style="position:relative;display:inline-block;max-width:85%;">'
+        +   '<div style="background:'+(isCM?'#d6e8f5':'#e8e8e8')+';color:#1a1a1a;border-radius:'+(isCM?'12px 12px 2px 12px':'12px 12px 12px 2px')+';padding:9px 12px;font-size:13px;line-height:1.5;font-weight:500;">'+msg.text+'</div>'
+        +   markUnreadBtn
+        + '</div>'
+        + '</div>';
+      return (msg.newThread ? newDivider : '') + bubble;
+    }).join('');
+    chatEl.scrollTop = chatEl.scrollHeight;
+
+    var inp = document.getElementById('cw-chat-input');
+    inp.value = '';
+    inp.style.height = 'auto';
+    inp.placeholder = 'Message ' + memberName;
+  };
+
+  window.cwBackToList = function() {
+    if (currentChatKey && !cwManuallyMarkedUnread) {
+      var m = cwMessages.find(function(x){ return x.key === currentChatKey; });
+      if (m) { m.unread = false; m.readAt = Date.now(); }
+      var msgs = cwChats[currentChatKey] || [];
+      msgs.forEach(function(msg){ delete msg.newThread; });
+      cwUpdateBadge();
+    }
+    currentChatKey = null;
+    cwManuallyMarkedUnread = false;
+    cwShowListView();
+  };
+
+  window.cwSendMessage = function() {
+    var inp = document.getElementById('cw-chat-input');
+    var text = inp.value.trim();
+    if (!text || !currentChatKey) return;
+    if (!cwChats[currentChatKey]) cwChats[currentChatKey] = [];
+    cwChats[currentChatKey].push({ from:'cm', text:text, time:'Just now' });
+    inp.value = '';
+    inp.style.height = 'auto';
+    var chatEl = document.getElementById('cw-chat-messages');
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:2px;';
+    div.innerHTML = '<div style="max-width:78%;background:#3D5C8C;color:#fff;border-radius:12px 12px 2px 12px;padding:8px 11px;font-size:13px;line-height:1.45;">'+text+'</div>'
+      + '<span style="font-size:10px;color:#aaa;padding:0 4px;">Just now</span>';
+    chatEl.appendChild(div);
+    chatEl.scrollTop = chatEl.scrollHeight;
+  };
+
+  window.cwMsgHover = function(row, on) {
+    var btn = row.querySelector('.cw-mark-unread-btn');
+    if (btn) btn.style.display = on ? 'block' : 'none';
+    if (btn) row.style.background = on ? '#F2F8FA' : '';
+  };
+
+  window.cwMarkUnread = function(key, fromIdx) {
+    var msgs = cwChats[key];
+    if (!msgs) return;
+    msgs.forEach(function(msg) { delete msg.newThread; });
+    msgs[fromIdx].newThread = true;
+    var m = cwMessages.find(function(x){ return x.key === key; });
+    if (m) m.unread = true;
+    cwOpenChat(key);
+    cwManuallyMarkedUnread = true;
+    cwUpdateBadge();
+  };
+
+  window.cwTogglePlusMenu = function(e) {
+    e.stopPropagation();
+    var menu = document.getElementById('cw-plus-menu');
+    var open = menu.style.display !== 'none';
+    menu.style.display = open ? 'none' : 'block';
+    if (!open) {
+      setTimeout(function(){ document.addEventListener('click', cwPlusOutside); }, 0);
+    }
+  };
+
+  function cwPlusOutside(e) {
+    var menu = document.getElementById('cw-plus-menu');
+    if (menu && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+      document.removeEventListener('click', cwPlusOutside);
+    }
+  }
+
+  window.cwPlusAction = function(action) {
+    document.getElementById('cw-plus-menu').style.display = 'none';
+    document.removeEventListener('click', cwPlusOutside);
+  };
+
+  window.cwInputResize = function(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+  };
+
+  window.cwInputKeydown = function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); cwSendMessage(); }
+  };
+
+  window.cwClosePopup = function() {
+    var popup = document.getElementById('cw-msg-popup');
+    popup.style.display = 'none';
+    popupOpen = false;
+    currentChatKey = null;
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', cwUpdateBadge);
+  } else {
+    cwUpdateBadge();
+  }
+
+  var cwIncomingPool = [
+    { key:'jackson-thomas', initials:'JT', color:'#5B8DD9', member:'Jackson Thomas', texts:[
+      'Just checked my blood sugar — it\'s at 142, is that okay?',
+      'Do I still need to fast before my appointment tomorrow?',
+      'Feeling a little better today, thanks for checking in.',
+    ]},
+    { key:'maria-rivera',   initials:'MR', color:'#2D4270', member:'Maria Rivera', texts:[
+      'Can you send me the number for the cardiology office again?',
+      'I did my breathing exercises this morning!',
+      'My ankles have been swelling more than usual this week.',
+    ]},
+    { key:'robert-chen',    initials:'RC', color:'#35B4F0', member:'Robert Chen', texts:[
+      'BP was 148/92 this morning, higher than yesterday.',
+      'Got a refill on my lisinopril, just wanted to let you know.',
+      'Is it normal to feel tired after starting the new medication?',
+    ]},
+    { key:'sarah-williams', initials:'SW', color:'#5B8DD9', member:'Sarah Williams', texts:[
+      'Baby was very active last night, is that normal at 32 weeks?',
+      'I have a question about the nutrition plan you sent.',
+      'My next OB appointment is confirmed for next Thursday.',
+    ]},
+    { key:'james-oconnor',  initials:'JO', color:'#2D4270', member:'James O\'Connor', texts:[
+      'Had a rough night, anxiety was pretty bad.',
+      'My inhaler ran out — how do I get a refill?',
+      'I made it to my appointment today, went pretty well.',
+    ]},
+  ];
+
+  var cwToastStack = [];
+
+  function cwUpdateToastPositions(animated) {
+    cwToastStack.forEach(function(t, i) {
+      var scale = 1 - i * 0.05;
+      var ty = -(i * 10);
+      t.el.style.transition = animated ? 'transform 0.25s ease, opacity 0.25s ease' : 'none';
+      t.el.style.transform = 'scale(' + scale + ') translateY(' + ty + 'px)';
+      t.el.style.zIndex = (cwToastStack.length - i) + 10002;
+      t.el.style.opacity = i < 3 ? '1' : '0';
+      t.el.style.pointerEvents = i === 0 ? 'auto' : 'none';
+    });
+  }
+
+  function cwDismissToast(toastObj) {
+    var idx = cwToastStack.indexOf(toastObj);
+    if (idx === -1) return;
+    clearTimeout(toastObj.timer);
+    cwToastStack.splice(idx, 1);
+    toastObj.el.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+    toastObj.el.style.opacity = '0';
+    toastObj.el.style.transform = 'scale(1) translateX(20px)';
+    setTimeout(function(){ if (toastObj.el.parentNode) toastObj.el.parentNode.removeChild(toastObj.el); }, 220);
+    cwUpdateToastPositions(true);
+  }
+
+  function cwArmTimer(toastObj) {
+    clearTimeout(toastObj.timer);
+    toastObj.timer = setTimeout(function(){ cwDismissToast(toastObj); }, 4000);
+  }
+
+  window.cwTriggerIncoming = function() {
+    var sender = cwIncomingPool[Math.floor(Math.random() * cwIncomingPool.length)];
+    var text = sender.texts[Math.floor(Math.random() * sender.texts.length)];
+
+    var entry = cwMessages.find(function(x){ return x.key === sender.key; });
+    if (entry) { entry.unread = true; entry.sentAt = Date.now(); entry.preview = text; }
+    if (!cwChats[sender.key]) cwChats[sender.key] = [];
+    cwChats[sender.key].push({ from:'member', text:text, time:'Just now', newThread:true });
+    cwUpdateBadge();
+
+    var container = document.getElementById('cw-toast-container');
+    var popup = document.getElementById('cw-msg-popup');
+    if (popup && popup.style.display !== 'none') {
+      container.style.bottom = (popup.offsetHeight + 96 + 8) + 'px';
+    } else {
+      container.style.bottom = '96px';
+    }
+
+    if (cwToastStack.length > 0 && cwToastStack[0].key === sender.key) {
+      var front = cwToastStack[0];
+      front.count++;
+      var nameEl = front.el.querySelector('.cw-tn');
+      var prevEl = front.el.querySelector('.cw-tp');
+      if (nameEl) nameEl.textContent = sender.member + ' (' + front.count + ')';
+      if (prevEl) prevEl.textContent = text;
+      front.el.style.transition = 'box-shadow 0.1s ease';
+      front.el.style.boxShadow = '0 4px 20px rgba(61,92,140,0.4)';
+      setTimeout(function(){ front.el.style.transition = 'box-shadow 0.4s ease'; front.el.style.boxShadow = '0 4px 18px rgba(0,0,0,0.15)'; }, 150);
+      cwArmTimer(front);
+      return;
+    }
+
+    var toast = document.createElement('div');
+    toast.style.cssText = 'position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,0.15);border:1px solid #e4e4e4;padding:10px 14px;cursor:pointer;opacity:0;transform:scale(1) translateX(20px);transform-origin:bottom center;font-family:\'Open Sans\',sans-serif;box-sizing:border-box;';
+    toast.innerHTML = '<div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:'+sender.color+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">'+sender.initials+'</div>'
+      + '<div style="min-width:0;flex:1;">'
+      +   '<div class="cw-tn" style="font-size:12px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+sender.member+'</div>'
+      +   '<div class="cw-tp" style="font-size:11px;color:#555;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+text+'</div>'
+      + '</div>';
+
+    var toastObj = { el: toast, key: sender.key, count: 1, timer: null };
+    toast.onclick = function(){ cwDismissToast(toastObj); cwOpenPopup(); cwOpenChat(sender.key); };
+    toast.onmouseenter = function(){ clearTimeout(toastObj.timer); };
+    toast.onmouseleave = function(){ cwArmTimer(toastObj); };
+
+    container.appendChild(toast);
+    cwToastStack.unshift(toastObj);
+
+    cwUpdateToastPositions(false);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      toast.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      toast.style.opacity = '1';
+      toast.style.transform = 'scale(1) translateY(0)';
+      setTimeout(function(){ cwUpdateToastPositions(true); }, 50);
+    }); });
+
+    cwArmTimer(toastObj);
+  };
+
+})();
+</script>
+
+<script>
+(function(){
+  // Populate Invite to Wellframe form from member data
+  function populateInviteForm(key) {
+    var m = memberData[key];
+    if (!m) return;
+    var nameParts = m.name.split(' ');
+    var el = function(id) { return document.getElementById(id); };
+    if (el('itw-member-id')) el('itw-member-id').value = m.id || '';
+    if (el('itw-first-name')) el('itw-first-name').value = nameParts[0] || '';
+    if (el('itw-last-name')) el('itw-last-name').value = nameParts.slice(1).join(' ') || '';
+    if (el('itw-dob')) el('itw-dob').value = m.dob || '';
+    var genderSel = el('itw-gender');
+    if (genderSel) {
+      for (var i = 0; i < genderSel.options.length; i++) {
+        if (genderSel.options[i].text === m.gender) { genderSel.selectedIndex = i; break; }
+      }
+    }
+    if (el('itw-email')) el('itw-email').value = m.email || '';
+    var phoneNums = [
+      { label:'Primary', val:m.phone },
+      { label:'Cell', val:m.cell },
+      { label:'Alternate', val:m.altPhone }
+    ].filter(function(n) { return n.val && n.val !== 'Not Available'; });
+    var phoneMenu = el('itw-phone-prefill-menu');
+    if (phoneMenu) {
+      phoneMenu.innerHTML = phoneNums.map(function(n) {
+        var displayVal = n.val.replace(/^\+1\s*/, '');
+        var lbl = n.label + ': ' + n.val;
+        return '<div class="itw-mui-option" onclick="itwPhoneSelect(\'' + displayVal.replace(/'/g,"\\'") + '\',\'' + lbl.replace(/'/g,"\\'") + '\')">' + lbl + '</div>';
+      }).join('') + '<div class="itw-mui-option add-other" onclick="itwPhoneSelect(\'other\',\'Add other...\')">Add other...</div>';
+    }
+    if (phoneNums[0] && window.itwPhoneSelect) {
+      window.itwPhoneSelect(phoneNums[0].val.replace(/^\+1\s*/, ''), phoneNums[0].label + ': ' + phoneNums[0].val);
+    }
+    if (el('itw-zip')) el('itw-zip').value = m.zip || '';
+    if (el('itw-city')) el('itw-city').value = m.city || '';
+    if (el('itw-state')) el('itw-state').value = m.state || '';
+    var tzMap = { 'AK':'America/Anchorage','HI':'Pacific/Honolulu','CA':'America/Los_Angeles','OR':'America/Los_Angeles','WA':'America/Los_Angeles','NV':'America/Los_Angeles','MT':'America/Denver','ID':'America/Denver','WY':'America/Denver','CO':'America/Denver','NM':'America/Denver','UT':'America/Denver','AZ':'America/Denver' };
+    var tz = tzMap[m.state] || 'America/New_York';
+    if (window.itwMuiSelect) window.itwMuiSelect('itw-timezone', tz);
+    var langOptions = ['English','Spanish','French','Mandarin','Vietnamese','Arabic'];
+    var lang = langOptions.indexOf(m.lang) >= 0 ? m.lang : 'English';
+    if (window.itwMuiSelect) window.itwMuiSelect('itw-language', lang);
+    var cgList = m.caregivers || (m.caregiver ? [m.caregiver] : []);
+    var cgData = cgList.filter(Boolean).find(function(c){ return c.isPrimary; }) || cgList[0];
+    var cgFirst = el('itw-cg-first'), cgLast = el('itw-cg-last');
+    if (cgData) {
+      if (cgFirst) cgFirst.value = cgData.first || '';
+      if (cgLast) cgLast.value = cgData.last || '';
+      if (cgData.relation && window.itwMuiSelect) window.itwMuiSelect('itw-cg-relation', cgData.relation);
+    }
+    if (el('itw-text-consent')) el('itw-text-consent').checked = false;
+  }
+
+  // Patch populateProfile to also refresh invite form and reset success state
+  var _origPopulate = window.populateProfile;
+  window.populateProfile = function(key) {
+    _origPopulate(key);
+    populateInviteForm(key);
+    // Re-evaluate diff-member banner when page member changes
+    var banner = document.getElementById('cw-diff-member-banner');
+    if (banner && banner.style.display !== 'none' && window.memberData) {
+      var pageData = window.memberData[key];
+      var chatName = (document.getElementById('cwh-name') || {}).textContent || '';
+      var belowHdr = document.getElementById('cw-below-header');
+      if (pageData && chatName && pageData.name === chatName) {
+        banner.style.display = 'none';
+        if (belowHdr) belowHdr.classList.remove('cw-diff-active');
+      } else if (pageData && chatName && pageData.name !== chatName) {
+        banner.textContent = 'Warning: Different member profile open';
+        if (belowHdr) belowHdr.classList.add('cw-diff-active');
+      }
+    }
+    var form = document.querySelector('#tab-invite-to-wellframe .itw-form');
+    var success = document.getElementById('itw-success');
+    if (form) form.style.display = '';
+    if (success) success.style.display = 'none';
+    var sel = document.getElementById('itw-program-selected');
+    var sb = document.getElementById('itw-program-search-block');
+    var si = document.getElementById('itw-program-search');
+    var dd = document.getElementById('itw-program-dropdown');
+    if (sel) sel.style.display = 'none';
+    if (sb) sb.style.display = '';
+    if (si) si.value = '';
+    if (dd) dd.classList.remove('open');
+  };
+
+  // Onboarding programs list
+  var ITW_PROGRAMS = [
+    { cat:'Diabetes',        name:'Diabetes Management (English)' },
+    { cat:'Diabetes',        name:'Diabetes Management (Spanish)' },
+    { cat:'Diabetes',        name:'Diabetes Management: Type 1 (English)' },
+    { cat:'Cardiac',         name:'Cardiac Health (English)' },
+    { cat:'Cardiac',         name:'Cardiac Health (Spanish)' },
+    { cat:'Cardiac',         name:'Heart Failure (English)' },
+    { cat:'Cardiac',         name:'Heart Failure (Spanish)' },
+    { cat:'Respiratory',     name:'Asthma (English)' },
+    { cat:'Respiratory',     name:'Asthma (Spanish)' },
+    { cat:'Respiratory',     name:'COPD (English)' },
+    { cat:'Respiratory',     name:'COPD (Spanish)' },
+    { cat:'Maternal Health', name:'Maternal Health: Multiple Pregnancy (English)' },
+    { cat:'Maternal Health', name:'Maternal Health: Multiple Pregnancy (Spanish)' },
+    { cat:'Maternal Health', name:'Maternal Health: Prenatal Substance Use (English)' },
+    { cat:'Behavioral Health',name:'Behavioral Health' },
+    { cat:'Prevention',      name:'Fall Prevention' },
+    { cat:'Pain Management', name:'Pain Management: Migraines (English)' },
+    { cat:'Pain Management', name:'Pain Management: Migraines (Spanish)' },
+    { cat:'Supplements',     name:'Program Supplement: Physical Activity (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Smoking Cessation (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Stress Management (English)' },
+    { cat:'Supplements',     name:'Program Supplement: Weight Loss (English)' },
+    { cat:'Pediatric',       name:'Pediatric Caregiver: Newborn Wellness (1 Year) (English)' },
+    { cat:'Pediatric',       name:'Pediatric Caregiver: Newborn Wellness (1 Year) (Spanish)' }
+  ];
+
+  window.itwFilterPrograms = function(q) {
+    var dd = document.getElementById('itw-program-dropdown');
+    var inp = document.getElementById('itw-program-search');
+    var rect = inp.getBoundingClientRect();
+    dd.style.left = rect.left + 'px';
+    dd.style.top = rect.bottom + 'px';
+    dd.style.width = rect.width + 'px';
+    var term = q.trim().toLowerCase();
+    var filtered = term ? ITW_PROGRAMS.filter(function(p) {
+      return p.name.toLowerCase().indexOf(term) > -1 || p.cat.toLowerCase().indexOf(term) > -1;
+    }) : ITW_PROGRAMS;
+    if (!filtered.length) {
+      dd.innerHTML = '<div style="padding:10px 12px;font-size:12px;color:#888;">No programs found</div>';
+    } else {
+      var html = '', lastCat = '';
+      filtered.forEach(function(p) {
+        if (p.cat !== lastCat) { html += '<div class="itw-program-cat">' + p.cat + '</div>'; lastCat = p.cat; }
+        html += '<div class="itw-program-option" onclick="itwSelectProgram(' + JSON.stringify(p.name) + ')">' + p.name + '</div>';
+      });
+      dd.innerHTML = html;
+    }
+    dd.classList.add('open');
+  };
+
+  window.itwSelectProgram = function(name) {
+    document.getElementById('itw-program-search-block').style.display = 'none';
+    document.getElementById('itw-program-dropdown').classList.remove('open');
+    document.getElementById('itw-program-selected-name').textContent = name;
+    document.getElementById('itw-program-selected').style.display = 'flex';
+  };
+
+  window.itwClearProgram = function() {
+    document.getElementById('itw-program-selected').style.display = 'none';
+    document.getElementById('itw-program-search-block').style.display = '';
+    var inp = document.getElementById('itw-program-search');
+    inp.value = '';
+    document.getElementById('itw-program-dropdown').classList.remove('open');
+    inp.focus();
+  };
+
+  window.itwToggleCaregiver = function(btn) {
+    var s = document.getElementById('itw-caregiver-section');
+    var opening = !s.classList.contains('open');
+    s.classList.toggle('open');
+    btn.textContent = s.classList.contains('open') ? '[-] REMOVE CAREGIVER' : '[+] ADD CAREGIVER';
+    if (opening) {
+      var key = window.currentMemberKey;
+      var m = window.memberData && window.memberData[key];
+      if (!m) return;
+      var cgList = (m.caregivers || (m.caregiver ? [m.caregiver] : [])).filter(Boolean);
+      var menu = document.getElementById('itw-cg-prefill-menu');
+      if (menu) {
+        menu.innerHTML = cgList.map(function(cg, i) {
+          var lbl = cg.first + ' ' + cg.last + ' (' + cg.relation + (cg.isPrimary ? ' · Primary' : '') + ')';
+          return '<div class="itw-mui-option" onclick="itwCgPrefillSelect(' + i + ',\'' + lbl.replace(/'/g, "\\'") + '\')">' + lbl + '</div>';
+        }).join('') + '<div class="itw-mui-option add-other" onclick="itwCgPrefillSelect(\'other\',\'Add other...\')">Add other...</div>';
+      }
+      var defaultIdx = cgList.findIndex(function(c) { return c.isPrimary; });
+      if (defaultIdx < 0) defaultIdx = 0;
+      var defaultCg = cgList[defaultIdx];
+      var defaultLbl = defaultCg ? defaultCg.first + ' ' + defaultCg.last + ' (' + defaultCg.relation + (defaultCg.isPrimary ? ' · Primary' : '') + ')' : '';
+      itwCgPrefillSelect(defaultIdx, defaultLbl);
+    }
+  };
+
+  window.itwOpenModal = function() {
+    document.getElementById('itw-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.itwCloseModal = function() {
+    document.getElementById('itw-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.itwPhoneSelect = function(value, displayLabel) {
+    var inp = document.getElementById('itw-phone');
+    var lbl = document.getElementById('itw-phone-prefill-label');
+    var menu = document.getElementById('itw-phone-prefill-menu');
+    var trigger = document.getElementById('itw-phone-prefill-trigger');
+    var manualRow = document.getElementById('itw-phone-manual-row');
+    if (value === 'other') {
+      if (manualRow) manualRow.style.display = '';
+      if (inp) inp.value = '';
+      if (lbl) { lbl.textContent = 'Add other...'; lbl.classList.remove('itw-mui-placeholder'); }
+      if (menu) { menu.querySelectorAll('.itw-mui-option').forEach(function(o) { o.classList.toggle('selected', o.textContent === 'Add other...'); }); menu.classList.remove('open'); }
+      if (trigger) trigger.classList.remove('open');
+      var manual = document.getElementById('itw-phone-manual');
+      if (manual) { manual.value = ''; setTimeout(function(){ manual.focus(); }, 50); }
+      return;
+    }
+    if (manualRow) manualRow.style.display = 'none';
+    if (inp) inp.value = value;
+    if (lbl) { lbl.textContent = displayLabel; lbl.classList.remove('itw-mui-placeholder'); }
+    if (menu) {
+      menu.querySelectorAll('.itw-mui-option').forEach(function(o) { o.classList.toggle('selected', o.textContent === displayLabel); });
+      menu.classList.remove('open');
+    }
+    if (trigger) trigger.classList.remove('open');
+  };
+
+  window.itwCgPrefillSelect = function(idx, displayLabel) {
+    var inp = document.getElementById('itw-cg-prefill');
+    var lbl = document.getElementById('itw-cg-prefill-label');
+    var menu = document.getElementById('itw-cg-prefill-menu');
+    var trigger = document.getElementById('itw-cg-prefill-trigger');
+    if (inp) inp.value = idx;
+    if (lbl) { lbl.textContent = displayLabel; lbl.classList.remove('itw-mui-placeholder'); }
+    if (menu) {
+      menu.querySelectorAll('.itw-mui-option').forEach(function(o) {
+        o.classList.toggle('selected', o.textContent === displayLabel);
+      });
+      menu.classList.remove('open');
+    }
+    if (trigger) trigger.classList.remove('open');
+    itwPrefillCaregiver(idx);
+  };
+
+  window.itwPrefillCaregiver = function(idx) {
+    var manualRow = document.getElementById('itw-cg-manual-row');
+    var el = function(id) { return document.getElementById(id); };
+    if (idx === 'other') {
+      if (manualRow) manualRow.style.display = '';
+      if (el('itw-cg-first')) el('itw-cg-first').value = '';
+      if (el('itw-cg-last')) el('itw-cg-last').value = '';
+      if (window.itwMuiClose) window.itwMuiClose('itw-cg-relation');
+      var lbl = el('itw-cg-relation-label');
+      if (lbl) { lbl.textContent = 'Select...'; lbl.className = 'itw-mui-placeholder'; }
+      if (el('itw-cg-relation')) el('itw-cg-relation').value = '';
+      return;
+    }
+    if (manualRow) manualRow.style.display = 'none';
+    var key = window.currentMemberKey;
+    var m = window.memberData && window.memberData[key];
+    if (!m) return;
+    var cgList = (m.caregivers || (m.caregiver ? [m.caregiver] : [])).filter(Boolean);
+    var cg = cgList[parseInt(idx, 10)];
+    if (!cg) return;
+    if (el('itw-cg-first')) el('itw-cg-first').value = cg.first || '';
+    if (el('itw-cg-last')) el('itw-cg-last').value = cg.last || '';
+    if (cg.relation && window.itwMuiSelect) window.itwMuiSelect('itw-cg-relation', cg.relation);
+  };
+
+  window.itwSendInvite = function() {
+    var form = document.querySelector('#tab-invite-to-wellframe .itw-form');
+    var success = document.getElementById('itw-success');
+    var label = document.getElementById('itw-success-label-text');
+    var now = new Date();
+    label.textContent = 'Invite sent on ' + (now.getMonth()+1) + '/' + now.getDate() + '/' + now.getFullYear();
+    form.style.display = 'none';
+    success.style.display = 'flex';
+    var btn = document.getElementById('banner-itw-btn');
+    if (btn) { btn.title = 'See invite status'; }
+  };
+
+  window.itwMuiToggle = function(id) {
+    var trigger = document.getElementById(id + '-trigger');
+    var menu = document.getElementById(id + '-menu');
+    var isOpen = menu.classList.contains('open');
+    // close all open menus first
+    document.querySelectorAll('.itw-mui-menu.open').forEach(function(m) { m.classList.remove('open'); });
+    document.querySelectorAll('.itw-mui-select-trigger.open').forEach(function(t) { t.classList.remove('open'); });
+    if (!isOpen) {
+      var rect = trigger.getBoundingClientRect();
+      menu.style.left = rect.left + 'px';
+      menu.style.top = rect.bottom + 2 + 'px';
+      menu.style.width = rect.width + 'px';
+      menu.classList.add('open');
+      trigger.classList.add('open');
+    }
+  };
+
+  window.itwMuiSelect = function(id, value) {
+    document.getElementById(id).value = value;
+    var label = document.getElementById(id + '-label');
+    label.textContent = value;
+    label.classList.remove('itw-mui-placeholder');
+    document.querySelectorAll('#' + id + '-menu .itw-mui-option').forEach(function(o) {
+      o.classList.toggle('selected', o.textContent === value);
+    });
+    document.getElementById(id + '-menu').classList.remove('open');
+    document.getElementById(id + '-trigger').classList.remove('open');
+  };
+
+  window.addEventListener('scroll', function() {
+    document.querySelectorAll('.itw-mui-menu.open').forEach(function(m) { m.classList.remove('open'); });
+    document.querySelectorAll('.itw-mui-select-trigger.open').forEach(function(t) { t.classList.remove('open'); });
+  }, true);
+
+  document.addEventListener('click', function(e) {
+    // close MUI selects on outside click
+    if (!e.target.closest('.itw-mui-select')) {
+      document.querySelectorAll('.itw-mui-menu.open').forEach(function(m) { m.classList.remove('open'); });
+      document.querySelectorAll('.itw-mui-select-trigger.open').forEach(function(t) { t.classList.remove('open'); });
+    }
+    // close program dropdown on outside click
+    var wrap = document.querySelector('.itw-program-search-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      var dd = document.getElementById('itw-program-dropdown');
+      if (dd) dd.classList.remove('open');
+    }
+  });
+
+  // Initial population for the default member
+  populateInviteForm(window.currentMemberKey || 'jackson-thomas');
+})();
+</script>
+
+<!-- Modal: Invite to Wellframe (at body level to avoid overflow/display:none containment) -->
+<div id="itw-modal" onclick="if(event.target===this)itwCloseModal()">
+  <div class="itw-modal-card">
+    <div class="itw-modal-header">
+      <img src="assets/Wellframe/Logomark.png" style="width:20px;height:20px;object-fit:contain;">
+      <span class="itw-modal-header-title">Invite to Wellframe</span>
+      <button class="itw-modal-close" onclick="itwCloseModal()"><span class="material-icons" style="font-size:20px;">close</span></button>
+    </div>
+    <div id="tab-invite-to-wellframe">
+      <div class="itw-wrap">
+        <div class="itw-form">
+
+          <div class="itw-field">
+            <label>Access Code <span class="req">*</span></label>
+            <div class="itw-mui-select" id="itw-access-code-wrap">
+              <input type="hidden" id="itw-access-code" value="">
+              <div class="itw-mui-select-trigger" id="itw-access-code-trigger" onclick="itwMuiToggle('itw-access-code')">
+                <span id="itw-access-code-label" class="itw-mui-placeholder">Select...</span>
+                <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+              </div>
+              <div class="itw-mui-menu" id="itw-access-code-menu">
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFWELL')">WFWELL</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFBIEN')">WFBIEN</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCHAT')">WFCHAT</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCHARLA')">WFCHARLA</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFTALK')">WFTALK</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFPLATICA')">WFPLATICA</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFMED')">WFMED</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFMEDICOS')">WFMEDICOS</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCARE')">WFCARE</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCUIDADOS')">WFCUIDADOS</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFBEGIN')">WFBEGIN</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFINICIO')">WFINICIO</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFSTART')">WFSTART</div>
+                <div class="itw-mui-option" onclick="itwMuiSelect('itw-access-code','WFCOMENZO')">WFCOMENZO</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <span class="itw-caregiver-toggle" id="itw-caregiver-toggle" onclick="itwToggleCaregiver(this)">[+] ADD CAREGIVER</span>
+            <div id="itw-caregiver-section" class="itw-caregiver-section">
+              <div class="itw-field" style="margin-bottom:14px;">
+                <label>Pre-fill from existing caregiver</label>
+                <div class="itw-mui-select" id="itw-cg-prefill-wrap">
+                  <input type="hidden" id="itw-cg-prefill" value="">
+                  <div class="itw-mui-select-trigger" id="itw-cg-prefill-trigger" onclick="itwMuiToggle('itw-cg-prefill')">
+                    <span id="itw-cg-prefill-label" class="itw-mui-placeholder">Select...</span>
+                    <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+                  </div>
+                  <div class="itw-mui-menu" id="itw-cg-prefill-menu"></div>
+                </div>
+              </div>
+              <div class="itw-row" id="itw-cg-manual-row" style="margin-bottom:14px;display:none;">
+                <div class="itw-field">
+                  <label>Caregiver First Name <span class="req">*</span></label>
+                  <input id="itw-cg-first" class="itw-input" type="text">
+                </div>
+                <div class="itw-field">
+                  <label>Caregiver Last Name <span class="req">*</span></label>
+                  <input id="itw-cg-last" class="itw-input" type="text">
+                </div>
+                <div class="itw-field">
+                  <label>Caregiver Relationship</label>
+                  <div class="itw-mui-select" id="itw-cg-relation-wrap">
+                    <input type="hidden" id="itw-cg-relation" value="">
+                    <div class="itw-mui-select-trigger" id="itw-cg-relation-trigger" onclick="itwMuiToggle('itw-cg-relation')">
+                      <span id="itw-cg-relation-label" class="itw-mui-placeholder">Select...</span>
+                      <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+                    </div>
+                    <div class="itw-mui-menu" id="itw-cg-relation-menu">
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Spouse')">Spouse</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Child')">Child</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Parent')">Parent</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Sibling')">Sibling</div>
+                      <div class="itw-mui-option" onclick="itwMuiSelect('itw-cg-relation','Other')">Other</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="itw-row">
+                <div class="itw-field">
+                  <label>Caregiver Phone Number <span class="req">*</span></label>
+                  <div class="itw-phone-row">
+                    <select class="itw-phone-cc"><option>US +1</option><option>CA +1</option><option>MX +52</option></select>
+                    <input id="itw-cg-phone" class="itw-phone-num" type="tel">
+                  </div>
+                </div>
+                <div class="itw-field">
+                  <label>Caregiver Email Address</label>
+                  <input id="itw-cg-email" class="itw-input" type="email">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="itw-row">
+            <div class="itw-field">
+              <label>Phone Number <span class="req">*</span></label>
+              <input type="hidden" id="itw-phone" value="">
+              <div class="itw-mui-select" id="itw-phone-prefill-wrap">
+                <div class="itw-mui-select-trigger" id="itw-phone-prefill-trigger" onclick="itwMuiToggle('itw-phone-prefill')">
+                  <span id="itw-phone-prefill-label" class="itw-mui-placeholder">Select...</span>
+                  <svg class="itw-mui-chevron" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+                </div>
+                <div class="itw-mui-menu" id="itw-phone-prefill-menu"></div>
+              </div>
+              <div id="itw-phone-manual-row" style="display:none;margin-top:8px;">
+                <div class="itw-phone-row">
+                  <select class="itw-phone-cc"><option>US +1</option><option>CA +1</option><option>MX +52</option></select>
+                  <input id="itw-phone-manual" class="itw-phone-num" type="tel" oninput="document.getElementById('itw-phone').value=this.value">
+                </div>
+              </div>
+            </div>
+            <div class="itw-field">
+              <label>Email Address</label>
+              <input id="itw-email" class="itw-input" type="email">
+            </div>
+          </div>
+
+          <div class="itw-footer" id="itw-footer">
+            <label style="font-size:12px;display:flex;align-items:center;gap:8px;cursor:pointer;">
+              <input id="itw-text-consent" type="checkbox" class="itw-mui-checkbox">
+              <span class="itw-mui-checkbox-box"><svg width="12" height="10" viewBox="0 0 12 10"><polyline points="1.5,5 4.5,8 10.5,1.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              Member has agreed to text-based communication <span style="color:#C62828;font-size:12px;font-weight:600;">*</span>
+            </label>
+            <span class="itw-footer-spacer"></span>
+            <span style="font-size:11px;color:#555;white-space:nowrap;">* Required fields</span>
+            <button class="itw-btn-cancel" onclick="itwCloseModal()">CANCEL</button>
+            <button class="itw-btn-invite" onclick="itwSendInvite();">INVITE MEMBER</button>
+          </div>
+
+        </div>
+
+        <!-- Success state -->
+        <div class="itw-success" id="itw-success">
+          <span class="material-icons itw-success-icon">forward_to_inbox</span>
+          <div class="itw-success-label">
+            <span class="material-icons">check_circle</span>
+            <span id="itw-success-label-text">Invite sent on —</span>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="itw-btn-sms" onclick="alert('Opening text message for ' + document.getElementById('itw-first-name').value + '...');">
+              <span class="material-icons" style="font-size:16px;">sms</span> Send a text message
+            </button>
+            <button class="itw-btn-sms" onclick="alert('Opening email for ' + document.getElementById('itw-first-name').value + '...');">
+              <span class="material-icons" style="font-size:16px;">email</span> Send an email
+            </button>
+          </div>
+          <div class="itw-program-picker">
+            <div class="itw-program-picker-title">
+              <span class="material-icons">add_circle_outline</span>
+              Add Onboarding Program
+            </div>
+            <div id="itw-program-search-block">
+              <div class="itw-program-search-wrap">
+                <input id="itw-program-search" class="itw-program-search" type="text" placeholder="Search programs…" autocomplete="off"
+                  oninput="itwFilterPrograms(this.value)"
+                  onfocus="itwFilterPrograms(this.value)">
+                <span class="material-icons">search</span>
+                <div class="itw-program-dropdown" id="itw-program-dropdown"></div>
+              </div>
+            </div>
+            <div class="itw-program-selected" id="itw-program-selected">
+              <span class="material-icons">check_circle</span>
+              <span id="itw-program-selected-name"></span>
+              <span class="itw-program-change" onclick="itwClearProgram()">Change</span>
+            </div>
+          </div>
+          <div style="padding:0 0 20px;text-align:center;">
+            <button class="itw-btn-cancel" style="border:1px solid #ccc;border-radius:3px;" onclick="itwCloseModal()">DONE</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- end #tab-invite-to-wellframe -->
+  </div><!-- end .itw-modal-card -->
+</div><!-- end #itw-modal -->
+
+
+<!-- Messages notification popup -->
+<div id="cw-msg-popup" style="display:none;position:fixed;bottom:96px;right:24px;z-index:10000;width:340px;background:#fff;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:1px solid #e4e4e4;font-family:'Open Sans',sans-serif;overflow:hidden;display:none;flex-direction:column;">
+
+  <!-- Header (swaps between list and chat mode) -->
+  <div id="cw-popup-header" style="display:flex;align-items:center;gap:8px;padding:12px 14px 10px;border-bottom:1px solid #f0f0f0;flex-shrink:0;">
+    <!-- list-mode header -->
+    <div id="cwh-list" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+      <span style="font-size:14px;font-weight:700;color:#1a1a1a;">Chats</span>
+      <span onclick="cwClosePopup()" style="cursor:pointer;color:#999;font-size:20px;line-height:1;">&times;</span>
+    </div>
+    <!-- chat-mode header -->
+    <div id="cwh-chat" style="display:none;align-items:center;width:100%;gap:8px;">
+      <span onclick="cwBackToList()" style="cursor:pointer;display:flex;align-items:center;color:#555;flex-shrink:0;" title="Back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </span>
+      <div id="cwh-avatar" style="flex-shrink:0;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;"></div>
+      <span id="cwh-name" style="font-size:13px;font-weight:700;color:#1a1a1a;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
+      <span onclick="cwClosePopup()" style="cursor:pointer;color:#999;font-size:20px;line-height:1;flex-shrink:0;">&times;</span>
+    </div>
+  </div>
+
+  <!-- Different-member banner -->
+  <div id="cw-diff-member-banner" style="display:none;background:#fffbea;border-bottom:1px solid #f0d940;padding:5px 16px;font-size:11px;font-weight:600;color:#7a6200;letter-spacing:0.01em;flex-shrink:0;">Different member profile</div>
+
+  <!-- List view -->
+  <div id="cw-msg-list" style="height:460px;overflow-y:auto;"></div>
+
+  <!-- Chat view -->
+  <div id="cw-chat-view" style="display:none;flex-direction:column;height:380px;">
+    <div id="cw-chat-messages" style="flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="padding:10px 12px;border-top:1px solid #f0f0f0;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;">
+      <textarea id="cw-chat-input" placeholder="Type a message…" rows="1" oninput="cwInputResize(this)" onkeydown="cwInputKeydown(event)" style="flex:1;border:1px solid #ddd;border-radius:6px;padding:7px 10px;font-size:13px;font-family:'Open Sans',sans-serif;resize:none;outline:none;line-height:1.4;max-height:80px;overflow-y:auto;"></textarea>
+      <button onclick="cwSendMessage()" style="flex-shrink:0;background:#3D5C8C;color:#fff;border:none;border-radius:6px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var cwMessages = [
+    { member:'Jackson Thomas', key:'jackson-thomas', initials:'JT', color:'#5B8DD9', time:'2m ago',   preview:'I took my medication this morning but I\'m still feeling a bit dizzy...', unread:true },
+    { member:'Maria Rivera',   key:'maria-rivera',   initials:'MR', color:'#2D4270', time:'18m ago',  preview:'Should I be worried or is that normal during rehab?', unread:true },
+    { member:'Robert Chen',    key:'robert-chen',    initials:'RC', color:'#35B4F0', time:'1h ago',   preview:'My blood pressure readings have been higher this week.', unread:false },
+    { member:'Sarah Williams', key:'sarah-williams', initials:'SW', color:'#5B8DD9', time:'3h ago',   preview:'Thank you for sending over those resources, very helpful!', unread:false },
+    { member:'James O\'Connor',key:'james-oconnor',  initials:'JO', color:'#2D4270', time:'10:32 AM', preview:'Attached my latest lab results from the clinic visit.', unread:false },
+  ];
+
+  var cwChats = {
+    'jackson-thomas': [
+      { from:'member', text:'Good morning! I just wanted to check in about my diabetes management plan.', time:'9:02 AM' },
+      { from:'cm',     text:'Good morning, Jackson! Great to hear from you. How have your blood sugar readings been?', time:'9:05 AM' },
+      { from:'member', text:'Mostly in range, but I had a high reading after dinner on Tuesday.', time:'9:07 AM' },
+      { from:'cm',     text:'That can happen — did you have anything different for dinner that evening?', time:'9:09 AM' },
+      { from:'member', text:'I took my medication this morning but I\'m still feeling a bit dizzy...', time:'9:14 AM', newThread:true },
+    ],
+    'maria-rivera': [
+      { from:'member', text:'Hi, I have a question about my cardiac rehab schedule.', time:'Yesterday' },
+      { from:'cm',     text:'Of course! What would you like to know?', time:'Yesterday' },
+      { from:'member', text:'Can we reschedule Thursday\'s check-in to Friday afternoon?', time:'10:42 AM', newThread:true },
+      { from:'member', text:'Also, I\'ve been experiencing some shortness of breath after the exercises.', time:'10:45 AM' },
+      { from:'member', text:'Should I be worried or is that normal during rehab?', time:'10:46 AM' },
+    ],
+    'robert-chen': [
+      { from:'cm',     text:'Hi Robert, just checking in — how are you feeling this week?', time:'Monday' },
+      { from:'member', text:'Not bad overall, but I\'ve been a bit worried.', time:'Monday' },
+      { from:'member', text:'My blood pressure readings have been higher this week.', time:'11:20 AM' },
+    ],
+    'sarah-williams': [
+      { from:'cm',     text:'Hi Sarah, I\'ve sent over some resources on maternal nutrition. Let me know if you have questions!', time:'Yesterday' },
+      { from:'member', text:'Thank you for sending over those resources, very helpful!', time:'9:05 AM' },
+    ],
+    'james-oconnor': [
+      { from:'member', text:'Dr. Park referred me to you for follow-up on my behavioral health plan.', time:'Last week' },
+      { from:'cm',     text:'Welcome James! I\'ve reviewed your referral and would love to connect. When works for you?', time:'Last week' },
+      { from:'member', text:'Attached my latest lab results from the clinic visit.', time:'10:32 AM' },
+    ],
+  };
+
+  var popupOpen = false;
+  var currentChatKey = null;
+  var cwManuallyMarkedUnread = false;
+
+  window.cwHandleNameClick = function() {
+    var cwn = document.getElementById('chatWidgetMemberName');
+    if (!cwn) return;
+    var widgetName = cwn.textContent.trim();
+    if (widgetName === 'Chats') {
+      popupOpen ? cwClosePopup() : cwOpenPopup();
+      return;
+    }
+    var match = cwMessages.find(function(x) { return x.member === widgetName; });
+    if (!match) { popupOpen ? cwClosePopup() : cwOpenPopup(); return; }
+    var popup = document.getElementById('cw-msg-popup');
+    popup.style.display = 'flex';
+    popupOpen = true;
+    cwOpenChat(match.key);
+  };
+
+  window.cwOpenPopup = function() {
+    cwShowListView();
+    var popup = document.getElementById('cw-msg-popup');
+    popup.style.display = 'flex';
+    popupOpen = true;
+  };
+
+  function cwShowListView() {
+    document.getElementById('cwh-list').style.display = 'flex';
+    document.getElementById('cwh-chat').style.display = 'none';
+    document.getElementById('cw-msg-list').style.display = 'block';
+    document.getElementById('cw-chat-view').style.display = 'none';
+    var banner = document.getElementById('cw-diff-member-banner');
+    if (banner) banner.style.display = 'none';
+    cwRenderList();
+  }
+
+  var cwSectionOpen = { unread: true, recent: true };
+
+  function cwUnreadMsgCount() {
+    var total = 0;
+    cwMessages.forEach(function(m) {
+      if (!m.unread) return;
+      var msgs = cwChats[m.key] || [];
+      var counting = false;
+      msgs.forEach(function(msg) {
+        if (msg.newThread) counting = true;
+        if (counting) total++;
+      });
+    });
+    return total;
+  }
+
+  function cwUpdateBadge() {
+    var count = cwUnreadMsgCount();
+    var badge = document.querySelector('#chat-widget .cw-badge');
+    if (badge) {
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+  }
+
+  function cwSectionHeader(label, key, count) {
+    var open = cwSectionOpen[key];
+    var chevron = open
+      ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>'
+      : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    var countStr = (count != null) ? ' <span style="font-weight:400;color:#999;">('+count+')</span>' : '';
+    return '<div onclick="cwToggleSection(\''+key+'\')" style="display:flex;align-items:center;gap:6px;padding:7px 16px;background:#f8f8f8;border-bottom:1px solid #ececec;cursor:pointer;user-select:none;">'
+      + '<span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;flex:1;">'+label+countStr+'</span>'
+      + '<span style="color:#888;display:flex;align-items:center;">'+chevron+'</span>'
+      + '</div>';
+  }
+
+  window.cwToggleSection = function(key) {
+    cwSectionOpen[key] = !cwSectionOpen[key];
+    cwRenderList();
+  };
+
+  function cwMakeRows(items) {
+    return items.map(function(m) {
+      var bg = m.unread ? '#f7f9fc' : '#fff';
+      return '<div onclick="cwOpenChat(\''+m.key+'\')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;background:'+bg+';" onmouseover="this.style.background=\'#eef2f8\'" onmouseout="this.style.background=\''+bg+'\'">'
+        + '<div style="flex-shrink:0;width:36px;height:36px;border-radius:50%;background:'+m.color+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;position:relative;">'
+        +   m.initials
+        +   ( m.unread ? '<span style="position:absolute;top:0;right:0;width:9px;height:9px;background:#E53935;border-radius:50%;border:2px solid #fff;"></span>' : '' )
+        + '</div>'
+        + '<div style="flex:0 0 140px;min-width:0;">'
+        +   '<div style="font-size:13px;font-weight:'+(m.unread?'700':'600')+';color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+m.member+'</div>'
+        +   '<div style="font-size:11px;color:#aaa;margin-top:1px;">'+m.time+'</div>'
+        + '</div>'
+        + '<div style="flex:1;min-width:0;font-size:12px;color:'+(m.unread?'#333':'#777')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:'+(m.unread?'500':'400')+';">'+m.preview+'</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  window.cwRenderList = function() {
+    var unread = cwMessages.filter(function(m){ return m.unread; });
+    var recent = cwMessages.filter(function(m){ return !m.unread; });
+    var html = '';
+    if (unread.length) {
+      html += cwSectionHeader('Unread', 'unread', cwUnreadMsgCount());
+      if (cwSectionOpen.unread) html += cwMakeRows(unread);
+    }
+    if (recent.length) {
+      html += cwSectionHeader('Recent (Today)', 'recent', null);
+      if (cwSectionOpen.recent) html += cwMakeRows(recent);
+    }
+    if (!html) html = '<div style="padding:24px 16px;text-align:center;color:#999;font-size:13px;">No messages</div>';
+    document.getElementById('cw-msg-list').innerHTML = html;
+  };
+
+  window.cwOpenChat = function(key) {
+    var m = cwMessages.find(function(x){ return x.key === key; });
+    if (!m) return;
+    currentChatKey = key;
+    cwManuallyMarkedUnread = false;
+
+    var cwn = document.getElementById('chatWidgetMemberName');
+    var banner = document.getElementById('cw-diff-member-banner');
+    if (banner && cwn) {
+      var profileName = cwn.textContent.trim();
+      var isDiff = profileName !== 'Chats' && profileName !== m.member;
+      banner.style.display = isDiff ? 'block' : 'none';
+    }
+
+    document.getElementById('cwh-list').style.display = 'none';
+    var chatHeader = document.getElementById('cwh-chat');
+    chatHeader.style.display = 'flex';
+    var avatar = document.getElementById('cwh-avatar');
+    avatar.style.background = m.color;
+    avatar.textContent = m.initials;
+    document.getElementById('cwh-name').textContent = m.member;
+
+    document.getElementById('cw-msg-list').style.display = 'none';
+    var cv = document.getElementById('cw-chat-view');
+    cv.style.display = 'flex';
+
+    var msgs = cwChats[key] || [];
+    var chatEl = document.getElementById('cw-chat-messages');
+    var newDivider = '<div style="display:flex;align-items:center;gap:10px;margin:6px 0;">'
+      + '<div style="flex:1;height:1px;background:#d0d0d0;"></div>'
+      + '<span style="font-size:11px;color:#888;white-space:nowrap;font-weight:500;">New messages</span>'
+      + '<div style="width:40px;height:1px;background:#d0d0d0;"></div>'
+      + '</div>';
+    var memberName = m.member.split(' ')[0];
+    chatEl.innerHTML = msgs.map(function(msg, idx) {
+      var isCM = msg.from === 'cm';
+      var senderLabel = isCM
+        ? '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">You</span><span style="font-size:11px;color:#888;margin-left:5px;">Care Manager</span>'
+        : '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">'+memberName+'</span>';
+      var markUnreadBtn = !isCM
+        ? '<button class="cw-mark-unread-btn" onclick="cwMarkUnread(\''+key+'\','+idx+')" style="display:none;position:absolute;top:-26px;right:-4px;background:#fff;border:1px solid #d0d0d0;border-radius:8px;padding:7px 18px;font-size:13px;color:#777;cursor:pointer;font-family:\'Open Sans\',sans-serif;white-space:nowrap;box-shadow:0 1px 6px rgba(0,0,0,0.10);font-weight:400;" onmouseover="this.style.background=\'#f5f5f5\';this.style.borderColor=\'#bbb\'" onmouseout="this.style.background=\'#fff\';this.style.borderColor=\'#d0d0d0\'">Mark Unread</button>'
+        : '';
+      return (msg.newThread ? newDivider : '')
+        + '<div class="cw-msg-row" style="display:flex;flex-direction:column;align-items:'+(isCM?'flex-end':'flex-start')+';gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;" onmouseover="cwMsgHover(this,true)" onmouseout="cwMsgHover(this,false)">'
+        + '<div style="display:flex;align-items:baseline;gap:0;width:100%;justify-content:'+(isCM?'flex-end':'flex-start')+';padding:0 2px;">'
+        +   '<div style="display:flex;align-items:baseline;gap:4px;flex:1;justify-content:'+(isCM?'flex-end':'flex-start')+'">'
+        +     senderLabel
+        +   '</div>'
+        +   '<span style="font-size:11px;color:#aaa;white-space:nowrap;margin-left:10px;">'+msg.time+'</span>'
+        + '</div>'
+        + '<div style="position:relative;display:inline-block;max-width:85%;">'
+        +   '<div style="background:'+(isCM?'#d6e8f5':'#e8e8e8')+';color:#1a1a1a;border-radius:'+(isCM?'12px 12px 2px 12px':'12px 12px 12px 2px')+';padding:9px 12px;font-size:13px;line-height:1.5;font-weight:500;">'+msg.text+'</div>'
+        +   markUnreadBtn
+        + '</div>'
+        + '</div>';
+    }).join('');
+    chatEl.scrollTop = chatEl.scrollHeight;
+
+    var inp = document.getElementById('cw-chat-input');
+    inp.value = '';
+    inp.style.height = 'auto';
+    inp.placeholder = 'Message ' + memberName;
+  };
+
+  window.cwBackToList = function() {
+    if (currentChatKey && !cwManuallyMarkedUnread) {
+      var m = cwMessages.find(function(x){ return x.key === currentChatKey; });
+      if (m) { m.unread = false; }
+      var msgs = cwChats[currentChatKey] || [];
+      msgs.forEach(function(msg){ delete msg.newThread; });
+      cwUpdateBadge();
+    }
+    currentChatKey = null;
+    cwManuallyMarkedUnread = false;
+    cwShowListView();
+  };
+
+  window.cwSendMessage = function() {
+    var inp = document.getElementById('cw-chat-input');
+    var text = inp.value.trim();
+    if (!text || !currentChatKey) return;
+    if (!cwChats[currentChatKey]) cwChats[currentChatKey] = [];
+    cwChats[currentChatKey].push({ from:'cm', text:text, time:'Just now' });
+    inp.value = '';
+    inp.style.height = 'auto';
+    var msgs = cwChats[currentChatKey];
+    var chatEl = document.getElementById('cw-chat-messages');
+    var m = cwMessages.find(function(x){ return x.key === currentChatKey; });
+    var memberName = m ? m.member.split(' ')[0] : 'Member';
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-bottom:6px;margin-left:-16px;margin-right:-16px;padding:4px 16px 14px;';
+    div.innerHTML = '<div style="display:flex;align-items:baseline;width:100%;justify-content:flex-end;padding:0 2px;">'
+      + '<span style="font-size:11px;font-weight:700;color:#1a1a1a;">You</span>'
+      + '<span style="font-size:11px;color:#888;margin-left:5px;">Care Manager</span>'
+      + '<span style="font-size:11px;color:#aaa;margin-left:10px;">Just now</span>'
+      + '</div>'
+      + '<div style="max-width:85%;background:#d6e8f5;color:#1a1a1a;border-radius:12px 12px 2px 12px;padding:9px 12px;font-size:13px;line-height:1.5;font-weight:500;">'+text+'</div>';
+    chatEl.appendChild(div);
+    chatEl.scrollTop = chatEl.scrollHeight;
+    inp.placeholder = 'Message ' + memberName;
+  };
+
+  window.cwMsgHover = function(row, on) {
+    var btn = row.querySelector('.cw-mark-unread-btn');
+    if (btn) btn.style.display = on ? 'block' : 'none';
+    if (btn) row.style.background = on ? '#F2F8FA' : '';
+  };
+
+  window.cwMarkUnread = function(key, fromIdx) {
+    var m = cwMessages.find(function(x){ return x.key === key; });
+    if (!m) return;
+    var msgs = cwChats[key] || [];
+    msgs.forEach(function(msg, i){ if (i >= fromIdx) msg.newThread = true; });
+    m.unread = true;
+    cwOpenChat(key);
+    cwManuallyMarkedUnread = true;
+    cwUpdateBadge();
+  };
+
+  window.cwInputResize = function(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+  };
+
+  window.cwInputKeydown = function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); cwSendMessage(); }
+  };
+
+  window.cwClosePopup = function() {
+    var popup = document.getElementById('cw-msg-popup');
+    popup.style.display = 'none';
+    popupOpen = false;
+    currentChatKey = null;
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', cwUpdateBadge);
+  } else {
+    cwUpdateBadge();
+  }
+})();
+</script>
 
 
 <!-- Add to Wellframe Modal -->
