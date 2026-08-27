@@ -119,15 +119,16 @@
   .ms-option.selected { background:#EBF4FA; }
   .ms-option .material-icons { font-size:16px; color:#1378A3; visibility:hidden; flex-shrink:0; }
   .ms-option.selected .material-icons { visibility:visible; }
-  .rr-group { background:#fff; border-radius:8px; border:1px solid var(--border-light); box-shadow:0 1px 3px rgba(0,0,0,.05); margin-bottom:16px; overflow:hidden; }
+  .rr-group { background:#fff; border-radius:8px; border:1px solid var(--border-light); box-shadow:0 1px 3px rgba(0,0,0,.05); margin:0 auto 16px; overflow:hidden; max-width:860px; width:100%; }
   .rr-group-header { display:flex; align-items:center; gap:10px; padding:16px 20px; cursor:pointer; user-select:none; }
   .rr-group-title { font-size:15px; font-weight:700; color:#0D1F2D; }
   .rr-group-count { display:inline-flex; align-items:center; justify-content:center; min-width:22px; height:22px; padding:0 6px; border-radius:11px; background:#1378A3; color:#fff; font-size:12px; font-weight:700; }
   .rr-group-chevron { margin-left:auto; color:#5A6472; }
-  .rr-group-table { width:100%; border-collapse:collapse; }
-  .rr-group-table th { text-align:left; font-size:12px; font-weight:700; color:#5A6472; background:#F7F9FA; padding:10px 20px; border-top:1px solid var(--border-light); border-bottom:1px solid var(--border-light); white-space:nowrap; }
-  .rr-group-table td { padding:12px 20px; font-size:13.5px; color:#333; border-bottom:1px solid #F0F0F0; vertical-align:middle; white-space:nowrap; }
-  .rr-group-table tr:last-child td { border-bottom:none; }
+  .rr-row-card { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:12px 20px; border-top:1px solid var(--border-light); }
+  .rr-row-card:first-child { border-top:none; }
+  .rr-row-fields { display:flex; flex-wrap:wrap; gap:20px; flex:1; min-width:0; }
+  .rr-row-actions { display:flex; gap:6px; align-items:flex-start; flex-shrink:0; }
+  .rr-row-actions .pw-act-btn { font-size:11.6px; padding:5px 12px; }
   .rr-member-link { color:var(--link); font-weight:600; cursor:pointer; }
   .rr-row-menu-btn { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:4px; cursor:pointer; color:var(--text-muted); }
   .rr-row-menu-btn:hover { background:#EAECEF; color:var(--text-primary); }
@@ -730,6 +731,7 @@
   /* ── card-list view ── */
   .pw-card-list { flex:1; overflow-y:auto; padding:12px 16px; display:grid; grid-template-columns:repeat(2,1fr); gap:10px; background:#F4F6F8; align-content:start; }
   .pw-card-list-1col { grid-template-columns:1fr; }
+  .pw-card-list-self-onboarded { gap:18px; }
   .pw-member-card { background:#fff; border-radius:6px; border:1px solid var(--border-light); box-shadow:0 1px 2px rgba(0,0,0,.05); overflow:hidden; }
   .pw-member-card.selected { border-color:var(--teal); box-shadow:0 0 0 2px rgba(19,120,163,.12); }
   /* Row format for alerts — two-column grid */
@@ -1037,7 +1039,7 @@
           <div class="pw-bucket-label">
             Members Without a Care Team
           </div>
-          <span class="pw-bucket-count">6</span>
+          <span class="pw-bucket-count" id="pwSelfOnboardedCount">6</span>
         </div>
 
         <div class="pw-bucket-divider">Utilization Management</div>
@@ -1324,6 +1326,61 @@
         </div>
       </div>
 
+      <div id="pwFilterBarRequests" style="display:none;flex-direction:column;border-bottom:1px solid var(--border-light);background:#fff;flex-shrink:0;">
+        <!-- Tab strip -->
+        <div style="display:flex;gap:0;padding:0 16px;border-bottom:1px solid var(--border-light);">
+          <span id="rrTab-received" onclick="rrSelectTab('received')" style="font-size:12px;font-weight:700;color:var(--teal-dark);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid var(--teal);white-space:nowrap;">Received</span>
+          <span id="rrTab-rejected" onclick="rrSelectTab('rejected')" style="font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;padding:8px 14px 6px;border-bottom:2px solid transparent;white-space:nowrap;">Rejected</span>
+        </div>
+        <!-- Filter row -->
+        <div style="display:flex;align-items:flex-end;padding:10px 16px;gap:10px;flex-wrap:wrap;">
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Module</span>
+            <select id="rrModuleFilter" style="width:80px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:12px;font-family:var(--font);background:#fff;">
+              <option value="">All</option><option>CM</option><option>AG</option><option>UM</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Type</span>
+            <select id="rrTypeFilter" style="width:140px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:12px;font-family:var(--font);background:#fff;">
+              <option value="">All</option><option>Member Referrals</option><option>Messages</option><option>Appointment</option><option>Care Plan</option><option>Activity</option><option>Faxes</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Member Name</span>
+            <input type="text" id="rrMemberNameFilter" placeholder="Search name..." style="width:130px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Risk Type</span>
+            <select id="rrRiskTypeFilter" style="width:96px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:12px;font-family:var(--font);background:#fff;">
+              <option value="">All</option><option>Clinical</option><option>Behavioral</option><option>Social</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Risk Level</span>
+            <select id="rrRiskLevelFilter" style="width:80px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:12px;font-family:var(--font);background:#fff;">
+              <option value="">All</option><option>High</option><option>Medium</option><option>Low</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">From Date</span>
+            <input type="date" id="rrDateFrom" style="width:130px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">To Date</span>
+            <input type="date" id="rrDateTo" style="width:130px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 8px;font-size:12px;font-family:var(--font);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <span style="font-size:11px;font-weight:700;color:var(--text-label);">Work Queue</span>
+            <select id="rrWorkQueueFilter" style="width:180px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);padding:0 6px;font-size:12px;font-family:var(--font);background:#fff;">
+              <option value="">All</option><option>Complex Care Management</option>
+            </select>
+          </div>
+          <button onclick="pwRenderRequestsTable()" style="height:28px;padding:0 14px;background:#1C4F6B;color:#fff;border:none;border-radius:var(--r-sm);font-size:12px;font-weight:600;font-family:var(--font);cursor:pointer;display:inline-flex;align-items:center;gap:5px;align-self:flex-end;"><span class="material-icons" style="font-size:14px;">search</span>Search</button>
+          <span onclick="rrClearFilters()" style="font-size:12px;font-weight:600;color:var(--link);cursor:pointer;display:inline-flex;align-items:center;gap:3px;align-self:flex-end;"><span style="font-size:14px;">×</span> Clear</span>
+        </div>
+      </div>
+
       <div class="pw-filter-bar" id="pwFilterBarAlerts" style="display:none;">
         <label>Sort by</label>
         <select id="pwAlertSort" style="width:130px;" onchange="pwRender()">
@@ -1503,7 +1560,7 @@
             <div onclick="maToggleAlertGroup('pwat-5')" style="display:flex;align-items:center;gap:8px;padding:18px 16px;background:#fff;cursor:pointer;user-select:none;border-radius:6px;">
               <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;">
                 <span style="font-size:13.7px;font-weight:700;color:var(--text-primary);">Wellframe</span>
-                <span id="pwat-5-badge" style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 8px;border-radius:10px;flex-shrink:0;">7</span>
+                <span id="pwat-5-badge" style="background:#1378A3;color:#fff;font-size:11.6px;font-weight:400;padding:2px 8px;border-radius:10px;flex-shrink:0;">10</span>
               </div>
               <span class="material-icons" id="pwat-5-chev" style="font-size:19px;color:var(--text-muted);transition:transform .15s;flex-shrink:0;transform:rotate(180deg);">expand_more</span>
             </div>
@@ -1545,10 +1602,25 @@
                   <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Significant anxiety reported &mdash; mental health support needed</td>
                   <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/03/2026</td>
                 </tr>
-                <tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
                   <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">George Butler</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-7',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-7" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
                   <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Chest tightness occurring several times this week</td>
                   <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">04/02/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Bianca Delgado</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-8',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-8" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Self-registered for Wellframe; no care manager assigned yet</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">08/27/2026</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border-light);">
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Corey Whitfield</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-9',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-9" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Self-registered for Wellframe; no care manager assigned yet</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">08/26/2026</td>
+                </tr>
+                <tr>
+                  <td style="padding:15px 16px;background:#fff;white-space:nowrap;"><div style="display:inline-flex;align-items:center;gap:2px;"><a href="#" style="color:var(--teal);font-weight:600;text-decoration:none;font-size:12.6px;">Selena Voss</a><div style="position:relative;display:inline-block;"><button onclick="maToggleMenu('pwat-menu-5-10',event)" style="border:none;background:none;cursor:pointer;padding:1px 3px;color:var(--text-muted);line-height:1;"><span class="material-icons" style="font-size:16.8px;vertical-align:middle;">more_vert</span></button><div id="pwat-menu-5-10" style="display:none;position:absolute;left:0;top:100%;background:#fff;border:1px solid #dde2e7;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;min-width:200px;overflow:hidden;"><div onclick="maMenuAction('Add Activity')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Add Activity</div><div onclick="maMenuAction('View Calendar')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Calendar</div><div onclick="maMenuAction('View Summary')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Summary</div><div onclick="maMenuAction('Required Activities')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Required Activities</div><div onclick="maMenuAction('Create Message')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">Create Message</div><div onclick="maMenuAction('View Member Alerts')" style="padding:12px 18px;font-size:13.7px;cursor:pointer;border-top:1px solid #eee;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">View Member Alerts</div></div></div></div></td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Self-registered for Wellframe; no care manager assigned yet</td>
+                  <td style="padding:15px 16px;background:#fff;color:var(--text-secondary);white-space:nowrap;">08/27/2026</td>
                 </tr>
               </tbody>
             </table>
@@ -8512,7 +8584,7 @@ var PW_DATA = {
     title: 'Alerts',
     icon: 'notifications_active',
     iconColor: '#E07820',
-    subtitle: '20 members · Unacknowledged GuidingCare compliance alerts and Wellframe member alerts',
+    subtitle: '23 members · Unacknowledged GuidingCare compliance alerts and Wellframe member alerts',
     members: [
       { id: 'jackson-thomas', name: 'Jackson Thomas', meta: 'DOB 03/15/1958 · MBR-2024-0847 · High Risk', program: 'Transitions of Care',
         tags: [
@@ -8598,7 +8670,19 @@ var PW_DATA = {
       { id: 'wf-terrence-mays', name: 'Terrence Mays', meta: 'DOB 06/03/1988 · MBR-2024-2681 · Low Risk', program: 'Weight Management',
         tags: [
           { label: 'Member doesn\'t have a care team. Please review and assign an appropriate care manager.', origin: 'Wellframe alert', type: 'wf', icon: 'notifications', source: 'wf' }
-        ], date: '08/09/2026' }
+        ], date: '08/09/2026' },
+      { id: 'wf-bianca-delgado', name: 'Bianca Delgado', meta: 'DOB 07/19/1988 · MBR-2024-2895 · Medium Risk', program: 'Behavioral Health',
+        tags: [
+          { label: 'Bianca self-registered for Wellframe on her own 6 hours ago and does not yet have an assigned care manager. Please reach out to welcome her and confirm care team assignment.', origin: 'Wellframe alert', type: 'wf', icon: 'notifications', source: 'wf' }
+        ], date: '08/27/2026' },
+      { id: 'wf-corey-whitfield', name: 'Corey Whitfield', meta: 'DOB 02/03/1975 · MBR-2024-2911 · High Risk', program: 'Cardiac Care',
+        tags: [
+          { label: 'Corey self-registered for Wellframe on his own yesterday and does not yet have an assigned care manager. Please reach out to welcome him and confirm care team assignment.', origin: 'Wellframe alert', type: 'wf', icon: 'notifications', source: 'wf' }
+        ], date: '08/26/2026' },
+      { id: 'wf-selena-voss', name: 'Selena Voss', meta: 'DOB 11/28/1992 · MBR-2024-2928 · Low Risk', program: 'Maternal Health',
+        tags: [
+          { label: 'Selena self-registered for Wellframe on her own today and does not yet have an assigned care manager. Please reach out to welcome her and confirm care team assignment.', origin: 'Wellframe alert', type: 'wf', icon: 'notifications', source: 'wf' }
+        ], date: '08/27/2026' }
     ]
   },
   'new-insights': {
@@ -8630,7 +8714,7 @@ var PW_DATA = {
     title: 'Requests Received',
     icon: 'inbox',
     iconColor: '#555',
-    subtitle: '25 requests · Referrals, activities, appointments, care plans, and faxes routed to your work queue',
+    subtitle: '25 requests · Referrals, activities, appointments, care plans, messages, and faxes routed to your work queue',
     members: [
       { id: 'jackson-thomas', name: 'Jackson Thomas', meta: 'DOB 03/15/1958 · MBR-2024-0847 · High Risk', program: 'Diabetes Management',
         tags: [{ label: 'Telephonic Outreach', origin: 'Module: CM · Type: Activity · Eligibility: Diabetes Management · Routed by: Kim Anderson', type: 'gc', icon: 'phone', source: 'gc', isRequest: true, hasAttachment: false, activityType: 'Activity', scheduledDate: '08/05/2026', referDate: '08/04/2026', status: 'Pending' }], date: '08/04/2026' },
@@ -8638,8 +8722,6 @@ var PW_DATA = {
         tags: [{ label: 'Transition of Care Follow-Up', origin: 'Module: CM · Type: Activity · Eligibility: Behavioral Health · Routed by: Marcus Webb', type: 'gc', icon: 'assignment', source: 'gc', isRequest: true, hasAttachment: true, activityType: 'Care Plan', scheduledDate: '08/06/2026', referDate: '08/04/2026', status: 'Pending' }], date: '08/04/2026' },
       { id: 'barbara-nguyen', name: 'Barbara Nguyen', meta: 'DOB 07/04/1961 · MBR-2024-0512 · High Risk', program: 'Congestive Heart Failure',
         tags: [{ label: 'Post-Discharge Assessment', origin: 'Module: CM · Type: Activity · Eligibility: CHF · Routed by: Kim Anderson', type: 'gc', icon: 'description', source: 'gc', isRequest: true, hasAttachment: true, activityType: 'Appointment', scheduledDate: '08/05/2026', referDate: '08/03/2026', status: 'Pending' }], date: '08/03/2026' },
-      { id: 'debra-washington', name: 'Debra Washington', meta: 'DOB 05/18/1970 · MBR-2024-1644 · Medium Risk', program: 'Hypertension',
-        tags: [{ label: 'Grievance — billing dispute regarding specialist visit', origin: 'Module: AG · Type: Complaint · Work Queue: AG > AG Complaint > Billing WQ · Routed by: System', type: 'urgent', icon: 'gavel', source: 'gc', isRequest: true, hasAttachment: false, activityType: 'Messages', scheduledDate: '—', referDate: '08/03/2026', status: 'Pending' }], date: '08/03/2026' },
       { id: 'charles-reed', name: 'Charles Reed', meta: 'DOB 04/12/1967 · MBR-2024-1102 · Medium Risk', program: 'Diabetes Management',
         tags: [{ label: 'Referral — Endocrinology', origin: 'Module: CM · Type: Activity · Eligibility: — · Routed by: Dr. Patel (External)', type: 'gc', icon: 'local_hospital', source: 'gc', isRequest: true, hasAttachment: true, activityType: 'Faxes', scheduledDate: '08/07/2026', referDate: '08/03/2026', status: 'Pending' }], date: '08/03/2026' },
       { id: 'helen-cho', name: 'Helen Cho', meta: 'DOB 09/29/1973 · MBR-2024-0739 · Low Risk', program: 'Asthma Management',
@@ -8648,25 +8730,32 @@ var PW_DATA = {
         tags: [{ label: 'Cardiology Appointment Coordination', origin: 'Module: CM · Type: Activity · Eligibility: Cardiac Care · Routed by: Dr. Nguyen (External)', type: 'urgent', icon: 'event', source: 'gc', isRequest: true, hasAttachment: true, activityType: 'Appointment', scheduledDate: '08/08/2026', referDate: '08/04/2026', status: 'Pending' }], date: '08/04/2026' },
       { id: 'angela-powell', name: 'Angela Powell', meta: 'DOB 08/07/1985 · MBR-2024-1855 · Low Risk', program: 'Weight Management',
         tags: [{ label: 'Inbound fax — lab results from PCP', origin: 'Module: CM · Type: Activity · Eligibility: — · Routed by: Fax Queue', type: 'gc', icon: 'fax', source: 'gc', isRequest: true, hasAttachment: true, activityType: 'Faxes', scheduledDate: '—', referDate: '08/02/2026', status: 'Pending' }], date: '08/02/2026' },
-      { id: 'jerome-banks', name: 'Jerome Banks', meta: 'DOB 01/14/1960 · MBR-2024-0483 · High Risk', program: 'COPD Management',
-        tags: [{ label: 'Member inquiry — inhaler coverage question', origin: 'Module: UM · Type: Activity · Eligibility: COPD Management · Routed by: Marcus Webb', type: 'gc', icon: 'chat', source: 'gc', isRequest: true, hasAttachment: false, activityType: 'Messages', scheduledDate: '—', referDate: '08/04/2026', status: 'Pending' }], date: '08/04/2026' },
       { id: 'patricia-flores', name: 'Patricia Flores', meta: 'DOB 02/19/1979 · MBR-2024-1487 · Medium Risk', program: 'Behavioral Health',
         tags: [{ label: 'Appeal — denial of outpatient behavioral health services', origin: 'Module: AG · Type: Appeal · Work Queue: AG > AG Appeal > BH WQ · Routed by: System', type: 'urgent', icon: 'gavel', source: 'gc', isRequest: true, hasAttachment: true, activityType: 'Activity', scheduledDate: '08/09/2026', referDate: '08/01/2026', status: 'Pending' }], date: '08/01/2026' }
+    ]
+  },
+  'requests-messages': {
+    title: 'Messages Requests',
+    members: [
+      { id: 'debra-washington', name: 'Debra Washington', meta: 'DOB 05/18/1970 · MBR-2024-1644 · Medium Risk', program: 'Hypertension',
+        tags: [{ label: 'Grievance — billing dispute regarding specialist visit', origin: 'Module: AG · Type: Complaint · Work Queue: AG > AG Complaint > Billing WQ · Routed by: System', type: 'urgent', icon: 'gavel', source: 'gc', isRequest: true, hasAttachment: false, activityType: 'Messages', referDate: '08/03/2026', status: 'Pending' }], date: '08/03/2026' },
+      { id: 'jerome-banks', name: 'Jerome Banks', meta: 'DOB 01/14/1960 · MBR-2024-0483 · High Risk', program: 'COPD Management',
+        tags: [{ label: 'Member inquiry — inhaler coverage question', origin: 'Module: UM · Type: Activity · Eligibility: COPD Management · Routed by: Marcus Webb', type: 'gc', icon: 'chat', source: 'gc', isRequest: true, hasAttachment: false, activityType: 'Messages', referDate: '08/04/2026', status: 'Pending' }], date: '08/04/2026' }
     ]
   },
   'requests-referrals': {
     title: 'Member Referrals',
     members: [
-      { id: 'wf-nadia-brooks', name: 'Nadia Brooks', meta: 'DOB 05/17/1984 · MBR-2024-2601 · Medium Risk', program: 'Diabetes Management',
+      { id: 'rr-rachel-simmons', name: 'Rachel Simmons', meta: 'DOB 03/12/1976 · MBR-2024-2810 · Medium Risk', program: 'Hypertension Management',
+        tags: [{ referDate: '08/25/2026', referredBy: 'Dr. Elena Cruz (External)', status: 'Pending' }], date: '08/25/2026' },
+      { id: 'rr-douglas-finch', name: 'Douglas Finch', meta: 'DOB 09/08/1969 · MBR-2024-2827 · High Risk', program: 'Congestive Heart Failure',
+        tags: [{ referDate: '08/24/2026', referredBy: 'Marcus Webb', status: 'Pending' }], date: '08/24/2026' },
+      { id: 'rr-whitney-marsh', name: 'Whitney Marsh', meta: 'DOB 06/30/1991 · MBR-2024-2844 · Low Risk', program: 'Maternal Health',
         tags: [{ referDate: '08/23/2026', referredBy: 'Kim Anderson', status: 'Pending' }], date: '08/23/2026' },
-      { id: 'wf-victor-alva', name: 'Victor Alva', meta: 'DOB 02/09/1971 · MBR-2024-2618 · High Risk', program: 'Cardiac Care',
-        tags: [{ referDate: '08/22/2026', referredBy: 'Marcus Webb', status: 'Pending' }], date: '08/22/2026' },
-      { id: 'gc-gregory-simmons', name: 'Gregory Simmons', meta: 'DOB 03/11/1963 · MBR-2024-2701 · High Risk', program: 'Congestive Heart Failure',
-        tags: [{ referDate: '08/21/2026', referredBy: 'Dr. Patel (External)', status: 'Pending' }], date: '08/21/2026' },
-      { id: 'gc-natalie-cho', name: 'Natalie Cho', meta: 'DOB 09/02/1988 · MBR-2024-2718 · Medium Risk', program: 'Maternal Health',
-        tags: [{ referDate: '08/20/2026', referredBy: 'Kim Anderson', status: 'Pending' }], date: '08/20/2026' },
-      { id: 'gc-vincent-ortiz', name: 'Vincent Ortiz', meta: 'DOB 12/30/1959 · MBR-2024-2735 · High Risk', program: 'COPD Management',
-        tags: [{ referDate: '08/19/2026', referredBy: 'Jennifer Reyes', status: 'Pending' }], date: '08/19/2026' }
+      { id: 'rr-ivan-petrov', name: 'Ivan Petrov', meta: 'DOB 11/17/1958 · MBR-2024-2861 · High Risk', program: 'COPD Management',
+        tags: [{ referDate: '08/22/2026', referredBy: 'Dr. Samuel Ito (External)', status: 'Pending' }], date: '08/22/2026' },
+      { id: 'rr-sylvia-chambers', name: 'Sylvia Chambers', meta: 'DOB 04/05/1983 · MBR-2024-2878 · Medium Risk', program: 'Behavioral Health',
+        tags: [{ referDate: '08/21/2026', referredBy: 'Jennifer Reyes', status: 'Pending' }], date: '08/21/2026' }
     ]
   },
   'requests-appointments': {
@@ -8867,18 +8956,18 @@ var PW_DATA = {
     iconColor: '#B05300',
     subtitle: '6 members · Registered for Wellframe on their own, without an outreach invitation',
     members: [
-      { id: 'wf-nadia-brooks', name: 'Nadia Brooks', meta: 'DOB 05/17/1984 · MBR-2024-2601 · Medium Risk', program: 'Diabetes Management',
-        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfUsername: 'nadia.brooks84', dayCount: 'Day 3', lastContact: 'Not contacted yet' }], date: '08/07/2026' },
-      { id: 'wf-victor-alva', name: 'Victor Alva', meta: 'DOB 02/09/1971 · MBR-2024-2618 · High Risk', program: 'Cardiac Care',
-        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfUsername: 'victor.alva71', dayCount: 'Day 5', lastContact: 'Not contacted yet' }], date: '08/05/2026' },
-      { id: 'wf-renee-scott', name: 'Renee Scott', meta: 'DOB 10/22/1993 · MBR-2024-2634 · Low Risk', program: 'Maternal Health',
-        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfUsername: 'renee.scott93', dayCount: 'Day 2', lastContact: 'Not contacted yet' }], date: '08/08/2026' },
-      { id: 'wf-julian-ford', name: 'Julian Ford', meta: 'DOB 08/14/1966 · MBR-2024-2650 · Medium Risk', program: 'COPD Management',
-        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfUsername: 'julian.ford66', dayCount: 'Day 6', lastContact: 'Last contacted 1 day ago' }], date: '08/04/2026' },
-      { id: 'wf-monica-diaz', name: 'Monica Diaz', meta: 'DOB 01/29/1979 · MBR-2024-2667 · High Risk', program: 'Behavioral Health',
-        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfUsername: 'monica.diaz79', dayCount: 'Day 4', lastContact: 'Not contacted yet' }], date: '08/06/2026' },
-      { id: 'wf-terrence-mays', name: 'Terrence Mays', meta: 'DOB 06/03/1988 · MBR-2024-2681 · Low Risk', program: 'Weight Management',
-        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfUsername: 'terrence.mays88', dayCount: 'Day 1', lastContact: 'Not contacted yet' }], date: '08/09/2026' }
+      { id: 'wf-nadia-brooks', name: 'Nadia Brooks', meta: 'DOB 05/17/1984 · MBR-2024-2601 · Medium Risk', program: 'Diabetes Management Program, Welcome Program',
+        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfEmail: 'nadia.brooks@email.com', dayCount: 'Day 3', lastContact: 'Not contacted yet' }], date: '08/07/2026' },
+      { id: 'wf-victor-alva', name: 'Victor Alva', meta: 'DOB 02/09/1971 · MBR-2024-2618 · High Risk', program: 'Heart Health Program',
+        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfEmail: 'victor.alva@email.com', dayCount: 'Day 5', lastContact: 'Not contacted yet' }], date: '08/05/2026' },
+      { id: 'wf-renee-scott', name: 'Renee Scott', meta: 'DOB 10/22/1993 · MBR-2024-2634 · Low Risk', program: 'Maternal Health Program, Welcome Program',
+        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfEmail: 'renee.scott@email.com', dayCount: 'Day 2', lastContact: 'Not contacted yet' }], date: '08/08/2026' },
+      { id: 'wf-julian-ford', name: 'Julian Ford', meta: 'DOB 08/14/1966 · MBR-2024-2650 · Medium Risk', program: 'COPD Management Program',
+        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfEmail: 'julian.ford@email.com', dayCount: 'Day 6', lastContact: 'Last contacted 1 day ago' }], date: '08/04/2026' },
+      { id: 'wf-monica-diaz', name: 'Monica Diaz', meta: 'DOB 01/29/1979 · MBR-2024-2667 · High Risk', program: 'Behavioral Health Support',
+        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfEmail: 'monica.diaz@email.com', dayCount: 'Day 4', lastContact: 'Not contacted yet' }], date: '08/06/2026' },
+      { id: 'wf-terrence-mays', name: 'Terrence Mays', meta: 'DOB 06/03/1988 · MBR-2024-2681 · Low Risk', program: 'Weight Management Program, Welcome Program',
+        tags: [{ label: '', type: 'wf', icon: 'app_registration', source: 'wf', wfEmail: 'terrence.mays@email.com', dayCount: 'Day 1', lastContact: 'Not contacted yet' }], date: '08/09/2026' }
     ]
   },
   'wf-messages': {
@@ -9008,10 +9097,11 @@ function pwHasWf(id) { return WF_MEMBER_IDS.has(id); }
 function pwWfIcon() {
   return '<span title="Active on Wellframe app" style="display:inline-flex;align-items:center;color:#0080A3;flex-shrink:0;"><span class="material-icons" style="font-size:14px;">phone_iphone</span></span>';
 }
-function pwCol(label, value) {
-  return '<span style="display:inline-flex;flex-direction:column;gap:2px;min-width:80px;">' +
+function pwCol(label, value, width) {
+  var sizeStyle = width ? ('flex:0 0 ' + width + 'px;width:' + width + 'px;') : 'min-width:80px;';
+  return '<span style="display:inline-flex;flex-direction:column;gap:2px;' + sizeStyle + '">' +
     '<span style="font-size:11.6px;font-weight:600;color:var(--text-muted);">' + label + '</span>' +
-    '<span style="font-size:12.6px;color:var(--text-primary);">' + value + '</span>' +
+    '<span style="font-size:12.6px;color:var(--text-primary);word-break:break-word;">' + value + '</span>' +
   '</span>';
 }
 
@@ -9264,7 +9354,7 @@ function pwInitCalendar() {
   }
 }
 
-var RR_SECTIONS_COLLAPSED = { referrals: false, activities: false, appointments: false, careplans: false, faxes: false };
+var RR_SECTIONS_COLLAPSED = { referrals: false, activities: false, messages: false, appointments: false, careplans: false, faxes: false };
 var RR_FAX_LINK_OPTIONS = ['Jackson Thomas','Barbara Nguyen','Helen Cho','Steven Yates','Debra Washington','Charles Reed','Nadia Brooks','Victor Alva'];
 
 function rrToggleSection(key) {
@@ -9276,6 +9366,10 @@ function rrMenuBtn(category, id) {
   return '<span class="rr-row-menu-btn" onclick="rrShowRowMenu(event,\'' + category + '\',\'' + id + '\')"><span class="material-icons">more_vert</span></span>';
 }
 
+function rrActBtn(text, onclick, primary) {
+  return '<button class="pw-act-btn' + (primary ? ' pw-act-btn-primary' : ' pw-act-btn-ghost') + '" onclick="' + onclick + '">' + text + '</button>';
+}
+
 function rrStatusBadge(status) {
   var color = (status === 'Accepted' || status === 'Signed Off') ? '#2E7D32' :
     (status === 'Rejected' || status === 'Archived') ? '#8A9198' :
@@ -9285,11 +9379,15 @@ function rrStatusBadge(status) {
 
 function rrReferralRow(m) {
   var t = m.tags[0] || {};
-  return '<tr><td><span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span></td>' +
-    '<td>' + (t.referDate || '—') + '</td>' +
-    '<td>' + (t.referredBy || '—') + '</td>' +
-    '<td>' + rrStatusBadge(t.status || 'Pending') + '</td>' +
-    '<td>' + rrMenuBtn('referrals', m.id) + '</td></tr>';
+  return '<div class="rr-row-card"><div class="rr-row-fields">' +
+    pwCol('Member', '<span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span>', 160) +
+    pwCol('Refer Date', t.referDate || '—', 100) +
+    pwCol('Referred By', t.referredBy || '—', 180) +
+    pwCol('Status', rrStatusBadge(t.status || 'Pending'), 100) +
+    '</div><div class="rr-row-actions">' +
+    rrActBtn('Accept', "rrSetRequestStatus('requests-referrals','" + m.id + "','Accepted')", true) +
+    rrActBtn('Reject', "rrSetRequestStatus('requests-referrals','" + m.id + "','Rejected')", false) +
+    '</div></div>';
 }
 
 function rrActivityRow(m) {
@@ -9297,61 +9395,177 @@ function rrActivityRow(m) {
   var origin = t.origin || '';
   var assignedBy = ((origin.match(/Routed by: ([^·]+)/) || [])[1] || '—').trim();
   var priority = t.type === 'urgent' ? 'High' : 'Normal';
-  return '<tr><td><span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span></td>' +
-    '<td>' + (t.activityType || '—') + '</td>' +
-    '<td>' + (t.scheduledDate || '—') + '</td>' +
-    '<td>' + (t.referDate || m.date || '—') + '</td>' +
-    '<td>' + assignedBy + '</td>' +
-    '<td>' + priority + '</td>' +
-    '<td>' + rrStatusBadge(t.status || 'Pending') + '</td>' +
-    '<td>' + rrMenuBtn('activities', m.id) + '</td></tr>';
+  return '<div class="rr-row-card"><div class="rr-row-fields">' +
+    pwCol('Member', '<span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span>', 150) +
+    pwCol('Activity', t.activityType || '—', 100) +
+    pwCol('Scheduled', t.scheduledDate || '—', 100) +
+    pwCol('Refer Date', t.referDate || m.date || '—', 100) +
+    pwCol('Assigned By', assignedBy, 150) +
+    pwCol('Priority', priority, 80) +
+    pwCol('Status', rrStatusBadge(t.status || 'Pending'), 90) +
+    '</div><div class="rr-row-actions">' +
+    rrActBtn('Accept', "rrActivityAccept('" + m.id + "')", true) +
+    rrActBtn('Reject', "rrActivityDecline('" + m.id + "')", false) +
+    '</div></div>';
+}
+
+function rrMessageRow(m) {
+  var t = m.tags[0] || {};
+  var origin = t.origin || '';
+  var assignedBy = ((origin.match(/Routed by: ([^·]+)/) || [])[1] || '—').trim();
+  var priority = t.type === 'urgent' ? 'High' : 'Normal';
+  return '<div class="rr-row-card"><div class="rr-row-fields">' +
+    pwCol('Member', '<span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span>', 150) +
+    pwCol('Message', t.label || '—', 220) +
+    pwCol('Refer Date', t.referDate || m.date || '—', 100) +
+    pwCol('Assigned By', assignedBy, 150) +
+    pwCol('Priority', priority, 80) +
+    pwCol('Status', rrStatusBadge(t.status || 'Pending'), 90) +
+    '</div><div class="rr-row-actions">' +
+    rrActBtn('Accept', "rrActivityAccept('" + m.id + "','requests-messages')", true) +
+    rrActBtn('Reject', "rrActivityDecline('" + m.id + "','requests-messages')", false) +
+    '</div></div>';
 }
 
 function rrAppointmentRow(m) {
   var t = m.tags[0] || {};
-  return '<tr><td>' + (t.apptName || '—') + '</td>' +
-    '<td><span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span></td>' +
-    '<td>' + (t.apptDate || '—') + '</td>' +
-    '<td>' + (t.referredBy || '—') + '</td>' +
-    '<td>' + rrStatusBadge(t.status || 'Pending') + '</td>' +
-    '<td>' + rrMenuBtn('appointments', m.id) + '</td></tr>';
+  return '<div class="rr-row-card"><div class="rr-row-fields">' +
+    pwCol('Appointment', t.apptName || '—', 180) +
+    pwCol('Member', '<span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span>', 150) +
+    pwCol('Appointment Date', t.apptDate || '—', 120) +
+    pwCol('Referred By', t.referredBy || '—', 180) +
+    pwCol('Status', rrStatusBadge(t.status || 'Pending'), 100) +
+    '</div>' + rrMenuBtn('appointments', m.id) + '</div>';
 }
 
 function rrCarePlanRow(m) {
   var t = m.tags[0] || {};
-  return '<tr><td><span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span></td>' +
-    '<td>' + (t.condition || '—') + '</td>' +
-    '<td>' + (t.goalName || '—') + '</td>' +
-    '<td>' + (t.intervention || '—') + '</td>' +
-    '<td>' + (t.startDate || '—') + '</td>' +
-    '<td>' + (t.targetDate || '—') + '</td>' +
-    '<td>' + rrMenuBtn('careplans', m.id) + '</td></tr>';
+  return '<div class="rr-row-card"><div class="rr-row-fields">' +
+    pwCol('Member', '<span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span>', 150) +
+    pwCol('Condition', t.condition || '—', 170) +
+    pwCol('Goal Name', t.goalName || '—', 180) +
+    pwCol('Intervention', t.intervention || '—', 200) +
+    pwCol('Start Date', t.startDate || '—', 90) +
+    pwCol('Target Date', t.targetDate || '—', 90) +
+    '</div><div class="rr-row-actions">' +
+    rrActBtn('Accept', "rrSetRequestStatus('requests-careplans','" + m.id + "','Signed Off')", true) +
+    rrActBtn('Reject', "rrSetRequestStatus('requests-careplans','" + m.id + "','Rejected')", false) +
+    '</div></div>';
 }
 
 function rrFaxRow(m) {
   var t = m.tags[0] || {};
-  return '<tr><td style="font-family:monospace;font-size:12.5px;">' + m.name + '</td>' +
-    '<td>' + (t.receivedDate || '—') + '</td>' +
-    '<td>' + (t.lockStatus || '—') + '</td>' +
-    '<td>' + rrStatusBadge(t.status || 'Unread') + '</td>' +
-    '<td>' + rrMenuBtn('faxes', m.id) + '</td></tr>';
+  return '<div class="rr-row-card"><div class="rr-row-fields">' +
+    pwCol('Fax File', '<span style="font-family:monospace;font-size:12.5px;">' + m.name + '</span>', 220) +
+    pwCol('Received Date', t.receivedDate || '—', 140) +
+    pwCol('Lock Status', t.lockStatus || '—', 150) +
+    pwCol('Status', rrStatusBadge(t.status || 'Unread'), 100) +
+    '</div>' + rrMenuBtn('faxes', m.id) + '</div>';
 }
 
 var RR_SECTIONS = [
-  { key: 'referrals', title: 'Member Referrals', bucket: 'requests-referrals', cols: ['Member','Refer Date','Referred By','Status'], rowFn: rrReferralRow },
-  { key: 'activities', title: 'Activity Requests', bucket: 'requests-received', cols: ['Member','Activity','Scheduled','Refer Date','Assigned By','Priority','Status'], rowFn: rrActivityRow },
-  { key: 'appointments', title: 'Appointment Requests', bucket: 'requests-appointments', cols: ['Appointment','Member','Appointment Date','Referred By','Status'], rowFn: rrAppointmentRow },
-  { key: 'careplans', title: 'Care Plan Requests', bucket: 'requests-careplans', cols: ['Member','Condition','Goal Name','Intervention','Start Date','Target Date'], rowFn: rrCarePlanRow },
-  { key: 'faxes', title: 'Faxes (Inbound)', bucket: 'requests-faxes', cols: ['Fax File','Received Date','Lock Status','Status'], rowFn: rrFaxRow }
+  { key: 'referrals', title: 'Member Referrals', bucket: 'requests-referrals', rowFn: rrReferralRow },
+  { key: 'activities', title: 'Activity Requests', bucket: 'requests-received', rowFn: rrActivityRow },
+  { key: 'messages', title: 'Messages Requests', bucket: 'requests-messages', rowFn: rrMessageRow },
+  { key: 'appointments', title: 'Appointment Requests', bucket: 'requests-appointments', rowFn: rrAppointmentRow },
+  { key: 'careplans', title: 'Care Plan Requests', bucket: 'requests-careplans', rowFn: rrCarePlanRow },
+  { key: 'faxes', title: 'Faxes (Inbound)', bucket: 'requests-faxes', rowFn: rrFaxRow }
 ];
+
+var rrCurrentTab = 'received';
+var RR_TYPE_SECTION_MAP = { 'Member Referrals': ['referrals'], 'Messages': ['messages'], 'Appointment': ['appointments'], 'Care Plan': ['careplans'], 'Faxes': ['faxes'] };
+
+function rrSelectTab(tab) {
+  rrCurrentTab = tab;
+  ['received','rejected'].forEach(function(t) {
+    var el = document.getElementById('rrTab-' + t);
+    if (!el) return;
+    el.style.color = t === tab ? 'var(--teal-dark)' : 'var(--text-muted)';
+    el.style.borderBottomColor = t === tab ? 'var(--teal)' : 'transparent';
+    el.style.fontWeight = t === tab ? '700' : '600';
+  });
+  pwRenderRequestsTable();
+}
+
+function rrClearFilters() {
+  ['rrModuleFilter','rrTypeFilter','rrRiskTypeFilter','rrRiskLevelFilter','rrWorkQueueFilter'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  ['rrMemberNameFilter','rrDateFrom','rrDateTo'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  pwRenderRequestsTable();
+}
+
+function rrParseDate(str) {
+  if (!str) return null;
+  var parts = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (!parts) return null;
+  return new Date(+parts[3], +parts[1] - 1, +parts[2]);
+}
+
+function rrRowMatchesFilters(m, t) {
+  var moduleF = document.getElementById('rrModuleFilter').value;
+  var nameF = document.getElementById('rrMemberNameFilter').value.trim().toLowerCase();
+  var riskLevelF = document.getElementById('rrRiskLevelFilter').value;
+  var dateFromF = document.getElementById('rrDateFrom').value;
+  var dateToF = document.getElementById('rrDateTo').value;
+  var origin = t.origin || '';
+
+  if (nameF && m.name.toLowerCase().indexOf(nameF) === -1) return false;
+  if (moduleF && origin && origin.indexOf('Module: ' + moduleF) === -1) return false;
+  if (riskLevelF && m.meta && m.meta.indexOf(riskLevelF + ' Risk') === -1) return false;
+
+  var rowDate = rrParseDate(t.referDate || t.apptDate || t.startDate || m.date);
+  if (rowDate) {
+    if (dateFromF && rowDate < new Date(dateFromF + 'T00:00:00')) return false;
+    if (dateToF && rowDate > new Date(dateToF + 'T23:59:59')) return false;
+  }
+  return true;
+}
 
 function pwRenderRequestsTable() {
   var memberList = document.getElementById('pwMemberList');
   if (!memberList) return;
 
+  if (rrCurrentTab === 'rejected') {
+    var rejBucket = PW_DATA['requests-rejected'];
+    var rejTypeF = document.getElementById('rrTypeFilter').value;
+    var rejMembers = (rejBucket ? rejBucket.members : []).filter(function(m) {
+      var t = m.tags[0] || {};
+      if (rejTypeF && t.activityType !== rejTypeF) return false;
+      return rrRowMatchesFilters(m, t);
+    });
+    var rejHtml = '<div class="rr-group">' +
+      '<div class="rr-group-header">' +
+        '<span class="rr-group-title">Rejected Requests</span>' +
+        '<span class="rr-group-count">' + rejMembers.length + '</span>' +
+      '</div>' +
+      (rejMembers.length ?
+        rejMembers.map(rrRejectedRow).join('')
+        : '<div class="rr-group-empty">Nothing here right now.</div>') +
+      '</div>';
+    memberList.innerHTML = '<div style="padding:16px 20px;">' + rejHtml + '</div>';
+    rrWireMemberLinks(memberList);
+    return;
+  }
+
+  var typeF = document.getElementById('rrTypeFilter').value;
+
   var html = RR_SECTIONS.map(function(s) {
+    if (typeF) {
+      var mapped = RR_TYPE_SECTION_MAP[typeF] || [];
+      if (s.key !== 'activities' && mapped.indexOf(s.key) === -1) return '';
+    }
     var bucket = PW_DATA[s.bucket];
     var members = bucket ? bucket.members : [];
+    members = members.filter(function(m) {
+      var t = m.tags[0] || {};
+      if (typeF && s.key === 'activities' && t.activityType !== typeF) return false;
+      return rrRowMatchesFilters(m, t);
+    });
     var collapsed = RR_SECTIONS_COLLAPSED[s.key];
     var bodyHtml;
     if (collapsed) {
@@ -9359,11 +9573,7 @@ function pwRenderRequestsTable() {
     } else if (!members.length) {
       bodyHtml = '<div class="rr-group-empty">Nothing here right now.</div>';
     } else {
-      bodyHtml = '<div style="overflow-x:auto;"><table class="rr-group-table"><thead><tr>' +
-        s.cols.map(function(c) { return '<th>' + c + '</th>'; }).join('') + '<th style="width:40px;"></th>' +
-        '</tr></thead><tbody>' +
-        members.map(s.rowFn).join('') +
-        '</tbody></table></div>';
+      bodyHtml = members.map(s.rowFn).join('');
     }
     return '<div class="rr-group' + (collapsed ? ' collapsed' : '') + '">' +
       '<div class="rr-group-header" onclick="rrToggleSection(\'' + s.key + '\')">' +
@@ -9376,6 +9586,10 @@ function pwRenderRequestsTable() {
   }).join('');
 
   memberList.innerHTML = '<div style="padding:16px 20px;">' + html + '</div>';
+  rrWireMemberLinks(memberList);
+}
+
+function rrWireMemberLinks(memberList) {
   memberList.querySelectorAll('.rr-member-link').forEach(function(el) {
     el.addEventListener('click', function(e) {
       e.stopPropagation();
@@ -9383,6 +9597,18 @@ function pwRenderRequestsTable() {
       if (switcher) switcher.click();
     });
   });
+}
+
+function rrRejectedRow(m) {
+  var t = m.tags[0] || {};
+  return '<div class="rr-row-card"><div class="rr-row-fields">' +
+    pwCol('Member', '<span class="rr-member-link" data-member="' + m.id + '">' + m.name + '</span>', 150) +
+    pwCol('Activity', t.label || '—', 200) +
+    pwCol('Refer Date', t.referDate || '—', 100) +
+    pwCol('Declined By', m.declinedBy || '—', 140) +
+    pwCol('Declined Date', m.declinedDate || '—', 110) +
+    pwCol('Reason', m.reason || '—', 160) +
+    '</div></div>';
 }
 
 function rrSetRequestStatus(bucketKey, memberId, newStatus) {
@@ -9394,8 +9620,8 @@ function rrSetRequestStatus(bucketKey, memberId, newStatus) {
   pwRenderRequestsTable();
 }
 
-function rrActivityAccept(id) {
-  var bucket = PW_DATA['requests-received'];
+function rrActivityAccept(id, bucketKey) {
+  var bucket = PW_DATA[bucketKey || 'requests-received'];
   var m = bucket.members.find(function(x) { return x.id === id; });
   if (!m) return;
   var t = m.tags[0] || {};
@@ -9409,8 +9635,8 @@ function rrActivityAccept(id) {
   if (modal) modal.classList.add('open');
 }
 
-function rrActivityDecline(id) {
-  var bucket = PW_DATA['requests-received'];
+function rrActivityDecline(id, bucketKey) {
+  var bucket = PW_DATA[bucketKey || 'requests-received'];
   var m = bucket.members.find(function(x) { return x.id === id; });
   if (!m) return;
   var t = m.tags[0] || {};
@@ -9468,17 +9694,8 @@ function rrShowFaxLinkPicker(e, id) {
 function rrShowRowMenu(e, category, id) {
   e.stopPropagation();
   var items = '';
-  if (category === 'referrals') {
-    items = '<div class="pw-member-menu-item" onclick="rrSetRequestStatus(\'requests-referrals\',\'' + id + '\',\'Accepted\')">Accept</div>' +
-            '<div class="pw-member-menu-item" onclick="rrSetRequestStatus(\'requests-referrals\',\'' + id + '\',\'Rejected\')">Reject</div>';
-  } else if (category === 'activities') {
-    items = '<div class="pw-member-menu-item" onclick="rrCloseRowMenu();rrActivityAccept(\'' + id + '\')">Accept</div>' +
-            '<div class="pw-member-menu-item" onclick="rrCloseRowMenu();rrActivityDecline(\'' + id + '\')">Decline</div>';
-  } else if (category === 'appointments') {
+  if (category === 'appointments') {
     items = '<div class="pw-member-menu-item" onclick="rrReviewAppointment(\'' + id + '\')">Review</div>';
-  } else if (category === 'careplans') {
-    items = '<div class="pw-member-menu-item" onclick="rrSetRequestStatus(\'requests-careplans\',\'' + id + '\',\'Signed Off\')">Sign Off</div>' +
-            '<div class="pw-member-menu-item" onclick="rrSetRequestStatus(\'requests-careplans\',\'' + id + '\',\'Rejected\')">Reject</div>';
   } else if (category === 'faxes') {
     items = '<div class="pw-member-menu-item" onclick="rrShowFaxLinkPicker(event,\'' + id + '\')">Link to Member</div>' +
             '<div class="pw-member-menu-item" onclick="rrCloseRowMenu();rrFaxArchive(\'' + id + '\')">Archive</div>';
@@ -10359,9 +10576,9 @@ function pwRender() {
       return btn('pw-act-btn-primary pw-act-toggle-msg', 'chat', 'Message', 'data-member="'+mid+'" data-label="'+lbl+'" data-name="'+nm+'"');
     }
     if (pwCurrentBucket === 'wf-self-onboarded') {
-      return btn('pw-act-btn-primary pw-act-assign-self', 'person_add', 'Assign to Myself', 'data-member="'+mid+'" data-fullname="'+m.name+'"') +
-             btn('pw-act-refer-wq', 'forward_to_inbox', 'Refer to Work Queue', 'data-member="'+mid+'" data-fullname="'+m.name+'"') +
-             btn('pw-act-enroll-program', 'add_task', 'Enroll in Program', 'data-member="'+mid+'" data-fullname="'+m.name+'"');
+      return btn('pw-act-btn-primary pw-act-assign-self', 'person_add', 'Assign To Me', 'data-member="'+mid+'" data-fullname="'+m.name+'"') +
+             btn('pw-act-enroll-program', 'add_task', 'Assign a Primary Care Manager', 'data-member="'+mid+'" data-fullname="'+m.name+'"') +
+             btn('pw-act-refer-wq', 'forward_to_inbox', 'Refer to Work Queue', 'data-member="'+mid+'" data-fullname="'+m.name+'"');
     }
     return btn('pw-act-edit', 'edit_note', 'Edit', 'data-member="'+mid+'" data-label="'+lbl+'" data-date="'+m.date+'"') +
            btn('pw-act-btn-primary pw-act-perform', 'play_circle_outline', 'Perform', 'data-member="'+mid+'" data-label="'+lbl+'" data-priority="'+p+'"') +
@@ -10394,7 +10611,7 @@ function pwRender() {
   var isAlertsBucket = pwCurrentBucket === 'new-alerts';
   var isStyledBucket = ['new-insights','wf-inactive','wf-pending-signup','wf-no-invite','wf-self-onboarded'].indexOf(pwCurrentBucket) !== -1;
   var activeHtml = '', ackedHtml = '', aCount = 0, rCount = 0;
-  var html = isAlertsBucket ? '' : '<div class="pw-card-list' + (is1Col ? ' pw-card-list-1col' : '') + (isStyledBucket ? ' pw-card-list-styled' : '') + '">';
+  var html = isAlertsBucket ? '' : '<div class="pw-card-list' + (is1Col ? ' pw-card-list-1col' : '') + (isStyledBucket ? ' pw-card-list-styled' : '') + (pwCurrentBucket === 'wf-self-onboarded' ? ' pw-card-list-self-onboarded' : '') + '">';
   memberOrder.forEach(function(mid) {
     var entry = memberMap[mid];
     var m = entry.m;
@@ -10505,7 +10722,6 @@ function pwRender() {
               pwCol('Status', 'Self-onboarded') +
               pwCol('Days Since Registration', t.dayCount || '—') +
               pwCol('Last Contact', t.lastContact || '—') +
-              pwCol('Username', t.wfUsername || '—') +
             '</div>' +
             actionsHtml +
           '</div>';
@@ -10651,6 +10867,16 @@ function msToggleOption(id, el, evt) {
   if (data.selected.has(val)) data.selected.delete(val); else data.selected.add(val);
   el.classList.toggle('selected');
   msRenderValue(id);
+  if (id === 'referWQQueueDropdown') pwSyncReferWQStaff();
+}
+
+function pwSyncReferWQStaff() {
+  var queueData = MS_STATE['referWQQueueDropdown'];
+  var staffData = MS_STATE['referWQStaffDropdown'];
+  if (!queueData || !staffData) return;
+  staffData.selected = queueData.selected.size > 0 ? new Set(MS_CARE_STAFF_OPTIONS) : new Set();
+  msRenderPanel('referWQStaffDropdown');
+  msRenderValue('referWQStaffDropdown');
 }
 
 function msRenderValue(id) {
@@ -10678,7 +10904,10 @@ document.addEventListener('click', function(e) {
   }
 });
 
+var pwReferWQMemberKey = null;
+
 function pwOpenReferWQModal(memberKey, memberName) {
+  pwReferWQMemberKey = memberKey;
   var nameEl = document.getElementById('referWQMemberName');
   if (nameEl) nameEl.textContent = memberName || memberKey;
   var now = new Date();
@@ -10692,7 +10921,7 @@ function pwOpenReferWQModal(memberKey, memberName) {
   var banner = document.getElementById('referWQSuccessBanner');
   if (banner) banner.style.display = 'none';
   msInit('referWQQueueDropdown', MS_WORK_QUEUE_OPTIONS, [], 'list');
-  msInit('referWQStaffDropdown', MS_CARE_STAFF_OPTIONS, MS_CARE_STAFF_OPTIONS, 'count');
+  msInit('referWQStaffDropdown', MS_CARE_STAFF_OPTIONS, [], 'count');
   document.getElementById('referWorkQueueModal').classList.add('open');
 }
 
@@ -10711,10 +10940,181 @@ function pwReferWQSubmit(closeAfter) {
     banner.style.display = '';
   }
   if (closeAfter) {
-    setTimeout(function() { pwCloseReferWQModal(); if (banner) banner.style.display = 'none'; }, 1200);
+    var memberKey = pwReferWQMemberKey;
+    setTimeout(function() {
+      pwCloseReferWQModal();
+      if (banner) banner.style.display = 'none';
+      pwRemoveSelfOnboardedMember(memberKey);
+    }, 1200);
   } else {
     setTimeout(function() { if (banner) banner.style.display = 'none'; }, 4000);
   }
+}
+
+function pwRemoveSelfOnboardedMember(memberKey) {
+  var bucket = PW_DATA['wf-self-onboarded'];
+  if (!bucket || !memberKey) return;
+  var idx = bucket.members.findIndex(function(m) { return m.id === memberKey; });
+  if (idx === -1) return;
+  bucket.members.splice(idx, 1);
+  var n = bucket.members.length;
+  bucket.subtitle = n + ' member' + (n === 1 ? '' : 's') + ' · Registered for Wellframe on their own, without an outreach invitation';
+  var countEl = document.getElementById('pwSelfOnboardedCount');
+  if (countEl) countEl.textContent = n;
+  if (pwCurrentBucket === 'wf-self-onboarded') {
+    var subEl = document.getElementById('pwMainSubtitle');
+    if (subEl) subEl.textContent = bucket.subtitle;
+    pwRender();
+  }
+}
+
+var MS_CARE_MANAGER_OPTIONS = MS_CARE_STAFF_OPTIONS.filter(function(s) { return s.indexOf(': Care Manager') !== -1; });
+var pwAssignPcmMemberKey = null;
+var pcmSelectedCareManager = null;
+
+function pwOpenAssignPcmModal(memberKey, memberName) {
+  pwAssignPcmMemberKey = memberKey;
+  pcmSelectedCareManager = null;
+  var nameEl = document.getElementById('assignPcmMemberName');
+  if (nameEl) nameEl.textContent = memberName || memberKey;
+  var input = document.getElementById('assignPcmSearchInput');
+  if (input) input.value = '';
+  var searchArea = document.getElementById('assignPcmSearchArea');
+  if (searchArea) searchArea.style.display = '';
+  var selectedRow = document.getElementById('assignPcmSelected');
+  if (selectedRow) selectedRow.style.display = 'none';
+  pcmHideResults();
+  var banner = document.getElementById('assignPcmSuccessBanner');
+  if (banner) banner.style.display = 'none';
+  pcmUpdateSubmitState();
+  document.getElementById('assignPcmModal').classList.add('open');
+}
+
+function pwCloseAssignPcmModal() {
+  document.getElementById('assignPcmModal').classList.remove('open');
+  pcmHideResults();
+}
+
+function pcmPositionResults() {
+  var input = document.getElementById('assignPcmSearchInput');
+  var results = document.getElementById('assignPcmResults');
+  if (!input || !results) return;
+  var r = input.getBoundingClientRect();
+  results.style.left = r.left + 'px';
+  results.style.top = (r.bottom + 4) + 'px';
+  results.style.width = r.width + 'px';
+}
+
+function pcmHideResults() {
+  var results = document.getElementById('assignPcmResults');
+  if (results) results.style.display = 'none';
+}
+
+function pcmSearchInput(query) {
+  var results = document.getElementById('assignPcmResults');
+  if (!results) return;
+  pcmPositionResults();
+  var q = query.trim().toLowerCase();
+  var matches = q ? MS_CARE_MANAGER_OPTIONS.filter(function(n) { return n.toLowerCase().indexOf(q) !== -1; }) : MS_CARE_MANAGER_OPTIONS;
+  if (!matches.length) {
+    results.innerHTML = '<div style="padding:10px 14px;font-size:12px;color:#888;">No care managers found</div>';
+  } else {
+    results.innerHTML = matches.map(function(n) {
+      var esc = n.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      return '<div class="ms-option" data-value="' + esc + '" onclick="pcmSelectCareManager(this.getAttribute(&quot;data-value&quot;));" style="white-space:normal;overflow:visible;text-overflow:initial;"><span class="ms-option-label" style="white-space:normal;overflow:visible;text-overflow:initial;">' + n + '</span></div>';
+    }).join('');
+  }
+  results.style.display = 'block';
+}
+
+function pcmSelectCareManager(name) {
+  pcmSelectedCareManager = name;
+  var searchArea = document.getElementById('assignPcmSearchArea');
+  var selectedRow = document.getElementById('assignPcmSelected');
+  var selectedName = document.getElementById('assignPcmSelectedName');
+  pcmHideResults();
+  if (searchArea) searchArea.style.display = 'none';
+  if (selectedRow) selectedRow.style.display = 'flex';
+  if (selectedName) selectedName.textContent = name;
+  pcmUpdateSubmitState();
+}
+
+function pcmClearSelection() {
+  pcmSelectedCareManager = null;
+  var input = document.getElementById('assignPcmSearchInput');
+  var searchArea = document.getElementById('assignPcmSearchArea');
+  var selectedRow = document.getElementById('assignPcmSelected');
+  if (searchArea) searchArea.style.display = '';
+  if (input) { input.value = ''; input.focus(); }
+  if (selectedRow) selectedRow.style.display = 'none';
+  pcmUpdateSubmitState();
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#assignPcmSearchInput') && !e.target.closest('#assignPcmResults')) {
+    pcmHideResults();
+  }
+});
+
+window.addEventListener('resize', function() {
+  var results = document.getElementById('assignPcmResults');
+  if (results && results.style.display !== 'none') pcmPositionResults();
+});
+
+function pcmUpdateSubmitState() {
+  var btn = document.getElementById('assignPcmSubmitBtn');
+  if (!btn) return;
+  var enabled = !!pcmSelectedCareManager;
+  btn.disabled = !enabled;
+  btn.style.background = enabled ? 'var(--teal)' : '#BBC7CE';
+  btn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+}
+
+function pwAssignPcmSubmit() {
+  if (!pcmSelectedCareManager) return;
+  var banner = document.getElementById('assignPcmSuccessBanner');
+  var nameEl = document.getElementById('assignPcmMemberName');
+  var memberName = nameEl ? nameEl.textContent : 'the member';
+  var textEl = document.getElementById('assignPcmSuccessText');
+  if (textEl) textEl.innerHTML = '<strong>Primary Care Manager assigned</strong> — ' + memberName + ' has been assigned to ' + pcmSelectedCareManager + '.';
+  if (banner) banner.style.display = '';
+  var memberKey = pwAssignPcmMemberKey;
+  setTimeout(function() {
+    pwCloseAssignPcmModal();
+    if (banner) banner.style.display = 'none';
+    pwRemoveSelfOnboardedMember(memberKey);
+  }, 1200);
+}
+
+var PW_CURRENT_USER_NAME = 'Beatrice Okafor';
+var pwAssignSelfMemberKey = null;
+
+function pwOpenAssignSelfModal(memberKey, memberName) {
+  pwAssignSelfMemberKey = memberKey;
+  var nameEl = document.getElementById('assignSelfMemberName');
+  if (nameEl) nameEl.textContent = memberName || memberKey;
+  var banner = document.getElementById('assignSelfSuccessBanner');
+  if (banner) banner.style.display = 'none';
+  document.getElementById('assignSelfModal').classList.add('open');
+}
+
+function pwCloseAssignSelfModal() {
+  document.getElementById('assignSelfModal').classList.remove('open');
+}
+
+function pwAssignSelfSubmit() {
+  var banner = document.getElementById('assignSelfSuccessBanner');
+  var nameEl = document.getElementById('assignSelfMemberName');
+  var memberName = nameEl ? nameEl.textContent : 'the member';
+  var textEl = document.getElementById('assignSelfSuccessText');
+  if (textEl) textEl.innerHTML = '<strong>Primary Care Manager assigned</strong> — ' + memberName + ' has been assigned to ' + PW_CURRENT_USER_NAME + '.';
+  if (banner) banner.style.display = '';
+  var memberKey = pwAssignSelfMemberKey;
+  setTimeout(function() {
+    pwCloseAssignSelfModal();
+    if (banner) banner.style.display = 'none';
+    pwRemoveSelfOnboardedMember(memberKey);
+  }, 1200);
 }
 
 function pwToggleSugg(toggleEl) {
@@ -10815,6 +11215,7 @@ function pwSelectBucket(el) {
   var openAuthBar = document.getElementById('pwFilterBarOpenAuth');
   var careActivityBar = document.getElementById('pwFilterBarCareActivity');
   var genericBar = document.getElementById('pwFilterBarGeneric');
+  var requestsBar = document.getElementById('pwFilterBarRequests');
   var tabStrip = document.getElementById('pwAlertTabStrip');
   var memberList = document.getElementById('pwMemberList');
   var risksPanel = document.getElementById('pwAlertPanelRisks');
@@ -10840,6 +11241,8 @@ function pwSelectBucket(el) {
   if (openAuthBar) openAuthBar.style.display = (isOpenAuth && !isHome) ? '' : 'none';
   if (genericBar) genericBar.style.display = (isGenericBar && !isHome) ? '' : 'none';
   if (careActivityBar) careActivityBar.style.display = (isCareActivity && !isHome) ? 'flex' : 'none';
+  if (requestsBar) requestsBar.style.display = (isRequests && !isHome) ? 'flex' : 'none';
+  if (isRequests) rrSelectTab('received');
   if (isCareActivity) {
     calCurrentTab = 'today';
     var csField = document.getElementById('calCareStaffField');
@@ -11057,6 +11460,24 @@ document.addEventListener('DOMContentLoaded', function() {
         var memberKey = referWqBtn.getAttribute('data-member');
         var fullName = referWqBtn.getAttribute('data-fullname') || memberKey;
         pwOpenReferWQModal(memberKey, fullName);
+        return;
+      }
+
+      var assignPcmBtn = e.target.closest('.pw-act-enroll-program');
+      if (assignPcmBtn) {
+        e.stopPropagation();
+        var memberKey = assignPcmBtn.getAttribute('data-member');
+        var fullName = assignPcmBtn.getAttribute('data-fullname') || memberKey;
+        pwOpenAssignPcmModal(memberKey, fullName);
+        return;
+      }
+
+      var assignSelfBtn = e.target.closest('.pw-act-assign-self');
+      if (assignSelfBtn) {
+        e.stopPropagation();
+        var memberKey = assignSelfBtn.getAttribute('data-member');
+        var fullName = assignSelfBtn.getAttribute('data-fullname') || memberKey;
+        pwOpenAssignSelfModal(memberKey, fullName);
         return;
       }
 
@@ -13789,691 +14210,6 @@ function openScriptResponseModal() {
 })();
 </script>
 
-<!-- ══════════════ ADD ACTIVITY MODAL ══════════════ -->
-<div class="gc-modal-overlay" id="addActivityModal">
-  <div class="gc-modal">
-    <div class="gc-modal-title">
-      <span>Add Activity</span>
-      <button onclick="document.getElementById('addActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
-    </div>
-    <div class="gc-modal-accent"></div>
-    <div id="modalSuccessBanner" style="display:none;padding:4px 20px 10px;">
-      <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:4px;border-left:3px solid #2e7d32;background:#e8f5e9;color:#1b5e20;font-size:12px;line-height:1.5;">
-        <span class="material-icons" style="font-size:16px;flex-shrink:0;color:#2e7d32;">check_circle</span>
-        <div style="flex:1;"><strong>Activity added successfully</strong> — A new activity has been scheduled for Jackson Thomas.</div>
-        <span class="material-icons" style="font-size:16px;cursor:pointer;color:#2e7d32;" onclick="document.getElementById('modalSuccessBanner').style.display='none';">close</span>
-      </div>
-    </div>
-    <div class="gc-modal-body">
-
-      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
-
-      <fieldset class="gc-modal-fieldset">
-        <legend>Add Activity For</legend>
-        <div style="display:flex;gap:24px;align-items:center;flex-wrap:nowrap;white-space:nowrap;">
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="actFor" checked style="accent-color:var(--teal);width:16px;height:16px;" /> Care Staff</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="actFor" style="accent-color:var(--teal);width:16px;height:16px;" /> External Care Team</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="actFor" style="accent-color:var(--teal);width:16px;height:16px;" /> Pharmacist</label>
-        </div>
-      </fieldset>
-
-      <div class="gc-modal-field" style="max-width:240px;">
-        <label><span class="req">*</span>Type</label>
-        <select class="gc-modal-select"><option>Scheduled</option><option>Completed</option><option>Case Conference</option></select>
-      </div>
-
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-        <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Work Queue Activity
-      </label>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="gc-modal-field">
-          <label>Member Name</label>
-          <div id="modalMemberName" style="font-size:13px;color:#555;padding:2px 0;">Jackson Thomas</div>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Care Staff</label>
-          <input class="gc-modal-input" type="text" value="Beatrice Kanya : All Access Admin" />
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Activity Type</label>
-          <select class="gc-modal-select" id="modalActivityType" onchange="updateWellframeSection()">
-            <option>Select</option>
-            <option>Assessment</option>
-            <option>Call Member</option>
-            <option>Care Plan Review</option>
-            <option>Follow-up</option>
-            <option>Welcome Call</option>
-            <option>Appointment Reminder</option>
-          </select>
-        </div>
-        <div class="gc-modal-field">
-          <label>Script</label>
-          <select class="gc-modal-select" id="modalScript" onchange="updateWellframeSection()">
-            <option>Select</option>
-            <option>Health Risk Assessment</option>
-            <option>Comprehensive Assessment</option>
-            <option>Functional Status Assessment</option>
-            <option>Social Determinants of Health (SDOH) Assessment</option>
-            <option>Pediatric HRA</option>
-            <option>Oncology HRA</option>
-            <option>Fall Risk Assessment</option>
-            <option>Fall Risk Prevention</option>
-            <option>Transitions of Care (TOC) 1 Pre-Discharge</option>
-            <option>Transitions of Care (TOC) 3 Home Visit</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="wellframeAssessmentSection" style="display:none;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;user-select:none;">
-          <input type="checkbox" id="wellframeAssessmentCheck" style="accent-color:var(--teal);width:15px;height:15px;" onchange="document.getElementById('wellframeAssessmentNote').style.display=this.checked?'block':'none';" />
-          Wellframe Assessment
-        </label>
-        <div id="wellframeAssessmentNote" style="display:none;font-size:12px;color:#555;background:#fff;border-left:3px solid var(--teal);padding:7px 10px;border-radius:2px;margin-top:4px;"><strong>Note:</strong> Checking this will send the assessment to the member's Wellframe account and appear on the member's checklist.</div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Contact Type</label>
-          <select class="gc-modal-select">
-            <option>Member - Phone</option>
-            <option>Member - Face to Face</option>
-            <option>Member - Telehealth</option>
-            <option>Member - Email</option>
-            <option>Member - Letter</option>
-            <option>Member - Fax</option>
-            <option>Member - Self Assessment</option>
-            <option>Member - Community Referral</option>
-            <option>Member - Referral</option>
-            <option>Phone to Member</option>
-            <option>Wellframe Outreach</option>
-            <option>Caregiver - Phone</option>
-            <option>Caregiver - Face to Face</option>
-            <option>Caregiver - Email</option>
-            <option>Caregiver - Telehealth</option>
-            <option>Caregiver - Letter</option>
-            <option>Caregiver - Fax</option>
-            <option>Provider - Phone</option>
-            <option>Provider - Face to Face</option>
-            <option>Provider - Email</option>
-            <option>Provider - Telehealth</option>
-            <option>Provider - Letter</option>
-            <option>Provider - Fax</option>
-            <option>TPA - Home</option>
-            <option>TPA - Mobile</option>
-          </select>
-        </div>
-        <div class="gc-modal-field">
-          <label>Priority</label>
-          <select class="gc-modal-select">
-            <option>Select</option>
-            <option>1st — Urgent</option>
-            <option>2nd — High</option>
-            <option>3rd — Medium</option>
-            <option>4th — Standard</option>
-            <option>5th — Low</option>
-            <option>6th — Routine</option>
-          </select>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Scheduled Duration</label>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <input class="gc-modal-input" type="text" value="00" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Hrs</span>
-            <input class="gc-modal-input" type="text" value="30" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Mins</span>
-          </div>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Scheduled Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <div style="position:relative;display:inline-flex;align-items:center;">
-              <input class="gc-modal-input" type="text" value="03/25/2026 08:10" style="width:170px;padding-right:50px;" />
-              <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
-                <span class="material-icons" style="font-size:15px;">calendar_month</span>
-                <span class="material-icons" style="font-size:15px;">schedule</span>
-              </span>
-            </div>
-            <span style="display:flex;gap:2px;color:var(--teal);border:1px solid #BBB;border-radius:3px;padding:4px 6px;background:#fff;cursor:pointer;">
-              <span class="material-icons" style="font-size:15px;">calendar_month</span>
-              <span class="material-icons" style="font-size:15px;">schedule</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="gc-modal-field" style="max-width:240px;">
-        <label>Due Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
-        <div style="position:relative;display:inline-flex;align-items:center;">
-          <input class="gc-modal-input" type="text" style="width:200px;padding-right:50px;" />
-          <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
-            <span class="material-icons" style="font-size:15px;">calendar_month</span>
-            <span class="material-icons" style="font-size:15px;">schedule</span>
-          </span>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:36px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Recurring Activity
-        </label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Program Activity
-        </label>
-      </div>
-
-      <div class="gc-modal-field">
-        <label>Enter Comments / Reasons</label>
-        <textarea style="border:1px solid #BBB;border-radius:3px;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:60px;resize:vertical;width:100%;"></textarea>
-      </div>
-
-      <div style="display:flex;gap:36px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Member Portal
-        </label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Performed by Other's Care Staff
-        </label>
-      </div>
-
-    </div>
-    <div class="gc-modal-footer">
-      <button onclick="showActivitySuccess(false);" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Add</button>
-      <button onclick="showActivitySuccess(true);" style="background:#fff;color:var(--teal);border:1px solid var(--teal);border-radius:3px;padding:0 28px;height:38px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;">Add and Close</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ REFER TO WORK QUEUE (ADD ACTIVITY) MODAL ══════════════ -->
-<div class="gc-modal-overlay" id="referWorkQueueModal" style="align-items:center;">
-  <div class="gc-modal">
-    <div class="gc-modal-title">
-      <span>Add Activity</span>
-      <button onclick="pwCloseReferWQModal();"><span class="material-icons">close</span></button>
-    </div>
-    <div class="gc-modal-accent"></div>
-    <div id="referWQSuccessBanner" style="display:none;padding:4px 20px 10px;">
-      <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:4px;border-left:3px solid #2e7d32;background:#e8f5e9;color:#1b5e20;font-size:12px;line-height:1.5;">
-        <span class="material-icons" style="font-size:16px;flex-shrink:0;color:#2e7d32;">check_circle</span>
-        <div style="flex:1;"><strong>Activity added successfully</strong></div>
-        <span class="material-icons" style="font-size:16px;cursor:pointer;color:#2e7d32;" onclick="document.getElementById('referWQSuccessBanner').style.display='none';">close</span>
-      </div>
-    </div>
-    <div class="gc-modal-body">
-
-      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
-
-      <fieldset class="gc-modal-fieldset">
-        <legend>Add Activity For</legend>
-        <div style="display:flex;gap:24px;align-items:center;flex-wrap:nowrap;white-space:nowrap;">
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="referWqActFor" checked style="accent-color:var(--teal);width:16px;height:16px;" /> Care Staff</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="referWqActFor" style="accent-color:var(--teal);width:16px;height:16px;" /> External Care Team</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="referWqActFor" style="accent-color:var(--teal);width:16px;height:16px;" /> Pharmacist</label>
-        </div>
-      </fieldset>
-
-      <div class="gc-modal-field" style="max-width:240px;">
-        <label><span class="req">*</span>Type</label>
-        <select class="gc-modal-select"><option>Scheduled</option><option>Completed</option><option>Case Conference</option></select>
-      </div>
-
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-        <input type="checkbox" id="referWQWorkQueueCheck" checked style="accent-color:var(--teal);width:15px;height:15px;" onchange="document.getElementById('referWQFields').style.display=this.checked?'grid':'none';document.getElementById('referWQNote').style.display=this.checked?'':'none';" /> Work Queue Activity
-      </label>
-
-      <div id="referWQFields" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Work Queue</label>
-          <div class="ms-dropdown" id="referWQQueueDropdown">
-            <div class="ms-dropdown-trigger" onclick="msToggleDropdown('referWQQueueDropdown', event);">
-              <span class="ms-dropdown-value" id="referWQQueueDropdownValue">Select</span>
-              <span class="material-icons ms-dropdown-caret">expand_more</span>
-            </div>
-            <div class="ms-dropdown-panel" id="referWQQueueDropdownPanel"></div>
-          </div>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Care Staff</label>
-          <div class="ms-dropdown" id="referWQStaffDropdown">
-            <div class="ms-dropdown-trigger" onclick="msToggleDropdown('referWQStaffDropdown', event);">
-              <span class="ms-dropdown-value" id="referWQStaffDropdownValue">Select</span>
-              <span class="material-icons ms-dropdown-caret">expand_more</span>
-            </div>
-            <div class="ms-dropdown-panel" id="referWQStaffDropdownPanel"></div>
-          </div>
-        </div>
-      </div>
-      <div id="referWQNote" style="font-size:11.5px;color:#555;"><strong>Note:</strong> The care staff who are not having the matching profile to the member will not be able to access the member from Request Received.</div>
-
-      <div class="gc-modal-field">
-        <label>Member Name</label>
-        <div id="referWQMemberName" style="font-size:13px;color:#555;padding:2px 0;">—</div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Activity Type</label>
-          <select class="gc-modal-select">
-            <option>Select</option>
-            <option>Assessment</option>
-            <option>Call Member</option>
-            <option>Care Plan Review</option>
-            <option>Follow-up</option>
-            <option>Welcome Call</option>
-            <option>Appointment Reminder</option>
-          </select>
-        </div>
-        <div class="gc-modal-field">
-          <label>Script</label>
-          <select class="gc-modal-select">
-            <option>Select</option>
-            <option>Health Risk Assessment</option>
-            <option>Comprehensive Assessment</option>
-            <option>Functional Status Assessment</option>
-            <option>Social Determinants of Health (SDOH) Assessment</option>
-          </select>
-        </div>
-        <div class="gc-modal-field">
-          <label>Priority</label>
-          <select class="gc-modal-select">
-            <option>Select</option>
-            <option>1st — Urgent</option>
-            <option>2nd — High</option>
-            <option>3rd — Medium</option>
-            <option>4th — Standard</option>
-            <option>5th — Low</option>
-            <option>6th — Routine</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="gc-modal-field" style="max-width:280px;">
-        <label><span class="req">*</span>Contact Type</label>
-        <select class="gc-modal-select">
-          <option>Member - Phone</option>
-          <option>Member - Face to Face</option>
-          <option>Member - Telehealth</option>
-          <option>Member - Email</option>
-          <option>Member - Letter</option>
-          <option>Member - Fax</option>
-          <option>Member - Self Assessment</option>
-          <option>Wellframe Outreach</option>
-        </select>
-      </div>
-
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Scheduled Duration</label>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <input class="gc-modal-input" type="text" value="00" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Hrs</span>
-            <input class="gc-modal-input" type="text" value="30" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Mins</span>
-          </div>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Scheduled Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <div style="position:relative;display:inline-flex;align-items:center;">
-              <input class="gc-modal-input" type="text" id="referWQScheduledDate" style="width:170px;padding-right:50px;" />
-              <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
-                <span class="material-icons" style="font-size:15px;">calendar_month</span>
-                <span class="material-icons" style="font-size:15px;">schedule</span>
-              </span>
-            </div>
-            <span style="display:flex;gap:2px;color:var(--teal);border:1px solid #BBB;border-radius:3px;padding:4px 6px;background:#fff;cursor:pointer;">
-              <span class="material-icons" style="font-size:15px;">calendar_month</span>
-              <span class="material-icons" style="font-size:15px;">schedule</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="gc-modal-field" style="max-width:240px;">
-        <label>Due Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
-        <div style="position:relative;display:inline-flex;align-items:center;">
-          <input class="gc-modal-input" type="text" style="width:200px;padding-right:50px;" />
-          <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
-            <span class="material-icons" style="font-size:15px;">calendar_month</span>
-            <span class="material-icons" style="font-size:15px;">schedule</span>
-          </span>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:36px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Program Activity
-        </label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Clinical Program Activity
-        </label>
-      </div>
-
-      <div class="gc-modal-field">
-        <label>Enter Comments / Reasons</label>
-        <textarea style="border:1px solid #BBB;border-radius:3px 3px 0 0;border-bottom:none;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:60px;resize:vertical;width:100%;"></textarea>
-        <div style="border:1px solid #BBB;border-top:1px solid #DDD;border-radius:0 0 3px 3px;background:#F0F0F0;padding:6px 10px;display:flex;align-items:center;gap:16px;font-size:12px;">
-          <span style="font-weight:700;color:#333;">Notes viewable by</span>
-          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="radio" name="referWqNotesViewable" style="accent-color:var(--teal);width:14px;height:14px;" /> All Users</label>
-          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="radio" name="referWqNotesViewable" checked style="accent-color:var(--teal);width:14px;height:14px;" /> Internal Users Only</label>
-        </div>
-      </div>
-
-    </div>
-    <div class="gc-modal-footer">
-      <button onclick="pwReferWQSubmit(false);" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Add</button>
-      <button onclick="pwReferWQSubmit(true);" style="background:#fff;color:var(--teal);border:1px solid var(--teal);border-radius:3px;padding:0 28px;height:38px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;">Add and Close</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ VIEW SURVEY MODAL ══════════════ -->
-<div class="gc-modal-overlay" id="pwViewSurveyModal">
-  <div class="gc-modal" style="max-width:620px;">
-    <div class="gc-modal-title">
-      <span>Survey Response</span>
-      <button onclick="document.getElementById('pwViewSurveyModal').classList.remove('open');"><span class="material-icons">close</span></button>
-    </div>
-    <div class="gc-modal-accent"></div>
-    <div class="gc-modal-body" style="gap:10px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-size:13px;font-weight:700;" id="pvsMemberName">—</div>
-          <div style="font-size:11px;color:var(--text-muted);" id="pvsSurveyDate">Submitted via Wellframe</div>
-        </div>
-        <span style="font-size:11px;color:var(--text-muted);">Wellframe</span>
-      </div>
-      <div style="border-top:1px solid var(--border);padding-top:12px;" id="pvsSurveyBody">
-      </div>
-    </div>
-    <div class="gc-modal-footer" style="justify-content:flex-end;gap:10px;">
-      <button onclick="document.getElementById('pwViewSurveyModal').classList.remove('open');" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:36px;font-size:13px;font-family:var(--font);cursor:pointer;">Close</button>
-      <button onclick="pwOpenSendMsgFromSurvey();" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 24px;height:36px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;display:inline-flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:15px;">send</span>Send Message</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ SEND MESSAGE MODAL ══════════════ -->
-<div class="gc-modal-overlay" id="pwSendMsgModal">
-  <div class="gc-modal" style="max-width:560px;">
-    <div class="gc-modal-title">
-      <span>Send Message</span>
-      <button onclick="document.getElementById('pwSendMsgModal').classList.remove('open');"><span class="material-icons">close</span></button>
-    </div>
-    <div class="gc-modal-accent"></div>
-    <div class="gc-modal-body" style="gap:12px;">
-      <div style="font-size:12px;color:var(--text-muted);">To: <strong id="psmMemberName">—</strong> · via Wellframe Chat</div>
-      <div class="gc-modal-field">
-        <label style="font-size:12px;font-weight:700;color:#333;">Suggested Message <span style="font-weight:400;color:var(--text-muted);">— edit before sending</span></label>
-        <textarea id="psmMessageBody" style="border:1px solid #BBB;border-radius:3px;padding:8px 10px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:120px;resize:vertical;width:100%;line-height:1.6;"></textarea>
-      </div>
-      <div style="font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:4px;">
-        <span class="material-icons" style="font-size:13px;">info_outline</span>
-        Message will be sent through the member's Wellframe app.
-      </div>
-    </div>
-    <div class="gc-modal-footer" style="justify-content:flex-end;gap:10px;">
-      <button onclick="document.getElementById('pwSendMsgModal').classList.remove('open');" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:36px;font-size:13px;font-family:var(--font);cursor:pointer;">Cancel</button>
-      <button onclick="document.getElementById('pwSendMsgModal').classList.remove('open');" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 24px;height:36px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;display:inline-flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:15px;">send</span>Send</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ EDIT ACTIVITY MODAL ══════════════ -->
-<div class="gc-modal-overlay" id="pwEditActivityModal">
-  <div class="gc-modal" style="max-width:680px;">
-    <div class="gc-modal-title">
-      <span>Edit Activity</span>
-      <button onclick="document.getElementById('pwEditActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
-    </div>
-    <div class="gc-modal-accent"></div>
-    <div class="gc-modal-body">
-      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
-
-      <fieldset class="gc-modal-fieldset">
-        <legend>Add Activity For</legend>
-        <div style="display:flex;gap:24px;align-items:center;">
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;"><input type="radio" name="editActFor" checked style="accent-color:var(--teal);width:16px;height:16px;" /> Care Staff</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;"><input type="radio" name="editActFor" style="accent-color:var(--teal);width:16px;height:16px;" /> External Care Team</label>
-        </div>
-      </fieldset>
-
-      <div class="gc-modal-field" style="max-width:240px;">
-        <label><span class="req">*</span>Type</label>
-        <select class="gc-modal-select"><option>Scheduled</option><option>Completed</option><option>Case Conference</option></select>
-      </div>
-
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
-        <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Work Queue Activity
-      </label>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="gc-modal-field">
-          <label>Member Name</label>
-          <div id="pwEditMemberName" style="font-size:13px;color:#555;padding:2px 0;">—</div>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Care Staff</label>
-          <input class="gc-modal-input" type="text" value="Beatrice Kanya : All Access Admin" />
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
-        <div class="gc-modal-field">
-          <label>Activity Type</label>
-          <div id="pwEditActivityType" style="font-size:13px;color:#555;padding:2px 0;">—</div>
-        </div>
-        <div class="gc-modal-field">
-          <label>Script</label>
-          <div style="font-size:13px;color:#555;padding:2px 0;">ADULT LTSS</div>
-        </div>
-        <div class="gc-modal-field">
-          <label>Priority</label>
-          <select class="gc-modal-select">
-            <option>Select</option>
-            <option>1st — Urgent</option>
-            <option>2nd — High</option>
-            <option selected>3rd — Medium</option>
-            <option>4th — Standard</option>
-            <option>5th — Low</option>
-          </select>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Contact Type</label>
-          <select class="gc-modal-select">
-            <option>Member - Phone</option><option>Member - Face to Face</option><option>Member - Telehealth</option>
-            <option>Member - Email</option><option>Wellframe Outreach</option>
-          </select>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Scheduled Duration</label>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <input class="gc-modal-input" type="text" value="00" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Hrs</span>
-            <input class="gc-modal-input" type="text" value="30" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Mins</span>
-          </div>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Scheduled Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
-          <div style="position:relative;display:inline-flex;align-items:center;">
-            <input class="gc-modal-input" id="pwEditScheduledDate" type="text" style="width:190px;padding-right:50px;" />
-            <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
-              <span class="material-icons" style="font-size:15px;">calendar_month</span>
-              <span class="material-icons" style="font-size:15px;">schedule</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="gc-modal-field" style="max-width:240px;">
-        <label>Due Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
-        <div style="position:relative;display:inline-flex;align-items:center;">
-          <input class="gc-modal-input" id="pwEditDueDate" type="text" style="width:200px;padding-right:50px;" />
-          <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
-            <span class="material-icons" style="font-size:15px;">calendar_month</span>
-            <span class="material-icons" style="font-size:15px;">schedule</span>
-          </span>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:36px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;"><input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Recurring Activity</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;"><input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Program Activity</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;"><input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Clinical Program Activity</label>
-      </div>
-    </div>
-    <div class="gc-modal-footer">
-      <button onclick="document.getElementById('pwEditActivityModal').classList.remove('open');" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Update and Close</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ PERFORM ACTIVITY MODAL (Run Script) ══════════════ -->
-<div class="gc-modal-overlay" id="pwPerformActivityModal">
-  <div class="gc-modal" style="max-width:680px;">
-    <div class="gc-modal-title">
-      <span>Run Script</span>
-      <button onclick="document.getElementById('pwPerformActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
-    </div>
-    <div class="gc-modal-accent"></div>
-    <div class="gc-modal-body">
-      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
-
-      <div style="text-align:right;margin-top:-8px;">
-        <span style="font-size:13px;color:var(--link);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
-          <span class="material-icons" style="font-size:15px;">description</span> Summary
-        </span>
-      </div>
-
-      <!-- Member info block -->
-      <div style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:12px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px 16px;font-size:12px;">
-        <div><div style="color:#888;margin-bottom:2px;">Member Name:</div><div id="pwPerformMemberName" style="font-weight:700;color:var(--link);">—</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">DOB:</div><div style="font-weight:700;">07/04/1988</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Address:</div><div style="font-weight:700;">111 Main Road</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">City:</div><div style="font-weight:700;">Reston</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">State:</div><div style="font-weight:700;">VA</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Zip:</div><div style="font-weight:700;">20191</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Primary Phone:</div><div style="font-weight:700;color:var(--link);">111-123-1234</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Alternate Phone:</div><div style="font-weight:700;color:var(--link);">909-851-3029</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Cell Phone:</div><div style="font-weight:700;color:var(--link);">409-288-6721</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Language:</div><div style="font-weight:700;">English</div></div>
-        <div style="grid-column:span 2;"></div>
-        <div><div style="color:#888;margin-bottom:2px;">Payor:</div><div style="font-weight:700;color:var(--link);">Active</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Care Staff:</div><div style="font-weight:700;">Beatrice Kanya</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Priority:</div><div id="pwPerformPriority" style="font-weight:700;">—</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Activity Type:</div><div id="pwPerformActivityType" style="font-weight:700;">—</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Scheduled Date:</div><div style="font-weight:700;">08/03/2026 09:00 AM</div></div>
-        <div><div style="color:#888;margin-bottom:2px;">Scheduled Duration:</div><div style="font-weight:700;">00 Hrs: 30 Mins</div></div>
-        <div style="grid-column:span 6;"><div style="color:#888;margin-bottom:2px;">Script:</div><div id="pwPerformScript" style="font-weight:700;">ADULT LTSS</div></div>
-      </div>
-
-      <div style="border-top:1px solid var(--border);padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Contact Type</label>
-          <select class="gc-modal-select">
-            <option>Member - Phone</option><option>Member - Face to Face</option><option>Member - Telehealth</option>
-            <option>Member - Email</option><option>Wellframe Outreach</option>
-          </select>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Outcome Type</label>
-          <select class="gc-modal-select"><option>Successful</option><option>Unsuccessful</option><option>Left Voicemail</option></select>
-        </div>
-        <div class="gc-modal-field">
-          <label><span class="req">*</span>Activity Outcome</label>
-          <select class="gc-modal-select"><option>Select</option><option>Completed</option><option>Follow-up Required</option><option>Unable to Reach</option></select>
-        </div>
-        <div class="gc-modal-field">
-          <label>Place of Service</label>
-          <select class="gc-modal-select"><option>Select</option><option>Home</option><option>Office</option><option>Telehealth</option></select>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
-        <div class="gc-modal-field">
-          <label>Actual Duration</label>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <input class="gc-modal-input" type="text" placeholder="HH" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Hrs</span>
-            <input class="gc-modal-input" type="text" placeholder="MM" style="width:44px;text-align:center;padding:0;" />
-            <span style="font-size:12px;color:#555;">Mins</span>
-          </div>
-        </div>
-        <div class="gc-modal-field">
-          <label>Service Code</label>
-          <select class="gc-modal-select"><option>Select</option><option>99213</option><option>99214</option><option>99215</option></select>
-        </div>
-      </div>
-
-      <div class="gc-modal-field">
-        <label>Outcome Notes</label>
-        <textarea style="border:1px solid #BBB;border-radius:3px;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:80px;resize:vertical;width:100%;"></textarea>
-        <div style="background:#F0F0F0;border:1px solid #BBB;border-top:none;border-radius:0 0 3px 3px;padding:6px 10px;font-size:12px;">
-          <strong>Notes viewable by</strong>
-          <label style="margin-left:12px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-weight:400;"><input type="radio" name="pwNoteVis" style="accent-color:var(--teal);" /> All Users</label>
-          <label style="margin-left:12px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-weight:400;"><input type="radio" name="pwNoteVis" checked style="accent-color:var(--teal);" /> Internal Users Only</label>
-        </div>
-      </div>
-    </div>
-    <div class="gc-modal-footer">
-      <button onclick="document.getElementById('pwPerformActivityModal').classList.remove('open');" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Run Script Form</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ DELETE ACTIVITY MODAL ══════════════ -->
-<div class="gc-modal-overlay" id="pwDeleteActivityModal">
-  <div class="gc-modal" style="max-width:420px;">
-    <div class="gc-modal-title">
-      <span>Delete Activity</span>
-      <button onclick="document.getElementById('pwDeleteActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
-    </div>
-    <div class="gc-modal-accent"></div>
-    <div class="gc-modal-body">
-      <div style="font-size:13px;color:#333;line-height:1.6;">
-        Are you sure you want to delete this activity for <strong id="pwDeleteMemberName">—</strong>?
-        <br><span id="pwDeleteActivityLabel" style="color:var(--text-muted);font-size:12px;"></span>
-      </div>
-      <div style="font-size:12px;color:#C62828;background:#FDECEA;border-radius:3px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-        <span class="material-icons" style="font-size:16px;">warning</span>
-        This action cannot be undone.
-      </div>
-      <div class="gc-modal-field">
-        <label>Reason for Deletion</label>
-        <select class="gc-modal-select">
-          <option>Select</option>
-          <option>Duplicate Activity</option>
-          <option>Created in Error</option>
-          <option>Member Declined</option>
-          <option>Activity No Longer Needed</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="gc-modal-field">
-        <label>Comments</label>
-        <textarea style="border:1px solid #BBB;border-radius:3px;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:60px;resize:vertical;width:100%;"></textarea>
-      </div>
-    </div>
-    <div class="gc-modal-footer" style="justify-content:flex-end;gap:10px;">
-      <button onclick="document.getElementById('pwDeleteActivityModal').classList.remove('open');" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:36px;font-size:13px;font-family:var(--font);cursor:pointer;">Cancel</button>
-      <button onclick="document.getElementById('pwDeleteActivityModal').classList.remove('open');" style="background:#C62828;color:#fff;border:none;border-radius:3px;padding:0 24px;height:36px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;">Delete Activity</button>
-    </div>
-  </div>
-</div>
 
 <!-- ══════════════ HRA REVIEW PAGE ══════════════ -->
 <div id="hraReviewPage">
@@ -15937,6 +15673,765 @@ document.getElementById('al-send-modal-overlay').addEventListener('click', funct
         <span style="flex:1;font-size:14px;font-weight:500;color:#333;">Wellness and Social Support (7)</span>
         <span class="material-icons" style="font-size:18px;color:#555;" aria-hidden="true">expand_more</span>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ADD ACTIVITY MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="addActivityModal">
+  <div class="gc-modal">
+    <div class="gc-modal-title">
+      <span>Add Activity</span>
+      <button onclick="document.getElementById('addActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div id="modalSuccessBanner" style="display:none;padding:4px 20px 10px;">
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:4px;border-left:3px solid #2e7d32;background:#e8f5e9;color:#1b5e20;font-size:12px;line-height:1.5;">
+        <span class="material-icons" style="font-size:16px;flex-shrink:0;color:#2e7d32;">check_circle</span>
+        <div style="flex:1;"><strong>Activity added successfully</strong> — A new activity has been scheduled for Jackson Thomas.</div>
+        <span class="material-icons" style="font-size:16px;cursor:pointer;color:#2e7d32;" onclick="document.getElementById('modalSuccessBanner').style.display='none';">close</span>
+      </div>
+    </div>
+    <div class="gc-modal-body">
+
+      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
+
+      <fieldset class="gc-modal-fieldset">
+        <legend>Add Activity For</legend>
+        <div style="display:flex;gap:24px;align-items:center;flex-wrap:nowrap;white-space:nowrap;">
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="actFor" checked style="accent-color:var(--teal);width:16px;height:16px;" /> Care Staff</label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="actFor" style="accent-color:var(--teal);width:16px;height:16px;" /> External Care Team</label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="actFor" style="accent-color:var(--teal);width:16px;height:16px;" /> Pharmacist</label>
+        </div>
+      </fieldset>
+
+      <div class="gc-modal-field" style="max-width:240px;">
+        <label><span class="req">*</span>Type</label>
+        <select class="gc-modal-select"><option>Scheduled</option><option>Completed</option><option>Case Conference</option></select>
+      </div>
+
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+        <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Work Queue Activity
+      </label>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="gc-modal-field">
+          <label>Member Name</label>
+          <div id="modalMemberName" style="font-size:13px;color:#555;padding:2px 0;">Jackson Thomas</div>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Care Staff</label>
+          <input class="gc-modal-input" type="text" value="Beatrice Kanya : All Access Admin" />
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Activity Type</label>
+          <select class="gc-modal-select" id="modalActivityType" onchange="updateWellframeSection()">
+            <option>Select</option>
+            <option>Assessment</option>
+            <option>Call Member</option>
+            <option>Care Plan Review</option>
+            <option>Follow-up</option>
+            <option>Welcome Call</option>
+            <option>Appointment Reminder</option>
+          </select>
+        </div>
+        <div class="gc-modal-field">
+          <label>Script</label>
+          <select class="gc-modal-select" id="modalScript" onchange="updateWellframeSection()">
+            <option>Select</option>
+            <option>Health Risk Assessment</option>
+            <option>Comprehensive Assessment</option>
+            <option>Functional Status Assessment</option>
+            <option>Social Determinants of Health (SDOH) Assessment</option>
+            <option>Pediatric HRA</option>
+            <option>Oncology HRA</option>
+            <option>Fall Risk Assessment</option>
+            <option>Fall Risk Prevention</option>
+            <option>Transitions of Care (TOC) 1 Pre-Discharge</option>
+            <option>Transitions of Care (TOC) 3 Home Visit</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="wellframeAssessmentSection" style="display:none;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;user-select:none;">
+          <input type="checkbox" id="wellframeAssessmentCheck" style="accent-color:var(--teal);width:15px;height:15px;" onchange="document.getElementById('wellframeAssessmentNote').style.display=this.checked?'block':'none';" />
+          Wellframe Assessment
+        </label>
+        <div id="wellframeAssessmentNote" style="display:none;font-size:12px;color:#555;background:#fff;border-left:3px solid var(--teal);padding:7px 10px;border-radius:2px;margin-top:4px;"><strong>Note:</strong> Checking this will send the assessment to the member's Wellframe account and appear on the member's checklist.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Contact Type</label>
+          <select class="gc-modal-select">
+            <option>Member - Phone</option>
+            <option>Member - Face to Face</option>
+            <option>Member - Telehealth</option>
+            <option>Member - Email</option>
+            <option>Member - Letter</option>
+            <option>Member - Fax</option>
+            <option>Member - Self Assessment</option>
+            <option>Member - Community Referral</option>
+            <option>Member - Referral</option>
+            <option>Phone to Member</option>
+            <option>Wellframe Outreach</option>
+            <option>Caregiver - Phone</option>
+            <option>Caregiver - Face to Face</option>
+            <option>Caregiver - Email</option>
+            <option>Caregiver - Telehealth</option>
+            <option>Caregiver - Letter</option>
+            <option>Caregiver - Fax</option>
+            <option>Provider - Phone</option>
+            <option>Provider - Face to Face</option>
+            <option>Provider - Email</option>
+            <option>Provider - Telehealth</option>
+            <option>Provider - Letter</option>
+            <option>Provider - Fax</option>
+            <option>TPA - Home</option>
+            <option>TPA - Mobile</option>
+          </select>
+        </div>
+        <div class="gc-modal-field">
+          <label>Priority</label>
+          <select class="gc-modal-select">
+            <option>Select</option>
+            <option>1st — Urgent</option>
+            <option>2nd — High</option>
+            <option>3rd — Medium</option>
+            <option>4th — Standard</option>
+            <option>5th — Low</option>
+            <option>6th — Routine</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Scheduled Duration</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input class="gc-modal-input" type="text" value="00" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Hrs</span>
+            <input class="gc-modal-input" type="text" value="30" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Mins</span>
+          </div>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Scheduled Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="position:relative;display:inline-flex;align-items:center;">
+              <input class="gc-modal-input" type="text" value="03/25/2026 08:10" style="width:170px;padding-right:50px;" />
+              <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
+                <span class="material-icons" style="font-size:15px;">calendar_month</span>
+                <span class="material-icons" style="font-size:15px;">schedule</span>
+              </span>
+            </div>
+            <span style="display:flex;gap:2px;color:var(--teal);border:1px solid #BBB;border-radius:3px;padding:4px 6px;background:#fff;cursor:pointer;">
+              <span class="material-icons" style="font-size:15px;">calendar_month</span>
+              <span class="material-icons" style="font-size:15px;">schedule</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gc-modal-field" style="max-width:240px;">
+        <label>Due Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
+        <div style="position:relative;display:inline-flex;align-items:center;">
+          <input class="gc-modal-input" type="text" style="width:200px;padding-right:50px;" />
+          <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
+            <span class="material-icons" style="font-size:15px;">calendar_month</span>
+            <span class="material-icons" style="font-size:15px;">schedule</span>
+          </span>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:36px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Recurring Activity
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Program Activity
+        </label>
+      </div>
+
+      <div class="gc-modal-field">
+        <label>Enter Comments / Reasons</label>
+        <textarea style="border:1px solid #BBB;border-radius:3px;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:60px;resize:vertical;width:100%;"></textarea>
+      </div>
+
+      <div style="display:flex;gap:36px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Member Portal
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Performed by Other's Care Staff
+        </label>
+      </div>
+
+    </div>
+    <div class="gc-modal-footer">
+      <button onclick="showActivitySuccess(false);" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Add</button>
+      <button onclick="showActivitySuccess(true);" style="background:#fff;color:var(--teal);border:1px solid var(--teal);border-radius:3px;padding:0 28px;height:38px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;">Add and Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ REFER TO WORK QUEUE (ADD ACTIVITY) MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="referWorkQueueModal" style="align-items:center;">
+  <div class="gc-modal">
+    <div class="gc-modal-title">
+      <span>Add Activity</span>
+      <button onclick="pwCloseReferWQModal();"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div id="referWQSuccessBanner" style="display:none;padding:4px 20px 10px;">
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:4px;border-left:3px solid #2e7d32;background:#e8f5e9;color:#1b5e20;font-size:12px;line-height:1.5;">
+        <span class="material-icons" style="font-size:16px;flex-shrink:0;color:#2e7d32;">check_circle</span>
+        <div style="flex:1;"><strong>Activity added successfully</strong></div>
+        <span class="material-icons" style="font-size:16px;cursor:pointer;color:#2e7d32;" onclick="document.getElementById('referWQSuccessBanner').style.display='none';">close</span>
+      </div>
+    </div>
+    <div class="gc-modal-body">
+
+      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
+
+      <fieldset class="gc-modal-fieldset">
+        <legend>Add Activity For</legend>
+        <div style="display:flex;gap:24px;align-items:center;flex-wrap:nowrap;white-space:nowrap;">
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="referWqActFor" checked style="accent-color:var(--teal);width:16px;height:16px;" /> Care Staff</label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="referWqActFor" style="accent-color:var(--teal);width:16px;height:16px;" /> External Care Team</label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;"><input type="radio" name="referWqActFor" style="accent-color:var(--teal);width:16px;height:16px;" /> Pharmacist</label>
+        </div>
+      </fieldset>
+
+      <div class="gc-modal-field" style="max-width:240px;">
+        <label><span class="req">*</span>Type</label>
+        <select class="gc-modal-select"><option>Scheduled</option><option>Completed</option><option>Case Conference</option></select>
+      </div>
+
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+        <input type="checkbox" id="referWQWorkQueueCheck" checked style="accent-color:var(--teal);width:15px;height:15px;" onchange="document.getElementById('referWQFields').style.display=this.checked?'grid':'none';document.getElementById('referWQNote').style.display=this.checked?'':'none';" /> Work Queue Activity
+      </label>
+
+      <div id="referWQFields" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Work Queue</label>
+          <div class="ms-dropdown" id="referWQQueueDropdown">
+            <div class="ms-dropdown-trigger" onclick="msToggleDropdown('referWQQueueDropdown', event);">
+              <span class="ms-dropdown-value" id="referWQQueueDropdownValue">Select</span>
+              <span class="material-icons ms-dropdown-caret">expand_more</span>
+            </div>
+            <div class="ms-dropdown-panel" id="referWQQueueDropdownPanel"></div>
+          </div>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Care Staff</label>
+          <div class="ms-dropdown" id="referWQStaffDropdown">
+            <div class="ms-dropdown-trigger" onclick="msToggleDropdown('referWQStaffDropdown', event);">
+              <span class="ms-dropdown-value" id="referWQStaffDropdownValue">Select</span>
+              <span class="material-icons ms-dropdown-caret">expand_more</span>
+            </div>
+            <div class="ms-dropdown-panel" id="referWQStaffDropdownPanel"></div>
+          </div>
+        </div>
+      </div>
+      <div id="referWQNote" style="font-size:11.5px;color:#555;"><strong>Note:</strong> The care staff who are not having the matching profile to the member will not be able to access the member from Request Received.</div>
+
+      <div class="gc-modal-field">
+        <label>Member Name</label>
+        <div id="referWQMemberName" style="font-size:13px;color:#555;padding:2px 0;">—</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Activity Type</label>
+          <select class="gc-modal-select">
+            <option>Select</option>
+            <option>Assessment</option>
+            <option>Call Member</option>
+            <option>Care Plan Review</option>
+            <option>Follow-up</option>
+            <option>Welcome Call</option>
+            <option>Appointment Reminder</option>
+          </select>
+        </div>
+        <div class="gc-modal-field">
+          <label>Script</label>
+          <select class="gc-modal-select">
+            <option>Select</option>
+            <option>Health Risk Assessment</option>
+            <option>Comprehensive Assessment</option>
+            <option>Functional Status Assessment</option>
+            <option>Social Determinants of Health (SDOH) Assessment</option>
+          </select>
+        </div>
+        <div class="gc-modal-field">
+          <label>Priority</label>
+          <select class="gc-modal-select">
+            <option>Select</option>
+            <option>1st — Urgent</option>
+            <option>2nd — High</option>
+            <option>3rd — Medium</option>
+            <option>4th — Standard</option>
+            <option>5th — Low</option>
+            <option>6th — Routine</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="gc-modal-field" style="max-width:280px;">
+        <label><span class="req">*</span>Contact Type</label>
+        <select class="gc-modal-select">
+          <option>Member - Phone</option>
+          <option>Member - Face to Face</option>
+          <option>Member - Telehealth</option>
+          <option>Member - Email</option>
+          <option>Member - Letter</option>
+          <option>Member - Fax</option>
+          <option>Member - Self Assessment</option>
+          <option>Wellframe Outreach</option>
+        </select>
+      </div>
+
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Scheduled Duration</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input class="gc-modal-input" type="text" value="00" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Hrs</span>
+            <input class="gc-modal-input" type="text" value="30" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Mins</span>
+          </div>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Scheduled Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="position:relative;display:inline-flex;align-items:center;">
+              <input class="gc-modal-input" type="text" id="referWQScheduledDate" style="width:170px;padding-right:50px;" />
+              <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
+                <span class="material-icons" style="font-size:15px;">calendar_month</span>
+                <span class="material-icons" style="font-size:15px;">schedule</span>
+              </span>
+            </div>
+            <span style="display:flex;gap:2px;color:var(--teal);border:1px solid #BBB;border-radius:3px;padding:4px 6px;background:#fff;cursor:pointer;">
+              <span class="material-icons" style="font-size:15px;">calendar_month</span>
+              <span class="material-icons" style="font-size:15px;">schedule</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gc-modal-field" style="max-width:240px;">
+        <label>Due Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
+        <div style="position:relative;display:inline-flex;align-items:center;">
+          <input class="gc-modal-input" type="text" style="width:200px;padding-right:50px;" />
+          <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
+            <span class="material-icons" style="font-size:15px;">calendar_month</span>
+            <span class="material-icons" style="font-size:15px;">schedule</span>
+          </span>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:36px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Program Activity
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+          <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Clinical Program Activity
+        </label>
+      </div>
+
+      <div class="gc-modal-field">
+        <label>Enter Comments / Reasons</label>
+        <textarea style="border:1px solid #BBB;border-radius:3px 3px 0 0;border-bottom:none;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:60px;resize:vertical;width:100%;"></textarea>
+        <div style="border:1px solid #BBB;border-top:1px solid #DDD;border-radius:0 0 3px 3px;background:#F0F0F0;padding:6px 10px;display:flex;align-items:center;gap:16px;font-size:12px;">
+          <span style="font-weight:700;color:#333;">Notes viewable by</span>
+          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="radio" name="referWqNotesViewable" style="accent-color:var(--teal);width:14px;height:14px;" /> All Users</label>
+          <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="radio" name="referWqNotesViewable" checked style="accent-color:var(--teal);width:14px;height:14px;" /> Internal Users Only</label>
+        </div>
+      </div>
+
+    </div>
+    <div class="gc-modal-footer">
+      <button onclick="pwReferWQSubmit(false);" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Add</button>
+      <button onclick="pwReferWQSubmit(true);" style="background:#fff;color:var(--teal);border:1px solid var(--teal);border-radius:3px;padding:0 28px;height:38px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;">Add and Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ASSIGN PRIMARY CARE MANAGER MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="assignPcmModal" style="align-items:center;">
+  <div class="gc-modal" style="max-width:560px;">
+    <div class="gc-modal-title">
+      <span>Assign a Primary Care Manager</span>
+      <button onclick="pwCloseAssignPcmModal();"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div id="assignPcmSuccessBanner" style="display:none;padding:4px 20px 10px;">
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:4px;border-left:3px solid #2e7d32;background:#e8f5e9;color:#1b5e20;font-size:12px;line-height:1.5;">
+        <span class="material-icons" style="font-size:16px;flex-shrink:0;color:#2e7d32;">check_circle</span>
+        <div style="flex:1;" id="assignPcmSuccessText"><strong>Primary Care Manager assigned</strong></div>
+        <span class="material-icons" style="font-size:16px;cursor:pointer;color:#2e7d32;" onclick="document.getElementById('assignPcmSuccessBanner').style.display='none';">close</span>
+      </div>
+    </div>
+    <div class="gc-modal-body">
+      <div class="gc-modal-field">
+        <label>Member Name</label>
+        <div id="assignPcmMemberName" style="font-size:13px;color:#555;padding:2px 0;">—</div>
+      </div>
+      <div class="gc-modal-field">
+        <label><span class="req">*</span>Care Manager</label>
+        <div id="assignPcmSearchArea">
+          <div style="position:relative;">
+            <input type="text" id="assignPcmSearchInput" class="gc-modal-input" placeholder="Search by name..." autocomplete="off" oninput="pcmSearchInput(this.value)" onfocus="pcmSearchInput(this.value)" style="padding-right:28px;" />
+            <span class="material-icons" style="position:absolute;right:8px;top:8px;font-size:16px;color:#888;pointer-events:none;">search</span>
+          </div>
+        </div>
+        <div id="assignPcmSelected" style="display:none;align-items:center;gap:8px;background:#F2F8FA;border:1px solid #D6EDF7;border-radius:4px;padding:8px 10px;margin-top:8px;">
+          <span class="material-icons" style="font-size:18px;color:#0080A3;">person</span>
+          <span id="assignPcmSelectedName" style="font-size:13px;font-weight:600;color:var(--text-primary);flex:1;"></span>
+          <span class="material-icons" style="font-size:16px;cursor:pointer;color:#888;" onclick="pcmClearSelection();">close</span>
+        </div>
+      </div>
+    </div>
+    <div id="assignPcmResults" style="display:none;position:fixed;background:#fff;border:1px solid var(--border);border-radius:3px;box-shadow:0 6px 18px rgba(0,0,0,.18);max-height:260px;overflow-y:auto;z-index:9999;"></div>
+    <div class="gc-modal-footer">
+      <button id="assignPcmSubmitBtn" onclick="pwAssignPcmSubmit();" disabled style="background:#BBC7CE;color:#fff;border:none;border-radius:3px;padding:0 28px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:not-allowed;">Assign</button>
+      <button onclick="pwCloseAssignPcmModal();" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:38px;font-size:13px;font-family:var(--font);cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ASSIGN TO ME CONFIRM MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="assignSelfModal" style="align-items:center;">
+  <div class="gc-modal" style="max-width:420px;">
+    <div class="gc-modal-title">
+      <span>Assign to Me</span>
+      <button onclick="pwCloseAssignSelfModal();"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div id="assignSelfSuccessBanner" style="display:none;padding:4px 20px 10px;">
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:4px;border-left:3px solid #2e7d32;background:#e8f5e9;color:#1b5e20;font-size:12px;line-height:1.5;">
+        <span class="material-icons" style="font-size:16px;flex-shrink:0;color:#2e7d32;">check_circle</span>
+        <div style="flex:1;" id="assignSelfSuccessText"><strong>Assigned successfully</strong></div>
+        <span class="material-icons" style="font-size:16px;cursor:pointer;color:#2e7d32;" onclick="document.getElementById('assignSelfSuccessBanner').style.display='none';">close</span>
+      </div>
+    </div>
+    <div class="gc-modal-body">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <span class="material-icons" style="font-size:22px;color:#0080A3;">person_add</span>
+        <div style="font-size:13px;color:var(--text-primary);line-height:1.5;">
+          Assign yourself, <strong>Beatrice Okafor</strong>, as the primary care manager for <strong id="assignSelfMemberName">—</strong>?
+        </div>
+      </div>
+    </div>
+    <div class="gc-modal-footer">
+      <button onclick="pwAssignSelfSubmit();" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 28px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Yes, Assign to Me</button>
+      <button onclick="pwCloseAssignSelfModal();" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:38px;font-size:13px;font-family:var(--font);cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ VIEW SURVEY MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="pwViewSurveyModal">
+  <div class="gc-modal" style="max-width:620px;">
+    <div class="gc-modal-title">
+      <span>Survey Response</span>
+      <button onclick="document.getElementById('pwViewSurveyModal').classList.remove('open');"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div class="gc-modal-body" style="gap:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:13px;font-weight:700;" id="pvsMemberName">—</div>
+          <div style="font-size:11px;color:var(--text-muted);" id="pvsSurveyDate">Submitted via Wellframe</div>
+        </div>
+        <span style="font-size:11px;color:var(--text-muted);">Wellframe</span>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:12px;" id="pvsSurveyBody">
+      </div>
+    </div>
+    <div class="gc-modal-footer" style="justify-content:flex-end;gap:10px;">
+      <button onclick="document.getElementById('pwViewSurveyModal').classList.remove('open');" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:36px;font-size:13px;font-family:var(--font);cursor:pointer;">Close</button>
+      <button onclick="pwOpenSendMsgFromSurvey();" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 24px;height:36px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;display:inline-flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:15px;">send</span>Send Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SEND MESSAGE MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="pwSendMsgModal">
+  <div class="gc-modal" style="max-width:560px;">
+    <div class="gc-modal-title">
+      <span>Send Message</span>
+      <button onclick="document.getElementById('pwSendMsgModal').classList.remove('open');"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div class="gc-modal-body" style="gap:12px;">
+      <div style="font-size:12px;color:var(--text-muted);">To: <strong id="psmMemberName">—</strong> · via Wellframe Chat</div>
+      <div class="gc-modal-field">
+        <label style="font-size:12px;font-weight:700;color:#333;">Suggested Message <span style="font-weight:400;color:var(--text-muted);">— edit before sending</span></label>
+        <textarea id="psmMessageBody" style="border:1px solid #BBB;border-radius:3px;padding:8px 10px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:120px;resize:vertical;width:100%;line-height:1.6;"></textarea>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:4px;">
+        <span class="material-icons" style="font-size:13px;">info_outline</span>
+        Message will be sent through the member's Wellframe app.
+      </div>
+    </div>
+    <div class="gc-modal-footer" style="justify-content:flex-end;gap:10px;">
+      <button onclick="document.getElementById('pwSendMsgModal').classList.remove('open');" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:36px;font-size:13px;font-family:var(--font);cursor:pointer;">Cancel</button>
+      <button onclick="document.getElementById('pwSendMsgModal').classList.remove('open');" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 24px;height:36px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;display:inline-flex;align-items:center;gap:6px;"><span class="material-icons" style="font-size:15px;">send</span>Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ EDIT ACTIVITY MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="pwEditActivityModal">
+  <div class="gc-modal" style="max-width:680px;">
+    <div class="gc-modal-title">
+      <span>Edit Activity</span>
+      <button onclick="document.getElementById('pwEditActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div class="gc-modal-body">
+      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
+
+      <fieldset class="gc-modal-fieldset">
+        <legend>Add Activity For</legend>
+        <div style="display:flex;gap:24px;align-items:center;">
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;"><input type="radio" name="editActFor" checked style="accent-color:var(--teal);width:16px;height:16px;" /> Care Staff</label>
+          <label style="display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;"><input type="radio" name="editActFor" style="accent-color:var(--teal);width:16px;height:16px;" /> External Care Team</label>
+        </div>
+      </fieldset>
+
+      <div class="gc-modal-field" style="max-width:240px;">
+        <label><span class="req">*</span>Type</label>
+        <select class="gc-modal-select"><option>Scheduled</option><option>Completed</option><option>Case Conference</option></select>
+      </div>
+
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;">
+        <input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Work Queue Activity
+      </label>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="gc-modal-field">
+          <label>Member Name</label>
+          <div id="pwEditMemberName" style="font-size:13px;color:#555;padding:2px 0;">—</div>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Care Staff</label>
+          <input class="gc-modal-input" type="text" value="Beatrice Kanya : All Access Admin" />
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+        <div class="gc-modal-field">
+          <label>Activity Type</label>
+          <div id="pwEditActivityType" style="font-size:13px;color:#555;padding:2px 0;">—</div>
+        </div>
+        <div class="gc-modal-field">
+          <label>Script</label>
+          <div style="font-size:13px;color:#555;padding:2px 0;">ADULT LTSS</div>
+        </div>
+        <div class="gc-modal-field">
+          <label>Priority</label>
+          <select class="gc-modal-select">
+            <option>Select</option>
+            <option>1st — Urgent</option>
+            <option>2nd — High</option>
+            <option selected>3rd — Medium</option>
+            <option>4th — Standard</option>
+            <option>5th — Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Contact Type</label>
+          <select class="gc-modal-select">
+            <option>Member - Phone</option><option>Member - Face to Face</option><option>Member - Telehealth</option>
+            <option>Member - Email</option><option>Wellframe Outreach</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Scheduled Duration</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input class="gc-modal-input" type="text" value="00" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Hrs</span>
+            <input class="gc-modal-input" type="text" value="30" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Mins</span>
+          </div>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Scheduled Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
+          <div style="position:relative;display:inline-flex;align-items:center;">
+            <input class="gc-modal-input" id="pwEditScheduledDate" type="text" style="width:190px;padding-right:50px;" />
+            <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
+              <span class="material-icons" style="font-size:15px;">calendar_month</span>
+              <span class="material-icons" style="font-size:15px;">schedule</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gc-modal-field" style="max-width:240px;">
+        <label>Due Date <span style="font-size:11px;color:#888;font-weight:400;">MM/DD/YYYY HH:MM</span></label>
+        <div style="position:relative;display:inline-flex;align-items:center;">
+          <input class="gc-modal-input" id="pwEditDueDate" type="text" style="width:200px;padding-right:50px;" />
+          <span style="position:absolute;right:8px;display:flex;gap:4px;color:var(--teal);">
+            <span class="material-icons" style="font-size:15px;">calendar_month</span>
+            <span class="material-icons" style="font-size:15px;">schedule</span>
+          </span>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:36px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;"><input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Recurring Activity</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;"><input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Program Activity</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;cursor:pointer;"><input type="checkbox" style="accent-color:var(--teal);width:15px;height:15px;" /> Clinical Program Activity</label>
+      </div>
+    </div>
+    <div class="gc-modal-footer">
+      <button onclick="document.getElementById('pwEditActivityModal').classList.remove('open');" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Update and Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PERFORM ACTIVITY MODAL (Run Script) ══════════════ -->
+<div class="gc-modal-overlay" id="pwPerformActivityModal">
+  <div class="gc-modal" style="max-width:680px;">
+    <div class="gc-modal-title">
+      <span>Run Script</span>
+      <button onclick="document.getElementById('pwPerformActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div class="gc-modal-body">
+      <div style="font-size:11px;color:#555;"><span style="color:#C62828;font-weight:700;">*</span> Indicates required field</div>
+
+      <div style="text-align:right;margin-top:-8px;">
+        <span style="font-size:13px;color:var(--link);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+          <span class="material-icons" style="font-size:15px;">description</span> Summary
+        </span>
+      </div>
+
+      <!-- Member info block -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:12px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px 16px;font-size:12px;">
+        <div><div style="color:#888;margin-bottom:2px;">Member Name:</div><div id="pwPerformMemberName" style="font-weight:700;color:var(--link);">—</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">DOB:</div><div style="font-weight:700;">07/04/1988</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Address:</div><div style="font-weight:700;">111 Main Road</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">City:</div><div style="font-weight:700;">Reston</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">State:</div><div style="font-weight:700;">VA</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Zip:</div><div style="font-weight:700;">20191</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Primary Phone:</div><div style="font-weight:700;color:var(--link);">111-123-1234</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Alternate Phone:</div><div style="font-weight:700;color:var(--link);">909-851-3029</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Cell Phone:</div><div style="font-weight:700;color:var(--link);">409-288-6721</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Language:</div><div style="font-weight:700;">English</div></div>
+        <div style="grid-column:span 2;"></div>
+        <div><div style="color:#888;margin-bottom:2px;">Payor:</div><div style="font-weight:700;color:var(--link);">Active</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Care Staff:</div><div style="font-weight:700;">Beatrice Kanya</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Priority:</div><div id="pwPerformPriority" style="font-weight:700;">—</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Activity Type:</div><div id="pwPerformActivityType" style="font-weight:700;">—</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Scheduled Date:</div><div style="font-weight:700;">08/03/2026 09:00 AM</div></div>
+        <div><div style="color:#888;margin-bottom:2px;">Scheduled Duration:</div><div style="font-weight:700;">00 Hrs: 30 Mins</div></div>
+        <div style="grid-column:span 6;"><div style="color:#888;margin-bottom:2px;">Script:</div><div id="pwPerformScript" style="font-weight:700;">ADULT LTSS</div></div>
+      </div>
+
+      <div style="border-top:1px solid var(--border);padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Contact Type</label>
+          <select class="gc-modal-select">
+            <option>Member - Phone</option><option>Member - Face to Face</option><option>Member - Telehealth</option>
+            <option>Member - Email</option><option>Wellframe Outreach</option>
+          </select>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Outcome Type</label>
+          <select class="gc-modal-select"><option>Successful</option><option>Unsuccessful</option><option>Left Voicemail</option></select>
+        </div>
+        <div class="gc-modal-field">
+          <label><span class="req">*</span>Activity Outcome</label>
+          <select class="gc-modal-select"><option>Select</option><option>Completed</option><option>Follow-up Required</option><option>Unable to Reach</option></select>
+        </div>
+        <div class="gc-modal-field">
+          <label>Place of Service</label>
+          <select class="gc-modal-select"><option>Select</option><option>Home</option><option>Office</option><option>Telehealth</option></select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;">
+        <div class="gc-modal-field">
+          <label>Actual Duration</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input class="gc-modal-input" type="text" placeholder="HH" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Hrs</span>
+            <input class="gc-modal-input" type="text" placeholder="MM" style="width:44px;text-align:center;padding:0;" />
+            <span style="font-size:12px;color:#555;">Mins</span>
+          </div>
+        </div>
+        <div class="gc-modal-field">
+          <label>Service Code</label>
+          <select class="gc-modal-select"><option>Select</option><option>99213</option><option>99214</option><option>99215</option></select>
+        </div>
+      </div>
+
+      <div class="gc-modal-field">
+        <label>Outcome Notes</label>
+        <textarea style="border:1px solid #BBB;border-radius:3px;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:80px;resize:vertical;width:100%;"></textarea>
+        <div style="background:#F0F0F0;border:1px solid #BBB;border-top:none;border-radius:0 0 3px 3px;padding:6px 10px;font-size:12px;">
+          <strong>Notes viewable by</strong>
+          <label style="margin-left:12px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-weight:400;"><input type="radio" name="pwNoteVis" style="accent-color:var(--teal);" /> All Users</label>
+          <label style="margin-left:12px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-weight:400;"><input type="radio" name="pwNoteVis" checked style="accent-color:var(--teal);" /> Internal Users Only</label>
+        </div>
+      </div>
+    </div>
+    <div class="gc-modal-footer">
+      <button onclick="document.getElementById('pwPerformActivityModal').classList.remove('open');" style="background:var(--teal);color:#fff;border:none;border-radius:3px;padding:0 36px;height:38px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;">Run Script Form</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DELETE ACTIVITY MODAL ══════════════ -->
+<div class="gc-modal-overlay" id="pwDeleteActivityModal">
+  <div class="gc-modal" style="max-width:420px;">
+    <div class="gc-modal-title">
+      <span>Delete Activity</span>
+      <button onclick="document.getElementById('pwDeleteActivityModal').classList.remove('open');"><span class="material-icons">close</span></button>
+    </div>
+    <div class="gc-modal-accent"></div>
+    <div class="gc-modal-body">
+      <div style="font-size:13px;color:#333;line-height:1.6;">
+        Are you sure you want to delete this activity for <strong id="pwDeleteMemberName">—</strong>?
+        <br><span id="pwDeleteActivityLabel" style="color:var(--text-muted);font-size:12px;"></span>
+      </div>
+      <div style="font-size:12px;color:#C62828;background:#FDECEA;border-radius:3px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
+        <span class="material-icons" style="font-size:16px;">warning</span>
+        This action cannot be undone.
+      </div>
+      <div class="gc-modal-field">
+        <label>Reason for Deletion</label>
+        <select class="gc-modal-select">
+          <option>Select</option>
+          <option>Duplicate Activity</option>
+          <option>Created in Error</option>
+          <option>Member Declined</option>
+          <option>Activity No Longer Needed</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="gc-modal-field">
+        <label>Comments</label>
+        <textarea style="border:1px solid #BBB;border-radius:3px;padding:6px 8px;font-size:13px;font-family:var(--font);background:#fff;outline:none;min-height:60px;resize:vertical;width:100%;"></textarea>
+      </div>
+    </div>
+    <div class="gc-modal-footer" style="justify-content:flex-end;gap:10px;">
+      <button onclick="document.getElementById('pwDeleteActivityModal').classList.remove('open');" style="background:#fff;color:#555;border:1px solid #BBB;border-radius:3px;padding:0 20px;height:36px;font-size:13px;font-family:var(--font);cursor:pointer;">Cancel</button>
+      <button onclick="document.getElementById('pwDeleteActivityModal').classList.remove('open');" style="background:#C62828;color:#fff;border:none;border-radius:3px;padding:0 24px;height:36px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;">Delete Activity</button>
     </div>
   </div>
 </div>

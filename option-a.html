@@ -3847,7 +3847,6 @@ Diabetes Management</textarea>
             <div class="cp-subtab" data-tab="strengths" onclick="cpSubTab('strengths')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Care Plan Strengths</div>
             <div class="cp-subtab" data-tab="review" onclick="cpSubTab('review')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Care Plan Review</div>
             <div class="cp-subtab" data-tab="member-instructions" onclick="cpSubTab('member-instructions')" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Member Instructions</div>
-            <div class="cp-subtab" data-tab="member-checklist" onclick="cpSubTab('member-checklist');mcRender()" style="padding:10px 28px;font-size:15px;font-weight:400;color:var(--link);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;white-space:nowrap;">Member Checklist</div>
           </div>
           <span class="material-icons" style="font-size:22px;color:var(--teal);cursor:pointer;margin-left:auto;padding-bottom:6px;">info</span>
         </div>
@@ -4167,42 +4166,6 @@ Diabetes Management</textarea>
               </div>
             </div>
 
-          </div>
-        </div>
-
-        <!-- SUB-PANEL: Member Checklist -->
-        <div id="cp-panel-member-checklist" class="cp-subpanel" style="display:none;padding:0;">
-          <div style="display:flex;flex-direction:column;min-height:500px;">
-            <!-- Date navigation bar -->
-            <div style="background:#fff;border-bottom:2px solid #e5eaee;padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-              <button onclick="mcGoToday()" style="display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:var(--font);padding:4px 0;">
-                TODAY <span class="material-icons" style="font-size:16px;color:#555;">calendar_today</span>
-              </button>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <button onclick="mcPrevDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
-                  <span class="material-icons" style="font-size:22px;">chevron_left</span>
-                </button>
-                <span id="mc-date-label" style="font-size:18px;font-weight:800;color:#1A2F3D;min-width:210px;text-align:center;letter-spacing:-0.2px;"></span>
-                <button onclick="mcNextDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
-                  <span class="material-icons" style="font-size:22px;">chevron_right</span>
-                </button>
-              </div>
-              <div style="position:relative;">
-                <button onclick="mcToggleViewByMenu()" style="display:inline-flex;align-items:center;gap:3px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:var(--font);padding:4px 0;">
-                  VIEW BY <span class="material-icons" style="font-size:18px;">arrow_drop_down</span>
-                </button>
-                <div id="mc-viewby-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #dde2e6;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,0.12);z-index:200;min-width:150px;">
-                  <div onclick="mcSetViewBy('date')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">
-                    Date <span class="material-icons" id="mc-vb-check-date" style="font-size:14px;color:#0080A3;">check</span>
-                  </div>
-                  <div onclick="mcSetViewBy('type')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">
-                    Content Type <span class="material-icons" id="mc-vb-check-type" style="font-size:14px;color:#0080A3;visibility:hidden;">check</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Content area -->
-            <div id="mc-content" style="background:#f5f6f7;padding:4px 20px 20px;flex:1;"></div>
           </div>
         </div>
 
@@ -4697,6 +4660,7 @@ Diabetes Management</textarea>
           <div class="ar-c-tab gc-tab" data-arc="outstanding-activities">Outstanding Activities</div>
           <div class="ar-c-tab gc-tab" data-arc="member-activity">Member Activity</div>
           <div class="ar-c-tab gc-tab" data-arc="member-alerts">Member Alerts</div>
+          <div class="ar-c-tab gc-tab" data-arc="member-checklist">Member Checklist</div>
         </div>
 
 
@@ -5697,6 +5661,42 @@ Diabetes Management</textarea>
 
           </div><!-- /ma-alerts-by-type -->
 
+        </div>
+
+        <!-- Tab: Member Checklist -->
+        <div class="ar-tab-panel" id="artab-member-checklist" style="display:none;padding:0;">
+          <div style="display:flex;flex-direction:column;min-height:500px;">
+            <!-- Date navigation bar -->
+            <div style="background:#fff;border-bottom:2px solid #e5eaee;padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+              <button onclick="mcGoToday()" style="display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:var(--font);padding:4px 0;">
+                TODAY <span class="material-icons" style="font-size:16px;color:#555;">calendar_today</span>
+              </button>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <button onclick="mcPrevDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                  <span class="material-icons" style="font-size:22px;">chevron_left</span>
+                </button>
+                <span id="mc-date-label" style="font-size:18px;font-weight:800;color:#1A2F3D;min-width:210px;text-align:center;letter-spacing:-0.2px;"></span>
+                <button onclick="mcNextDay()" style="background:none;border:none;cursor:pointer;color:#555;display:flex;align-items:center;padding:4px;border-radius:3px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                  <span class="material-icons" style="font-size:22px;">chevron_right</span>
+                </button>
+              </div>
+              <div style="position:relative;">
+                <button onclick="mcToggleViewByMenu()" style="display:inline-flex;align-items:center;gap:3px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#555;letter-spacing:0.7px;font-family:var(--font);padding:4px 0;">
+                  VIEW BY <span class="material-icons" style="font-size:18px;">arrow_drop_down</span>
+                </button>
+                <div id="mc-viewby-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #dde2e6;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,0.12);z-index:200;min-width:150px;">
+                  <div onclick="mcSetViewBy('date')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">
+                    Date <span class="material-icons" id="mc-vb-check-date" style="font-size:14px;color:#0080A3;">check</span>
+                  </div>
+                  <div onclick="mcSetViewBy('type')" style="padding:10px 14px;font-size:12px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:space-between;" onmouseover="this.style.background='#f5f6f7'" onmouseout="this.style.background=''">
+                    Content Type <span class="material-icons" id="mc-vb-check-type" style="font-size:14px;color:#0080A3;visibility:hidden;">check</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Content area -->
+            <div id="mc-content" style="background:#f5f6f7;padding:4px 20px 20px;flex:1;"></div>
+          </div>
         </div>
 
         <!-- Tab: Member Activity -->
@@ -7116,10 +7116,11 @@ function openScriptResponseModal() {
     ['artab-b-activities','artab-c-member-activities'].forEach(function(id) {
       var el = document.getElementById(id); if (el) el.style.display = 'none';
     });
-    var directMap = { 'notes':'artab-notes', 'activity-summary':'artab-activity-summary', 'required-activities':'artab-required-activities', 'outstanding-activities':'artab-outstanding-activities', 'member-activity':'artab-member-activity', 'member-alerts':'artab-member-alerts' };
+    var directMap = { 'notes':'artab-notes', 'activity-summary':'artab-activity-summary', 'required-activities':'artab-required-activities', 'outstanding-activities':'artab-outstanding-activities', 'member-activity':'artab-member-activity', 'member-alerts':'artab-member-alerts', 'member-checklist':'artab-member-checklist' };
     if (directMap[arc]) {
       var p7 = document.getElementById(directMap[arc]); if (p7) { p7.style.display=''; p7.classList.add('active'); }
       if (arc === 'member-activity') { switchMaView(_currentMaView); renderMemberActivityCharts(); }
+      if (arc === 'member-checklist') { mcRender(); }
     }
   }
 
