@@ -3289,7 +3289,10 @@ Diabetes Management</textarea>
             </div>
 
             <!-- Medications table — GC-primary, Wellframe Reminder column -->
-            <table class="gc-table" style="width:100%;">
+            <div style="display:flex;justify-content:flex-end;margin-bottom:8px;">
+              <button class="gc-btn gc-btn-secondary gc-btn-sm" onclick="wfAddAllToWellframe('med-wf-table', 'medication', this)"><span class="material-icons" style="font-size:14px;">playlist_add_check</span>Add All to Wellframe</button>
+            </div>
+            <table class="gc-table" style="width:100%;" id="med-wf-table">
               <thead>
                 <tr>
                   <th>Medication</th>
@@ -3632,12 +3635,13 @@ Diabetes Management</textarea>
           </div>
 
           <!-- Add link -->
-          <div style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
             <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;" onclick="return false;"><span class="material-icons" style="font-size:15px;">add_circle_outline</span>Add</a>
+            <button class="gc-btn gc-btn-secondary gc-btn-sm" onclick="wfAddAllToWellframe('appt-wf-table', 'appointment', this)"><span class="material-icons" style="font-size:14px;">playlist_add_check</span>Add All to Wellframe</button>
           </div>
 
           <!-- Table -->
-          <table class="gc-table" style="width:100%;">
+          <table class="gc-table" style="width:100%;" id="appt-wf-table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -14131,13 +14135,86 @@ function wfAddModal(el, e) {
   document.getElementById('wf-add-modal').classList.add('open');
   document.addEventListener('keydown', wfEscHandler);
 }
+
+var wfBulkQueue = [];
+var wfBulkIndex = 0;
+var wfBulkBtn = null;
+var wfBulkKind = 'medication';
+var wfBulkLabels = {
+  medication: { field: 'Medication', placeholder: 'Search for a medication...', noun: 'Medication' },
+  appointment: { field: 'Appointment Type', placeholder: 'Search for an appointment type...', noun: 'Appointment' }
+};
+
+function wfAddAllToWellframe(tableId, kind, btn) {
+  var table = document.getElementById(tableId);
+  if (!table) return;
+  var links = table.querySelectorAll('tbody a[onclick^="wfAddModal"]');
+  wfBulkQueue = [];
+  links.forEach(function(a) {
+    var row = a.closest('tr');
+    var name = row && row.querySelector('td') ? row.querySelector('td').textContent.trim() : '';
+    wfBulkQueue.push({ cell: a.parentNode, name: name });
+  });
+  if (!wfBulkQueue.length) return;
+  wfBulkIndex = 0;
+  wfBulkBtn = btn;
+  wfBulkKind = kind || 'medication';
+  document.getElementById('wf-add-modal').classList.add('open');
+  document.addEventListener('keydown', wfEscHandler);
+  wfBulkRenderStep();
+}
+function wfBulkRenderStep() {
+  document.getElementById('wf-bulk-pager').style.display = 'flex';
+  var item = wfBulkQueue[wfBulkIndex];
+  var labels = wfBulkLabels[wfBulkKind];
+  var search = document.getElementById('wf-med-search');
+  search.value = item.name;
+  search.placeholder = labels.placeholder;
+  search.disabled = true;
+  search.style.background = '#F0F0F0';
+  document.getElementById('wf-field-label').textContent = labels.field;
+  document.getElementById('wf-custom-med-row').style.display = wfBulkKind === 'medication' ? '' : 'none';
+  document.getElementById('wf-bulk-label').textContent = labels.noun + ' ' + (wfBulkIndex + 1) + ' of ' + wfBulkQueue.length + ' — ' + item.name;
+  document.getElementById('wf-bulk-prev').style.visibility = wfBulkIndex === 0 ? 'hidden' : 'visible';
+  document.getElementById('wf-bulk-next').style.visibility = wfBulkIndex === wfBulkQueue.length - 1 ? 'hidden' : 'visible';
+  document.getElementById('wf-bulk-submit-btn').textContent = wfBulkIndex === wfBulkQueue.length - 1 ? 'Add to Wellframe & Finish' : 'Add to Wellframe & Next';
+}
+function wfBulkPrev() { if (wfBulkIndex > 0) { wfBulkIndex--; wfBulkRenderStep(); } }
+function wfBulkNext() { if (wfBulkIndex < wfBulkQueue.length - 1) { wfBulkIndex++; wfBulkRenderStep(); } }
+function wfBulkReset() {
+  wfBulkQueue = [];
+  wfBulkBtn = null;
+  document.getElementById('wf-bulk-pager').style.display = 'none';
+  document.getElementById('wf-field-label').textContent = 'Medication';
+  document.getElementById('wf-custom-med-row').style.display = '';
+  var search = document.getElementById('wf-med-search');
+  search.disabled = false;
+  search.style.background = '';
+  search.placeholder = 'Search for a medication...';
+  document.getElementById('wf-bulk-submit-btn').textContent = 'Add to Wellframe';
+}
 function wfCloseAddModal() {
   document.getElementById('wf-add-modal').classList.remove('open');
   document.removeEventListener('keydown', wfEscHandler);
+  wfBulkReset();
 }
 function wfEscHandler(e) { if (e.key === 'Escape') wfCloseAddModal(); }
 function wfSubmitAddModal(e) {
   if (e) e.preventDefault();
+  if (wfBulkQueue.length) {
+    var item = wfBulkQueue[wfBulkIndex];
+    item.cell.innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;color:#2E7D32;font-size:11px;font-weight:600;"><span class="material-icons" style="font-size:14px;">check_circle</span>Added to Wellframe</span>';
+    if (wfBulkIndex < wfBulkQueue.length - 1) {
+      wfBulkIndex++;
+      wfBulkRenderStep();
+      return;
+    }
+    if (wfBulkBtn) wfBulkBtn.disabled = true;
+    document.getElementById('wf-add-modal').classList.remove('open');
+    document.removeEventListener('keydown', wfEscHandler);
+    wfBulkReset();
+    return;
+  }
   var med = document.getElementById('wf-med-search') ? document.getElementById('wf-med-search').value : '';
   if (!med && document.getElementById('wf-custom-med-chk') && !document.getElementById('wf-custom-med-chk').checked) {
     alert('Please select or enter a medication.');
@@ -15859,13 +15936,18 @@ function wfAddTime(e) {
       <button onclick="wfCloseAddModal()"><span class="material-icons">close</span></button>
     </div>
     <div class="gc-modal-accent" style="background:var(--teal);"></div>
+    <div id="wf-bulk-pager" style="display:none;align-items:center;justify-content:center;gap:16px;padding:10px 20px;background:#F4FBFE;border-bottom:1px solid #D6EDF7;">
+      <button id="wf-bulk-prev" onclick="wfBulkPrev()" style="border:none;background:none;cursor:pointer;color:var(--teal);display:flex;align-items:center;padding:2px;"><span class="material-icons">chevron_left</span></button>
+      <span id="wf-bulk-label" style="font-size:12px;font-weight:700;color:#444;">Medication 1 of 5</span>
+      <button id="wf-bulk-next" onclick="wfBulkNext()" style="border:none;background:none;cursor:pointer;color:var(--teal);display:flex;align-items:center;padding:2px;"><span class="material-icons">chevron_right</span></button>
+    </div>
     <div class="gc-modal-body">
 
-      
 
-      <!-- Medication field -->
+
+      <!-- Medication / Appointment Type field -->
       <div class="gc-modal-field">
-        <label>Medication</label>
+        <label id="wf-field-label">Medication</label>
         <div style="position:relative;">
           <span class="material-icons" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:16px;color:#999;pointer-events:none;">search</span>
           <input id="wf-med-search" class="gc-modal-input" type="text" placeholder="Search for a medication..." style="padding-left:30px;" oninput="wfMedSearch(this.value)" autocomplete="off"/>
@@ -15880,10 +15962,12 @@ function wfAddTime(e) {
             <div onclick="wfSelectMed(this)" style="padding:8px 12px;font-size:13px;cursor:pointer;" onmouseover="this.style.background='#f0f7fb'" onmouseout="this.style.background=''">Spironolactone 100mg</div>
           </div>
         </div>
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:400;color:#555;margin-top:5px;cursor:pointer;">
-          <input type="checkbox" id="wf-custom-med-chk" style="accent-color:var(--teal);" onchange="wfToggleCustomMed(this)"/> Custom medication (not in list)
-        </label>
-        <input id="wf-custom-med-input" class="gc-modal-input" type="text" placeholder="Enter custom medication name..." style="display:none;margin-top:6px;"/>
+        <div id="wf-custom-med-row">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:400;color:#555;margin-top:5px;cursor:pointer;">
+            <input type="checkbox" id="wf-custom-med-chk" style="accent-color:var(--teal);" onchange="wfToggleCustomMed(this)"/> Custom medication (not in list)
+          </label>
+          <input id="wf-custom-med-input" class="gc-modal-input" type="text" placeholder="Enter custom medication name..." style="display:none;margin-top:6px;"/>
+        </div>
       </div>
 
       <!-- Repeating -->
@@ -15934,7 +16018,7 @@ function wfAddTime(e) {
     </div>
     <div class="gc-modal-footer">
       <button onclick="wfCloseAddModal()" style="padding:7px 24px;border:1.5px solid #bbb;background:#fff;border-radius:3px;font-size:13px;color:#555;cursor:pointer;">Cancel</button>
-      <button onclick="wfSubmitAddModal(event)" style="padding:7px 24px;border:none;background:var(--teal);color:#fff;border-radius:3px;font-size:13px;font-weight:600;cursor:pointer;">Add to Wellframe</button>
+      <button id="wf-bulk-submit-btn" onclick="wfSubmitAddModal(event)" style="padding:7px 24px;border:none;background:var(--teal);color:#fff;border-radius:3px;font-size:13px;font-weight:600;cursor:pointer;">Add to Wellframe</button>
     </div>
   </div>
 </div>
