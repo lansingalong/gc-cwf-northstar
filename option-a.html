@@ -1358,7 +1358,7 @@ Diabetes Management</textarea>
           <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:#2E7D32;border-radius:8px;flex-shrink:0;">
             <span class="material-icons" style="font-size:22px;color:#fff;">check_circle_outline</span>
           </span>
-          <span style="font-size:14px;color:#1a1a1a;">Record saved successfully.</span>
+          <span id="progSuccessBannerMsg" style="font-size:14px;color:#1a1a1a;">Record saved successfully.</span>
         </div>
         <button onclick="document.getElementById('progSuccessBanner').style.display='none'" style="background:none;border:none;cursor:pointer;color:#1378A3;font-size:18px;line-height:1;padding:0;" aria-label="Dismiss">&#x2715;</button>
       </div>
@@ -7267,6 +7267,7 @@ function openScriptResponseModal() {
       if (arc === 'member-checklist') { mcRender(); }
     }
   }
+  window.activateArCTab = activateArCTab;
 
   // C tab click handlers
   document.querySelectorAll('#ar-tabs-c .ar-c-tab').forEach(function(tab) {
@@ -12149,15 +12150,13 @@ function mfpAddProgramConfirm() {
         <div>
           <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Start Date</div>
           <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;">
-            <input type="text" id="staffProgStartDate" placeholder="MM/DD/YYYY" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;" />
-            <span class="material-icons" style="font-size:16px;color:#888;">calendar_today</span>
+            <input type="date" id="staffProgStartDate" onchange="staffProgSyncWFStartDate()" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />
           </div>
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">End Date</div>
           <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;">
-            <input type="text" id="staffProgEndDate" placeholder="MM/DD/YYYY" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;" />
-            <span class="material-icons" style="font-size:16px;color:#888;">calendar_today</span>
+            <input type="date" id="staffProgEndDate" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />
           </div>
         </div>
       </div>
@@ -12253,9 +12252,38 @@ function mfpAddProgramConfirm() {
         </div>
       </div>
 
+      <!-- Recommended Wellframe companion program -->
+      <div id="staffProgWFSection" style="display:none;margin-top:8px;padding-top:20px;border-top:1px solid #e0e0e0;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#1378A3;">
+          <img src="assets/Wellframe/Logomark.png" style="width:14px;height:14px;" onerror="this.style.display='none'"/>
+          Recommended Wellframe Program
+        </div>
+        <div style="margin-top:8px;width:100%;box-sizing:border-box;background:#F7FBFE;border:1px solid #C5DFF0;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(19,120,163,0.1);">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <!-- Add Program — expands to the program details plus the date/follow-up choice the standalone Add Program modal offers -->
+            <button type="button" id="staffProgWFAddToggleBtn" onclick="staffProgToggleWFAdd()" aria-label="Add program" title="Add program" onmouseover="this.style.background='rgba(19,120,163,0.1)'" onmouseout="this.style.background='transparent'" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:30px;height:30px;background:transparent;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;transition:background .15s;">
+              <span id="staffProgWFAddIcon" class="material-icons" style="font-size:24px;color:#1378A3;">add_circle</span>
+            </button>
+            <div id="staffProgWFTitle" style="font-size:14px;color:#1a1a1a;font-weight:700;"></div>
+          </div>
+          <div id="staffProgWFAddPanel" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee;">
+            <div id="staffProgWFDetails" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #eee;"></div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;margin-bottom:10px;">
+              <input type="radio" name="staffProgWFAddOption" id="staffProgWFAddOptDate" checked onchange="staffProgUpdateWFDateInput()" style="accent-color:#1378A3;width:16px;height:16px;" /> Start tomorrow or on a specific date
+            </label>
+            <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;margin-bottom:12px;margin-left:24px;">
+              <input type="date" id="staffProgWFStartDate" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />
+            </div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;">
+              <input type="radio" name="staffProgWFAddOption" id="staffProgWFAddOptFollowup" onchange="staffProgUpdateWFDateInput()" style="accent-color:#1378A3;width:16px;height:16px;" /> Add a follow-up to consider this program later
+            </label>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div style="padding:16px 24px;border-top:1px solid #e0e0e0;display:flex;justify-content:center;align-items:center;gap:20px;background:#fff;">
-      <button onclick="staffProgSubmit()" style="background:#1378A3;color:#fff;border:none;border-radius:4px;padding:10px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Add Program</button>
+      <button id="staffProgSubmitBtn" onclick="staffProgSubmit()" style="background:#1378A3;color:#fff;border:none;border-radius:4px;padding:10px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Add Program</button>
       <a href="#" onclick="event.preventDefault();document.getElementById('staffProgModal').classList.remove('open')" style="font-size:13px;font-weight:700;color:#1378A3;text-decoration:underline;cursor:pointer;">Cancel</a>
     </div>
   </div>
@@ -12294,11 +12322,91 @@ function staffProgSubmit() {
     document.getElementById('staffProgModal').classList.remove('open');
     var b = document.getElementById('progSuccessBanner');
     if (b) b.style.display = 'flex';
+    var msgEl = document.getElementById('progSuccessBannerMsg');
+    if (msgEl) msgEl.textContent = 'Record saved successfully.';
     if (_staffProgCurrentSubtype === 'General') {
       reqActAddClinicalProgram(_staffProgCurrentTitle);
     } else if (_staffProgCurrentSubtype === 'Benefit') {
       reqActAddEligibilityProgram(_staffProgCurrentTitle);
     }
+
+    var wfActive = staffProgWFAddIsActive();
+    if (wfActive) {
+      staffProgFinalizeWFAdd();
+    }
+  }
+}
+
+function staffProgWFAddIsActive() {
+  var wfSection = document.getElementById('staffProgWFSection');
+  var addPanel = document.getElementById('staffProgWFAddPanel');
+  return !!(wfSection && wfSection.style.display !== 'none' && wfSection.getAttribute('data-wf-title') && addPanel && addPanel.style.display !== 'none');
+}
+
+function staffProgUpdateSubmitLabel() {
+  var btn = document.getElementById('staffProgSubmitBtn');
+  if (!btn) return;
+  btn.textContent = staffProgWFAddIsActive() ? 'Add 2 Programs' : 'Add Program';
+}
+
+
+function staffProgToggleWFAdd() {
+  var panel = document.getElementById('staffProgWFAddPanel');
+  var icon = document.getElementById('staffProgWFAddIcon');
+  var btn = document.getElementById('staffProgWFAddToggleBtn');
+  if (!panel) return;
+  var isHidden = panel.style.display === 'none';
+  panel.style.display = isHidden ? '' : 'none';
+  if (icon) {
+    icon.textContent = isHidden ? 'remove_circle' : 'add_circle';
+    icon.style.color = isHidden ? '#C62828' : '#1378A3';
+  }
+  if (btn) {
+    var label = isHidden ? 'Cancel adding program' : 'Add program';
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', label);
+  }
+  if (!isHidden) {
+    // Collapsing — discard any in-progress date/follow-up choice
+    document.getElementById('staffProgWFAddOptDate').checked = true;
+    document.getElementById('staffProgWFAddOptFollowup').checked = false;
+    document.getElementById('staffProgWFStartDate').value = '';
+    document.getElementById('staffProgWFStartDate').disabled = false;
+  }
+  staffProgUpdateSubmitLabel();
+}
+
+function staffProgUpdateWFDateInput() {
+  var useDate = document.getElementById('staffProgWFAddOptDate').checked;
+  document.getElementById('staffProgWFStartDate').disabled = !useDate;
+}
+
+// Defaults the Wellframe program's start date to match the GuidingCare program's start date
+function staffProgSyncWFStartDate() {
+  var gcDate = document.getElementById('staffProgStartDate').value;
+  var wfDateInput = document.getElementById('staffProgWFStartDate');
+  if (gcDate && wfDateInput) wfDateInput.value = gcDate;
+}
+
+// Adds the recommended Wellframe program using the date/follow-up choice made
+// inline in staffProgModal — no separate modal is shown.
+function staffProgFinalizeWFAdd() {
+  var wfSection = document.getElementById('staffProgWFSection');
+  var wfTitle = wfSection ? wfSection.getAttribute('data-wf-title') : null;
+  var wf = wfTitle ? MFP2_PROGRAMS.filter(function(p) { return p.title === wfTitle; })[0] : null;
+  if (!wf) return;
+
+  var isFollowup = document.getElementById('staffProgWFAddOptFollowup').checked;
+  mfpPopulateModal(wf.title, wf.desc, wf.audiences, wf.langs, 'Member-Facing', wf.activities, wf.appTitle, wf.contains, wf.duration, wf.tasksPerDay);
+  document.getElementById('mfpViewProgramModal').classList.remove('open');
+
+  var msgEl = document.getElementById('progSuccessBannerMsg');
+  if (isFollowup) {
+    if (msgEl) msgEl.textContent = _staffProgCurrentTitle + ' was added, and a follow-up was set to consider ' + wf.title + ' later.';
+  } else {
+    wf.added = true;
+    mfpAddProgramConfirm();
+    if (msgEl) msgEl.textContent = _staffProgCurrentTitle + ' was added, and the member was enrolled in ' + wf.title + ' on Wellframe.';
   }
 }
 
@@ -12498,7 +12606,6 @@ function navToRequiredActivitiesPanel(subPanelId) {
     if (line)  { line.style.opacity = '1'; }
   }
   if (targetSubPanel) targetSubPanel.style.display = '';
-  if (reqPanel) reqPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function navToRequiredActivities() {
@@ -12517,6 +12624,33 @@ function staffProgUpdateStatusDesc() {
   });
   descSel.disabled = !opts.length;
 }
+
+// Maps each Clinical/Eligibility (staff) program to the related member-facing
+// Wellframe program recommended alongside it, by title in MFP2_PROGRAMS.
+var STAFF_PROG_WF_COMPANION = {
+  'Care Coordination':                  'Chronic Disease Self-Management',
+  'Complex Care Management':            'Chronic Disease Self-Management',
+  'DCB-T':                               'Chronic Disease Self-Management',
+  'Diabetes Management':                'Diabetes Management Program',
+  'Health and Wellness':                'Healthy Living — Nutrition',
+  'Maternal Health Program':            'Maternal Health Program',
+  'Substance Use Disorder Program':     'Substance Use Recovery Support',
+  'Transitions of Care':                'Chronic Disease Self-Management',
+  'Congestive Heart Failure Program':   'Heart Failure Management',
+  'Behavioral Health Integration':      'Behavioral Health Support',
+  'Asthma & Respiratory Management':    'Asthma Action Plan',
+  'Post-Acute Care Management':         'Post-Surgical Recovery Program',
+  'Nutrition & Obesity Management':     'Weight Management Program',
+  'Geriatric Care Management':          'Aging in Place Support',
+  'DSNP Care Management':               'LTSS Program',
+  'CSNP Care Management':               'Chronic Disease Self-Management',
+  'ISNP Care Management':               'LTSS Program',
+  'Medicaid Care Management':           'Chronic Disease Self-Management',
+  'LTSS Waiver Program':                'LTSS Program',
+  'Medicare Advantage Care Management': 'Chronic Disease Self-Management',
+  'Behavioral Health Benefit Program':  'Behavioral Health Support',
+  'Dual-Eligible Coordination Program': 'LTSS Program',
+};
 
 function openStaffProgModal(title, subtype) {
   _staffProgCurrentTitle = title;
@@ -12544,6 +12678,46 @@ function openStaffProgModal(title, subtype) {
   ['staffProgStatusErr','staffProgStatusDescErr','staffProgReferralErr'].forEach(function(id) {
     document.getElementById(id).style.display = 'none';
   });
+
+  // Recommended Wellframe companion program
+  var wfSection = document.getElementById('staffProgWFSection');
+  var wfTitle = STAFF_PROG_WF_COMPANION[title];
+  var wf = wfTitle ? MFP2_PROGRAMS.filter(function(p) { return p.title === wfTitle; })[0] : null;
+  if (wf) {
+    wfSection.style.display = '';
+    wfSection.setAttribute('data-wf-title', wf.title);
+    document.getElementById('staffProgWFTitle').textContent = wf.title;
+
+    var detailsHtml = '';
+    if (wf.appTitle) {
+      detailsHtml += '<div style="font-size:13px;color:#1a1a1a;margin-bottom:8px;"><strong>Member title in app:</strong> ' + wf.appTitle + '</div>';
+    }
+    if (wf.contains) {
+      detailsHtml += '<div style="font-size:13px;color:#1a1a1a;margin-bottom:10px;">Program Contains: ' + wf.contains + '</div>';
+    }
+    if (wf.duration || wf.tasksPerDay) {
+      detailsHtml += '<div style="display:flex;flex-direction:column;gap:6px;">'
+        + (wf.duration    ? '<div style="display:flex;align-items:center;gap:7px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:16px;color:#555;">timer</span>' + wf.duration + '</div>' : '')
+        + (wf.tasksPerDay ? '<div style="display:flex;align-items:center;gap:7px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:16px;color:#555;">format_list_bulleted</span>' + wf.tasksPerDay + '</div>' : '')
+        + '</div>';
+    }
+    document.getElementById('staffProgWFDetails').innerHTML = detailsHtml;
+
+    // Reset the inline Add section to collapsed/default
+    document.getElementById('staffProgWFAddPanel').style.display = 'none';
+    document.getElementById('staffProgWFAddIcon').textContent = 'add_circle';
+    document.getElementById('staffProgWFAddIcon').style.color = '#1378A3';
+    document.getElementById('staffProgWFAddToggleBtn').setAttribute('aria-label', 'Add program');
+    document.getElementById('staffProgWFAddToggleBtn').setAttribute('title', 'Add program');
+    document.getElementById('staffProgWFAddOptDate').checked = true;
+    document.getElementById('staffProgWFAddOptFollowup').checked = false;
+    document.getElementById('staffProgWFStartDate').value = '';
+    document.getElementById('staffProgWFStartDate').disabled = false;
+  } else {
+    wfSection.style.display = 'none';
+    wfSection.removeAttribute('data-wf-title');
+  }
+  staffProgUpdateSubmitLabel();
 
   document.getElementById('staffProgModal').classList.add('open');
 }
