@@ -1733,18 +1733,17 @@ Diabetes Management</textarea>
                   <div style="position:relative;display:inline-flex;align-items:center;">
                     <select id="bp2TopicFilter" onchange="bp2Pages[bp2ActiveType]=1;bp2Render()" style="border:1px solid var(--border);border-radius:4px;padding:5px 26px 5px 8px;font-size:12px;font-family:var(--font);background:#fff;color:#555;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:140px;">
                       <option value="">All</option>
-                      <option>Diabetes Management</option>
-                      <option>Prenatal &amp; Postpartum</option>
-                      <option>Cardiovascular Health</option>
+                      <option>Maternal Health</option>
+                      <option>Pediatric Caregiver</option>
                       <option>Behavioral Health</option>
-                      <option>Respiratory &amp; Pulmonary</option>
-                      <option>Musculoskeletal &amp; Fall Prevention</option>
-                      <option>Oncology &amp; Chronic Disease</option>
-                      <option>Nutrition &amp; Weight Management</option>
-                      <option>Substance Use &amp; Recovery</option>
-                      <option>Pediatric &amp; Child Health</option>
-                      <option>Senior &amp; Long-Term Care</option>
-                      <option>Onboarding &amp; Engagement</option>
+                      <option>Lifestyle &amp; Comorbidities</option>
+                      <option>Chronic &amp; Complex Care</option>
+                      <option>Care Transitions</option>
+                      <option>Chronic Kidney Disease</option>
+                      <option>Oncology</option>
+                      <option>Musculoskeletal</option>
+                      <option>Healthspan</option>
+                      <option>Biometrics</option>
                     </select>
                     <span class="material-icons" style="position:absolute;right:4px;font-size:16px;color:#888;pointer-events:none;">expand_more</span>
                   </div>
@@ -11186,107 +11185,169 @@ function openViewProgramModalA() {
 
 <script>
 var MFP2_PROGRAMS = [
-  {cat:'Onboarding & Engagement',  icon:'rocket_launch',     iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Welcome Program',                           desc:'Introductory program that orients new members to their care plan, app features, and available health resources.',                                    audiences:['Adult','Adult Caregiver','Pediatric'], langs:['English','Spanish'],
-    appTitle:'Welcome to Your Health Plan', contains:'Education, Survey', duration:'7 days', tasksPerDay:'1 task per day', added:true},
-  {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Diabetes Management Program',              desc:'Structured program for blood sugar control, medication adherence, and lifestyle coaching.',                                                         audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Diabetes Management Program', contains:'Survey, Education, Tracker', duration:'90 days', tasksPerDay:'2 tasks per day'},
-  {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Sugar Tracker',                       desc:'Daily blood glucose logging and trend visualization to support diabetes self-management.',                                                         audiences:['Adult'],          langs:['English'],
-    appTitle:'Blood Sugar Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day', progType:'Tracking'},
-  {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Diabetes Self-Management Education (DSME)', desc:'Evidence-based education on nutrition, exercise, and medication management for people with diabetes.',                                              audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Diabetes Self-Management Education', contains:'Education', duration:'28 days', tasksPerDay:'1 task per day'},
-  {cat:'Prenatal & Postpartum',    icon:'child_care',        iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Maternal Health Program',                   desc:'Comprehensive support for pregnant members covering prenatal care, nutrition, and birth preparation.',                                             audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Maternal Health Program', contains:'Education, Survey', duration:'280 days', tasksPerDay:'1 task per day'},
-  {cat:'Prenatal & Postpartum',    icon:'child_care',        iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Postpartum Recovery & Support',             desc:'Guides new mothers through physical recovery, infant feeding, and postpartum mental health.',                                                       audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Postpartum Recovery & Support', contains:'Education, Check-in', duration:'60 days', tasksPerDay:'1 task per day'},
-  {cat:'Prenatal & Postpartum',    icon:'child_care',        iconColor:'#AD1457', iconBg:'#FCE4EC', title:'High-Risk Pregnancy Monitoring',            desc:'Daily check-ins and symptom tracking for members with high-risk pregnancies requiring closer follow-up.',                                           audiences:['Adult'],          langs:['English'],
-    appTitle:'High-Risk Pregnancy Monitoring', contains:'Tracker, Check-in', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
-  {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'Cardiac Rehab',                             desc:'Cardiac wellness program covering diet, activity tracking, and medication management post-event.',                                                    audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Cardiac Rehabilitation Program', contains:'Education, Tracker, Check-in', duration:'90 days', tasksPerDay:'3 tasks per day'},
-  {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'Heart Health Program',                      desc:'Preventive heart health education focused on lifestyle habits, risk reduction, and medication adherence.',                                            audiences:['Adult'],          langs:['English'],
-    appTitle:'Heart Health Program', contains:'Education', duration:'60 days', tasksPerDay:'1 task per day'},
-  {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'Blood Pressure Tracker',                    desc:'Member logs weekly blood pressure readings; supports hypertension management and care team visibility.',                                             audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Blood Pressure Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day', progType:'Tracking'},
-  {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Behavioral Health Support',                 desc:'Ongoing mental health support with daily check-ins, mood tracking, and coping skill content.',                                                         audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Behavioral Health Support', contains:'Check-in, Education', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
-  {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Anxiety & Depression Management',           desc:'CBT-informed program with structured activities to help members manage anxiety and depressive symptoms.',                                               audiences:['Adult'],          langs:['English'],
-    appTitle:'Anxiety & Depression Management', contains:'Education, Survey', duration:'56 days', tasksPerDay:'1 task per day'},
-  {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Mental Health Support Program',             desc:'General mental wellness content and self-care activities for members with mild to moderate mental health needs.',                                       audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Mental Health Support Program', contains:'Education, Check-in', duration:'30 days', tasksPerDay:'1 task per day'},
-  {cat:'Respiratory & Pulmonary',  icon:'air',               iconColor:'#00838F', iconBg:'#E0F7FA', title:'COPD Management Program',                   desc:'Symptom monitoring, inhaler technique education, and exacerbation prevention for members with COPD.',                                                   audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'COPD Management Program', contains:'Education, Tracker, Check-in', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
-  {cat:'Respiratory & Pulmonary',  icon:'air',               iconColor:'#00838F', iconBg:'#E0F7FA', title:'Asthma Action Plan',                        desc:'Personalized asthma management with trigger tracking, peak flow logging, and escalation guidance.',                                                    audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Asthma Action Plan', contains:'Tracker, Education', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Musculoskeletal & Fall Prevention', icon:'accessibility_new', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Fall Prevention Program',          desc:'Exercise and safety education program to reduce fall risk for high-risk members.',                                                                      audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Fall Prevention Program', contains:'Education, Exercise', duration:'42 days', tasksPerDay:'1 task per day'},
-  {cat:'Musculoskeletal & Fall Prevention', icon:'accessibility_new', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Osteoporosis Management',          desc:'Bone health education, calcium and vitamin D guidance, and fracture prevention for members with osteoporosis.',                                         audiences:['Adult'],          langs:['English'],
-    appTitle:'Osteoporosis Management', contains:'Education', duration:'30 days', tasksPerDay:'1 task per day'},
-  {cat:'Musculoskeletal & Fall Prevention', icon:'accessibility_new', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Joint & Mobility Support',         desc:'Guided exercises and pain management strategies for members with arthritis or joint conditions.',                                                       audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Joint & Mobility Support', contains:'Exercise, Education', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Oncology & Chronic Disease',icon:'biotech',          iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Cancer Care Navigation',                    desc:'Guides members through cancer treatment with appointment reminders, side-effect tracking, and emotional support.',                                       audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Cancer Care Navigation', contains:'Education, Check-in, Tracker', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
-  {cat:'Oncology & Chronic Disease',icon:'biotech',          iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Chronic Disease Self-Management',           desc:'General self-management program for members living with one or more long-term chronic conditions.',                                                      audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Chronic Disease Self-Management', contains:'Education, Survey', duration:'60 days', tasksPerDay:'1 task per day'},
-  {cat:'Nutrition & Weight Management',icon:'restaurant',    iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Healthy Living — Nutrition',                desc:'Practical nutrition education and meal planning guidance to support healthy eating habits.',                                                           audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Healthy Living — Nutrition', contains:'Education', duration:'30 days', tasksPerDay:'1 task per day'},
-  {cat:'Nutrition & Weight Management',icon:'restaurant',    iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Weight Management Program',                 desc:'Structured program for members seeking to achieve and maintain a healthy weight through behavioral change.',                                            audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Weight Management Program', contains:'Education, Tracker, Survey', duration:'90 days', tasksPerDay:'2 tasks per day'},
-  {cat:'Nutrition & Weight Management',icon:'restaurant',    iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Weight Tracker',                            desc:'Member logs weekly weigh-ins; useful for CHF and obesity management program monitoring.',                                                              audiences:['Adult'],          langs:['English'],
-    appTitle:'Weight Tracker', contains:'Tracker', duration:'Ongoing', tasksPerDay:'1 task per day', progType:'Tracking'},
-  {cat:'Substance Use & Recovery', icon:'self_improvement',  iconColor:'#4527A0', iconBg:'#EDE7F6', title:'Substance Use Recovery Support',            desc:'Recovery-focused daily support with check-ins, motivational content, and relapse prevention strategies.',                                             audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Substance Use Recovery Support', contains:'Check-in, Education', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
-  {cat:'Substance Use & Recovery', icon:'self_improvement',  iconColor:'#4527A0', iconBg:'#EDE7F6', title:'Opioid Management Program',                 desc:'Supports members managing opioid use disorder with medication reminders, behavioral health check-ins, and resources.',                                   audiences:['Adult'],          langs:['English'],
-    appTitle:'Opioid Management Program', contains:'Check-in, Education', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
-  {cat:'Pediatric & Child Health', icon:'child_friendly',    iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Pediatric Wellness Program',                desc:'Age-appropriate health education and check-in activities for pediatric members and their caregivers.',                                                  audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
-    appTitle:'Pediatric Wellness Program', contains:'Education, Check-in', duration:'30 days', tasksPerDay:'1 task per day'},
-  {cat:'Pediatric & Child Health', icon:'child_friendly',    iconColor:'#F57F17', iconBg:'#FFFDE7', title:'EPSDT Outreach Program',                    desc:'Outreach program supporting preventive screenings and follow-up care for members under 21.',                                                           audiences:['Pediatric'],      langs:['English','Spanish'],
-    appTitle:'EPSDT Outreach Program', contains:'Survey, Education', duration:'14 days', tasksPerDay:'1 task per day'},
-  {cat:'Senior & Long-Term Care',  icon:'elderly',           iconColor:'#37474F', iconBg:'#ECEFF1', title:'LTSS Program',                              desc:'Long-Term Services and Supports program coordinating in-home care, service planning, and ongoing follow-up.',                                          audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'LTSS Program', contains:'Check-in, Survey', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Senior & Long-Term Care',  icon:'elderly',           iconColor:'#37474F', iconBg:'#ECEFF1', title:'Aging in Place Support',                    desc:'Resources and daily check-ins to help older adults live safely and independently at home.',                                                          audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Aging in Place Support', contains:'Education, Check-in', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Senior & Long-Term Care',  icon:'elderly',           iconColor:'#37474F', iconBg:'#ECEFF1', title:'Caregiver Education & Support',             desc:'Education and emotional support content for family caregivers managing a loved one\'s chronic care needs.',                                           audiences:['Adult Caregiver'], langs:['English','Spanish'],
-    appTitle:'Caregiver Education & Support', contains:'Education', duration:'21 days', tasksPerDay:'1 task per day'},
-  {cat:'Onboarding & Engagement',  icon:'rocket_launch',     iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Welcome Program',                           desc:'Introduces new members to the app, sets health goals, and establishes a baseline for care management.',                                               audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Welcome Program', contains:'Survey, Education', duration:'7 days', tasksPerDay:'1 task per day'},
-  {cat:'Onboarding & Engagement',  icon:'rocket_launch',     iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Member Orientation & Activation',           desc:'Guided activation flow helping members complete their profile, connect devices, and set communication preferences.',                                   audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Member Orientation & Activation', contains:'Survey, Education', duration:'3 days', tasksPerDay:'1 task per day'},
-  // Additional Member-Facing Programs
-  {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'AFib Awareness Program',                     desc:'Education and monitoring support for members diagnosed with atrial fibrillation, including symptom tracking and medication adherence.',               audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'AFib Awareness Program', contains:'Education, Tracker', duration:'60 days', tasksPerDay:'1 task per day'},
-  {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'Cholesterol Management Program',             desc:'Lifestyle and medication guidance to help members manage high cholesterol and reduce cardiovascular risk.',                                           audiences:['Adult'],          langs:['English'],
-    appTitle:'Cholesterol Management Program', contains:'Education, Survey', duration:'45 days', tasksPerDay:'1 task per day'},
-  {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Prediabetes Prevention Program',             desc:'Lifestyle coaching and nutritional guidance to help members with prediabetes delay or prevent Type 2 diabetes onset.',                               audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Prediabetes Prevention Program', contains:'Education, Survey, Tracker', duration:'12 weeks', tasksPerDay:'1 task per day'},
-  {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Stress Management Program',                 desc:'Evidence-based mindfulness and stress reduction activities to support emotional regulation and resilience.',                                          audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Stress Management Program', contains:'Education, Check-in', duration:'30 days', tasksPerDay:'1 task per day'},
-  {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Sleep Health Program',                      desc:'Daily sleep hygiene education and habit-tracking to improve sleep quality for members with insomnia or disrupted sleep.',                            audiences:['Adult'],          langs:['English'],
-    appTitle:'Sleep Health Program', contains:'Education, Tracker', duration:'28 days', tasksPerDay:'1 task per day'},
-  {cat:'Respiratory & Pulmonary',  icon:'air',               iconColor:'#00838F', iconBg:'#E0F7FA', title:'Post-COVID Recovery Program',               desc:'Structured recovery support for members experiencing long COVID symptoms, including fatigue management and gradual activity progression.',            audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Post-COVID Recovery Program', contains:'Education, Check-in', duration:'90 days', tasksPerDay:'1 task per day'},
-  {cat:'Musculoskeletal & Fall Prevention', icon:'accessibility_new', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Back Pain Management',             desc:'Self-management strategies and exercises for members with chronic back pain to improve function and reduce flares.',                                  audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Back Pain Management', contains:'Education, Exercise', duration:'42 days', tasksPerDay:'1 task per day'},
-  {cat:'Oncology & Chronic Disease',icon:'biotech',          iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Survivorship Support Program',              desc:'Post-treatment program supporting cancer survivors with follow-up education, emotional health, and lifestyle guidance.',                              audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Survivorship Support Program', contains:'Education, Check-in', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Nutrition & Weight Management',icon:'restaurant',    iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Healthy Eating for Heart Health',           desc:'Dietary education tailored for members with cardiovascular conditions, focusing on sodium, fats, and portion control.',                              audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Healthy Eating for Heart Health', contains:'Education', duration:'21 days', tasksPerDay:'1 task per day'},
-  {cat:'Substance Use & Recovery', icon:'self_improvement',  iconColor:'#4527A0', iconBg:'#EDE7F6', title:'Tobacco Cessation Program',                desc:'Step-by-step program to help members quit smoking with behavioral strategies, medication guidance, and craving management.',                          audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Tobacco Cessation Program', contains:'Education, Check-in', duration:'90 days', tasksPerDay:'2 tasks per day'},
-  {cat:'Pediatric & Child Health', icon:'child_friendly',    iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Asthma Management for Kids',               desc:'Pediatric-focused asthma education for children and caregivers covering triggers, action plans, and inhaler technique.',                             audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
-    appTitle:'Asthma Management for Kids', contains:'Education, Tracker', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Senior & Long-Term Care',  icon:'elderly',           iconColor:'#37474F', iconBg:'#ECEFF1', title:'Dementia Caregiver Support',                desc:'Guidance and emotional support for caregivers of members with dementia or Alzheimer\'s disease.',                                                    audiences:['Adult Caregiver'], langs:['English','Spanish'],
-    appTitle:'Dementia Caregiver Support', contains:'Education, Check-in', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Onboarding & Engagement',  icon:'rocket_launch',     iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Re-Engagement Outreach Program',            desc:'Outreach content for members who have become inactive, encouraging them to reconnect with their care plan and health goals.',                       audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Re-Engagement Outreach Program', contains:'Survey, Education', duration:'14 days', tasksPerDay:'1 task per day'},
-  {cat:'Cardiovascular Health',    icon:'favorite',          iconColor:'#C62828', iconBg:'#FFEBEE', title:'Heart Failure Management',                  desc:'Daily weight monitoring, fluid tracking, and symptom check-ins for members with congestive heart failure.',                                         audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Heart Failure Management', contains:'Tracker, Check-in, Education', duration:'Ongoing', tasksPerDay:'3 tasks per day'},
-  {cat:'Behavioral Health',        icon:'psychology',        iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'PTSD Support Program',                     desc:'Trauma-informed daily check-ins and coping skill activities for members managing post-traumatic stress disorder.',                                   audiences:['Adult'],          langs:['English'],
-    appTitle:'PTSD Support Program', contains:'Check-in, Education', duration:'Ongoing', tasksPerDay:'1 task per day'},
-  {cat:'Musculoskeletal & Fall Prevention', icon:'accessibility_new', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Post-Surgical Recovery Program',   desc:'Rehabilitation exercises and recovery guidance for members following orthopedic or cardiac surgery.',                                               audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Post-Surgical Recovery Program', contains:'Education, Exercise, Check-in', duration:'60 days', tasksPerDay:'2 tasks per day'},
-  {cat:'Oncology & Chronic Disease',icon:'biotech',          iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Kidney Disease Management',                desc:'Nutrition, medication, and lifestyle guidance for members with chronic kidney disease to slow progression and prevent complications.',                audiences:['Adult'],          langs:['English','Spanish'],
-    appTitle:'Kidney Disease Management', contains:'Education, Tracker, Survey', duration:'Ongoing', tasksPerDay:'2 tasks per day'},
-  {cat:'Diabetes Management',      icon:'water_drop',        iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Insulin Management Program',               desc:'Supports members starting or adjusting insulin therapy with dosing guidance, tracking tools, and hypoglycemia awareness education.',                 audiences:['Adult'],          langs:['English'],
-    appTitle:'Insulin Management Program', contains:'Education, Tracker', duration:'30 days', tasksPerDay:'2 tasks per day'},
+  // ── Maternal Health ──
+  {cat:'Maternal Health', icon:'child_care', iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Maternal Health: Prenatal & Postpartum Support', desc:'Comprehensive prenatal and postpartum education and check-ins for members who are pregnant or gave birth in the last 6 weeks.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Maternal Health: Prenatal & Postpartum Support', contains:'Education, Survey', duration:'290 days', tasksPerDay:'2 tasks per day'},
+  {cat:'Maternal Health', icon:'child_care', iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Gestational Diabetes', desc:'Nutrition and blood sugar management guidance for pregnant members who have been diagnosed with gestational diabetes.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Gestational Diabetes', contains:'Education', duration:'10 days', tasksPerDay:'1 task per day'},
+  {cat:'Maternal Health', icon:'child_care', iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Gestational Hypertension', desc:'Education on preeclampsia risk and blood pressure monitoring for pregnant members who have been diagnosed with gestational hypertension.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Gestational Hypertension', contains:'Education', duration:'10 days', tasksPerDay:'1 task per day'},
+  {cat:'Maternal Health', icon:'child_care', iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Substance Use Disorder (Maternal Health)', desc:'Support, including breastfeeding guidance, for pregnant members who are experiencing difficulties with substance abuse during their current pregnancy.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Substance Use Disorder (Maternal Health)', contains:'Education', duration:'10 days', tasksPerDay:'1 task per day'},
+  {cat:'Maternal Health', icon:'child_care', iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Multiples (Multiple Pregnancy)', desc:'Prenatal care guidance tailored for members who are pregnant with multiples.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Multiples (Multiple Pregnancy)', contains:'Education', duration:'10 days', tasksPerDay:'1 task per day'},
+
+  // ── Pediatric Caregiver ──
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Care Transitions: Medical (Pediatric)', desc:'Supports caregivers of children ages 2-17 who required an inpatient hospitalization for a medical diagnosis.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Care Transitions: Medical (Pediatric)', contains:'Education, Survey', duration:'37 days', tasksPerDay:'2 tasks per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Care Transitions: Surgical (Pediatric)', desc:'Supports caregivers of children ages 2-17 who required an inpatient hospitalization for a surgical diagnosis, including wound care guidance.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Care Transitions: Surgical (Pediatric)', contains:'Education, Survey', duration:'44 days', tasksPerDay:'2 tasks per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Behavioral Health Foundation (Pediatric)', desc:'Supports caregivers of children ages 2-17 who are experiencing challenges with, or want to learn more about, supporting their child\'s mental wellness.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Behavioral Health Foundation (Pediatric)', contains:'Education', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'NICU Support', desc:'Prepares caregivers of infants who required a NICU hospitalization to go home and continue care.', audiences:['Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'NICU Support', contains:'Education', duration:'220 days', tasksPerDay:'1 task per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Asthma (Pediatric Caregiver)', desc:'Education on asthma triggers, action plans, and inhaler technique for caregivers of children ages 2-17 with asthma.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Asthma (Pediatric Caregiver)', contains:'Education', duration:'45 days', tasksPerDay:'1 task per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'EPSDT (Early and Periodic Screening, Diagnostic and Treatment)', desc:'Supports caregivers of children ages 0-20 who qualify for the EPSDT program under Medicaid with preventive screening education.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'EPSDT (Early and Periodic Screening, Diagnostic and Treatment)', contains:'Education, Survey', duration:'60 days', tasksPerDay:'1 task per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Newborn Wellness & Prevention', desc:'Developmental milestones and wellness guidance for caregivers of infants less than 1 year of age.', audiences:['Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Newborn Wellness & Prevention', contains:'Education', duration:'365 days', tasksPerDay:'1 task per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Care Transitions: Pneumonia (Pediatric)', desc:'Supports caregivers of children ages 2-17 who have recently been discharged home after being hospitalized for pneumonia.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Care Transitions: Pneumonia (Pediatric)', contains:'Education', duration:'15 days', tasksPerDay:'1 task per day'},
+  {cat:'Pediatric Caregiver', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Care Transitions: Type 1 Diabetes (Pediatric)', desc:'Supports caregivers of children ages 2-17 who have recently been discharged home after being hospitalized as a result of type 1 diabetes.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Care Transitions: Type 1 Diabetes (Pediatric)', contains:'Education', duration:'30 days', tasksPerDay:'1 task per day'},
+
+  // ── Behavioral Health ──
+  {cat:'Behavioral Health', icon:'psychology', iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Bipolar Disorder', desc:'Education and mood and sleep monitoring for adults with a diagnosis of bipolar disorder.', audiences:['Adult'], langs:['English'],
+    appTitle:'Bipolar Disorder', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Behavioral Health', icon:'psychology', iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Post-Traumatic Stress Disorder', desc:'Trauma-informed education and sleep disturbance monitoring for adults with a diagnosis of PTSD.', audiences:['Adult'], langs:['English'],
+    appTitle:'Post-Traumatic Stress Disorder', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Behavioral Health', icon:'psychology', iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Schizophrenia', desc:'Education and support content for adults with a diagnosis of schizophrenia.', audiences:['Adult'], langs:['English'],
+    appTitle:'Schizophrenia', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Behavioral Health', icon:'psychology', iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Substance Use Disorder', desc:'Recovery-focused education and alcohol and depression risk screening for adults who have identified themselves as having a substance abuse problem.', audiences:['Adult'], langs:['English'],
+    appTitle:'Substance Use Disorder', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+
+  // ── Lifestyle & Comorbidities ──
+  {cat:'Lifestyle & Comorbidities', icon:'restaurant', iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Wellness & Prevention', desc:'Foundational wellness education and PCP engagement content for all adult members enrolled in Wellframe.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Wellness & Prevention', contains:'Education, Survey', duration:'360 days', tasksPerDay:'1 task per day'},
+  {cat:'Lifestyle & Comorbidities', icon:'restaurant', iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Weight Loss', desc:'Healthier cooking and lifestyle guidance for adults who identify weight loss as a health goal.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Weight Loss', contains:'Education, Survey', duration:'90 days', tasksPerDay:'1 task per day'},
+  {cat:'Lifestyle & Comorbidities', icon:'restaurant', iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Physical Activity', desc:'Injury prevention and activity guidance for adults who are interested in adding more physical activity to their lifestyle.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Physical Activity', contains:'Education', duration:'67 days', tasksPerDay:'1 task per day'},
+  {cat:'Lifestyle & Comorbidities', icon:'restaurant', iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Managing Stress', desc:'Stress management skills content for adults who will benefit from enhancing how they cope with chronic stress.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Managing Stress', contains:'Education', duration:'19 days', tasksPerDay:'1 task per day'},
+  {cat:'Lifestyle & Comorbidities', icon:'restaurant', iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Smoking Cessation', desc:'Quit-day tips and cessation support for adults who use tobacco products and are interested in a cessation program.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Smoking Cessation', contains:'Education, Survey', duration:'42 days', tasksPerDay:'1 task per day'},
+  {cat:'Lifestyle & Comorbidities', icon:'restaurant', iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Fall Prevention', desc:'Guidance on the causes of falls and how to prevent them for any adult who is at risk for falling or has a history of falls.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Fall Prevention', contains:'Education, Survey', duration:'20 days', tasksPerDay:'1 task per day'},
+  {cat:'Lifestyle & Comorbidities', icon:'restaurant', iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Social Isolation', desc:'Routine-building content for any adult or caregiver who is at risk of, or has identified as feeling, socially isolated.', audiences:['Adult','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Social Isolation', contains:'Education, Survey', duration:'21 days', tasksPerDay:'1 task per day'},
+
+  // ── Chronic & Complex Care ──
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Atrial Fibrillation', desc:'AFib management education and risk screening for adults with a diagnosis of atrial fibrillation.', audiences:['Adult'], langs:['English'],
+    appTitle:'Atrial Fibrillation', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Asthma', desc:'Education on handling asthma attacks for adults with a diagnosis of asthma.', audiences:['Adult'], langs:['English'],
+    appTitle:'Asthma', contains:'Education', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Chronic Obstructive Pulmonary Disease', desc:'Education and depression and anxiety screening for adults with a diagnosis of COPD.', audiences:['Adult'], langs:['English'],
+    appTitle:'Chronic Obstructive Pulmonary Disease', contains:'Education, Survey', duration:'32 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Coronary Artery Disease', desc:'Education on nitroglycerin and heart health for adults with a diagnosis of CAD.', audiences:['Adult'], langs:['English'],
+    appTitle:'Coronary Artery Disease', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Heart Failure', desc:'Fluid intake management and mood monitoring for adults with a diagnosis of congestive heart failure.', audiences:['Adult'], langs:['English'],
+    appTitle:'Heart Failure', contains:'Education, Survey', duration:'32 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Diabetes Management', desc:'A1C education and mood monitoring for adults with a diagnosis of type 2 diabetes.', audiences:['Adult'], langs:['English'],
+    appTitle:'Diabetes Management', contains:'Education, Survey', duration:'45 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Prediabetes Support', desc:'Education for adult members with a diagnosis of prediabetes, or who are at risk of developing it, to help delay or prevent Type 2 diabetes onset.', audiences:['Adult'], langs:['English'],
+    appTitle:'Prediabetes Support', contains:'Education', duration:'35 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Hyperlipidemia', desc:'Education on lipid panels for adults with a diagnosis of hyperlipidemia.', audiences:['Adult'], langs:['English'],
+    appTitle:'Hyperlipidemia', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Hypertension', desc:'Blood pressure management education for adults with chronic hypertension.', audiences:['Adult'], langs:['English'],
+    appTitle:'Hypertension', contains:'Education, Survey', duration:'32 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Behavioral Health & Wellness', desc:'Foundational behavioral health education and self-efficacy content for adults with a behavioral health diagnosis.', audiences:['Adult'], langs:['English'],
+    appTitle:'Behavioral Health & Wellness', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Depression', desc:'Education on talking to your doctor and sleep monitoring for adults with a diagnosis of depression.', audiences:['Adult'], langs:['English'],
+    appTitle:'Depression', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic & Complex Care', icon:'favorite', iconColor:'#C62828', iconBg:'#FFEBEE', title:'Anxiety', desc:'Coping strategies and sleep monitoring for adults with a diagnosis of an anxiety disorder.', audiences:['Adult'], langs:['English'],
+    appTitle:'Anxiety', contains:'Education, Survey', duration:'31 days', tasksPerDay:'1 task per day'},
+
+  // ── Care Transitions ──
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Behavioral Health Care Transitions', desc:'Warning-sign education for adults recently discharged after receiving treatment for a behavioral health diagnosis.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Behavioral Health Care Transitions', contains:'Education, Survey', duration:'30 days', tasksPerDay:'2 tasks per day'},
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Care Transitions: Surgical', desc:'Pre- and post-op education for adults who require an inpatient hospitalization for a surgical diagnosis.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Care Transitions: Surgical', contains:'Education, Survey', duration:'37 days', tasksPerDay:'2 tasks per day'},
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Care Transitions: Medical', desc:'Warning signs and symptoms education for adults who required an inpatient hospitalization for a medical diagnosis.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Care Transitions: Medical', contains:'Education, Survey', duration:'30 days', tasksPerDay:'2 tasks per day'},
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Percutaneous Coronary Intervention / Cardiac Catheterization', desc:'Self-care guidance for adults recently discharged after a percutaneous coronary intervention or cardiac catheterization.', audiences:['Adult'], langs:['English'],
+    appTitle:'Percutaneous Coronary Intervention / Cardiac Catheterization', contains:'Education', duration:'37 days', tasksPerDay:'1 task per day'},
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Myocardial Infarction', desc:'Guidance on returning to activity for adults recently discharged after a myocardial infarction.', audiences:['Adult'], langs:['English'],
+    appTitle:'Myocardial Infarction', contains:'Education', duration:'43 days', tasksPerDay:'1 task per day'},
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Cardiac Rehab', desc:'Depression and activity monitoring for adults recently discharged and enrolled in a cardiac rehabilitation program.', audiences:['Adult'], langs:['English'],
+    appTitle:'Cardiac Rehab', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'Heart Failure: Post-Discharge Follow-Up', desc:'Follow-up education for adults recently discharged with a diagnosis of heart failure.', audiences:['Adult'], langs:['English'],
+    appTitle:'Heart Failure: Post-Discharge Follow-Up', contains:'Education', duration:'29 days', tasksPerDay:'1 task per day'},
+  {cat:'Care Transitions', icon:'transfer_within_a_station', iconColor:'#E65100', iconBg:'#FFF3E0', title:'COPD: Post-Discharge Follow-Up', desc:'Follow-up education for adults recently discharged with a diagnosis of COPD.', audiences:['Adult'], langs:['English'],
+    appTitle:'COPD: Post-Discharge Follow-Up', contains:'Education, Survey', duration:'29 days', tasksPerDay:'1 task per day'},
+
+  // ── Chronic Kidney Disease ──
+  {cat:'Chronic Kidney Disease', icon:'opacity', iconColor:'#00838F', iconBg:'#E0F7FA', title:'Chronic Kidney Disease', desc:'Education for adults with a diagnosis of chronic kidney disease.', audiences:['Adult'], langs:['English'],
+    appTitle:'Chronic Kidney Disease', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic Kidney Disease', icon:'opacity', iconColor:'#00838F', iconBg:'#E0F7FA', title:'Hemodialysis', desc:'Education for adults with chronic kidney disease who are currently receiving hemodialysis.', audiences:['Adult'], langs:['English'],
+    appTitle:'Hemodialysis', contains:'Education, Survey', duration:'44 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic Kidney Disease', icon:'opacity', iconColor:'#00838F', iconBg:'#E0F7FA', title:'Peritoneal Dialysis', desc:'Education for adults with chronic kidney disease who are currently on peritoneal dialysis.', audiences:['Adult'], langs:['English'],
+    appTitle:'Peritoneal Dialysis', contains:'Education, Survey', duration:'45 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic Kidney Disease', icon:'opacity', iconColor:'#00838F', iconBg:'#E0F7FA', title:'Preparing for Dialysis', desc:'Education for adults with chronic kidney disease who are preparing to go on dialysis in the near future.', audiences:['Adult'], langs:['English'],
+    appTitle:'Preparing for Dialysis', contains:'Education', duration:'11 days', tasksPerDay:'1 task per day'},
+  {cat:'Chronic Kidney Disease', icon:'opacity', iconColor:'#00838F', iconBg:'#E0F7FA', title:'Preparing for Vascular Access', desc:'Education for adults with chronic kidney disease who are preparing for vascular access in advance of dialysis treatment.', audiences:['Adult'], langs:['English'],
+    appTitle:'Preparing for Vascular Access', contains:'Education', duration:'2 days', tasksPerDay:'1 task per day'},
+
+  // ── Oncology ──
+  {cat:'Oncology', icon:'biotech', iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Cancer Support Foundation', desc:'Emotional support and education for any adult with a recent cancer diagnosis.', audiences:['Adult'], langs:['English'],
+    appTitle:'Cancer Support Foundation', contains:'Education, Survey', duration:'45 days', tasksPerDay:'1 task per day'},
+  {cat:'Oncology', icon:'biotech', iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Breast Cancer', desc:'Testing and treatment education for adults with a diagnosis of breast cancer.', audiences:['Adult'], langs:['English'],
+    appTitle:'Breast Cancer', contains:'Education', duration:'35 days', tasksPerDay:'1 task per day'},
+  {cat:'Oncology', icon:'biotech', iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Lung Cancer', desc:'Treatment options education for adults with a diagnosis of lung cancer.', audiences:['Adult'], langs:['English'],
+    appTitle:'Lung Cancer', contains:'Education', duration:'28 days', tasksPerDay:'1 task per day'},
+  {cat:'Oncology', icon:'biotech', iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Prostate Cancer', desc:'Surgery and treatment education for men with a diagnosis of prostate cancer.', audiences:['Adult'], langs:['English'],
+    appTitle:'Prostate Cancer', contains:'Education', duration:'34 days', tasksPerDay:'1 task per day'},
+
+  // ── Musculoskeletal ──
+  {cat:'Musculoskeletal', icon:'accessibility_new', iconColor:'#37474F', iconBg:'#ECEFF1', title:'Chronic Back Pain', desc:'Staying-active guidance and pain and depression monitoring for adults who are managing chronic back pain.', audiences:['Adult'], langs:['English'],
+    appTitle:'Chronic Back Pain', contains:'Education, Survey', duration:'30 days', tasksPerDay:'1 task per day'},
+  {cat:'Musculoskeletal', icon:'accessibility_new', iconColor:'#37474F', iconBg:'#ECEFF1', title:'Total Knee Arthroplasty', desc:'Recovery nutrition education for adults recently discharged after a total knee arthroplasty.', audiences:['Adult'], langs:['English'],
+    appTitle:'Total Knee Arthroplasty', contains:'Education', duration:'30 days', tasksPerDay:'1 task per day'},
+
+  // ── Healthspan ──
+  {cat:'Healthspan', icon:'insights', iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Your Health Across Your Life: How to Feel Better Longer', desc:'Foundational healthspan education for any adult on Wellframe.', audiences:['Adult'], langs:['English'],
+    appTitle:'Your Health Across Your Life: How to Feel Better Longer', contains:'Education', duration:'21 days', tasksPerDay:'1 task per day'},
+  {cat:'Healthspan', icon:'insights', iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Preventive Care: Why Regular Appointments Add Up', desc:'Education on the value of regular health screenings for any adult on Wellframe.', audiences:['Adult'], langs:['English'],
+    appTitle:'Preventive Care: Why Regular Appointments Add Up', contains:'Education', duration:'18 days', tasksPerDay:'1 task per day'},
+  {cat:'Healthspan', icon:'insights', iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Making Habits Stick: The Foundation of Good Health', desc:'Habit-building education for any adult on Wellframe.', audiences:['Adult'], langs:['English'],
+    appTitle:'Making Habits Stick: The Foundation of Good Health', contains:'Education', duration:'13 days', tasksPerDay:'1 task per day'},
+  {cat:'Healthspan', icon:'insights', iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Helping Yourself and Others in a Medical Emergency', desc:'Emergency-response education for any adult on Wellframe.', audiences:['Adult'], langs:['English'],
+    appTitle:'Helping Yourself and Others in a Medical Emergency', contains:'Education', duration:'16 days', tasksPerDay:'1 task per day'},
+
+  // ── Biometrics ──
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Sugar Tracker: Daily', desc:'A single daily self-reported blood glucose check (e.g. fasting or bedtime) for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Blood Sugar Tracker: Daily', contains:'Tracker', duration:'365 days', tasksPerDay:'1 task per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Sugar Tracker: Weekly', desc:'A weekly self-reported blood glucose check-in for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Blood Sugar Tracker: Weekly', contains:'Tracker', duration:'365 days', tasksPerDay:'1 task per week', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Sugar Tracker: Multiple Times Daily', desc:'Fasting, pre-meal, and 2-hour post-meal blood glucose checks (breakfast, lunch, and dinner) for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Blood Sugar Tracker: Multiple Times Daily', contains:'Tracker', duration:'365 days', tasksPerDay:'3 tasks per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Pressure Tracker: Daily', desc:'A single daily self-reported blood pressure reading for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Blood Pressure Tracker: Daily', contains:'Tracker', duration:'365 days', tasksPerDay:'1 task per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Pressure Tracker: Weekly', desc:'A weekly self-reported blood pressure reading for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Blood Pressure Tracker: Weekly', contains:'Tracker', duration:'365 days', tasksPerDay:'1 task per week', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Blood Pressure Tracker: Multiple Times Daily', desc:'Morning, afternoon, and evening blood pressure readings for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Blood Pressure Tracker: Multiple Times Daily', contains:'Tracker', duration:'365 days', tasksPerDay:'3 tasks per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Weight Tracker', desc:'Daily or weekly self-reported weight logging for any adult member, including a chronic-disease variant for members at risk of fluid overload.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Weight Tracker', contains:'Tracker', duration:'365 days', tasksPerDay:'1 task per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Pain Tracker', desc:'Daily or weekly self-reported pain logging for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Pain Tracker', contains:'Tracker', duration:'365 days', tasksPerDay:'1 task per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'monitor_heart', iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Activity Tracker', desc:'Weekly self-reported physical activity logging for any adult member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Activity Tracker', contains:'Tracker', duration:'365 days', tasksPerDay:'1 task per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'child_care', iconColor:'#AD1457', iconBg:'#FCE4EC', title:'Prenatal Biometrics', desc:'Daily or weekly self-reported blood glucose, blood pressure, and weight tracking for any pregnant member.', audiences:['Adult'], langs:['English','Spanish'],
+    appTitle:'Prenatal Biometrics', contains:'Tracker', duration:'250 days', tasksPerDay:'1 task per day', progType:'Tracking'},
+  {cat:'Biometrics', icon:'child_friendly', iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Pediatric Biometrics', desc:'Daily or weekly self-reported blood sugar, weight, pain, and activity tracking for any member at the discretion of the dashboard user.', audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    appTitle:'Pediatric Biometrics', contains:'Tracker', duration:'100 days', tasksPerDay:'1 task per day', progType:'Tracking'},
 ];
 
 // subtype: 'Benefit'     = tied to member's 834 eligibility file (e.g. DSNP Care Management)
@@ -11294,90 +11355,61 @@ var MFP2_PROGRAMS = [
 //          'Member-Facing' = generates daily tasks in member app
 var BP2_STAFF = [
   // Clinical — no eligibility required
-  {cat:'Staff Programs', subtype:'General', icon:'assignment_ind',           iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Care Coordination',              desc:'Assigned to members managing multiple conditions or providers who need a single point of contact. A care manager works with the member to align specialists, close care gaps, and ensure follow-through after ER or hospital visits.',           audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:['Telephonic Outreach','Health Risk Assessment','Care Plan Development','Follow-Up Call']},
-  {cat:'Staff Programs', subtype:'General', icon:'medical_services',         iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Complex Care Management',        desc:'For members with the highest acuity — typically those with 3 or more active chronic conditions, frequent hospitalizations, or social barriers to care. An interdisciplinary team collaborates on a shared care plan with bi-weekly outreach.',                audiences:['Adult'],                   langs:['English'],
-    activities:['Telephonic Outreach','Health Risk Assessment','Interdisciplinary Team Meeting','Care Plan Development','Medication Reconciliation','Follow-Up Call']},
-  {cat:'Staff Programs', subtype:'General', icon:'biotech',                  iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'DCB-T',                          desc:'Disease and Condition-Based Treatment program used when a member\'s diagnosis triggers a standardized clinical protocol. Staff assign the relevant protocol and monitor adherence through quarterly treatment reviews.',      audiences:['Adult'],                   langs:['English'],
-    activities:['Telephonic Outreach','Disease-Specific Assessment','Treatment Protocol Review']},
   {cat:'Staff Programs', subtype:'General', icon:'water_drop',               iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Diabetes Management',            desc:'Added when a Type 2 Diabetes diagnosis is identified during an HRA or chart review. Focuses on HbA1c monitoring, medication adherence, and nutrition referrals. Persists through coverage gaps and may be auto-assigned for D-SNP members.',  audiences:['Adult'],                   langs:['English','Spanish'],
     activities:['Telephonic Outreach','HbA1c Monitoring Follow-Up','Medication Adherence Assessment','Nutrition Counseling Referral']},
-  {cat:'Staff Programs', subtype:'General', icon:'favorite',                 iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Health and Wellness',            desc:'A preventive program for members who don\'t yet have a chronic diagnosis but are at risk. Staff conduct a wellness intake and help set goals around physical activity, nutrition, and stress — with quarterly check-ins to track progress.',                  audiences:['Adult','Adult Caregiver'], langs:['English','Spanish'],
-    activities:['Telephonic Outreach','Wellness Intake Assessment','Goal Setting Session']},
-  {cat:'Staff Programs', subtype:'General', icon:'child_care',               iconColor:'#c2185b', iconBg:'#fce4ec', title:'Maternal Health Program',        desc:'Supports pregnant members from enrollment through 6 weeks postpartum. A care manager coordinates OB appointments, conducts trimester check-ins, reviews medication safety, and provides postpartum follow-up to reduce maternal risk.',                          audiences:['Adult'],                   langs:['English','Spanish'],
+  {cat:'Staff Programs', subtype:'General', icon:'monitor_heart',            iconColor:'#C62828', iconBg:'#FFEBEE', title:'Cardiovascular / Heart Failure (CHF, CAD, Hypertension)',
+    desc:'Added when a member is diagnosed with congestive heart failure, coronary artery disease, or hypertension. Members log daily weights and blood pressure readings to help staff catch early signs of decompensation before they lead to hospitalization. Care plans are reviewed quarterly and updated after any inpatient stay.',
+    audiences:['Adult'], langs:['English','Spanish'],
+    activities:['Telephonic Outreach','Cardiac Risk Assessment','Medication Reconciliation','Blood Pressure & Weight Monitoring Follow-Up','Care Plan Review']},
+  {cat:'Staff Programs', subtype:'General', icon:'air',                      iconColor:'#00838F', iconBg:'#E0F7FA', title:'Respiratory Care (COPD, Asthma)',
+    desc:'For members with moderate-to-severe asthma, COPD, or other chronic lung conditions. Staff conduct annual respiratory assessments, review inhaler technique semi-annually, and follow up quarterly to monitor symptom control and reduce exacerbations.',
+    audiences:['Adult'], langs:['English','Spanish'],
+    activities:['Telephonic Outreach','Respiratory Risk Assessment','Medication Adherence Assessment','Follow-Up Call']},
+  {cat:'Staff Programs', subtype:'General', icon:'biotech',                  iconColor:'#2E7D32', iconBg:'#E8F5E9', title:'Chronic Kidney Disease (CKD / ESRD)',
+    desc:'Added when a member is diagnosed with chronic kidney disease or end-stage renal disease. Staff monitor lab trends, coordinate nephrology and dialysis care, and provide dietary and medication guidance to slow disease progression.',
+    audiences:['Adult'], langs:['English','Spanish'],
+    activities:['Telephonic Outreach','Renal Function Lab Review','Nephrology Care Coordination','Dietary Counseling Referral','Medication Reconciliation']},
+  {cat:'Staff Programs', subtype:'General', icon:'child_care',               iconColor:'#c2185b', iconBg:'#fce4ec', title:'Maternity (Prenatal / Postpartum Care)',
+    desc:'Supports pregnant members from enrollment through 6 weeks postpartum. A care manager coordinates OB appointments, conducts trimester check-ins, reviews medication safety, and provides postpartum follow-up to reduce maternal risk.',
+    audiences:['Adult'], langs:['English','Spanish'],
     activities:['Telephonic Outreach','Prenatal Risk Assessment','OB Care Coordination','Postpartum Follow-Up','Medication Safety Review']},
-  {cat:'Staff Programs', subtype:'General', icon:'self_improvement',         iconColor:'#4527A0', iconBg:'#EDE7F6', title:'Substance Use Disorder Program', desc:'For members diagnosed with alcohol, opioid, or other substance use disorders. Staff develop a recovery plan within 14 days of enrollment, conduct weekly check-ins for the first 90 days, and coordinate peer support and MAT medication reviews.',                       audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:['Telephonic Outreach','SUD Risk & Needs Assessment','Recovery Plan Development','Follow-Up Call','Medication Reconciliation','Peer Support Referral']},
-  // Clinical — no eligibility required (cont.)
-  {cat:'Staff Programs', subtype:'General', icon:'transfer_within_a_station',iconColor:'#E65100', iconBg:'#FFF3E0', title:'Transitions of Care',          desc:'Automatically triggered by each hospital discharge. A care manager calls within 48 hours, reconciles medications, and schedules a PCP follow-up within 7 days. The 30-day cycle restarts with every new hospitalization.',             audiences:['Adult'],                   langs:['English','Spanish'],
-    activities:['Post-Discharge Follow-Up Call','Medication Reconciliation','PCP Follow-Up Scheduling','30-Day TOC Assessment']},
+  {cat:'Staff Programs', subtype:'General', icon:'medical_services',         iconColor:'#0277BD', iconBg:'#E1F5FE', title:'Complex Care Management (CCM / High Risk)',
+    desc:'For members with the highest acuity — typically those with 3 or more active chronic conditions, frequent hospitalizations, or social barriers to care. An interdisciplinary team collaborates on a shared care plan with bi-weekly outreach.',
+    audiences:['Adult'], langs:['English'],
+    activities:['Telephonic Outreach','Health Risk Assessment','Interdisciplinary Team Meeting','Care Plan Development','Medication Reconciliation','Follow-Up Call']},
+  {cat:'Staff Programs', subtype:'General', icon:'child_friendly',           iconColor:'#F57F17', iconBg:'#FFFDE7', title:'Pediatric / CSHCN',
+    desc:'For pediatric members, including those with special health care needs (CSHCN). Staff coordinate preventive screenings, specialist referrals, and caregiver education to support developmental and medical needs.',
+    audiences:['Pediatric','Adult Caregiver'], langs:['English','Spanish'],
+    activities:['Telephonic Outreach','Pediatric Needs Assessment','Specialist Referral Coordination','Caregiver Education Session','Follow-Up Call']},
+  {cat:'Staff Programs', subtype:'General', icon:'psychology',               iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Behavioral Health / Substance Use Disorder (SUD)',
+    desc:'For members with a behavioral health diagnosis, a substance use disorder, or both. Staff develop an integrated care plan, conduct weekly check-ins during the first 90 days, and coordinate peer support and specialist referrals alongside any physical health conditions.',
+    audiences:['Adult'], langs:['English','Spanish'],
+    activities:['Telephonic Outreach','Behavioral Health Screening','SUD Risk & Needs Assessment','Integrated Care Plan Development','Peer Support Referral']},
+  {cat:'Staff Programs', subtype:'General', icon:'volunteer_activism',       iconColor:'#8D6E63', iconBg:'#EFEBE9', title:'SDOH & Community Resource Support',
+    desc:'Added when a social determinants of health screening identifies a need such as food insecurity, housing instability, or transportation barriers. Staff connect the member with local community resources and follow up to confirm the need was met.',
+    audiences:['Adult','Adult Caregiver'], langs:['English','Spanish'],
+    activities:['SDOH Screening','Community Resource Referral','Follow-Up Call','Needs Reassessment']},
   // Benefit / Eligibility — tied to member's eligibility file (834)
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'DSNP Care Management',
+  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'D-SNP (Dual Eligible Special Needs Plan)',
     desc:'Opens automatically when the 834 file confirms D-SNP enrollment. Meets CMS requirements for Dual Special Needs Plans — including an HRA within 90 days and an annual individualized care plan. Program closes or pauses if D-SNP eligibility is lost.',
     audiences:['Adult'], langs:['English','Spanish'],
     eligibilities:['FEP'],
     activities:['Telephonic Outreach','Health Risk Assessment','Annual Reassessment']},
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'CSNP Care Management',
-    desc:'Opens when the 834 confirms C-SNP enrollment. Each C-SNP is tied to a qualifying condition such as diabetes, heart failure, or ESRD. Activities include a condition-specific care plan within 30 days and annual reassessment aligned to CMS SNP requirements.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruista Health', 'FEP'],
-    activities:['Telephonic Outreach','Health Risk Assessment','Condition-Specific Care Plan','Annual Reassessment']},
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'ISNP Care Management',
-    desc:'For members enrolled in an I-SNP, typically residing in a nursing facility or long-term care setting. Care managers coordinate with facility staff quarterly and conduct an annual reassessment. Program depends on active I-SNP eligibility in the 834.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruista Health'],
-    activities:['Telephonic Outreach','Health Risk Assessment','Facility Care Team Coordination','Annual Reassessment']},
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Medicaid Care Management',
-    desc:'Activates when Medicaid enrollment is confirmed on the 834. Fulfills state-mandated care management requirements with an HRA, care plan, and quarterly outreach. If Medicaid eligibility lapses, the program is paused and reviewed for closure.',
-    audiences:['Adult','Pediatric'], langs:['English','Spanish'],
-    eligibilities:['Medicaid'],
-    activities:['Telephonic Outreach','Health Risk Assessment','Care Plan Development','Quarterly Outreach','Annual Reassessment']},
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', added:true, title:'LTSS Waiver Program',
-    desc:'Linked to a member\'s LTSS waiver eligibility. Coordinates in-home personal care, service planning, and ongoing reassessments to help members remain in community settings. A change in waiver status triggers an immediate program review.',
+  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', added:true, title:'LTSS / HCBS (Long-Term Services & Supports / Home & Community-Based Services)',
+    desc:'Linked to a member\'s LTSS or HCBS waiver eligibility. Coordinates in-home personal care, service planning, and ongoing reassessments to help members remain in community settings. A change in waiver status triggers an immediate program review.',
     audiences:['Adult'], langs:['English','Spanish'],
     eligibilities:['Medicaid', 'Altruista Health'],
     activities:['Telephonic Outreach','Functional Needs Assessment','Service Plan Development','Semi-Annual Reassessment']},
-  // Additional Clinical Programs
-  {cat:'Staff Programs', subtype:'General', icon:'monitor_heart',            iconColor:'#C62828', iconBg:'#FFEBEE', title:'Congestive Heart Failure Program',
-    desc:'Added when a CHF diagnosis is confirmed. Members log daily weights and symptoms to help staff catch early signs of decompensation before they lead to hospitalization. Care plans are reviewed quarterly and updated after any inpatient stay.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    activities:['Telephonic Outreach','CHF Intake Assessment','Medication Reconciliation','Post-Hospitalization Follow-Up','Care Plan Review']},
-  {cat:'Staff Programs', subtype:'General', icon:'psychology',               iconColor:'#6A1B9A', iconBg:'#F3E5F5', title:'Behavioral Health Integration',
-    desc:'For members with both a behavioral health diagnosis and a chronic physical condition. A behavioral health specialist joins the care team to develop an integrated care plan and ensure mental health needs are addressed alongside medical ones.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    activities:['Telephonic Outreach','Behavioral Health Screening','Integrated Care Plan Development','Specialist Referral Coordination']},
-  {cat:'Staff Programs', subtype:'General', icon:'air',                      iconColor:'#00838F', iconBg:'#E0F7FA', title:'Asthma & Respiratory Management',
-    desc:'For members with moderate-to-severe asthma, COPD, or other chronic lung conditions. Staff conduct annual respiratory assessments, review inhaler technique semi-annually, and follow up quarterly to monitor symptom control and reduce exacerbations.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    activities:['Telephonic Outreach','Respiratory Risk Assessment','Medication Adherence Assessment','Follow-Up Call']},
-  {cat:'Staff Programs', subtype:'General', icon:'local_hospital',           iconColor:'#E65100', iconBg:'#FFF3E0', title:'Post-Acute Care Management',
-    desc:'Opens when a member is discharged from a skilled nursing or rehabilitation facility. Staff call within 24 hours, reconcile medications, and arrange a PCP follow-up within a week to reduce the risk of readmission.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    activities:['Post-Discharge Follow-Up Call','Medication Reconciliation','Post-Acute Needs Assessment','PCP Follow-Up Scheduling','30-Day Follow-Up']},
-  {cat:'Staff Programs', subtype:'General', icon:'restaurant',               iconColor:'#558B2F', iconBg:'#F1F8E9', title:'Nutrition & Obesity Management',
-    desc:'Assigned when a member\'s BMI or obesity-related diagnosis meets clinical criteria. A registered dietitian conducts a nutritional assessment, sets physical activity goals, and follows up monthly to track weight and progress toward sustainable change.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    activities:['Telephonic Outreach','Nutritional Assessment','Goal Setting Session','Follow-Up Call','Nutrition Counseling Referral']},
-  {cat:'Staff Programs', subtype:'General', icon:'elderly',                  iconColor:'#37474F', iconBg:'#ECEFF1', title:'Geriatric Care Management',
-    desc:'For members 65 and older who have multiple comorbidities or are at elevated risk of falls or polypharmacy harm. Uses a geriatric-specific assessment framework, with semi-annual fall risk screenings and an annual medication review to reduce adverse events.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    activities:['Telephonic Outreach','Geriatric Comprehensive Assessment','Fall Risk Screening','Polypharmacy Review','Quarterly Care Coordination','Follow-Up Call']},
-  // Additional Eligibility Programs
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Medicare Advantage Care Management',
-    desc:'Opens when Medicare Advantage enrollment is confirmed. Focuses on closing preventive care gaps, coordinating the Annual Wellness Visit, and supporting STARS quality measures. Activities are tracked annually to meet CMS reporting requirements.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['Altruista Health', 'FEP'],
-    activities:['Telephonic Outreach','Annual Wellness Visit Coordination','Preventive Care Gap Review','Annual Reassessment']},
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Behavioral Health Benefit Program',
-    desc:'Activates when a member\'s plan includes an active behavioral health benefit tier. Staff coordinate access to covered mental health and SUD services, review treatment authorizations, and conduct quarterly check-ins to ensure continuity across providers.',
-    audiences:['Adult'], langs:['English','Spanish'],
-    eligibilities:['FEP'],
-    activities:['Telephonic Outreach','Behavioral Health Needs Assessment','Treatment Authorization Review']},
-  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'Dual-Eligible Coordination Program',
-    desc:'For members who qualify for both Medicare and Medicaid. A care manager creates an integrated care plan that spans both payers, identifies benefit gaps, and conducts semi-annual reassessments to ensure services from both programs are being fully utilized.',
+  {cat:'Staff Programs', subtype:'Benefit', icon:'verified_user',    iconColor:'#1378A3', iconBg:'#E3F2FD', title:'MMP / Dual Demonstration Programs',
+    desc:'For members enrolled in a Medicare-Medicaid Plan (MMP) or other dual demonstration program. A care manager creates an integrated care plan that spans both payers, identifies benefit gaps, and conducts semi-annual reassessments to ensure services from both programs are being fully utilized.',
     audiences:['Adult'], langs:['English','Spanish'],
     eligibilities:['Medicaid', 'Altruista Health'],
     activities:['Telephonic Outreach','Dual-Eligible Intake Assessment','Integrated Care Plan Development','Semi-Annual Reassessment','Interdisciplinary Team Meeting']},
+  {cat:'Staff Programs', subtype:'Benefit', icon:'transfer_within_a_station',iconColor:'#E65100', iconBg:'#FFF3E0', title:'Transitions of Care (TOC) / Inpatient Post-Acute',
+    desc:'Automatically triggered by each hospital discharge or inpatient post-acute stay. A care manager calls within 48 hours, reconciles medications, and schedules a PCP follow-up within 7 days. The 30-day cycle restarts with every new hospitalization.',
+    audiences:['Adult'], langs:['English','Spanish'],
+    eligibilities:['Medicaid', 'Altruista Health', 'FEP'],
+    activities:['Post-Discharge Follow-Up Call','Medication Reconciliation','PCP Follow-Up Scheduling','30-Day TOC Assessment']},
 ];
 
 
@@ -11622,18 +11654,17 @@ var BP2_CATS_BY_TYPE = [
 ];
 
 var BP2_CATS_BY_TOPIC = [
-  {key:'Diabetes Management',              label:'Diabetes Management',        icon:'water_drop',        iconColor:'#1378A3'},
-  {key:'Prenatal & Postpartum',            label:'Prenatal & Postpartum',      icon:'child_care',        iconColor:'#AD1457'},
-  {key:'Cardiovascular Health',            label:'Cardiovascular Health',      icon:'favorite',          iconColor:'#C62828'},
-  {key:'Behavioral Health',                label:'Behavioral Health',          icon:'psychology',        iconColor:'#6A1B9A'},
-  {key:'Respiratory & Pulmonary',          label:'Respiratory & Pulmonary',    icon:'air',               iconColor:'#00838F'},
-  {key:'Musculoskeletal & Fall Prevention',label:'Musculoskeletal',            icon:'accessibility_new', iconColor:'#E65100'},
-  {key:'Oncology & Chronic Disease',       label:'Oncology & Chronic Disease', icon:'biotech',           iconColor:'#2E7D32'},
-  {key:'Nutrition & Weight Management',    label:'Nutrition & Weight',         icon:'restaurant',        iconColor:'#558B2F'},
-  {key:'Substance Use & Recovery',         label:'Substance Use & Recovery',   icon:'self_improvement',  iconColor:'#4527A0'},
-  {key:'Pediatric & Child Health',         label:'Pediatric & Child Health',   icon:'child_friendly',    iconColor:'#F57F17'},
-  {key:'Senior & Long-Term Care',          label:'Senior & Long-Term Care',    icon:'elderly',           iconColor:'#37474F'},
-  {key:'Onboarding & Engagement',          label:'Onboarding & Engagement',    icon:'rocket_launch',     iconColor:'#0277BD'},
+  {key:'Maternal Health',            label:'Maternal Health',            icon:'child_care',        iconColor:'#AD1457'},
+  {key:'Pediatric Caregiver',        label:'Pediatric Caregiver',        icon:'child_friendly',    iconColor:'#F57F17'},
+  {key:'Behavioral Health',          label:'Behavioral Health',          icon:'psychology',        iconColor:'#6A1B9A'},
+  {key:'Lifestyle & Comorbidities',  label:'Lifestyle & Comorbidities',  icon:'restaurant',        iconColor:'#558B2F'},
+  {key:'Chronic & Complex Care',     label:'Chronic & Complex Care',     icon:'favorite',          iconColor:'#C62828'},
+  {key:'Care Transitions',           label:'Care Transitions',           icon:'transfer_within_a_station', iconColor:'#E65100'},
+  {key:'Chronic Kidney Disease',     label:'Chronic Kidney Disease',     icon:'opacity',           iconColor:'#00838F'},
+  {key:'Oncology',                   label:'Oncology',                   icon:'biotech',           iconColor:'#2E7D32'},
+  {key:'Musculoskeletal',            label:'Musculoskeletal',            icon:'accessibility_new', iconColor:'#37474F'},
+  {key:'Healthspan',                 label:'Healthspan',                 icon:'insights',           iconColor:'#0277BD'},
+  {key:'Biometrics',                 label:'Biometrics',                 icon:'monitor_heart',      iconColor:'#1378A3'},
 ];
 
 var BP2_ALL_PROGRAMS = BP2_STAFF.concat(MFP2_PROGRAMS.map(function(p){ return Object.assign({}, p, {subtype:'Member-Facing'}); }));
@@ -12256,29 +12287,10 @@ function mfpAddProgramConfirm() {
       <div id="staffProgWFSection" style="display:none;margin-top:8px;padding-top:20px;border-top:1px solid #e0e0e0;">
         <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#1378A3;">
           <img src="assets/Wellframe/Logomark.png" style="width:14px;height:14px;" onerror="this.style.display='none'"/>
-          Recommended Wellframe Program
+          Recommended Wellframe Programs
         </div>
-        <div style="margin-top:8px;width:100%;box-sizing:border-box;background:#F7FBFE;border:1px solid #C5DFF0;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(19,120,163,0.1);">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <!-- Add Program — expands to the program details plus the date/follow-up choice the standalone Add Program modal offers -->
-            <button type="button" id="staffProgWFAddToggleBtn" onclick="staffProgToggleWFAdd()" aria-label="Add program" title="Add program" onmouseover="this.style.background='rgba(19,120,163,0.1)'" onmouseout="this.style.background='transparent'" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:30px;height:30px;background:transparent;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;transition:background .15s;">
-              <span id="staffProgWFAddIcon" class="material-icons" style="font-size:24px;color:#1378A3;">add_circle</span>
-            </button>
-            <div id="staffProgWFTitle" style="font-size:14px;color:#1a1a1a;font-weight:700;"></div>
-          </div>
-          <div id="staffProgWFAddPanel" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee;">
-            <div id="staffProgWFDetails" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #eee;"></div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;margin-bottom:10px;">
-              <input type="radio" name="staffProgWFAddOption" id="staffProgWFAddOptDate" checked onchange="staffProgUpdateWFDateInput()" style="accent-color:#1378A3;width:16px;height:16px;" /> Start tomorrow or on a specific date
-            </label>
-            <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;margin-bottom:12px;margin-left:24px;">
-              <input type="date" id="staffProgWFStartDate" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />
-            </div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;">
-              <input type="radio" name="staffProgWFAddOption" id="staffProgWFAddOptFollowup" onchange="staffProgUpdateWFDateInput()" style="accent-color:#1378A3;width:16px;height:16px;" /> Add a follow-up to consider this program later
-            </label>
-          </div>
-        </div>
+        <!-- Each recommended program is its own card with its own Add icon — clicking it expands just that card's details, including its own start date / follow-up choice -->
+        <div id="staffProgWFList" style="display:flex;flex-direction:column;gap:10px;margin-top:8px;"></div>
       </div>
 
     </div>
@@ -12330,84 +12342,154 @@ function staffProgSubmit() {
       reqActAddEligibilityProgram(_staffProgCurrentTitle);
     }
 
-    var wfActive = staffProgWFAddIsActive();
-    if (wfActive) {
+    if (staffProgWFSelectedCount() > 0) {
       staffProgFinalizeWFAdd();
     }
   }
 }
 
-function staffProgWFAddIsActive() {
-  var wfSection = document.getElementById('staffProgWFSection');
-  var addPanel = document.getElementById('staffProgWFAddPanel');
-  return !!(wfSection && wfSection.style.display !== 'none' && wfSection.getAttribute('data-wf-title') && addPanel && addPanel.style.display !== 'none');
+// Returns how many recommended Wellframe program cards are currently selected (expanded).
+function staffProgWFSelectedCount() {
+  return document.querySelectorAll('.staffProgWFCard[data-selected="true"]').length;
 }
 
 function staffProgUpdateSubmitLabel() {
   var btn = document.getElementById('staffProgSubmitBtn');
   if (!btn) return;
-  btn.textContent = staffProgWFAddIsActive() ? 'Add 2 Programs' : 'Add Program';
+  var n = staffProgWFSelectedCount();
+  btn.textContent = n > 0 ? ('Add ' + (n + 1) + ' Programs') : 'Add Program';
 }
 
-
-function staffProgToggleWFAdd() {
-  var panel = document.getElementById('staffProgWFAddPanel');
-  var icon = document.getElementById('staffProgWFAddIcon');
-  var btn = document.getElementById('staffProgWFAddToggleBtn');
-  if (!panel) return;
-  var isHidden = panel.style.display === 'none';
-  panel.style.display = isHidden ? '' : 'none';
+// Sets one recommended-program card's selected state: expanded with full
+// details and a green checkmark when selected to add, collapsed back to
+// just the title and blue "+" when not.
+function staffProgSetWFCardState(card, selected) {
+  if (!card) return;
+  var body = card.querySelector('.staffProgWFCardBody');
+  var btn = card.querySelector('.staffProgWFCardBtn');
+  var icon = btn ? btn.querySelector('.staffProgWFCardIcon') : null;
+  var title = card.getAttribute('data-wf-title') || '';
+  if (body) body.style.display = selected ? '' : 'none';
+  card.setAttribute('data-selected', selected ? 'true' : 'false');
   if (icon) {
-    icon.textContent = isHidden ? 'remove_circle' : 'add_circle';
-    icon.style.color = isHidden ? '#C62828' : '#1378A3';
+    icon.textContent = selected ? 'check_circle' : 'add_circle';
+    icon.style.color = selected ? '#2E7D32' : '#1378A3';
   }
   if (btn) {
-    var label = isHidden ? 'Cancel adding program' : 'Add program';
+    var label = (selected ? 'Added ' : 'Add ') + title;
     btn.setAttribute('aria-label', label);
     btn.setAttribute('title', label);
   }
-  if (!isHidden) {
-    // Collapsing — discard any in-progress date/follow-up choice
-    document.getElementById('staffProgWFAddOptDate').checked = true;
-    document.getElementById('staffProgWFAddOptFollowup').checked = false;
-    document.getElementById('staffProgWFStartDate').value = '';
-    document.getElementById('staffProgWFStartDate').disabled = false;
+  if (selected) {
+    var gcDate = document.getElementById('staffProgStartDate').value;
+    var dateInput = card.querySelector('.staffProgWFStartDateInput');
+    if (gcDate && dateInput && !dateInput.value) dateInput.value = gcDate;
   }
   staffProgUpdateSubmitLabel();
 }
 
-function staffProgUpdateWFDateInput() {
-  var useDate = document.getElementById('staffProgWFAddOptDate').checked;
-  document.getElementById('staffProgWFStartDate').disabled = !useDate;
+// Clicking a card's "+" selects it (shows the green checkmark and expands
+// its details) — clicking it again toggles it back off.
+function staffProgToggleWFCard(btn) {
+  var card = btn.closest('.staffProgWFCard');
+  if (!card) return;
+  staffProgSetWFCardState(card, card.getAttribute('data-selected') !== 'true');
 }
 
-// Defaults the Wellframe program's start date to match the GuidingCare program's start date
+// The "Cancel" link inside an expanded card — a second, explicit way to
+// back out of adding that program.
+function staffProgCancelWFCard(link) {
+  var card = link.closest('.staffProgWFCard');
+  if (!card) return;
+  staffProgSetWFCardState(card, false);
+}
+
+// Toggles a card's own Start Date input on/off based on that same card's
+// "start date" vs "follow-up" radio choice. Once the user picks "start
+// tomorrow or on a specific date," the card auto-collapses (keeping its
+// green checkmark) since there's nothing left to fill in.
+function staffProgUpdateWFDateInput(radio) {
+  var card = radio.closest('.staffProgWFCard');
+  if (!card) return;
+  var useDate = card.querySelector('.staffProgWFAddOptDate').checked;
+  card.querySelector('.staffProgWFStartDateInput').disabled = !useDate;
+  if (useDate) staffProgCollapseWFCard(card);
+}
+
+// Collapses a card's expanded body without changing its selected state —
+// used once the user has finished picking a date for that program.
+function staffProgCollapseWFCard(el) {
+  var card = el.closest ? el.closest('.staffProgWFCard') : el;
+  if (!card) return;
+  var body = card.querySelector('.staffProgWFCardBody');
+  if (body) body.style.display = 'none';
+}
+
+// Defaults every recommended Wellframe program's own start date to match
+// the GuidingCare program's start date, once that's entered.
 function staffProgSyncWFStartDate() {
   var gcDate = document.getElementById('staffProgStartDate').value;
-  var wfDateInput = document.getElementById('staffProgWFStartDate');
-  if (gcDate && wfDateInput) wfDateInput.value = gcDate;
+  if (!gcDate) return;
+  Array.prototype.forEach.call(document.querySelectorAll('.staffProgWFStartDateInput'), function(input) {
+    input.value = gcDate;
+  });
 }
 
-// Adds the recommended Wellframe program using the date/follow-up choice made
-// inline in staffProgModal — no separate modal is shown.
+// Adds every selected recommended Wellframe program using the date/follow-up
+// choice made inline within its own card — no separate modal is shown.
 function staffProgFinalizeWFAdd() {
-  var wfSection = document.getElementById('staffProgWFSection');
-  var wfTitle = wfSection ? wfSection.getAttribute('data-wf-title') : null;
-  var wf = wfTitle ? MFP2_PROGRAMS.filter(function(p) { return p.title === wfTitle; })[0] : null;
-  if (!wf) return;
+  var selected = Array.prototype.slice.call(document.querySelectorAll('.staffProgWFCard[data-selected="true"]'));
+  if (!selected.length) return;
 
-  var isFollowup = document.getElementById('staffProgWFAddOptFollowup').checked;
-  mfpPopulateModal(wf.title, wf.desc, wf.audiences, wf.langs, 'Member-Facing', wf.activities, wf.appTitle, wf.contains, wf.duration, wf.tasksPerDay);
-  document.getElementById('mfpViewProgramModal').classList.remove('open');
+  var addedTitles = [];
+  var followupTitles = [];
+  selected.forEach(function(card) {
+    var wf = MFP2_PROGRAMS.filter(function(p) { return p.title === card.getAttribute('data-wf-title'); })[0];
+    if (!wf) return;
+    var isFollowup = card.querySelector('.staffProgWFAddOptFollowup').checked;
+    mfpPopulateModal(wf.title, wf.desc, wf.audiences, wf.langs, 'Member-Facing', wf.activities, wf.appTitle, wf.contains, wf.duration, wf.tasksPerDay);
+    document.getElementById('mfpViewProgramModal').classList.remove('open');
+    if (isFollowup) {
+      followupTitles.push(wf.title);
+    } else {
+      wf.added = true;
+      mfpAddProgramConfirm();
+      addedTitles.push(wf.title);
+    }
+  });
 
   var msgEl = document.getElementById('progSuccessBannerMsg');
-  if (isFollowup) {
-    if (msgEl) msgEl.textContent = _staffProgCurrentTitle + ' was added, and a follow-up was set to consider ' + wf.title + ' later.';
+  if (!msgEl || (!addedTitles.length && !followupTitles.length)) return;
+  var namesList = addedTitles.join(', ');
+  var followupList = followupTitles.join(', ');
+  if (addedTitles.length && followupTitles.length) {
+    msgEl.textContent = (addedTitles.length + 1) + ' programs: (' + _staffProgCurrentTitle + ', ' + namesList + ') were added for the member. The member can access ' + namesList + ' on their app. Follow-ups were also set to consider ' + followupList + ' later.';
+  } else if (followupTitles.length) {
+    msgEl.textContent = _staffProgCurrentTitle + ' was added, and follow-ups were set to consider ' + followupList + ' later.';
   } else {
-    wf.added = true;
-    mfpAddProgramConfirm();
-    if (msgEl) msgEl.textContent = '2 programs: (' + _staffProgCurrentTitle + ', ' + wf.title + ') were added for the member. The member can access ' + wf.title + ' on their app.';
+    msgEl.textContent = (addedTitles.length + 1) + ' programs: (' + _staffProgCurrentTitle + ', ' + namesList + ') were added for the member. The member can access ' + namesList + ' on their app.';
   }
+}
+
+// Looks up every Wellframe program recommended alongside a given Clinical/
+// Eligibility program, per STAFF_PROG_WF_COMPANION (an explicit title list,
+// a {category} lookup that pulls every MFP2_PROGRAMS entry in that category,
+// or both combined via {category, extra}).
+function staffProgGetWFCompanions(staffTitle) {
+  var spec = STAFF_PROG_WF_COMPANION[staffTitle];
+  if (!spec) return [];
+  var titles = [];
+  if (Array.isArray(spec)) {
+    titles = spec.slice();
+  } else {
+    if (spec.category) {
+      titles = MFP2_PROGRAMS.filter(function(p) { return p.cat === spec.category; }).map(function(p) { return p.title; });
+    }
+    if (spec.extra) titles = titles.concat(spec.extra);
+  }
+  return titles
+    .map(function(t) { return MFP2_PROGRAMS.filter(function(p) { return p.title === t; })[0]; })
+    .filter(Boolean);
 }
 
 function reqActAddClinicalProgram(title) {
@@ -12625,31 +12707,25 @@ function staffProgUpdateStatusDesc() {
   descSel.disabled = !opts.length;
 }
 
-// Maps each Clinical/Eligibility (staff) program to the related member-facing
-// Wellframe program recommended alongside it, by title in MFP2_PROGRAMS.
+// Maps each Clinical/Eligibility (staff) program to the Wellframe member-facing
+// program(s) recommended alongside it. Each value is either:
+//   - an array of specific MFP2_PROGRAMS titles, or
+//   - {category} to recommend every MFP2_PROGRAMS entry in that category, or
+//   - {category, extra: [...]} to combine a whole category with a few extra titles.
 var STAFF_PROG_WF_COMPANION = {
-  'Care Coordination':                  'Chronic Disease Self-Management',
-  'Complex Care Management':            'Chronic Disease Self-Management',
-  'DCB-T':                               'Chronic Disease Self-Management',
-  'Diabetes Management':                'Diabetes Management Program',
-  'Health and Wellness':                'Healthy Living — Nutrition',
-  'Maternal Health Program':            'Maternal Health Program',
-  'Substance Use Disorder Program':     'Substance Use Recovery Support',
-  'Transitions of Care':                'Chronic Disease Self-Management',
-  'Congestive Heart Failure Program':   'Heart Failure Management',
-  'Behavioral Health Integration':      'Behavioral Health Support',
-  'Asthma & Respiratory Management':    'Asthma Action Plan',
-  'Post-Acute Care Management':         'Post-Surgical Recovery Program',
-  'Nutrition & Obesity Management':     'Weight Management Program',
-  'Geriatric Care Management':          'Aging in Place Support',
-  'DSNP Care Management':               'LTSS Program',
-  'CSNP Care Management':               'Chronic Disease Self-Management',
-  'ISNP Care Management':               'LTSS Program',
-  'Medicaid Care Management':           'Chronic Disease Self-Management',
-  'LTSS Waiver Program':                'LTSS Program',
-  'Medicare Advantage Care Management': 'Chronic Disease Self-Management',
-  'Behavioral Health Benefit Program':  'Behavioral Health Support',
-  'Dual-Eligible Coordination Program': 'LTSS Program',
+  'Diabetes Management':                             ['Diabetes Management', 'Prediabetes Support'],
+  'Cardiovascular / Heart Failure (CHF, CAD, Hypertension)': ['Heart Failure', 'Coronary Artery Disease', 'Hypertension', 'Hyperlipidemia', 'Atrial Fibrillation'],
+  'Respiratory Care (COPD, Asthma)':                  ['Chronic Obstructive Pulmonary Disease', 'Asthma'],
+  'Chronic Kidney Disease (CKD / ESRD)':              {category: 'Chronic Kidney Disease'},
+  'Maternity (Prenatal / Postpartum Care)':           {category: 'Maternal Health', extra: ['Prenatal Biometrics']},
+  'Complex Care Management (CCM / High Risk)':        ['Wellness & Prevention', 'Behavioral Health & Wellness', 'Care Transitions: Medical'],
+  'Pediatric / CSHCN':                                {category: 'Pediatric Caregiver'},
+  'Behavioral Health / Substance Use Disorder (SUD)': {category: 'Behavioral Health', extra: ['Behavioral Health & Wellness', 'Behavioral Health Care Transitions']},
+  'SDOH & Community Resource Support':                ['Social Isolation', 'Fall Prevention'],
+  'LTSS / HCBS (Long-Term Services & Supports / Home & Community-Based Services)': ['Fall Prevention', 'Social Isolation'],
+  // D-SNP and MMP intentionally have no Wellframe companion — no matching
+  // member-facing program exists for SNP/dual-demonstration eligibility administration
+  'Transitions of Care (TOC) / Inpatient Post-Acute': {category: 'Care Transitions'},
 };
 
 function openStaffProgModal(title, subtype) {
@@ -12679,43 +12755,55 @@ function openStaffProgModal(title, subtype) {
     document.getElementById(id).style.display = 'none';
   });
 
-  // Recommended Wellframe companion program
+  // Recommended Wellframe companion programs — one card per program, each with
+  // its own Add icon that expands just that card to reveal its full details.
   var wfSection = document.getElementById('staffProgWFSection');
-  var wfTitle = STAFF_PROG_WF_COMPANION[title];
-  var wf = wfTitle ? MFP2_PROGRAMS.filter(function(p) { return p.title === wfTitle; })[0] : null;
-  if (wf) {
+  var companions = staffProgGetWFCompanions(title);
+  if (companions.length) {
     wfSection.style.display = '';
-    wfSection.setAttribute('data-wf-title', wf.title);
-    document.getElementById('staffProgWFTitle').textContent = wf.title;
 
-    var detailsHtml = '';
-    if (wf.appTitle) {
-      detailsHtml += '<div style="font-size:13px;color:#1a1a1a;margin-bottom:8px;"><strong>Member title in app:</strong> ' + wf.appTitle + '</div>';
-    }
-    if (wf.contains) {
-      detailsHtml += '<div style="font-size:13px;color:#1a1a1a;margin-bottom:10px;">Program Contains: ' + wf.contains + '</div>';
-    }
-    if (wf.duration || wf.tasksPerDay) {
-      detailsHtml += '<div style="display:flex;flex-direction:column;gap:6px;">'
-        + (wf.duration    ? '<div style="display:flex;align-items:center;gap:7px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:16px;color:#555;">timer</span>' + wf.duration + '</div>' : '')
-        + (wf.tasksPerDay ? '<div style="display:flex;align-items:center;gap:7px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:16px;color:#555;">format_list_bulleted</span>' + wf.tasksPerDay + '</div>' : '')
+    document.getElementById('staffProgWFList').innerHTML = companions.map(function(wf, i) {
+      var tagsHtml = (wf.audiences || []).map(function(a) {
+        return '<span class="mfp-tag mfp-tag-pop">' + a + '</span>';
+      }).join('');
+      if (wf.langs && wf.langs.length) {
+        tagsHtml += '<span class="mfp-tag mfp-tag-lang">' + (wf.langs.length > 1 ? 'English · Spanish' : wf.langs[0]) + '</span>';
+      }
+      var safeTitle = wf.title.replace(/"/g, '&quot;');
+      var radioName = 'staffProgWFAddOption_' + i;
+      return '<div class="staffProgWFCard" data-wf-title="' + safeTitle + '" data-selected="false" style="width:100%;box-sizing:border-box;background:#F7FBFE;border:1px solid #C5DFF0;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(19,120,163,0.1);">'
+        + '<div style="display:flex;align-items:center;gap:10px;">'
+        +   '<button type="button" class="staffProgWFCardBtn" onclick="staffProgToggleWFCard(this)" aria-label="Add ' + safeTitle + '" title="Add ' + safeTitle + '" onmouseover="this.style.background=\'rgba(19,120,163,0.1)\'" onmouseout="this.style.background=\'transparent\'" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:30px;height:30px;background:transparent;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;transition:background .15s;">'
+        +     '<span class="material-icons staffProgWFCardIcon" style="font-size:24px;color:#1378A3;">add_circle</span>'
+        +   '</button>'
+        +   '<div style="font-size:14px;color:#1a1a1a;font-weight:700;">' + wf.title + '</div>'
+        + '</div>'
+        + '<div class="staffProgWFCardBody" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee;">'
+        +   (wf.desc ? '<div style="font-size:13px;color:#444;line-height:1.5;margin-bottom:8px;">' + wf.desc + '</div>' : '')
+        +   (wf.contains ? '<div style="font-size:13px;color:#1a1a1a;margin-bottom:8px;">Program Contains: ' + wf.contains + '</div>' : '')
+        +   ((wf.duration || wf.tasksPerDay) ? '<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;">'
+              + (wf.duration    ? '<div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:15px;color:#555;">timer</span>' + wf.duration + '</div>' : '')
+              + (wf.tasksPerDay ? '<div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:15px;color:#555;">format_list_bulleted</span>' + wf.tasksPerDay + '</div>' : '')
+              + '</div>' : '')
+        +   (tagsHtml ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">' + tagsHtml + '</div>' : '')
+        +   '<div style="margin-top:4px;padding-top:12px;border-top:1px solid #eee;">'
+        +     '<label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;margin-bottom:10px;">'
+        +       '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptDate" checked onclick="staffProgUpdateWFDateInput(this)" onchange="staffProgUpdateWFDateInput(this)" style="accent-color:#1378A3;width:16px;height:16px;" /> Start tomorrow or on a specific date'
+        +     '</label>'
+        +     '<div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;margin-bottom:12px;margin-left:24px;">'
+        +       '<input type="date" class="staffProgWFStartDateInput" onchange="staffProgCollapseWFCard(this)" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />'
+        +     '</div>'
+        +     '<label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;">'
+        +       '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptFollowup" onclick="staffProgUpdateWFDateInput(this)" onchange="staffProgUpdateWFDateInput(this)" style="accent-color:#1378A3;width:16px;height:16px;" /> Add a follow-up to consider this program later'
+        +     '</label>'
+        +   '</div>'
+        +   '<button type="button" onclick="staffProgCancelWFCard(this)" style="background:none;border:none;padding:0;margin-top:12px;font-size:12px;font-weight:700;color:#C62828;text-decoration:underline;cursor:pointer;">Cancel</button>'
+        + '</div>'
         + '</div>';
-    }
-    document.getElementById('staffProgWFDetails').innerHTML = detailsHtml;
-
-    // Reset the inline Add section to collapsed/default
-    document.getElementById('staffProgWFAddPanel').style.display = 'none';
-    document.getElementById('staffProgWFAddIcon').textContent = 'add_circle';
-    document.getElementById('staffProgWFAddIcon').style.color = '#1378A3';
-    document.getElementById('staffProgWFAddToggleBtn').setAttribute('aria-label', 'Add program');
-    document.getElementById('staffProgWFAddToggleBtn').setAttribute('title', 'Add program');
-    document.getElementById('staffProgWFAddOptDate').checked = true;
-    document.getElementById('staffProgWFAddOptFollowup').checked = false;
-    document.getElementById('staffProgWFStartDate').value = '';
-    document.getElementById('staffProgWFStartDate').disabled = false;
+    }).join('');
   } else {
     wfSection.style.display = 'none';
-    wfSection.removeAttribute('data-wf-title');
+    document.getElementById('staffProgWFList').innerHTML = '';
   }
   staffProgUpdateSubmitLabel();
 
