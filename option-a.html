@@ -11837,9 +11837,12 @@ function bp2RenderList(pageItems, filtered) {
       + '<td style="font-size:12px;color:var(--text-secondary);max-width:260px;">'+descSnip+'</td>'
       + '<td style="font-size:12px;color:#333;">'+audStr+'</td>'
       + '<td style="font-size:12px;color:#333;">'+langStr+'</td>'
-      + '<td><span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" onclick="'+addFn+'">'
-      +   '<span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Program'
-      + '</span></td>'
+      + '<td><div style="display:flex;align-items:center;gap:12px;">'
+      +   (hasMF ? '<span style="display:inline-flex;align-items:center;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" onclick="wfOpenProgramContentModal(\''+safeTitle+'\')">View Program Content</span>' : '')
+      +   '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" onclick="'+addFn+'">'
+      +     '<span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Program'
+      +   '</span>'
+      + '</div></td>'
       + '</tr>';
   }).join('');
 }
@@ -11964,6 +11967,13 @@ function bp2Render() {
         + '</span>'
       : '';
 
+    // Quick link to the Health Library articles that make up this program
+    var contentBtn = hasMF
+      ? '<span style="display:inline-flex;align-items:center;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;" onclick="wfOpenProgramContentModal(\''+safeTitle+'\')">'
+        + 'View Program Content'
+        + '</span>'
+      : '';
+
     return '<div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">'
       + '<div style="background:'+b.bg+';padding:12px 16px;display:flex;align-items:center;gap:8px;">'
       +   '<span class="material-icons" style="font-size:18px;color:'+b.color+';flex-shrink:0;">'+b.icon+'</span>'
@@ -11974,8 +11984,9 @@ function bp2Render() {
       +   metaHtml
       +   panelHtml
       + '</div>'
-      + '<div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">'
+      + '<div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap;">'
       +   toggleBtn
+      +   contentBtn
       +   '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;" onclick="'+(hasMF ? 'openMfpProgramModalDirect(\''+safeTitle+'\')' : 'openStaffProgModal(\''+safeTitle+'\',\''+p.subtype+'\')')+'">'
       +     '<span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Program'
       +   '</span>'
@@ -12317,14 +12328,16 @@ function mfpAddProgramConfirm() {
         </div>
       </div>
 
-      <!-- Recommended Wellframe companion program -->
-      <div id="staffProgWFSection" style="display:none;margin-top:8px;padding-top:20px;border-top:1px solid #e0e0e0;">
-        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#1378A3;">
+      <!-- Recommended Wellframe companion program(s) — a compact "quick add" list.
+           Clicking "+" adds a program immediately with a sensible default date;
+           no detail card expands. "Edit" (shown only once added) reveals a small
+           inline control to change the date or switch to a follow-up instead. -->
+      <div id="staffProgWFSection" style="display:none;margin-top:4px;padding-top:14px;border-top:1px solid #e0e0e0;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#1378A3;margin-bottom:8px;">
           <img src="assets/Wellframe/Logomark.png" style="width:14px;height:14px;" onerror="this.style.display='none'"/>
           Recommended Wellframe Programs
         </div>
-        <!-- Each recommended program is its own card with its own Add icon — clicking it expands just that card's details, including its own start date / follow-up choice -->
-        <div id="staffProgWFList" style="display:flex;flex-direction:column;gap:10px;margin-top:8px;"></div>
+        <div id="staffProgWFList" style="display:flex;flex-direction:column;gap:6px;"></div>
       </div>
 
     </div>
@@ -12394,69 +12407,110 @@ function staffProgUpdateSubmitLabel() {
   btn.textContent = n > 0 ? ('Add ' + (n + 1) + ' Programs') : 'Add Program';
 }
 
-// Sets one recommended-program card's selected state: expanded with full
-// details and a green checkmark when selected to add, collapsed back to
-// just the title and blue "+" when not.
+// Quick-add: one tap on "+" adds a recommended program right away using a
+// sensible default date, with no detail card expanding. A second tap removes
+// it. "Edit"/"Remove" links then appear inline so the choice can be tweaked
+// without ever growing the row into a big block.
 function staffProgSetWFCardState(card, selected) {
   if (!card) return;
-  var body = card.querySelector('.staffProgWFCardBody');
   var btn = card.querySelector('.staffProgWFCardBtn');
   var icon = btn ? btn.querySelector('.staffProgWFCardIcon') : null;
   var title = card.getAttribute('data-wf-title') || '';
-  if (body) body.style.display = selected ? '' : 'none';
   card.setAttribute('data-selected', selected ? 'true' : 'false');
   if (icon) {
     icon.textContent = selected ? 'check_circle' : 'add_circle';
     icon.style.color = selected ? '#2E7D32' : '#1378A3';
   }
   if (btn) {
-    var label = (selected ? 'Added ' : 'Add ') + title;
+    var label = (selected ? 'Remove ' : 'Add ') + title;
     btn.setAttribute('aria-label', label);
     btn.setAttribute('title', label);
   }
+  var dateInput = card.querySelector('.staffProgWFStartDateInput');
   if (selected) {
-    var gcDate = document.getElementById('staffProgStartDate').value;
-    var dateInput = card.querySelector('.staffProgWFStartDateInput');
-    if (gcDate && dateInput && !dateInput.value) dateInput.value = gcDate;
+    if (dateInput && !dateInput.value) dateInput.value = staffProgDefaultWFDate();
+  } else {
+    var dateRadio = card.querySelector('.staffProgWFAddOptDate');
+    var followupRadio = card.querySelector('.staffProgWFAddOptFollowup');
+    if (dateRadio) dateRadio.checked = true;
+    if (followupRadio) followupRadio.checked = false;
+    if (dateInput) { dateInput.value = ''; dateInput.disabled = false; }
+    var panel = card.querySelector('.staffProgWFEditPanel');
+    if (panel) panel.style.display = 'none';
   }
+  staffProgUpdateWFCaption(card);
   staffProgUpdateSubmitLabel();
 }
 
-// Clicking a card's "+" selects it (shows the green checkmark and expands
-// its details) — clicking it again toggles it back off.
+// Tomorrow's date, or the GuidingCare program's own start date once that's set.
+function staffProgDefaultWFDate() {
+  var gcDate = document.getElementById('staffProgStartDate').value;
+  if (gcDate) return gcDate;
+  var d = new Date();
+  d.setDate(d.getDate() + 1);
+  var mm = String(d.getMonth() + 1).padStart(2, '0');
+  var dd = String(d.getDate()).padStart(2, '0');
+  return d.getFullYear() + '-' + mm + '-' + dd;
+}
+
+function staffProgFormatWFDate(iso) {
+  var parts = (iso || '').split('-');
+  return parts.length === 3 ? (parts[1] + '/' + parts[2] + '/' + parts[0]) : '';
+}
+
+// Refreshes a card's one-line caption: plain program info while unselected,
+// or a "Starts {date}" / "Follow-up scheduled" summary with inline Edit and
+// Remove links once it's been quick-added.
+function staffProgUpdateWFCaption(card) {
+  var caption = card.querySelector('.staffProgWFCaption');
+  if (!caption) return;
+  if (card.getAttribute('data-selected') !== 'true') {
+    caption.innerHTML = '';
+    caption.style.display = 'none';
+    return;
+  }
+  var isFollowup = card.querySelector('.staffProgWFAddOptFollowup').checked;
+  var dateInput = card.querySelector('.staffProgWFStartDateInput');
+  var summary = isFollowup ? 'Follow-up scheduled' : 'Starts ' + staffProgFormatWFDate(dateInput ? dateInput.value : '');
+  caption.innerHTML = summary
+    + ' &middot; <a href="#" onclick="staffProgToggleWFEdit(this);return false;" style="color:#1378A3;text-decoration:underline;">Edit</a>'
+    + ' &middot; <a href="#" onclick="staffProgCancelWFCard(this);return false;" style="color:#C62828;text-decoration:underline;">Remove</a>';
+  caption.style.color = '#2E7D32';
+  caption.style.fontWeight = '600';
+  caption.style.display = '';
+}
+
+// Clicking a card's "+" quick-adds it — clicking it again (or "Remove") takes it back off.
 function staffProgToggleWFCard(btn) {
   var card = btn.closest('.staffProgWFCard');
   if (!card) return;
   staffProgSetWFCardState(card, card.getAttribute('data-selected') !== 'true');
 }
 
-// The "Cancel" link inside an expanded card — a second, explicit way to
-// back out of adding that program.
 function staffProgCancelWFCard(link) {
   var card = link.closest('.staffProgWFCard');
   if (!card) return;
   staffProgSetWFCardState(card, false);
 }
 
-// Toggles a card's own Start Date input on/off based on that same card's
-// "start date" vs "follow-up" radio choice. Once the user picks "start
-// tomorrow or on a specific date," the card auto-collapses (keeping its
-// green checkmark) since there's nothing left to fill in.
-function staffProgUpdateWFDateInput(radio) {
-  var card = radio.closest('.staffProgWFCard');
-  if (!card) return;
-  var useDate = card.querySelector('.staffProgWFAddOptDate').checked;
-  card.querySelector('.staffProgWFStartDateInput').disabled = !useDate;
-  if (useDate) staffProgCollapseWFCard(card);
+// Opens/closes the small inline panel where the date or follow-up choice can be changed.
+function staffProgToggleWFEdit(link) {
+  var card = link.closest('.staffProgWFCard');
+  var panel = card && card.querySelector('.staffProgWFEditPanel');
+  if (!panel) return;
+  panel.style.display = panel.style.display === 'none' ? '' : 'none';
 }
 
-// Collapses a card's expanded body without changing its selected state —
-// used once the user has finished picking a date for that program.
-function staffProgCollapseWFCard(el) {
-  var card = el.closest ? el.closest('.staffProgWFCard') : el;
+// A change inside the edit panel updates the caption and auto-collapses the panel.
+function staffProgWFOptionChanged(el) {
+  var card = el.closest('.staffProgWFCard');
   if (!card) return;
-  var body = card.querySelector('.staffProgWFCardBody');
-  if (body) body.style.display = 'none';
+  var useDate = card.querySelector('.staffProgWFAddOptDate').checked;
+  var dateInput = card.querySelector('.staffProgWFStartDateInput');
+  if (dateInput) dateInput.disabled = !useDate;
+  staffProgUpdateWFCaption(card);
+  var panel = card.querySelector('.staffProgWFEditPanel');
+  if (panel) panel.style.display = 'none';
 }
 
 // Defaults every recommended Wellframe program's own start date to match
@@ -12464,8 +12518,10 @@ function staffProgCollapseWFCard(el) {
 function staffProgSyncWFStartDate() {
   var gcDate = document.getElementById('staffProgStartDate').value;
   if (!gcDate) return;
-  Array.prototype.forEach.call(document.querySelectorAll('.staffProgWFStartDateInput'), function(input) {
-    input.value = gcDate;
+  Array.prototype.forEach.call(document.querySelectorAll('.staffProgWFCard'), function(card) {
+    var input = card.querySelector('.staffProgWFStartDateInput');
+    if (input) input.value = gcDate;
+    if (card.getAttribute('data-selected') === 'true') staffProgUpdateWFCaption(card);
   });
 }
 
@@ -12523,7 +12579,8 @@ function staffProgGetWFCompanions(staffTitle) {
   }
   return titles
     .map(function(t) { return MFP2_PROGRAMS.filter(function(p) { return p.title === t; })[0]; })
-    .filter(Boolean);
+    .filter(Boolean)
+    .slice(0, STAFF_PROG_WF_MAX);
 }
 
 function reqActAddClinicalProgram(title) {
@@ -12741,6 +12798,10 @@ function staffProgUpdateStatusDesc() {
   descSel.disabled = !opts.length;
 }
 
+// Most staff programs map to more Wellframe programs than a care manager should
+// be asked to weigh at once, so only the first this many are recommended.
+var STAFF_PROG_WF_MAX = 2;
+
 // Maps each Clinical/Eligibility (staff) program to the Wellframe member-facing
 // program(s) recommended alongside it. Each value is either:
 //   - an array of specific MFP2_PROGRAMS titles, or
@@ -12789,49 +12850,49 @@ function openStaffProgModal(title, subtype) {
     document.getElementById(id).style.display = 'none';
   });
 
-  // Recommended Wellframe companion programs — one card per program, each with
-  // its own Add icon that expands just that card to reveal its full details.
+  // Recommended Wellframe companion programs — a compact "quick add" row per
+  // program. Clicking "+" adds it right away with a sensible default date;
+  // no detail card expands. "Edit"/"Remove" appear inline only once added.
   var wfSection = document.getElementById('staffProgWFSection');
   var companions = staffProgGetWFCompanions(title);
   if (companions.length) {
     wfSection.style.display = '';
 
     document.getElementById('staffProgWFList').innerHTML = companions.map(function(wf, i) {
-      var tagsHtml = (wf.audiences || []).map(function(a) {
-        return '<span class="mfp-tag mfp-tag-pop">' + a + '</span>';
-      }).join('');
-      if (wf.langs && wf.langs.length) {
-        tagsHtml += '<span class="mfp-tag mfp-tag-lang">' + (wf.langs.length > 1 ? 'English · Spanish' : wf.langs[0]) + '</span>';
-      }
       var safeTitle = wf.title.replace(/"/g, '&quot;');
       var radioName = 'staffProgWFAddOption_' + i;
-      return '<div class="staffProgWFCard" data-wf-title="' + safeTitle + '" data-selected="false" style="width:100%;box-sizing:border-box;background:#F7FBFE;border:1px solid #C5DFF0;border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(19,120,163,0.1);">'
-        + '<div style="display:flex;align-items:center;gap:10px;">'
-        +   '<button type="button" class="staffProgWFCardBtn" onclick="staffProgToggleWFCard(this)" aria-label="Add ' + safeTitle + '" title="Add ' + safeTitle + '" onmouseover="this.style.background=\'rgba(19,120,163,0.1)\'" onmouseout="this.style.background=\'transparent\'" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:30px;height:30px;background:transparent;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;transition:background .15s;">'
-        +     '<span class="material-icons staffProgWFCardIcon" style="font-size:24px;color:#1378A3;">add_circle</span>'
+      // Condensed version of the same info shown in "View Program Details":
+      // member title in app (only when it differs from the row's own title),
+      // program contains, duration, and tasks per day — all on one line.
+      var infoParts = [];
+      if (wf.appTitle && wf.appTitle !== wf.title) infoParts.push('App title: ' + wf.appTitle);
+      if (wf.contains) infoParts.push(wf.contains);
+      if (wf.duration) infoParts.push(wf.duration);
+      if (wf.tasksPerDay) infoParts.push(wf.tasksPerDay);
+      var infoLine = infoParts.join(' &middot; ');
+      var infoLineText = infoParts.join(' · ').replace(/"/g, '&quot;');
+      return '<div class="staffProgWFCard" data-wf-title="' + safeTitle + '" data-selected="false">'
+        + '<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid #C5DFF0;border-radius:6px;background:#F7FBFE;">'
+        +   '<button type="button" class="staffProgWFCardBtn" onclick="staffProgToggleWFCard(this)" aria-label="Add ' + safeTitle + '" title="Add ' + safeTitle + '" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:26px;height:26px;background:transparent;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;">'
+        +     '<span class="material-icons staffProgWFCardIcon" style="font-size:22px;color:#1378A3;">add_circle</span>'
         +   '</button>'
-        +   '<div style="font-size:14px;color:#1a1a1a;font-weight:700;">' + wf.title + '</div>'
-        + '</div>'
-        + '<div class="staffProgWFCardBody" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #eee;">'
-        +   (wf.desc ? '<div style="font-size:13px;color:#444;line-height:1.5;margin-bottom:8px;">' + wf.desc + '</div>' : '')
-        +   (wf.contains ? '<div style="font-size:13px;color:#1a1a1a;margin-bottom:8px;">Program Contains: ' + wf.contains + '</div>' : '')
-        +   ((wf.duration || wf.tasksPerDay) ? '<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;">'
-              + (wf.duration    ? '<div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:15px;color:#555;">timer</span>' + wf.duration + '</div>' : '')
-              + (wf.tasksPerDay ? '<div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#222;"><span class="material-icons" style="font-size:15px;color:#555;">format_list_bulleted</span>' + wf.tasksPerDay + '</div>' : '')
-              + '</div>' : '')
-        +   (tagsHtml ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">' + tagsHtml + '</div>' : '')
-        +   '<div style="margin-top:4px;padding-top:12px;border-top:1px solid #eee;">'
-        +     '<label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;margin-bottom:10px;">'
-        +       '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptDate" checked onclick="staffProgUpdateWFDateInput(this)" onchange="staffProgUpdateWFDateInput(this)" style="accent-color:#1378A3;width:16px;height:16px;" /> Start tomorrow or on a specific date'
-        +     '</label>'
-        +     '<div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;margin-bottom:12px;margin-left:24px;">'
-        +       '<input type="date" class="staffProgWFStartDateInput" onchange="staffProgCollapseWFCard(this)" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />'
-        +     '</div>'
-        +     '<label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#222;cursor:pointer;">'
-        +       '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptFollowup" onclick="staffProgUpdateWFDateInput(this)" onchange="staffProgUpdateWFDateInput(this)" style="accent-color:#1378A3;width:16px;height:16px;" /> Add a follow-up to consider this program later'
-        +     '</label>'
+        +   '<div style="flex:1;min-width:0;">'
+        +     '<div style="font-size:13px;font-weight:600;color:#1a1a1a;line-height:1.3;">' + wf.title + '</div>'
+        +     (infoLine ? '<div style="font-size:11px;color:#555;line-height:1.3;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="' + infoLineText + '">' + infoLine + '</div>' : '')
+        +     '<a href="#" onclick="wfOpenProgramContentModal(\'' + safeTitle + '\');return false;" style="display:inline-flex;align-items:center;margin-top:2px;font-size:11px;font-weight:600;color:#1378A3;text-decoration:none;">'
+        +       'View Program Content'
+        +     '</a>'
+        +     '<div class="staffProgWFCaption" style="display:none;font-size:11px;color:var(--text-muted);margin-top:2px;"></div>'
         +   '</div>'
-        +   '<button type="button" onclick="staffProgCancelWFCard(this)" style="background:none;border:none;padding:0;margin-top:12px;font-size:12px;font-weight:700;color:#C62828;text-decoration:underline;cursor:pointer;">Cancel</button>'
+        + '</div>'
+        + '<div class="staffProgWFEditPanel" style="display:none;margin:6px 0 2px 34px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:4px;">'
+        +   '<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#222;cursor:pointer;margin-bottom:8px;">'
+        +     '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptDate" checked onchange="staffProgWFOptionChanged(this)" style="accent-color:#1378A3;width:14px;height:14px;flex-shrink:0;" /> Start on'
+        +     '<input type="date" class="staffProgWFStartDateInput" onchange="staffProgWFOptionChanged(this)" style="border:1px solid var(--border);border-radius:3px;outline:none;font-size:12px;font-family:var(--font);padding:2px 4px;" />'
+        +   '</label>'
+        +   '<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#222;cursor:pointer;">'
+        +     '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptFollowup" onchange="staffProgWFOptionChanged(this)" style="accent-color:#1378A3;width:14px;height:14px;flex-shrink:0;" /> Add as a follow-up instead'
+        +   '</label>'
         + '</div>'
         + '</div>';
     }).join('');
@@ -12944,6 +13005,95 @@ function openStaffProgModal(title, subtype) {
 document.getElementById('mfpViewProgramModal').addEventListener('click', function(e) {
   if (e.target === this) this.classList.remove('open');
 });
+</script>
+
+<!-- ══ WELLFRAME PROGRAM CONTENT Modal ══ -->
+<!-- A quick-link "View Content" from a Wellframe program shows the linked
+     health-library articles that make up that program, so a user can browse
+     what's inside without leaving the Add Program flow. -->
+<div class="gc-modal-overlay" id="wfProgramContentModal" role="dialog" aria-modal="true" aria-labelledby="wfProgramContentModalTitle" style="align-items:center;">
+  <div class="gc-modal" style="max-width:440px;border-radius:8px;overflow:hidden;">
+    <div style="padding:20px 24px 14px;background:#fff;border-bottom:1px solid #eee;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#1378A3;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;">Program Content</div>
+          <div id="wfProgramContentModalTitle" style="font-size:17px;font-weight:700;color:#1a1a1a;line-height:1.25;"></div>
+        </div>
+        <button onclick="document.getElementById('wfProgramContentModal').classList.remove('open')" aria-label="Close" style="background:none;border:none;color:#1378A3;cursor:pointer;font-size:22px;line-height:1;flex-shrink:0;margin-top:-2px;">&#x2715;</button>
+      </div>
+    </div>
+    <div id="wfProgramContentList" style="padding:4px 24px 6px;overflow-y:auto;max-height:calc(100vh - 220px);background:#fff;"></div>
+    <div style="padding:14px 24px;border-top:1px solid #e0e0e0;display:flex;justify-content:center;background:#fff;">
+      <button onclick="document.getElementById('wfProgramContentModal').classList.remove('open')" style="background:none;border:1px solid var(--border);color:#333;border-radius:4px;padding:8px 22px;font-size:13px;font-weight:600;cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('wfProgramContentModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+});
+
+var WF_ARTICLE_SOURCE_COLOR = {
+  GuidingCare: { bg: '#E3F2FD', color: '#1378A3' },
+  Healthwise:  { bg: '#FFF3E0', color: '#E65100' },
+  Wellframe:   { bg: '#E8F5E9', color: '#2E7D32' }
+};
+var WF_ARTICLE_STOPWORDS = ['the','and','for','with','your','you','to','of','in','on','a','an','is','are','or','at','as','by','from','that','this','it','be','can','will','their','they','who','how','into','over','more'];
+
+function wfArticleTokens(s) {
+  return (s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
+    .filter(function(w) { return w.length > 2 && WF_ARTICLE_STOPWORDS.indexOf(w) === -1; });
+}
+
+// Matches a member-facing Wellframe program to relevant Health Library
+// articles by keyword overlap between the program's title/category/description
+// and each article's title/category/description — falling back to a few
+// general wellness articles so nearly every program links to something.
+function wfProgramArticleMatches(wf) {
+  var progTokens = wfArticleTokens(wf.title + ' ' + (wf.cat || '') + ' ' + (wf.desc || ''));
+  var progSet = {};
+  progTokens.forEach(function(t) { progSet[t] = true; });
+
+  var scored = AL_ARTICLES.map(function(a) {
+    var artTokens = wfArticleTokens(a.title + ' ' + a.category + ' ' + (a.subcat || '') + ' ' + a.desc);
+    var score = 0;
+    artTokens.forEach(function(t) { if (progSet[t]) score++; });
+    return { article: a, score: score };
+  }).filter(function(x) { return x.score > 0; });
+
+  scored.sort(function(a, b) { return b.score - a.score || a.article.title.localeCompare(b.article.title); });
+
+  var picked = scored.slice(0, 4).map(function(x) { return x.article; });
+  if (picked.length < 3) {
+    AL_ARTICLES.filter(function(a) { return ['Wellness', 'Care Navigation', 'Health Literacy'].indexOf(a.category) !== -1; })
+      .forEach(function(f) {
+        if (picked.length >= 3) return;
+        if (picked.indexOf(f) === -1) picked.push(f);
+      });
+  }
+  return picked;
+}
+
+function wfOpenProgramContentModal(title) {
+  var wf = MFP2_PROGRAMS.filter(function(p) { return p.title === title; })[0];
+  if (!wf) return;
+  document.getElementById('wfProgramContentModalTitle').textContent = wf.title;
+  var articles = wfProgramArticleMatches(wf);
+  var listEl = document.getElementById('wfProgramContentList');
+  if (!articles.length) {
+    listEl.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:14px 0;">No linked content available for this program yet.</div>';
+  } else {
+    listEl.innerHTML = articles.map(function(a) {
+      var sc = WF_ARTICLE_SOURCE_COLOR[a.source] || { bg: '#eee', color: '#555' };
+      return '<a href="#" class="wfProgramContentLink" onclick="return false;" style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;color:inherit;">'
+        + '<span class="material-icons" style="font-size:16px;color:#1378A3;flex-shrink:0;">article</span>'
+        + '<span style="flex:1;min-width:0;font-size:13px;color:#1378A3;text-decoration:underline;">' + a.title + '</span>'
+        + '<span style="flex-shrink:0;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;background:' + sc.bg + ';color:' + sc.color + ';">' + a.source + '</span>'
+        + '</a>';
+    }).join('');
+  }
+  document.getElementById('wfProgramContentModal').classList.add('open');
+}
 </script>
 
 <!-- ══ WELLFRAME APP DETAILS Modal ══ -->
