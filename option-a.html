@@ -245,6 +245,47 @@
   .mfp-tag-type { color: #6A1B9A; background: #F3E5F5; }
   .mfp-program-action { flex-shrink: 0; align-self: center; }
 
+  /* ── Modernized "Add Program" browse cards — a color-coded left strip reveals on hover to indicate type ── */
+  .bp2-card { background:#fff; border:1px solid #EDEDED; border-radius:16px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 1px 3px rgba(16,24,40,0.05); transition:box-shadow .18s ease, transform .18s ease, border-color .18s ease; }
+  .bp2-card:hover { box-shadow:0 10px 24px rgba(16,24,40,0.10); border-color:#E2E2E2; transform:translateY(-3px); }
+  .bp2-card-illo { position:relative; height:84px; display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; background:#F4F6F8; }
+
+  /* Horizontal variant — illustration on the left instead of a top band */
+  .bp2-card-horizontal { flex-direction:row; border-radius:18px; border-color:#EDEDED; }
+  .bp2-card-horizontal:hover { box-shadow:0 14px 30px rgba(16,24,40,0.12); transform:translateY(-3px); }
+  .bp2-card-horizontal .bp2-card-illo { width:200px; height:auto; flex-shrink:0; }
+  .bp2-card-horizontal .bp2-card-head { padding:18px 20px 4px; }
+  .bp2-card-horizontal .bp2-card-title { font-size:16px; }
+  .bp2-card-horizontal .bp2-card-body { padding:8px 20px 16px; }
+  .bp2-card-horizontal .bp2-card-desc { margin-bottom:14px; }
+  .bp2-card-horizontal .bp2-card-footer { padding:12px 20px; background:#fff; }
+  .bp2-card-content { flex:1; min-width:0; display:flex; flex-direction:column; }
+  .bp2-illo-img { width:100%; height:100%; object-fit:cover; display:block; }
+  .bp2-illo-bg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .bp2-illo-medallion { position:relative; z-index:1; width:68px; height:68px; border-radius:50%; background:#fff; box-shadow:0 3px 10px rgba(16,24,40,0.14); display:flex; align-items:center; justify-content:center; }
+  .bp2-illo-medallion .material-icons { font-size:34px; }
+  .bp2-card-head { padding:14px 16px 2px; }
+  .bp2-card-title { font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35; }
+  .bp2-card-body { padding:12px 16px 14px; flex:1; }
+  .bp2-card-desc { font-size:13px; color:#5B6472; margin:0 0 10px; line-height:1.5; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .bp2-card-footer { padding:10px 14px; border-top:1px solid #F2F2F4; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; background:#FAFBFC; }
+  .bp2-card-toggle { display:inline-flex; align-items:center; gap:4px; color:#5B6472; font-size:12px; font-weight:600; cursor:pointer; }
+  .bp2-card-toggle .material-icons { font-size:15px; }
+  .bp2-card-add { display:inline-flex; align-items:center; gap:5px; background:#1378A3; color:#fff; font-size:12px; font-weight:700; border-radius:20px; padding:6px 14px 6px 12px; cursor:pointer; border:none; transition:background .15s ease; white-space:nowrap; }
+  .bp2-card-add:hover { background:#0E5F86; }
+  .staffProgWFTitleLink { color:#1a1a1a; }
+  .staffProgWFTitleLink:hover { color:#1378A3; }
+  .bp2-card-add .material-icons { font-size:14px; }
+  .bp2-card-panel { margin-top:12px; padding-top:12px; border-top:1px dashed #E5E7EB; }
+
+  /* ── Modernized "Add Program" list/table view ── */
+  .bp2-table-wrap { border:1px solid #EDEDED; border-radius:14px; overflow:hidden; box-shadow:0 1px 3px rgba(16,24,40,0.05); }
+  .bp2-table-modern { width:100%; border-collapse:collapse; background:#fff; }
+  .bp2-table-modern thead th { background:#FAFBFC; color:#5B6472; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.3px; padding:13px 16px; text-align:left; border-bottom:1px solid #EDEDED; white-space:nowrap; }
+  .bp2-table-modern tbody td { padding:14px 16px; border-bottom:1px solid #F2F2F4; font-size:13px; color:#333; vertical-align:middle; }
+  .bp2-table-modern tbody tr:last-child td { border-bottom:none; }
+  .bp2-table-modern tbody tr:hover td { background:#FAFBFC; }
+
   /* ── Section heading (teal, used in detail cards) ── */
   .gc-section-heading { font-size: 13px; font-weight: 700; color: var(--teal); margin-bottom: 6px; }
 
@@ -1689,7 +1730,7 @@ Diabetes Management</textarea>
           <!-- ── Browse Programs Page ── -->
           <div id="browseProgramsPage" style="display:none;">
             <!-- Back link + top-level Option switcher -->
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-size:11px;" onclick="event.preventDefault();closeBrowseProgramsPage();"><span class="material-icons" style="font-size:13px;">arrow_back</span> Back to Programs</a>
 
             </div>
@@ -1711,7 +1752,7 @@ Diabetes Management</textarea>
                 <button id="bp2chip-all"      class="bp2-type-chip bp2-type-chip-active" onclick="bp2SetType('',this)">All Programs<span class="bp2-chip-bar"></span></button>
                 <button id="bp2chip-clinical"  class="bp2-type-chip" onclick="bp2SetType('Benefit',this)">Eligibility Programs<span class="bp2-chip-bar"></span></button>
                 <button id="bp2chip-general"   class="bp2-type-chip" onclick="bp2SetType('General',this)">Clinical Programs<span class="bp2-chip-bar"></span></button>
-                <button id="bp2chip-member"    class="bp2-type-chip" onclick="bp2SetType('Member-Facing',this)">Member-Facing Programs<span class="bp2-chip-bar"></span></button>
+                <button id="bp2chip-member"    class="bp2-type-chip" onclick="bp2SetType('Member-Facing',this)">Wellframe Programs<span class="bp2-chip-bar"></span></button>
               </div>
 
               <!-- Tab header / description -->
@@ -1719,8 +1760,8 @@ Diabetes Management</textarea>
                 <div id="bp2-type-desc-text" style="font-size:13px;color:var(--text-secondary);line-height:1.5;"></div>
               </div>
 
-              <!-- Filter bar -->
-              <div style="background:#F5F5F5;border-radius:6px;padding:12px 14px;margin-bottom:16px;">
+              <!-- Filter bar — shares one continuous light-grey panel with the card grid below it -->
+              <div id="bp2-filterbar" style="background:#fff;border:1px solid #EDEDED;border-radius:14px;box-shadow:0 1px 3px rgba(16,24,40,0.05);padding:14px 16px;margin-bottom:16px;">
               <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;">
                 <!-- Program Name -->
                 <div style="display:flex;flex-direction:column;gap:4px;">
@@ -1797,21 +1838,25 @@ Diabetes Management</textarea>
               </div>
 
               <!-- Card list (grid view) -->
-              <div id="bp2-list" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;"></div>
+              <div id="bp2-list-bg" style="background:var(--surface-light);border-radius:16px;padding:28px;">
+                <div id="bp2-list" style="display:grid;grid-template-columns:repeat(3, 1fr);gap:24px;align-items:stretch;max-width:1400px;margin:0 auto;"></div>
+              </div>
 
               <!-- List view table -->
               <div id="bp2-table" style="display:none;">
-                <table class="gc-table" style="width:100%;">
-                  <thead><tr>
-                    <th>Program</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                    <th>Audience</th>
-                    <th>Language</th>
-                    <th></th>
-                  </tr></thead>
-                  <tbody id="bp2-table-body"></tbody>
-                </table>
+                <div class="bp2-table-wrap">
+                  <table class="bp2-table-modern">
+                    <thead><tr>
+                      <th>Program</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                      <th>Audience</th>
+                      <th>Language</th>
+                      <th></th>
+                    </tr></thead>
+                    <tbody id="bp2-table-body"></tbody>
+                  </table>
+                </div>
               </div>
 
               <div id="bp2-pager"></div>
@@ -1824,20 +1869,15 @@ Diabetes Management</textarea>
 
           <!-- ── Default Programs View ── -->
           <div id="programsDefaultView">
-          <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:6px;">
-            <div style="display:inline-block;">
-              <div style="font-size:20px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;">Programs</div>
-              <div style="height:3px;background:#C8821A;margin-top:6px;border-radius:2px;"></div>
-            </div>
-            <span style="display:flex;align-items:center;gap:12px;font-size:11px;flex-wrap:wrap;padding-bottom:4px;">
-              <a href="#" class="gc-kv-link" id="addProgramBtn" style="display:inline-flex;align-items:center;gap:3px;" onclick="event.preventDefault();openBrowseProgramsPage();"><span class="material-icons" style="font-size:13px;">add_circle_outline</span> Add Program</a>
+          <div style="display:flex;align-items:center;margin-bottom:14px;">
+            <span style="display:flex;align-items:center;gap:12px;font-size:11px;flex-wrap:wrap;">
+              <button type="button" class="bp2-card-add" id="addProgramBtn" onclick="openBrowseProgramsPage();"><span class="material-icons">add_circle_outline</span>Add Program</button>
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">visibility</span> Aid &amp; Supplemental Data History</a>
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">file_download</span> Export</a>
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">upload</span> Upload</a>
               <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;"><span class="material-icons" style="font-size:13px;">visibility</span> History</a>
             </span>
           </div>
-          <div style="height:1px;background:var(--border);margin-bottom:14px;"></div>
 
           <!-- ── Add Program Panel ── -->
           <div id="addProgramPanel" style="display:none;margin-bottom:20px;">
@@ -1849,7 +1889,7 @@ Diabetes Management</textarea>
                 <div id="apLine-staff" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;"></div>
               </div>
               <div onclick="apTab('member')" style="cursor:pointer;">
-                <div id="apLbl-member" style="font-size:16px;font-weight:400;color:#888;">Member-Facing Programs</div>
+                <div id="apLbl-member" style="font-size:16px;font-weight:400;color:#888;">Wellframe Programs</div>
                 <div id="apLine-member" style="height:3px;background:#C8821A;margin-top:4px;border-radius:2px;opacity:0;"></div>
               </div>
             </div>
@@ -2026,7 +2066,7 @@ Diabetes Management</textarea>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;">
                     <input type="checkbox" style="accent-color:#1378A3;flex-shrink:0;width:14px;height:14px;cursor:pointer;margin-top:3px;" />
                     <div style="flex:1;min-width:0;">
-                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Diabetes Management</span><span style="font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;">Digital</span></div>
+                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Diabetes Management</span></div>
                       <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Structured program for blood sugar control, medication adherence, and lifestyle coaching.</p>
                       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
                         <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Type</div><div style="margin-top:2px;">Digital Program</div></div>
@@ -2044,7 +2084,7 @@ Diabetes Management</textarea>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;">
                     <input type="checkbox" style="accent-color:#1378A3;flex-shrink:0;width:14px;height:14px;cursor:pointer;margin-top:3px;" />
                     <div style="flex:1;min-width:0;">
-                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Fall Prevention</span><span style="font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;">Digital</span></div>
+                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Fall Prevention</span></div>
                       <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Exercise and safety education program to reduce fall risk for high-risk members.</p>
                       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
                         <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Type</div><div style="margin-top:2px;">Digital Program</div></div>
@@ -2062,7 +2102,7 @@ Diabetes Management</textarea>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;">
                     <input type="checkbox" style="accent-color:#1378A3;flex-shrink:0;width:14px;height:14px;cursor:pointer;margin-top:3px;" />
                     <div style="flex:1;min-width:0;">
-                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Heart Health</span><span style="font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;">Digital</span></div>
+                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Heart Health</span></div>
                       <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Cardiac wellness program covering diet, activity tracking, and medication management.</p>
                       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
                         <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Type</div><div style="margin-top:2px;">Digital Program</div></div>
@@ -2098,7 +2138,7 @@ Diabetes Management</textarea>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;">
                     <input type="checkbox" style="accent-color:#1378A3;flex-shrink:0;width:14px;height:14px;cursor:pointer;margin-top:3px;" />
                     <div style="flex:1;min-width:0;">
-                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Mental Health Support</span><span style="font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;">Digital</span></div>
+                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Mental Health Support</span></div>
                       <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Daily check-ins, mood tracking, and coping tools delivered through the member app.</p>
                       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
                         <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Type</div><div style="margin-top:2px;">Digital Program</div></div>
@@ -2134,7 +2174,7 @@ Diabetes Management</textarea>
                   <div style="display:flex;align-items:flex-start;gap:14px;padding:18px 16px 14px;flex:1;">
                     <input type="checkbox" style="accent-color:#1378A3;flex-shrink:0;width:14px;height:14px;cursor:pointer;margin-top:3px;" />
                     <div style="flex:1;min-width:0;">
-                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Welcome Program</span><span style="font-size:11px;font-weight:600;color:#1378A3;background:#1378A318;border-radius:20px;padding:2px 9px;">Digital</span></div>
+                      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#0C5275;">Welcome Program</span></div>
                       <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Introductory program for new members. Onboards them to the Wellframe app with orientation content and daily check-ins.</p>
                       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;">
                         <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Type</div><div style="margin-top:2px;">Digital Program</div></div>
@@ -2152,24 +2192,27 @@ Diabetes Management</textarea>
 
           </div><!-- end addProgramPanel -->
 
-          <!-- Unified program card grid -->
-          <div id="programCardGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <!-- Unified program card grid — same modernized card system as the "Add Program" browse page -->
+          <div id="programCardGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:0 200px;">
 
             <!-- Card 1: LTSS (Eligibility / Clinical) -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">
-              <div style="background:#E8EEF7;padding:12px 16px;display:flex;align-items:center;gap:8px;">
-                <span class="material-icons" style="font-size:18px;color:#0D3761;flex-shrink:0;">verified_user</span>
-                <div style="font-size:14px;font-weight:700;color:#0D3761;line-height:1.4;">LTSS</div>
+            <div class="bp2-card bp2-card-horizontal">
+              <div class="bp2-card-illo" style="background:#EEE8F4;">
+                <img class="bp2-illo-img" src="assets/Wellframe/illustrations/wellness-social-support.svg" alt="" />
               </div>
-              <div style="padding:14px 18px 14px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Long-Term Services and Supports program coordinating in-home care, service planning, and ongoing follow-up for members with complex needs.</p>
+              <div class="bp2-card-content">
+              <div class="bp2-card-head">
+                <div class="bp2-card-title">LTSS</div>
+              </div>
+              <div class="bp2-card-body">
+                <p class="bp2-card-desc" style="-webkit-line-clamp:unset;">Long-Term Services and Supports program coordinating in-home care, service planning, and ongoing follow-up for members with complex needs.</p>
                 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;margin-bottom:14px;">
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:#2E7D32;">Active</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Start Date</div><div style="margin-top:2px;">01/15/2024</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Referral Source</div><div style="margin-top:2px;">PCP Referral</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Assigned Care Manager</div><div style="margin-top:2px;">Beatrice Kanya</div></div>
                 </div>
-                <div style="border-top:1px solid var(--border-light);padding-top:12px;">
+                <div class="bp2-card-panel">
                   <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Required Activities</div>
                   <div style="display:flex;flex-direction:column;">
                     <div style="display:flex;align-items:center;gap:8px;padding:5px 0;"><span class="material-icons" style="font-size:13px;color:#1378A3;flex-shrink:0;">task_alt</span><span style="font-size:12px;color:#1a1a1a;">Initial Assessment</span></div>
@@ -2178,22 +2221,28 @@ Diabetes Management</textarea>
                   </div>
                 </div>
               </div>
-              <div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;">
-                <a href="#" onclick="event.preventDefault();document.getElementById('editClinicalProgramModal').classList.add('open');" style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;text-decoration:none;"><span class="material-icons" style="font-size:14px;">edit</span>Edit</a>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">history</span>History</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Activity</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;cursor:pointer;"><span class="material-icons" style="font-size:14px;">delete_outline</span>Delete</span>
+              <div class="bp2-card-footer">
+                <span style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                  <span class="bp2-card-toggle" style="cursor:pointer;"><span class="material-icons" style="font-size:14px;">history</span>History</span>
+                  <span class="bp2-card-toggle" style="cursor:pointer;"><span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Activity</span>
+                  <span class="bp2-card-toggle" style="cursor:pointer;color:#C62828;"><span class="material-icons" style="font-size:14px;">delete_outline</span>Delete</span>
+                </span>
+                <button type="button" class="bp2-card-add" onclick="document.getElementById('editClinicalProgramModal').classList.add('open');"><span class="material-icons">edit</span>Edit</button>
+              </div>
               </div>
             </div>
 
             <!-- Card 2: Welcome Program (Wellframe / Member-Facing) -->
-            <div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">
-              <div style="background:#E0F4FA;padding:12px 16px;display:flex;align-items:center;gap:8px;">
-                <span class="material-icons" style="font-size:18px;color:#006B8F;flex-shrink:0;">phone_iphone</span>
-                <div style="font-size:14px;font-weight:700;color:#006B8F;line-height:1.4;">Welcome Program</div>
+            <div class="bp2-card bp2-card-horizontal">
+              <div class="bp2-card-illo" style="background:#EEE8F4;">
+                <img class="bp2-illo-img" src="assets/Wellframe/illustrations/wellness-social-support.svg" alt="" />
               </div>
-              <div style="padding:14px 18px 14px;flex:1;">
-                <p style="font-size:12px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">Introductory program delivered to the member through the Wellframe app, providing orientation content, daily check-ins, and initial engagement activities.</p>
+              <div class="bp2-card-content">
+              <div class="bp2-card-head">
+                <div class="bp2-card-title">Welcome Program</div>
+              </div>
+              <div class="bp2-card-body">
+                <p class="bp2-card-desc" style="-webkit-line-clamp:unset;">Introductory program delivered to the member through the Wellframe app, providing orientation content, daily check-ins, and initial engagement activities.</p>
                 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px 16px;font-size:12px;">
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Status</div><div style="margin-top:2px;color:#2E7D32;">Active</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Enrolled</div><div style="margin-top:2px;">03/01/2024</div></div>
@@ -2201,8 +2250,9 @@ Diabetes Management</textarea>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Last Activity</div><div style="margin-top:2px;">Yesterday</div></div>
                 </div>
               </div>
-              <div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;">
-                <a href="#" onclick="event.preventDefault();document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-app');" class="gc-kv-link" style="font-size:12px;display:inline-flex;align-items:center;gap:4px;"><span class="material-icons" style="font-size:14px;">open_in_new</span>View in Wellframe</a>
+              <div class="bp2-card-footer" style="justify-content:flex-end;">
+                <button type="button" class="bp2-card-add" onclick="document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-app');"><span class="material-icons">open_in_new</span>View in Wellframe</button>
+              </div>
               </div>
             </div>
 
@@ -5925,7 +5975,7 @@ Diabetes Management</textarea>
                   <td>07/01/2026 09:00 AM</td><td>Program Enrollment</td><td>Nutrition &amp; Weight Management</td>
                   <td>Jackson Thomas <span style="font-size:11px;color:var(--text-muted);">(Member)</span></td>
                   <td>Beatrice Kanya, CCM <span style="font-size:11px;color:var(--text-muted);">(approved)</span></td>
-                  <td>Member-Facing · Educational</td><td>07/01/2026</td><td>09/23/2026</td>
+                  <td>Wellframe · Educational</td><td>07/01/2026</td><td>09/23/2026</td>
                   <td>
                     <div style="display:flex;align-items:center;gap:6px;">
                       <div style="width:80px;background:#E0F4FA;border-radius:99px;height:6px;"><div style="width:42%;height:100%;background:#1378A3;border-radius:99px;"></div></div>
@@ -6212,7 +6262,7 @@ Diabetes Management</textarea>
                 <div style="flex:1;padding:0 0 18px 12px;">
                   <div style="font-size:12px;font-weight:600;color:#1a1a1a;">Enrolled in Nutrition &amp; Weight Management</div>
                   <div style="font-size:12px;color:#444;margin-top:2px;">Requested by Jackson Thomas &middot; Approved and enrolled by Beatrice Kanya, CCM</div>
-                  <div style="font-size:11px;color:#888;margin-top:3px;">Member-Facing &middot; Educational</div>
+                  <div style="font-size:11px;color:#888;margin-top:3px;">Wellframe &middot; Educational</div>
                 </div>
               </div>
 
@@ -11452,7 +11502,7 @@ var BP2_STAFF = [
 var BP3_SECTIONS = [
   {key:'Benefit',       label:'Eligibility Programs',   icon:'verified_user',   iconColor:'#1378A3'},
   {key:'General',       label:'Clinical Programs',      icon:'medical_services',iconColor:'#1378A3'},
-  {key:'Member-Facing', label:'Member-Facing Programs', icon:'phone_iphone',    iconColor:'#1378A3'},
+  {key:'Member-Facing', label:'Wellframe Programs', icon:'phone_iphone',    iconColor:'#1378A3'},
 ];
 
 var BP3_PAGE_SIZE = 14;
@@ -11684,7 +11734,7 @@ function bp3ClearFilters() {
 var BP2_CATS_BY_TYPE = [
   {key:'Benefit',     label:'Eligibility Programs',    icon:'verified_user',           iconColor:'#1378A3', desc:'Tied to member\'s 834 eligibility'},
   {key:'General',     label:'Clinical Programs',       icon:'task_alt',                iconColor:'#388e3c', desc:'Diagnosis-based, no eligibility needed'},
-  {key:'Member-Facing',label:'Member-Facing',          icon:'phone_iphone',            iconColor:'#6A1B9A', desc:'Appears in member app'},
+  {key:'Member-Facing',label:'Wellframe',              icon:'phone_iphone',            iconColor:'#6A1B9A', desc:'Appears in member app'},
 ];
 
 var BP2_CATS_BY_TOPIC = [
@@ -11705,12 +11755,12 @@ var BP2_ALL_PROGRAMS = BP2_STAFF.concat(MFP2_PROGRAMS.map(function(p){ return Ob
 
 var bp2ActiveType = '';
 var bp2Pages = {'': 1, 'Benefit': 1, 'General': 1, 'Member-Facing': 1};
-var BP2_PER_PAGE = 10;
+var BP2_PER_PAGE = 20;
 
 var BP2_TYPE_DESC = {
   'Benefit':      'Eligibility programs are automatically added at enrollment based on a member\'s eligibility, and can no longer be added if that eligibility changes.',
   'General':      'Clinical programs are tied to a member\'s clinical condition or diagnosis, so they can be added regardless of eligibility and persist through coverage gaps.',
-  'Member-Facing':'Member-facing programs are programs members see as tasks on their daily checklist in Wellframe.',
+  'Member-Facing':'Wellframe programs are programs members see as tasks on their daily checklist in Wellframe.',
 };
 
 function bp2SetType(type, btn) {
@@ -11772,7 +11822,6 @@ function bp2TogglePanel(id) {
   if (btn) {
     var icon = btn.querySelector('.bp2-toggle-icon');
     if (icon) icon.textContent = open ? 'expand_more' : 'expand_less';
-    btn.style.color = open ? 'var(--link)' : '#555';
   }
 }
 
@@ -11799,8 +11848,10 @@ function bp2SwitchView(v) {
   var listBtn = document.getElementById('bp2-view-list-btn');
   if (gridBtn) { gridBtn.style.fontWeight = v === 'grid' ? '700' : '400'; gridBtn.style.color = v === 'grid' ? 'var(--link)' : 'var(--text-muted)'; }
   if (listBtn) { listBtn.style.fontWeight = v === 'list' ? '700' : '400'; listBtn.style.color = v === 'list' ? 'var(--link)' : 'var(--text-muted)'; }
+  var listBgEl = document.getElementById('bp2-list-bg');
   var listEl = document.getElementById('bp2-list');
   var tableEl = document.getElementById('bp2-table');
+  if (listBgEl) listBgEl.style.display = v === 'grid' ? 'block' : 'none';
   if (listEl) listEl.style.display = v === 'grid' ? 'grid' : 'none';
   if (tableEl) tableEl.style.display = v === 'list' ? 'block' : 'none';
   bp2Render();
@@ -11812,7 +11863,7 @@ function bp2RenderList(pageItems, filtered) {
   var BADGE = {
     'Benefit':      {bg:'#E8EEF7', color:'#0D3761', icon:'verified_user',    label:'Eligibility Program'},
     'General':      {bg:'#E8EEF7', color:'#0D3761', icon:'medical_services', label:'Clinical Program'},
-    'Member-Facing':{bg:'#E0F4FA', color:'#006B8F', icon:'phone_iphone',     label:'Member-Facing'},
+    'Member-Facing':{bg:'#E0F4FA', color:'#006B8F', icon:'phone_iphone',     label:'Wellframe'},
   };
   if (!pageItems.length) {
     tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#888;font-size:13px;">No programs match your filters.</td></tr>';
@@ -11827,26 +11878,154 @@ function bp2RenderList(pageItems, filtered) {
     var langStr = p.langs && p.langs.length ? p.langs.join(', ') : '—';
     var descSnip = (p.desc||'').substring(0, 90) + ((p.desc||'').length > 90 ? '…' : '');
     return '<tr>'
-      + '<td><div style="display:flex;align-items:center;gap:8px;min-width:160px;">'
-      +   '<span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:'+b.bg+';flex-shrink:0;">'
-      +     '<span class="material-icons" style="font-size:15px;color:'+b.color+';">'+b.icon+'</span>'
-      +   '</span>'
-      +   '<span style="font-size:13px;font-weight:600;color:#1a1a1a;">'+p.title+'</span>'
-      + '</div></td>'
-      + '<td><span style="font-size:11px;color:'+b.color+';background:'+b.bg+';border-radius:10px;padding:2px 8px;font-weight:600;white-space:nowrap;">'+b.label+'</span></td>'
-      + '<td style="font-size:12px;color:var(--text-secondary);max-width:260px;">'+descSnip+'</td>'
-      + '<td style="font-size:12px;color:#333;">'+audStr+'</td>'
-      + '<td style="font-size:12px;color:#333;">'+langStr+'</td>'
-      + '<td><div style="display:flex;align-items:center;gap:12px;">'
-      +   (hasMF ? '<span style="display:inline-flex;align-items:center;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" onclick="wfOpenProgramContentModal(\''+safeTitle+'\')">View Program Content</span>' : '')
-      +   '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" onclick="'+addFn+'">'
-      +     '<span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Program'
-      +   '</span>'
-      + '</div></td>'
+      + '<td><span style="font-size:13px;font-weight:600;color:#1a1a1a;min-width:160px;">'+p.title+'</span></td>'
+      + '<td style="white-space:nowrap;">'+b.label+'</td>'
+      + '<td style="max-width:260px;color:var(--text-secondary);">'+descSnip+'</td>'
+      + '<td>'+audStr+'</td>'
+      + '<td>'+langStr+'</td>'
+      + '<td><button type="button" class="bp2-card-add" onclick="'+addFn+'">'
+      +   '<span class="material-icons">add_circle_outline</span>Add Program'
+      + '</button></td>'
       + '</tr>';
   }).join('');
 }
 
+function bp2StrHash(str) {
+  var h = 0;
+  for (var i = 0; i < str.length; i++) { h = (h * 31 + str.charCodeAt(i)) >>> 0; }
+  return h;
+}
+
+// A short deterministic pseudo-random sequence seeded off the hash, so the
+// same program always renders the same decorative layout.
+function bp2Seeded(seed, n) {
+  var vals = [];
+  var s = seed || 1;
+  for (var i = 0; i < n; i++) {
+    s = (s * 1103515245 + 12345) >>> 0;
+    vals.push((s % 10000) / 10000);
+  }
+  return vals;
+}
+
+// Builds the card's illustration backdrop: a tinted rect plus a few soft
+// decorative blobs, scattered deterministically from the program's own
+// title so every card gets its own layout without looking random on reload.
+function bp2CardIllustrationSVG(p) {
+  var accent = p.iconColor || '#1378A3';
+  var bg = p.iconBg || '#EAF4FB';
+  var r = bp2Seeded(bp2StrHash(p.title || ''), 9);
+  var blobs = [0, 1, 2].map(function(i) {
+    var cx = (20 + r[i * 3] * 260).toFixed(1);
+    var cy = (15 + r[i * 3 + 1] * 74).toFixed(1);
+    var rad = (16 + r[i * 3 + 2] * 28).toFixed(1);
+    var op = (0.10 + i * 0.04).toFixed(2);
+    return '<circle cx="' + cx + '" cy="' + cy + '" r="' + rad + '" fill="' + accent + '" opacity="' + op + '"></circle>';
+  }).join('');
+  return '<svg class="bp2-illo-bg" viewBox="0 0 300 104" preserveAspectRatio="xMidYMid slice">'
+    + '<rect x="0" y="0" width="300" height="104" fill="' + bg + '"></rect>'
+    + blobs
+    + '</svg>';
+}
+
+// Real custom illustrations (extracted from the "Care Program Headers" design
+// export), one per health topic. Staff programs are matched by exact title;
+// member-facing programs by their MFP2_PROGRAMS category. "Wellness and
+// Social Support" had no artwork in the source file, so it falls back to the
+// Mental/Behavioral Health illustration until a re-export fills it in.
+var BP2_STAFF_ILLO = {
+  'Diabetes Management':                             'diabetes-prediabetes-health',
+  'Cardiovascular / Heart Failure (CHF, CAD, Hypertension)': 'cardiovascular-health',
+  'Respiratory Care (COPD, Asthma)':                  'respiratory-health',
+  'Chronic Kidney Disease (CKD / ESRD)':              'kidney-health',
+  'Maternity (Prenatal / Postpartum Care)':           'maternal-health',
+  'Complex Care Management (CCM / High Risk)':        'care-transitions-hospital-stay',
+  'Pediatric / CSHCN':                                'pediatric-health',
+  'Behavioral Health / Substance Use Disorder (SUD)': 'mental-behavioral-health',
+  'SDOH & Community Resource Support':                'wellness-social-support',
+  'D-SNP (Dual Eligible Special Needs Plan)':         'care-transitions-hospital-stay',
+  'LTSS / HCBS (Long-Term Services & Supports / Home & Community-Based Services)': 'wellness-social-support',
+  'MMP / Dual Demonstration Programs':                'care-transitions-hospital-stay',
+  'Transitions of Care (TOC) / Inpatient Post-Acute': 'care-transitions-hospital-stay',
+};
+var MFP2_CAT_ILLO = {
+  'Maternal Health':           'maternal-health',
+  'Pediatric Caregiver':       'pediatric-health',
+  'Behavioral Health':         'mental-behavioral-health',
+  'Lifestyle & Comorbidities': 'wellness-social-support',
+  'Chronic & Complex Care':    'cardiovascular-health',
+  'Care Transitions':          'care-transitions-hospital-stay',
+  'Chronic Kidney Disease':    'kidney-health',
+  'Oncology':                  'cancer-support',
+  'Musculoskeletal':           'pain-management',
+  'Healthspan':                'wellness-social-support',
+  'Biometrics':                'wellness-social-support',
+};
+
+// Several MFP2_PROGRAMS categories (Chronic & Complex Care, Care Transitions,
+// Biometrics) bundle very different conditions together, so the category
+// alone isn't a reliable illustration match — e.g. Asthma and Heart Failure
+// both live under "Chronic & Complex Care" but need different art. This
+// keyword list is checked against the program's own title first, in order,
+// so a specific condition always wins over the coarse category.
+var BP2_ILLO_KEYWORDS = [
+  [/kidney|dialysis|renal|vascular access/i,      'kidney-health'],
+  [/cancer/i,                                     'cancer-support'],
+  [/asthma|copd|pulmonary|pneumonia/i,            'respiratory-health'],
+  [/heart|cardiac|atrial|coronary|hypertension|hyperlipidemia|myocardial|blood pressure/i, 'cardiovascular-health'],
+  [/diabet|glucose|a1c|blood sugar/i,             'diabetes-prediabetes-health'],
+  [/maternal|prenatal|postpartum|pregnan|gestational/i, 'maternal-health'],
+  [/pediatric|newborn|nicu|epsdt/i,                'pediatric-health'],
+  [/behavioral|bipolar|schizophrenia|substance use|ptsd|post-traumatic|depress|anxiety|mental|stress/i, 'mental-behavioral-health'],
+  [/back pain|knee|arthroplasty|musculoskeletal|\bpain\b/i, 'pain-management'],
+  [/care transition|discharge|post-acute|percutaneous|catheterization/i, 'care-transitions-hospital-stay'],
+];
+
+function bp2KeywordIllo(title) {
+  for (var i = 0; i < BP2_ILLO_KEYWORDS.length; i++) {
+    if (BP2_ILLO_KEYWORDS[i][0].test(title)) return BP2_ILLO_KEYWORDS[i][1];
+  }
+  return null;
+}
+
+function bp2IllustrationSlug(p) {
+  var slug = BP2_STAFF_ILLO[p.title];
+  if (!slug) {
+    // Maternal Health and Pediatric Caregiver are thematically coherent
+    // enough that every program in them fits the same illustration,
+    // regardless of the specific condition named in the title.
+    if (p.cat === 'Maternal Health') slug = 'maternal-health';
+    else if (p.cat === 'Pediatric Caregiver') slug = 'pediatric-health';
+    else slug = bp2KeywordIllo(p.title) || MFP2_CAT_ILLO[p.cat] || 'wellness-social-support';
+  }
+  return slug;
+}
+
+function bp2IllustrationSrc(p) {
+  return 'assets/Wellframe/illustrations/' + bp2IllustrationSlug(p) + '.svg';
+}
+
+// The exact background rect color baked into each illustration file, so the
+// card's illustration band can be pre-filled with the same color — no gray
+// flash or mismatched seam while the SVG itself loads.
+var BP2_ILLO_BG = {
+  'mental-behavioral-health':      '#EEE8F4',
+  'wellness-social-support':       '#EEE8F4',
+  'pain-management':               '#F8E6F3',
+  'cardiovascular-health':         '#FEECF2',
+  'maternal-health':               '#D2F1F9',
+  'diabetes-prediabetes-health':   '#D2F1F9',
+  'respiratory-health':            '#FDE7E8',
+  'cancer-support':                '#F2EFF5',
+  'pediatric-health':              '#FEEEE6',
+  'womens-health':                 '#F8E6F3',
+  'kidney-health':                 '#D0FCFF',
+  'care-transitions-hospital-stay':'#CAF6F2',
+};
+
+function bp2IllustrationBg(p) {
+  return BP2_ILLO_BG[bp2IllustrationSlug(p)] || '#F4F6F8';
+}
 
 function bp2Render() {
   var searchEl     = document.getElementById('bp2Search');
@@ -11897,13 +12076,6 @@ function bp2Render() {
   var pageStart = (bp2CurrentPage - 1) * BP2_PER_PAGE;
   var pageItems = filtered.slice(pageStart, pageStart + BP2_PER_PAGE);
 
-  // Subtype badge config
-  var BADGE = {
-    'Benefit':      {bg:'#E8EEF7', color:'#0D3761', icon:'verified_user', label:'Eligibility Programs'},
-    'General':      {bg:'#E8EEF7', color:'#0D3761', icon:'medical_services', label:'Clinical Programs'},
-    'Member-Facing':{bg:'#E0F4FA', color:'#006B8F', icon:'phone_iphone',  label:'Member-Facing Programs'},
-  };
-
   // List view rendering — skip card grid entirely
   if (bp2View === 'list') {
     bp2RenderList(pageItems, filtered);
@@ -11912,10 +12084,7 @@ function bp2Render() {
 
   list.innerHTML = pageItems.map(function(p, pageIdx) {
     var idx = pageStart + pageIdx;
-    var b = BADGE[p.subtype] || BADGE['General'];
     var safeTitle = p.title.replace(/'/g,"\\'");
-    var audStr = p.audiences.join(', ');
-    var langStr = p.langs.length > 1 ? 'English, Spanish' : p.langs[0];
     var panelId = 'bp2panel-' + idx;
     var hasMF = p.subtype === 'Member-Facing';
     var hasActs = !hasMF && p.activities && p.activities.length;
@@ -11925,7 +12094,7 @@ function bp2Render() {
     // Collapsible panel: activities list or member-facing details
     var panelHtml = '';
     if (hasActs) {
-      panelHtml = '<div id="'+panelId+'" style="display:none;margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;">'
+      panelHtml = '<div id="'+panelId+'" class="bp2-card-panel" style="display:none;">'
         + '<div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Required Activities</div>'
         + p.activities.map(function(a, i) {
           return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;'+(i>0?'border-top:1px solid #eef2f6;':'')+'">'
@@ -11935,7 +12104,7 @@ function bp2Render() {
         }).join('')
         + '</div>';
     } else if (hasDeets) {
-      panelHtml = '<div id="'+panelId+'" style="display:none;margin-top:10px;border-top:1px solid var(--border-light);padding-top:10px;">'
+      panelHtml = '<div id="'+panelId+'" class="bp2-card-panel" style="display:none;">'
         + (p.appTitle ? '<div style="font-size:12px;margin-bottom:6px;"><span style="font-weight:700;">Member title in app:</span> '+p.appTitle+'</div>' : '')
         + '<div style="font-size:12px;color:#444;margin-bottom:10px;">Program Contains: '+p.contains+'</div>'
         + '<div style="display:flex;flex-direction:column;gap:5px;">'
@@ -11945,51 +12114,33 @@ function bp2Render() {
         + '</div>';
     }
 
-    // Metadata grid (always visible)
-    var metaHtml = '';
-    if (p.subtype === 'Benefit' && p.eligibilities && p.eligibilities.length) {
-      metaHtml = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;margin-bottom:4px;">'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Payor</div><div style="margin-top:3px;font-size:13px;color:#333;">'+p.eligibilities.join(', ')+'</div></div>'
-        + '</div>';
-    } else if (p.subtype === 'Member-Facing') {
-      metaHtml = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 12px;margin-bottom:4px;">'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Category</div><div style="margin-top:3px;font-size:13px;color:#333;">'+p.cat+'</div></div>'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Audience</div><div style="margin-top:3px;font-size:13px;color:#333;">'+audStr+'</div></div>'
-        + '<div><div style="color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;">Language</div><div style="margin-top:3px;font-size:13px;color:#333;">'+langStr+'</div></div>'
-        + '</div>';
-    }
-
     // Footer toggle button
     var toggleBtn = hasPanel
-      ? '<span id="bp2btn-'+panelId+'" onclick="bp2TogglePanel(\''+panelId+'\')" style="display:inline-flex;align-items:center;gap:3px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;">'
-        + '<span class="material-icons bp2-toggle-icon" style="font-size:14px;">expand_more</span>'
+      ? '<span id="bp2btn-'+panelId+'" class="bp2-card-toggle" onclick="bp2TogglePanel(\''+panelId+'\')">'
+        + '<span class="material-icons bp2-toggle-icon">expand_more</span>'
         + (hasActs ? 'Required Activities' : 'View Program Details')
         + '</span>'
-      : '';
+      : '<span></span>';
 
-    // Quick link to the Health Library articles that make up this program
-    var contentBtn = hasMF
-      ? '<span style="display:inline-flex;align-items:center;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;" onclick="wfOpenProgramContentModal(\''+safeTitle+'\')">'
-        + 'View Program Content'
-        + '</span>'
-      : '';
-
-    return '<div style="background:#fff;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;">'
-      + '<div style="background:'+b.bg+';padding:12px 16px;display:flex;align-items:center;gap:8px;">'
-      +   '<span class="material-icons" style="font-size:18px;color:'+b.color+';flex-shrink:0;">'+b.icon+'</span>'
-      +   '<div style="font-size:14px;font-weight:700;color:'+b.color+';line-height:1.4;">'+p.title+'</div>'
+    var illoSrc = bp2IllustrationSrc(p);
+    return '<div class="bp2-card">'
+      + '<div class="bp2-card-illo" style="background:'+bp2IllustrationBg(p)+';">'
+      +   (illoSrc
+            ? '<img class="bp2-illo-img" src="' + illoSrc + '" alt="" />'
+            : bp2CardIllustrationSVG(p) + '<span class="bp2-illo-medallion"><span class="material-icons" style="color:'+(p.iconColor||'#1378A3')+';">'+(p.icon||'medical_services')+'</span></span>')
       + '</div>'
-      + '<div style="padding:14px 18px 14px;flex:1;">'
-      +   '<p style="font-size:13px;color:var(--text-secondary);margin:0 0 12px;line-height:1.5;">'+p.desc+'</p>'
-      +   metaHtml
+      + '<div class="bp2-card-head">'
+      +   '<div class="bp2-card-title">'+p.title+'</div>'
+      + '</div>'
+      + '<div class="bp2-card-body">'
+      +   '<p class="bp2-card-desc">'+p.desc+'</p>'
       +   panelHtml
       + '</div>'
-      + '<div style="padding:10px 16px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap;">'
+      + '<div class="bp2-card-footer">'
       +   toggleBtn
-      +   contentBtn
-      +   '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--link);font-size:12px;font-weight:600;cursor:pointer;" onclick="'+(hasMF ? 'openMfpProgramModalDirect(\''+safeTitle+'\')' : 'openStaffProgModal(\''+safeTitle+'\',\''+p.subtype+'\')')+'">'
-      +     '<span class="material-icons" style="font-size:14px;">add_circle_outline</span>Add Program'
-      +   '</span>'
+      +   '<button type="button" class="bp2-card-add" onclick="'+(hasMF ? 'openMfpProgramModalDirect(\''+safeTitle+'\')' : 'openStaffProgModal(\''+safeTitle+'\',\''+p.subtype+'\')')+'">'
+      +     '<span class="material-icons">add_circle_outline</span>Add Program'
+      +   '</button>'
       + '</div>'
       + '</div>';
   }).join('');
@@ -12042,7 +12193,7 @@ function mfpPopulateModal(title, desc, audiences, langs, subtype, activities, ap
   var BADGE_CFG = {
     'Benefit':      {bg:'rgba(255,255,255,0.2)', color:'#fff', icon:'verified_user', label:'Eligibility Programs'},
     'General':      {bg:'rgba(255,255,255,0.2)', color:'#fff', icon:'task_alt',      label:'Clinical Programs'},
-    'Member-Facing':{bg:'rgba(255,255,255,0.2)', color:'#fff', icon:'phone_iphone',  label:'Member-Facing Programs'},
+    'Member-Facing':{bg:'rgba(255,255,255,0.2)', color:'#fff', icon:'phone_iphone',  label:'Wellframe Programs'},
   };
   var bc = BADGE_CFG[subtype];
 
@@ -12203,18 +12354,13 @@ function mfpAddProgramConfirm() {
 
 <!-- ══ STAFF PROGRAM Modal (Clinical / Eligibility) ══ -->
 <div class="gc-modal-overlay" id="staffProgModal" role="dialog" aria-modal="true" aria-labelledby="staffProgModalTitle" style="align-items:center;">
-  <div class="gc-modal" style="max-width:480px;border-radius:8px;overflow:hidden;">
+  <div class="gc-modal" style="max-width:480px;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,24,40,0.14);">
     <!-- Header -->
-    <div style="padding:22px 24px 16px;background:#fff;border-bottom:1px solid #eee;">
+    <div style="padding:22px 24px 18px;background:#fff;border-bottom:1px solid #F0F1F3;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
         <div>
-          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">
-            <span style="display:inline-block;">
-              <div id="staffProgModalTitle" style="font-size:20px;font-weight:700;color:#1a1a1a;line-height:1.2;"></div>
-              <div style="height:3px;background:#C8821A;margin-top:7px;border-radius:1px;"></div>
-            </span>
-            <span id="staffProgModalBadge" style="font-size:13px;color:#555;font-weight:400;"></span>
-          </div>
+          <div id="staffProgModalTitle" style="font-size:19px;font-weight:700;color:#1a1a1a;line-height:1.3;margin-bottom:8px;"></div>
+          <span id="staffProgModalBadge" style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.2px;border-radius:20px;padding:3px 10px;"></span>
         </div>
         <button onclick="document.getElementById('staffProgModal').classList.remove('open')" aria-label="Close" style="background:none;border:none;color:#1378A3;cursor:pointer;font-size:22px;line-height:1;flex-shrink:0;margin-top:-2px;">&#x2715;</button>
       </div>
@@ -12225,13 +12371,13 @@ function mfpAddProgramConfirm() {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
         <div>
           <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Start Date</div>
-          <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;">
+          <div style="display:flex;align-items:center;border:1px solid #E3E6EA;border-radius:9px;background:#fff;padding:7px 10px;">
             <input type="date" id="staffProgStartDate" onchange="staffProgSyncWFStartDate()" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />
           </div>
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">End Date</div>
-          <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:4px;background:#fff;padding:5px 8px;">
+          <div style="display:flex;align-items:center;border:1px solid #E3E6EA;border-radius:9px;background:#fff;padding:7px 10px;">
             <input type="date" id="staffProgEndDate" style="border:none;outline:none;font-size:13px;font-family:var(--font);flex:1;color:#333;" />
           </div>
         </div>
@@ -12242,24 +12388,24 @@ function mfpAddProgramConfirm() {
         <div>
           <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Status <span style="color:#C62828;">*</span></div>
           <div style="position:relative;">
-            <select id="staffProgStatus" onchange="staffProgUpdateStatusDesc();staffProgClearErr('staffProgStatusErr',this);" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+            <select id="staffProgStatus" onchange="staffProgUpdateStatusDesc();staffProgClearErr('staffProgStatusErr',this);" style="width:100%;border:1px solid #E3E6EA;border-radius:9px;padding:9px 30px 9px 12px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
               <option value="">Select</option>
               <option value="Active">Active</option>
               <option value="Closed">Closed</option>
               <option value="Inactive">Inactive</option>
               <option value="Pending">Pending</option>
             </select>
-            <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+            <span class="material-icons" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
           </div>
           <div id="staffProgStatusErr" style="display:none;font-size:11px;color:#C62828;margin-top:3px;">Required</div>
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Status Description <span style="color:#C62828;">*</span></div>
           <div style="position:relative;">
-            <select id="staffProgStatusDesc" onchange="staffProgClearErr('staffProgStatusDescErr',this);" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+            <select id="staffProgStatusDesc" onchange="staffProgClearErr('staffProgStatusDescErr',this);" style="width:100%;border:1px solid #E3E6EA;border-radius:9px;padding:9px 30px 9px 12px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
               <option value="">Select</option>
             </select>
-            <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+            <span class="material-icons" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
           </div>
           <div id="staffProgStatusDescErr" style="display:none;font-size:11px;color:#C62828;margin-top:3px;">Required</div>
         </div>
@@ -12269,7 +12415,7 @@ function mfpAddProgramConfirm() {
       <div>
         <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Referral Source <span style="color:#C62828;">*</span></div>
         <div style="position:relative;">
-          <select id="staffProgReferral" onchange="staffProgClearErr('staffProgReferralErr',this);" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+          <select id="staffProgReferral" onchange="staffProgClearErr('staffProgReferralErr',this);" style="width:100%;border:1px solid #E3E6EA;border-radius:9px;padding:9px 30px 9px 12px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
             <option value="">Select</option>
             <option>Care Organization</option>
             <option>Caregiver</option>
@@ -12300,7 +12446,7 @@ function mfpAddProgramConfirm() {
             <option>Specialist</option>
             <option>Utilization Management Referral</option>
           </select>
-          <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+          <span class="material-icons" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
         </div>
         <div id="staffProgReferralErr" style="display:none;font-size:11px;color:#C62828;margin-top:3px;">Required</div>
       </div>
@@ -12309,7 +12455,7 @@ function mfpAddProgramConfirm() {
       <div>
         <div style="font-size:11px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Assigned Care Manager</div>
         <div style="position:relative;">
-          <select id="staffProgCareManager" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:6px 28px 6px 8px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
+          <select id="staffProgCareManager" style="width:100%;border:1px solid #E3E6EA;border-radius:9px;padding:9px 30px 9px 12px;font-size:13px;font-family:var(--font);background:#fff;color:#333;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none;">
             <option value="">Select</option>
             <option>Amanda Torres, RN</option>
             <option>Brian Nguyen, MSW</option>
@@ -12324,7 +12470,7 @@ function mfpAddProgramConfirm() {
             <option>Karen Huang, BSN, CCM</option>
             <option>Luis Morales, RN</option>
           </select>
-          <span class="material-icons" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
+          <span class="material-icons" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:16px;color:#888;pointer-events:none;">expand_more</span>
         </div>
       </div>
 
@@ -12332,18 +12478,17 @@ function mfpAddProgramConfirm() {
            Clicking "+" adds a program immediately with a sensible default date;
            no detail card expands. "Edit" (shown only once added) reveals a small
            inline control to change the date or switch to a follow-up instead. -->
-      <div id="staffProgWFSection" style="display:none;margin-top:4px;padding-top:14px;border-top:1px solid #e0e0e0;">
-        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#1378A3;margin-bottom:8px;">
-          <img src="assets/Wellframe/Logomark.png" style="width:14px;height:14px;" onerror="this.style.display='none'"/>
+      <div id="staffProgWFSection" style="display:none;margin-top:4px;padding-top:14px;border-top:1px solid #F0F1F3;">
+        <div style="font-size:12px;font-weight:700;color:#1a1a1a;margin-bottom:10px;">
           Recommended Wellframe Programs
         </div>
-        <div id="staffProgWFList" style="display:flex;flex-direction:column;gap:6px;"></div>
+        <div id="staffProgWFList" style="display:flex;flex-direction:column;gap:8px;"></div>
       </div>
 
     </div>
-    <div style="padding:16px 24px;border-top:1px solid #e0e0e0;display:flex;justify-content:center;align-items:center;gap:20px;background:#fff;">
-      <button id="staffProgSubmitBtn" onclick="staffProgSubmit()" style="background:#1378A3;color:#fff;border:none;border-radius:4px;padding:10px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Add Program</button>
-      <a href="#" onclick="event.preventDefault();document.getElementById('staffProgModal').classList.remove('open')" style="font-size:13px;font-weight:700;color:#1378A3;text-decoration:underline;cursor:pointer;">Cancel</a>
+    <div style="padding:16px 24px;border-top:1px solid #F0F1F3;display:flex;justify-content:center;align-items:center;gap:16px;background:#fff;">
+      <button id="staffProgSubmitBtn" onclick="staffProgSubmit()" style="background:#1378A3;color:#fff;border:none;border-radius:999px;padding:11px 30px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;">Add Program</button>
+      <a href="#" onclick="event.preventDefault();document.getElementById('staffProgModal').classList.remove('open')" style="font-size:13px;font-weight:700;color:#5B6472;text-decoration:none;cursor:pointer;">Cancel</a>
     </div>
   </div>
 </div>
@@ -12425,6 +12570,7 @@ function staffProgSetWFCardState(card, selected) {
     var label = (selected ? 'Remove ' : 'Add ') + title;
     btn.setAttribute('aria-label', label);
     btn.setAttribute('title', label);
+    btn.style.background = selected ? 'transparent' : '#E9F2FA';
   }
   var dateInput = card.querySelector('.staffProgWFStartDateInput');
   if (selected) {
@@ -12447,7 +12593,6 @@ function staffProgDefaultWFDate() {
   var gcDate = document.getElementById('staffProgStartDate').value;
   if (gcDate) return gcDate;
   var d = new Date();
-  d.setDate(d.getDate() + 1);
   var mm = String(d.getMonth() + 1).padStart(2, '0');
   var dd = String(d.getDate()).padStart(2, '0');
   return d.getFullYear() + '-' + mm + '-' + dd;
@@ -12473,8 +12618,8 @@ function staffProgUpdateWFCaption(card) {
   var dateInput = card.querySelector('.staffProgWFStartDateInput');
   var summary = isFollowup ? 'Follow-up scheduled' : 'Starts ' + staffProgFormatWFDate(dateInput ? dateInput.value : '');
   caption.innerHTML = summary
-    + ' &middot; <a href="#" onclick="staffProgToggleWFEdit(this);return false;" style="color:#1378A3;text-decoration:underline;">Edit</a>'
-    + ' &middot; <a href="#" onclick="staffProgCancelWFCard(this);return false;" style="color:#C62828;text-decoration:underline;">Remove</a>';
+    + ' &middot; <a href="#" onclick="staffProgToggleWFEdit(this);return false;" style="color:#1378A3;text-decoration:none;">Edit</a>'
+    + ' &middot; <a href="#" onclick="staffProgCancelWFCard(this);return false;" style="color:#C62828;text-decoration:none;">Remove</a>';
   caption.style.color = '#2E7D32';
   caption.style.fontWeight = '600';
   caption.style.display = '';
@@ -12827,16 +12972,20 @@ function openStaffProgModal(title, subtype) {
   _staffProgCurrentTitle = title;
   _staffProgCurrentSubtype = subtype;
   var BADGE = {
-    'General': {icon:'task_alt',     label:'Clinical Program'},
-    'Benefit': {icon:'verified_user', label:'Eligibility Program'},
+    'General': {bg:'#E8EEF7', color:'#0D3761', label:'Clinical Program'},
+    'Benefit': {bg:'#E8EEF7', color:'#0D3761', label:'Eligibility Program'},
   };
   var bc = BADGE[subtype] || BADGE['General'];
 
   document.getElementById('staffProgModalTitle').textContent = title;
-  document.getElementById('staffProgModalBadge').textContent = bc.label;
+  var modalBadge = document.getElementById('staffProgModalBadge');
+  modalBadge.textContent = bc.label;
+  modalBadge.style.background = bc.bg;
+  modalBadge.style.color = bc.color;
 
-  // Reset fields
+  // Reset fields — Start Date defaults to today, same as the recommended Wellframe programs
   document.getElementById('staffProgStartDate').value = '';
+  document.getElementById('staffProgStartDate').value = staffProgDefaultWFDate();
   document.getElementById('staffProgEndDate').value   = '';
   document.getElementById('staffProgStatus').value    = '';
   document.getElementById('staffProgReferral').value  = '';
@@ -12863,32 +13012,29 @@ function openStaffProgModal(title, subtype) {
       var radioName = 'staffProgWFAddOption_' + i;
       // Condensed version of the same info shown in "View Program Details":
       // member title in app (only when it differs from the row's own title),
-      // program contains, duration, and tasks per day — all on one line.
+      // program type (Education / Tracking), and duration — sharing one line
+      // with the "View Program Content" link.
       var infoParts = [];
       if (wf.appTitle && wf.appTitle !== wf.title) infoParts.push('App title: ' + wf.appTitle);
-      if (wf.contains) infoParts.push(wf.contains);
+      infoParts.push(wf.progType === 'Tracking' ? 'Tracking' : 'Education');
       if (wf.duration) infoParts.push(wf.duration);
-      if (wf.tasksPerDay) infoParts.push(wf.tasksPerDay);
       var infoLine = infoParts.join(' &middot; ');
-      var infoLineText = infoParts.join(' · ').replace(/"/g, '&quot;');
       return '<div class="staffProgWFCard" data-wf-title="' + safeTitle + '" data-selected="false">'
-        + '<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid #C5DFF0;border-radius:6px;background:#F7FBFE;">'
-        +   '<button type="button" class="staffProgWFCardBtn" onclick="staffProgToggleWFCard(this)" aria-label="Add ' + safeTitle + '" title="Add ' + safeTitle + '" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:26px;height:26px;background:transparent;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;">'
-        +     '<span class="material-icons staffProgWFCardIcon" style="font-size:22px;color:#1378A3;">add_circle</span>'
-        +   '</button>'
+        + '<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #EDEDED;border-radius:14px;background:#fff;box-shadow:0 1px 3px rgba(16,24,40,0.05);">'
+        +   '<img src="' + bp2IllustrationSrc(wf) + '" alt="" style="width:44px;height:44px;object-fit:cover;flex-shrink:0;display:block;" />'
         +   '<div style="flex:1;min-width:0;">'
-        +     '<div style="font-size:13px;font-weight:600;color:#1a1a1a;line-height:1.3;">' + wf.title + '</div>'
-        +     (infoLine ? '<div style="font-size:11px;color:#555;line-height:1.3;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="' + infoLineText + '">' + infoLine + '</div>' : '')
-        +     '<a href="#" onclick="wfOpenProgramContentModal(\'' + safeTitle + '\');return false;" style="display:inline-flex;align-items:center;margin-top:2px;font-size:11px;font-weight:600;color:#1378A3;text-decoration:none;">'
-        +       'View Program Content'
-        +     '</a>'
+        +     '<a href="#" class="staffProgWFTitleLink" onclick="wfOpenProgramContentModal(\'' + safeTitle + '\');return false;" style="display:block;font-size:13px;font-weight:600;line-height:1.3;text-decoration:none;">' + wf.title + '</a>'
+        +     '<div style="font-size:11px;color:#555;line-height:1.3;margin-top:1px;">' + infoLine + '</div>'
         +     '<div class="staffProgWFCaption" style="display:none;font-size:11px;color:var(--text-muted);margin-top:2px;"></div>'
         +   '</div>'
+        +   '<button type="button" class="staffProgWFCardBtn" onclick="staffProgToggleWFCard(this)" aria-label="Add ' + safeTitle + '" title="Add ' + safeTitle + '" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:28px;height:28px;background:#E9F2FA;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;">'
+        +     '<span class="material-icons staffProgWFCardIcon" style="font-size:20px;color:#1378A3;">add_circle</span>'
+        +   '</button>'
         + '</div>'
-        + '<div class="staffProgWFEditPanel" style="display:none;margin:6px 0 2px 34px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:4px;">'
+        + '<div class="staffProgWFEditPanel" style="display:none;margin:8px 0 2px 12px;padding:10px 12px;background:#fff;border:1px solid #EDEDED;border-radius:10px;">'
         +   '<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#222;cursor:pointer;margin-bottom:8px;">'
         +     '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptDate" checked onchange="staffProgWFOptionChanged(this)" style="accent-color:#1378A3;width:14px;height:14px;flex-shrink:0;" /> Start on'
-        +     '<input type="date" class="staffProgWFStartDateInput" onchange="staffProgWFOptionChanged(this)" style="border:1px solid var(--border);border-radius:3px;outline:none;font-size:12px;font-family:var(--font);padding:2px 4px;" />'
+        +     '<input type="date" class="staffProgWFStartDateInput" onchange="staffProgWFOptionChanged(this)" style="border:1px solid #E3E6EA;border-radius:6px;outline:none;font-size:12px;font-family:var(--font);padding:3px 6px;" />'
         +   '</label>'
         +   '<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#222;cursor:pointer;">'
         +     '<input type="radio" name="' + radioName + '" class="staffProgWFAddOptFollowup" onchange="staffProgWFOptionChanged(this)" style="accent-color:#1378A3;width:14px;height:14px;flex-shrink:0;" /> Add as a follow-up instead'
@@ -12896,6 +13042,12 @@ function openStaffProgModal(title, subtype) {
         + '</div>'
         + '</div>';
     }).join('');
+    // Recommended programs default to added — a care manager reviewing this
+    // list is expected to want them; clicking a card's icon (or Remove) opts
+    // it back out rather than requiring an opt-in click for every one.
+    Array.prototype.forEach.call(document.querySelectorAll('.staffProgWFCard'), function(card) {
+      staffProgSetWFCardState(card, true);
+    });
   } else {
     wfSection.style.display = 'none';
     document.getElementById('staffProgWFList').innerHTML = '';
@@ -13008,9 +13160,8 @@ document.getElementById('mfpViewProgramModal').addEventListener('click', functio
 </script>
 
 <!-- ══ WELLFRAME PROGRAM CONTENT Modal ══ -->
-<!-- A quick-link "View Content" from a Wellframe program shows the linked
-     health-library articles that make up that program, so a user can browse
-     what's inside without leaving the Add Program flow. -->
+<!-- A "View Program Content" link from a recommended Wellframe program shows
+     the linked health-library articles that make up that program. -->
 <div class="gc-modal-overlay" id="wfProgramContentModal" role="dialog" aria-modal="true" aria-labelledby="wfProgramContentModalTitle" style="align-items:center;">
   <div class="gc-modal" style="max-width:440px;border-radius:8px;overflow:hidden;">
     <div style="padding:20px 24px 14px;background:#fff;border-bottom:1px solid #eee;">
@@ -13033,11 +13184,6 @@ document.getElementById('wfProgramContentModal').addEventListener('click', funct
   if (e.target === this) this.classList.remove('open');
 });
 
-var WF_ARTICLE_SOURCE_COLOR = {
-  GuidingCare: { bg: '#E3F2FD', color: '#1378A3' },
-  Healthwise:  { bg: '#FFF3E0', color: '#E65100' },
-  Wellframe:   { bg: '#E8F5E9', color: '#2E7D32' }
-};
 var WF_ARTICLE_STOPWORDS = ['the','and','for','with','your','you','to','of','in','on','a','an','is','are','or','at','as','by','from','that','this','it','be','can','will','their','they','who','how','into','over','more'];
 
 function wfArticleTokens(s) {
@@ -13084,11 +13230,9 @@ function wfOpenProgramContentModal(title) {
     listEl.innerHTML = '<div style="font-size:12px;color:var(--text-muted);padding:14px 0;">No linked content available for this program yet.</div>';
   } else {
     listEl.innerHTML = articles.map(function(a) {
-      var sc = WF_ARTICLE_SOURCE_COLOR[a.source] || { bg: '#eee', color: '#555' };
       return '<a href="#" class="wfProgramContentLink" onclick="return false;" style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;color:inherit;">'
         + '<span class="material-icons" style="font-size:16px;color:#1378A3;flex-shrink:0;">article</span>'
         + '<span style="flex:1;min-width:0;font-size:13px;color:#1378A3;text-decoration:underline;">' + a.title + '</span>'
-        + '<span style="flex-shrink:0;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;background:' + sc.bg + ';color:' + sc.color + ';">' + a.source + '</span>'
         + '</a>';
     }).join('');
   }
