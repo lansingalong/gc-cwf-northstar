@@ -1348,7 +1348,6 @@ Diabetes Management</textarea>
   </div><!-- end member-banner-expanded -->
 </div><!-- end member-banner-outer -->
 </div><!-- end banner wrapper -->
-<button style="display:inline-flex;align-items:center;gap:4px;background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7;border-radius:20px;padding:3px 10px 3px 8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;margin:0 0 4px 10px;"><span class="material-icons" style="font-size:13px;">circle</span>Digital Management<span class="material-icons" style="font-size:14px;color:#2E7D32;">expand_more</span></button>
 
 <!-- ══════════════ BODY: LEFT NAV + CONTENT ══════════════ -->
 <div class="app-body">
@@ -1414,7 +1413,6 @@ Diabetes Management</textarea>
           <div class="gc-tab" data-tab="eligibility">Eligibility</div>
           <div class="gc-tab" data-tab="benefits">Benefits</div>
           <div class="gc-tab" data-tab="udt">UDT</div>
-          <div class="gc-tab" data-tab="invite-to-wellframe" style="display:flex;align-items:center;gap:5px;"><img src="assets/Group 1657.png" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Invite to Wellframe</div>
         </div>
       </div>
 
@@ -1730,8 +1728,8 @@ Diabetes Management</textarea>
           <!-- ── Browse Programs Page ── -->
           <div id="browseProgramsPage" style="display:none;">
             <!-- Back link + top-level Option switcher -->
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-size:11px;" onclick="event.preventDefault();closeBrowseProgramsPage();"><span class="material-icons" style="font-size:13px;">arrow_back</span> Back to Programs</a>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;margin-bottom:6px;">
+              <a href="#" class="gc-kv-link" style="display:inline-flex;align-items:center;gap:3px;font-size:11px;" onclick="event.preventDefault();closeBrowseProgramsPage();"><span class="material-icons" style="font-size:13px;">arrow_back</span> Back to Member's Programs</a>
 
             </div>
 
@@ -1868,7 +1866,7 @@ Diabetes Management</textarea>
           </div><!-- end browseProgramsPage -->
 
           <!-- ── Default Programs View ── -->
-          <div id="programsDefaultView">
+          <div id="programsDefaultView" style="padding-top:16px;">
           <div style="display:flex;align-items:center;margin-bottom:14px;">
             <span style="display:flex;align-items:center;gap:12px;font-size:11px;flex-wrap:wrap;">
               <button type="button" class="bp2-card-add" id="addProgramBtn" onclick="openBrowseProgramsPage();"><span class="material-icons">add_circle_outline</span>Add Program</button>
@@ -2193,7 +2191,7 @@ Diabetes Management</textarea>
           </div><!-- end addProgramPanel -->
 
           <!-- Unified program card grid — same modernized card system as the "Add Program" browse page -->
-          <div id="programCardGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:0 200px;">
+          <div id="programCardGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1350px;margin:0;">
 
             <!-- Card 1: LTSS (Eligibility / Clinical) -->
             <div class="bp2-card bp2-card-horizontal">
@@ -2249,9 +2247,6 @@ Diabetes Management</textarea>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Completion</div><div style="margin-top:2px;">84%</div></div>
                   <div><div style="color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.4px;">Last Activity</div><div style="margin-top:2px;">Yesterday</div></div>
                 </div>
-              </div>
-              <div class="bp2-card-footer" style="justify-content:flex-end;">
-                <button type="button" class="bp2-card-add" onclick="document.querySelectorAll('.left-panel').forEach(function(p){p.classList.remove('active')});document.getElementById('panel-wellframe').classList.add('active');document.querySelectorAll('.gc-left-item').forEach(function(i){i.classList.remove('active')});var ni=document.querySelector('.gc-left-item[data-left=wellframe]');if(ni)ni.classList.add('active');wfStaffTab('member-app');"><span class="material-icons">open_in_new</span>View in Wellframe</button>
               </div>
               </div>
             </div>
@@ -12570,7 +12565,7 @@ function staffProgSetWFCardState(card, selected) {
     var label = (selected ? 'Remove ' : 'Add ') + title;
     btn.setAttribute('aria-label', label);
     btn.setAttribute('title', label);
-    btn.style.background = selected ? 'transparent' : '#E9F2FA';
+    btn.style.background = 'transparent';
   }
   var dateInput = card.querySelector('.staffProgWFStartDateInput');
   if (selected) {
@@ -13027,7 +13022,7 @@ function openStaffProgModal(title, subtype) {
         +     '<div style="font-size:11px;color:#555;line-height:1.3;margin-top:1px;">' + infoLine + '</div>'
         +     '<div class="staffProgWFCaption" style="display:none;font-size:11px;color:var(--text-muted);margin-top:2px;"></div>'
         +   '</div>'
-        +   '<button type="button" class="staffProgWFCardBtn" onclick="staffProgToggleWFCard(this)" aria-label="Add ' + safeTitle + '" title="Add ' + safeTitle + '" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:28px;height:28px;background:#E9F2FA;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;">'
+        +   '<button type="button" class="staffProgWFCardBtn" onclick="staffProgToggleWFCard(this)" aria-label="Add ' + safeTitle + '" title="Add ' + safeTitle + '" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;width:28px;height:28px;background:transparent;border:none;border-radius:50%;padding:0;margin:0;cursor:pointer;color:#1378A3;">'
         +     '<span class="material-icons staffProgWFCardIcon" style="font-size:20px;color:#1378A3;">add_circle</span>'
         +   '</button>'
         + '</div>'
@@ -13042,12 +13037,6 @@ function openStaffProgModal(title, subtype) {
         + '</div>'
         + '</div>';
     }).join('');
-    // Recommended programs default to added — a care manager reviewing this
-    // list is expected to want them; clicking a card's icon (or Remove) opts
-    // it back out rather than requiring an opt-in click for every one.
-    Array.prototype.forEach.call(document.querySelectorAll('.staffProgWFCard'), function(card) {
-      staffProgSetWFCardState(card, true);
-    });
   } else {
     wfSection.style.display = 'none';
     document.getElementById('staffProgWFList').innerHTML = '';
