@@ -11880,7 +11880,7 @@ function bp2RenderList(pageItems, filtered) {
       + '<td>'+audStr+'</td>'
       + '<td>'+langStr+'</td>'
       + '<td><button type="button" class="bp2-card-add" onclick="'+addFn+'">'
-      +   '<span class="material-icons">add_circle_outline</span>Add Program'
+      +   '<span class="material-icons">add_circle_outline</span>' + (hasMF ? 'Add Wellframe Program' : 'Add Program')
       + '</button></td>'
       + '</tr>';
   }).join('');
